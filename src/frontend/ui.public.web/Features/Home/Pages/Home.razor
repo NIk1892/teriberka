@@ -1,0 +1,18 @@
+@page "/"
+@using UI.Public.Web.Layouts
+@layout MainLayout
+
+<PageTitle>@Constants.BrandName</PageTitle>
+
+<h1>@Constants.BrandName</h1>
+<p>Blazor SSR, без стилей.</p>
+
+<ul>
+    <li><a href="/users">Пользователи</a></li>
+</ul>
+
+<p>
+    Для запросов к API через gateway укажите JWT в
+    <code>appsettings.Development.json</code> → <code>API_TOKEN</code>
+    (получить: <code>GET http://localhost:5000/dev/token</code>).
+</p>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Remove="Dto\**" />
+    <Compile Remove="Handlers\**" />
+    <EmbeddedResource Remove="Dto\**" />
+    <EmbeddedResource Remove="Handlers\**" />
+    <None Remove="Dto\**" />
+    <None Remove="Handlers\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\contracts\Users.Contracts\Users.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Users.Application\Users.Application.csproj" />
+    <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

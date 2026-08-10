@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Api\Api.csproj" />
+    <ProjectReference Include="..\..\shared\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\shared\OTLP\OTLP.csproj" />
+    <ProjectReference Include="..\modules\Users.Application\Users.Application.csproj" />
+    <ProjectReference Include="..\modules\Users.Infrastructure\Users.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\aspire\Teriberka.ServiceDefaults\Teriberka.ServiceDefaults.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="Localizer\UsersStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AuthStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localizer\UsersStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UsersStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+</Project>

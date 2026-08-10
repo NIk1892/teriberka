@@ -1,0 +1,58 @@
+@page "/users"
+@using UI.Public.Web.Layouts
+@layout MainLayout
+@inject IMediator Mediator
+
+<PageTitle>Пользователи · @Constants.BrandName</PageTitle>
+
+<h1>Пользователи</h1>
+
+@if (_error is not null)
+{
+    <p>@_error</p>
+}
+else if (_users is null)
+{
+    <p>Загрузка...</p>
+}
+else if (_users.Count == 0)
+{
+    <p>Нет данных.</p>
+}
+else
+{
+    <table border="1" cellpadding="4" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in _users)
+            {
+                <tr>
+                    <td>@user.Title</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IReadOnlyCollection<UserDto>? _users;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _users = await Mediator.Send(new UserListQuery());
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}
