@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Users.Infrastructure.DataAccess;
@@ -11,9 +12,11 @@ using Users.Infrastructure.DataAccess;
 namespace Users.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteApplicationDbContext))]
-    partial class WriteApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260810124705_AddApplications")]
+    partial class AddApplications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +69,81 @@ namespace Users.Infrastructure.Migrations
                     b.ToTable("Applications", (string)null);
                 });
 
+            modelBuilder.Entity("Users.Domain.GroupEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid?>("ParentGroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(255)
+                        .HasColumnType("citext");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Xmin")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    NpgsqlIndexBuilderExtensions.IncludeProperties(b.HasIndex("Id"), new[] { "Title" });
+
+                    b.HasIndex("ParentGroupId");
+
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("Groups", (string)null);
+                });
+
+            modelBuilder.Entity("Users.Domain.GroupMemberEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateOnly?>("DueDateAt")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("Xmin")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GroupMembers", (string)null);
+                });
+
             modelBuilder.Entity("Users.Domain.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -91,6 +169,10 @@ namespace Users.Infrastructure.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("citext");
 
+                    b.Property<string>("PasswordHash")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
@@ -103,6 +185,10 @@ namespace Users.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("citext")
                         .HasComputedColumnSql("TRIM(COALESCE(\"FirstName\", '') || ' ' || COALESCE(\"LastName\", ''))", true);
+
+                    b.Property<string>("TotpSecret")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<uint>("Xmin")
                         .IsConcurrencyToken()
@@ -159,6 +245,66 @@ namespace Users.Infrastructure.Migrations
                         });
 
                     b.Navigation("Audit");
+                });
+
+            modelBuilder.Entity("Users.Domain.GroupEntity", b =>
+                {
+                    b.HasOne("Users.Domain.GroupEntity", "ParentGroup")
+                        .WithMany()
+                        .HasForeignKey("ParentGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsOne("Domain.Audit", "Audit", b1 =>
+                        {
+                            b1.Property<Guid>("GroupEntityId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateTime>("CreatedAt")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("timestamp with time zone")
+                                .HasDefaultValueSql("NOW()");
+
+                            b1.Property<Guid?>("CreatedById")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateTime>("ModifiedAt")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("timestamp with time zone")
+                                .HasDefaultValueSql("NOW()");
+
+                            b1.Property<Guid?>("ModifiedById")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("GroupEntityId");
+
+                            b1.ToTable("Groups");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GroupEntityId");
+                        });
+
+                    b.Navigation("Audit");
+
+                    b.Navigation("ParentGroup");
+                });
+
+            modelBuilder.Entity("Users.Domain.GroupMemberEntity", b =>
+                {
+                    b.HasOne("Users.Domain.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Users.Domain.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Users.Domain.UserEntity", b =>

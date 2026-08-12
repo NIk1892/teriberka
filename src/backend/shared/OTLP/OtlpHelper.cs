@@ -66,15 +66,12 @@ public static class OtlpHelper
                 .AddSqlClientInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddNpgsqlInstrumentation()
-                .AddMeter(OtlpConstants.Meters.MasstransitMeter)
                 .AddOtlpExporter(options => { options.Endpoint = new Uri(otlpGrpcEndPoint); }))
             .WithTracing(
                 tracing =>
                     tracing.AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
                         .AddEntityFrameworkCoreInstrumentation(x => x.SetDbStatementForText = true)
-                        .AddSource(OtlpConstants.Meters.MasstransitMeter)
-                        .AddSource("Examples.ManualInstrumentations.Registered")
                         .AddOtlpExporter(options => { options.Endpoint = new Uri(otlpGrpcEndPoint); })
             );
 

@@ -5,34 +5,12 @@ services:
     command: postgres -c 'max_connections=50' -p 5432 -c 'track_commit_timestamp=on'
     environment:
       POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "platform"
     ports:
       - "5432:5432"
     volumes:
       - db_volume:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-
-  minio:
-    image: minio/minio:latest
-    container_name: teriberka-minio
-    command: server --console-address ":9001" /data/
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: adminminio
-      MINIO_ROOT_PASSWORD: adminminio
-    volumes:
-      - minio-storage:/data
-
-  createbuckets:
-    image: minio/mc:latest
-    depends_on:
-      - minio
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc alias set myminio http://minio:9000 adminminio adminminio;
-      /usr/bin/mc mb myminio/files-dev --ignore-existing;
-      /usr/bin/mc anonymous set public myminio/files-dev;"
 
   api-gateway:
     image: teriberka-api-gateway
@@ -49,7 +27,6 @@ services:
       - "5000:8080"
     depends_on:
       - api-users
-      - api-files
 
   api-users:
     image: teriberka-api-users
@@ -58,38 +35,17 @@ services:
       dockerfile: src/backend/users/service/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ADMIN_DEV_LOGIN: "true"
       DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       OTLP_EXPORT_ENABLED: "false"
     expose:
       - "8080"
-      - "8081"
+    # Порт открыт только для локальной отладки: сервис не проверяет авторизацию и доверяет
+    # вызывающему, поэтому в реальном развёртывании публиковать его наружу нельзя.
     ports:
       - "5012:8080"
-      - "5013:8081"
     depends_on:
       - postgres
-
-  api-files:
-    image: teriberka-api-files
-    build:
-      context: .
-      dockerfile: src/backend/files/service/Dockerfile
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      S3_ACCESS_KEY: adminminio
-      S3_SECRET_KEY: adminminio
-      S3_ENDPOINT_URL: "http://minio:9000"
-      S3_BUCKET: "files-dev"
-      OTLP_EXPORT_ENABLED: "false"
-    expose:
-      - "8080"
-    ports:
-      - "5016:8080"
-    depends_on:
-      - minio
-      - createbuckets
 
   ui-public:
     image: teriberka-ui-public
@@ -99,7 +55,6 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       API_URL: "http://api-gateway:8080"
-      S3_URL: "http://minio:9000/files-dev"
     ports:
       - "7002:8080"
     depends_on:
@@ -107,4 +62,3 @@ services:
 
 volumes:
   db_volume:
-  minio-storage:

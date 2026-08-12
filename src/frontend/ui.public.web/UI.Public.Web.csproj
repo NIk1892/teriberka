@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ui.shared\UI.Shared.csproj" />
-    <ProjectReference Include="..\..\contracts\Users.Contracts\Users.Contracts.csproj" />
-    <ProjectReference Include="..\..\aspire\Teriberka.ServiceDefaults\Teriberka.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\contracts\Applications.Contracts\Applications.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

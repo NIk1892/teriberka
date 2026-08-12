@@ -18,10 +18,7 @@ COPY ["src/backend/shared/Domain/Domain.csproj", "backend/shared/Domain/"]
 COPY ["src/backend/shared/OTLP/OTLP.csproj", "backend/shared/OTLP/"]
 COPY ["src/backend/shared/Infrastructure/Infrastructure.csproj", "backend/shared/Infrastructure/"]
 COPY ["src/backend/shared/Application/Application.csproj", "backend/shared/Application/"]
-COPY ["src/backend/shared/Rpc/Rpc.csproj", "backend/shared/Rpc/"]
-COPY ["src/backend/shared/MessageBus/MessageBus.csproj", "backend/shared/MessageBus/"]
 COPY ["src/contracts/Contracts/Contracts.csproj", "contracts/Contracts/"]
-COPY ["src/aspire/Teriberka.ServiceDefaults/Teriberka.ServiceDefaults.csproj", "aspire/Teriberka.ServiceDefaults/"]
 
 RUN dotnet restore "backend/gateway/Gateway.csproj"
 

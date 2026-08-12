@@ -30,8 +30,6 @@ namespace Users.Infrastructure.DataAccess
                                       TRIM(COALESCE("FirstName", '') || ' ' || COALESCE("LastName", ''))
                                       """, stored: true);
 
-            builder.Property(e => e.PasswordHash).HasMaxLength(Constatnts.FieldLength.Text512);
-            builder.Property(e => e.TotpSecret).HasMaxLength(Constatnts.FieldLength.Text255);
         }
 
 

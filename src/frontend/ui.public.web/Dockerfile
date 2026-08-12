@@ -7,9 +7,8 @@ COPY ["Directory.Packages.props", "."]
 COPY ["src/frontend/ui.public.web/UI.Public.Web.csproj", "frontend/ui.public.web/"]
 COPY ["src/frontend/ui.shared/UI.Shared.csproj", "frontend/ui.shared/"]
 COPY ["src/contracts/Contracts/Contracts.csproj", "contracts/Contracts/"]
-COPY ["src/contracts/Users.Contracts/Users.Contracts.csproj", "contracts/Users.Contracts/"]
+COPY ["src/contracts/Applications.Contracts/Applications.Contracts.csproj", "contracts/Applications.Contracts/"]
 COPY ["src/backend/shared/Domain/Domain.csproj", "backend/shared/Domain/"]
-COPY ["src/aspire/Teriberka.ServiceDefaults/Teriberka.ServiceDefaults.csproj", "aspire/Teriberka.ServiceDefaults/"]
 
 RUN dotnet restore "frontend/ui.public.web/UI.Public.Web.csproj"
 

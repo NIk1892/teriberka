@@ -12,7 +12,6 @@
     <ProjectReference Include="..\..\shared\OTLP\OTLP.csproj" />
     <ProjectReference Include="..\modules\Users.Application\Users.Application.csproj" />
     <ProjectReference Include="..\modules\Users.Infrastructure\Users.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\aspire\Teriberka.ServiceDefaults\Teriberka.ServiceDefaults.csproj" />
   </ItemGroup>
   
   <ItemGroup>

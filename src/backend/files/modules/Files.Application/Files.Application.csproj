@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\contracts\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\..\..\shared\Application\Application.csproj" />
-    <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />
-  </ItemGroup>
-
-</Project>

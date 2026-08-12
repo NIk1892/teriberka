@@ -365,15 +365,6 @@ FodyWeavers.xsd
 # Environment files
 .env
 
-# ML project
-src/ML/
-
-# Распакованный пакет MudBlazor (temp). Нужные ассеты вендорятся в wwwroot/lib/mudblazor
-.tmp-mud/
-.tmp-mud.zip
-
-# Временный вывод dotnet publish админки (Blazor WASM-артефакты) — не коммитим
-_tmp_admin_publish/
 
 # Временные сборки UI (DLL/артефакты) — не коммитим
 temp-ui-build*/

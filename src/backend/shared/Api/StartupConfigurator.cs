@@ -16,8 +16,6 @@ namespace Api
             ConfigureDependencies();
 
             ConfigureBase();
-
-            ConfigureMessageBus();
         }
 
         public virtual void ConfigureApplication(WebApplication app)
@@ -49,12 +47,5 @@ namespace Api
 
             Services.AddHealthChecks();
         }
-
-
-        #region Protected
-        protected virtual void ConfigureMessageBus() { }
-
-
-        #endregion
     }
 }

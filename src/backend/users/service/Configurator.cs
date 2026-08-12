@@ -2,10 +2,9 @@ using Api;
 using Application;
 using Mediator;
 using Domain;
-using Users.Application;
+using Applications.Contracts;
 using Users.Contracts;
 using Users.Infrastructure.DataAccess;
-using Users.Domain;
 using Constants = Api.Constants;
 
 
@@ -23,21 +22,11 @@ namespace Users
                 options.PipelineBehaviors = [typeof(ValidatorBehavior<,>)];
             });
 
-            Services.AddGrpc();
             Services.AddScoped<IIdentityService, IdentityService>();
         }
 
-        public override void ConfigureApplication(WebApplication app)
-        {
-            base.ConfigureApplication(app);
-        }
-
-
-
         public override void ConfigureEndPoints(WebApplication app)
         {
-            app.MapGrpcService<UserService>();
-
             app.MediateGroup("user", Constants.UrlRestrictions.Admin)
                 .Single<UserSingleQuery, UserDto>()
                 .List<UserListQuery, UserDto>()
@@ -45,19 +34,10 @@ namespace Users
                 .Create<UserCreateCommand>()
                 .Update<UserUpdateCommand>();
 
-            app.MediateGroup("group", Constants.UrlRestrictions.Admin)
-                .Single<GroupSingleQuery, GroupDto>()
-                .List<GroupListQuery, GroupDto>()
-                .PagedList<GroupPagedListQuery, GroupListQuery, GroupDto>()
-                .Create<GroupCreateCommand>()
-                .Update<GroupUpdateCommand>();
+            app.MediatePostCommand<ApplicationCreateCommand>("application", "create");
 
-            app.MediateGroup("group-member", Constants.UrlRestrictions.Admin)
-                .Single<GroupMemberSingleQuery, GroupMemberDto>()
-                .List<GroupMemberListQuery, GroupMemberDto>()
-                .PagedList<GroupMemberPagedListQuery, GroupMemberListQuery, GroupMemberDto>();
-            app.MediatePostCommand<GroupMemberAdd>("group-member", "add", Constants.UrlRestrictions.Admin);
-            app.MediatePostCommand<GroupMemberRemove>("group-member", "remove", Constants.UrlRestrictions.Admin);
+            app.MediateGroup("application", Constants.UrlRestrictions.Admin)
+                .List<ApplicationListQuery, ApplicationDto>();
         }
     }
 }

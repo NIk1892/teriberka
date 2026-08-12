@@ -1,18 +1,126 @@
 @page "/"
 @using UI.Public.Web.Layouts
+@using global::Applications.Contracts
+@using FluentValidation
 @layout MainLayout
+@inject IMediator Mediator
+@inject NavigationManager Navigation
+@inject IEnumerable<IValidator<ApplicationCreateCommand>> Validators
 
-<PageTitle>@Constants.BrandName</PageTitle>
+<PageTitle>Тур в Териберку · @Constants.BrandName</PageTitle>
 
-<h1>@Constants.BrandName</h1>
-<p>Blazor SSR, без стилей.</p>
+<h1>Поездка в Териберку</h1>
 
-<ul>
-    <li><a href="/users">Пользователи</a></li>
-</ul>
+<section>
+    <h2>О туре</h2>
+    <p>
+        Северное сияние, арктические пейзажи Баренцева моря и атмосфера рыбацкой деревни
+        на краю земли. Териберка — одно из самых живописных мест Мурманской области.
+    </p>
+    <ul>
+        <li>Прогулка по берегу и скалам «драконьих яиц»</li>
+        <li>Катание на снегоходах / квадроциклах (по сезону)</li>
+        <li>Дегустация морепродуктов</li>
+        <li>Охота за северным сиянием</li>
+    </ul>
+    <p><strong>от 12 000 ₽ / человек</strong></p>
+</section>
 
-<p>
-    Для запросов к API через gateway укажите JWT в
-    <code>appsettings.Development.json</code> → <code>API_TOKEN</code>
-    (получить: <code>GET http://localhost:5000/dev/token</code>).
-</p>
+<section>
+    <h2>Оставить заявку</h2>
+
+    @if (Sent)
+    {
+        <p>Заявка принята — мы позвоним вам, чтобы подтвердить детали.</p>
+        <p><a href="/">Оставить ещё одну заявку</a></p>
+    }
+    else
+    {
+        @if (_errors.Length > 0)
+        {
+            <ul>
+                @foreach (var error in _errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        }
+
+        <EditForm Model="Model" FormName="application" OnValidSubmit="SubmitAsync">
+            <p>
+                <label>
+                    Имя<br />
+                    <InputText @bind-Value="Model.Title" required maxlength="255" autocomplete="name" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    Телефон<br />
+                    <InputText type="tel" @bind-Value="Model.Phone" required maxlength="32"
+                               placeholder="+7 900 000-00-00" autocomplete="tel" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    Количество человек<br />
+                    <InputNumber @bind-Value="Model.PeopleCount" required min="1" max="50" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    Дата приезда<br />
+                    <InputDate @bind-Value="Model.ArrivalDate" required min="@Today.ToString("yyyy-MM-dd")" />
+                </label>
+            </p>
+            <p>
+                <button type="submit">Отправить заявку</button>
+            </p>
+        </EditForm>
+    }
+</section>
+
+@code {
+    // Форма работает на static SSR (обычный POST), поэтому JavaScript в браузере не нужен:
+    // значения приезжают в Model через [SupplyParameterFromForm], ответ — редирект по схеме
+    // post-redirect-get, чтобы F5 на странице «спасибо» не отправлял заявку повторно.
+    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
+
+    [SupplyParameterFromForm]
+    public ApplicationCreateCommand Model { get; set; } = default!;
+
+    [SupplyParameterFromQuery(Name = "sent")]
+    public bool Sent { get; set; }
+
+    private string[] _errors = [];
+
+    protected override void OnInitialized() =>
+        Model ??= new ApplicationCreateCommand
+        {
+            PeopleCount = 2,
+            ArrivalDate = Today.AddDays(7)
+        };
+
+    private async Task SubmitAsync()
+    {
+        _errors = Validators
+            .Select(validator => validator.Validate(Model))
+            .SelectMany(result => result.Errors)
+            .Select(failure => failure.ErrorMessage)
+            .ToArray();
+
+        if (_errors.Length > 0)
+            return;
+
+        try
+        {
+            await Mediator.Send(Model);
+        }
+        catch (Exception ex)
+        {
+            _errors = [ex.Message];
+            return;
+        }
+
+        Navigation.NavigateTo("/?sent=1");
+    }
+}

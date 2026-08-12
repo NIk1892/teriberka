@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Yarp.ReverseProxy" />
-    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" />
     <PackageReference Remove="Mediator.SourceGenerator" />
     <PackageReference Remove="Microsoft.EntityFrameworkCore.Design" />
     <PackageReference Remove="AspNetCore.HealthChecks.Redis" />
@@ -17,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\shared\Api\Api.csproj" />
     <ProjectReference Include="..\shared\OTLP\OTLP.csproj" />
-    <ProjectReference Include="..\..\aspire\Teriberka.ServiceDefaults\Teriberka.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

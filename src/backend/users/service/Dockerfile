@@ -4,7 +4,6 @@ WORKDIR /app
 ENV DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=false \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 EXPOSE 8080
-EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
@@ -24,11 +23,9 @@ COPY ["src/backend/shared/OTLP/OTLP.csproj", "backend/shared/OTLP/"]
 COPY ["src/backend/shared/Application/Application.csproj", "backend/shared/Application/"]
 COPY ["src/backend/shared/Domain/Domain.csproj", "backend/shared/Domain/"]
 COPY ["src/backend/shared/Infrastructure/Infrastructure.csproj", "backend/shared/Infrastructure/"]
-COPY ["src/backend/shared/Rpc/Rpc.csproj", "backend/shared/Rpc/"]
-COPY ["src/backend/shared/MessageBus/MessageBus.csproj", "backend/shared/MessageBus/"]
 COPY ["src/contracts/Contracts/Contracts.csproj", "contracts/Contracts/"]
 COPY ["src/contracts/Users.Contracts/Users.Contracts.csproj", "contracts/Users.Contracts/"]
-COPY ["src/aspire/Teriberka.ServiceDefaults/Teriberka.ServiceDefaults.csproj", "aspire/Teriberka.ServiceDefaults/"]
+COPY ["src/contracts/Applications.Contracts/Applications.Contracts.csproj", "contracts/Applications.Contracts/"]
 
 RUN dotnet restore "backend/users/service/Users.csproj"
 
