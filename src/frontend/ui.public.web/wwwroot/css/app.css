@@ -133,6 +133,30 @@ a { color: var(--accent-ice); }
     flex: none;
 }
 
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* переключатель темы — ссылка на /set-theme (cookie + redirect), без JavaScript */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-elev);
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.theme-toggle:hover { color: var(--accent); }
+
 /* переключатель языка — обычные ссылки, работают без JavaScript */
 .lang-switch {
     display: flex;
@@ -864,6 +888,67 @@ a { color: var(--accent-ice); }
 .sent-card p { color: var(--text-muted); }
 
 .sent-card a { font-weight: 600; }
+
+/* ---------- кнопки быстрой прокрутки ---------- */
+
+/* Якорные ссылки: «↑» — к началу (#top), «↓» — к футеру (#page-bottom).
+   Прокрутку сглаживает scroll-behavior: smooth, JavaScript не нужен. */
+.scrollers {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.scroller {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+    backdrop-filter: blur(8px);
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+}
+
+.scroller:hover {
+    color: var(--on-accent);
+    background: var(--aurora);
+    border-color: transparent;
+}
+
+/* Кнопка «наверх» появляется после первого экрана — CSS scroll-driven animation.
+   Браузеры без поддержки просто показывают её всегда. */
+@supports (animation-timeline: scroll()) {
+    .scroller-top {
+        opacity: 0;
+        animation: scroller-reveal linear both;
+        animation-timeline: scroll();
+        animation-range: 0 60vh;
+    }
+
+    @keyframes scroller-reveal {
+        to { opacity: 1; }
+    }
+}
+
+/* ---------- «берег» перед футером ---------- */
+
+/* Полоса с силуэтом скелета кита. Скелету отведено собственное пустое место,
+   чтобы он читался целиком и не спорил с контентом. */
+.shore-band {
+    height: 150px;
+    background: url("/img/leviathan.svg") center bottom / min(560px, 86%) auto no-repeat;
+}
 
 /* ---------- подвал ---------- */
 

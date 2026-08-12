@@ -134,4 +134,7 @@
   <data name="Place5Detail2" xml:space="preserve"><value>The aurora is capricious: sometimes a faint green haze, sometimes the whole sky dancing in waves from horizon to horizon. Dress in layers — the hunt means several hours in the cold, with hot tea and a tripod.</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>The road to Teriberka runs through true Arctic tundra: hills, lakes, dwarf birches and carpets of reindeer moss. In summer the tundra blooms with cloudberries and fireweed; in winter it becomes an endless white desert.</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>Along the way we stop at panoramic points — from here the Kola Peninsula looks just like in films about the North. With luck, we will meet reindeer.</value></data>
+  <data name="ThemeToggle" xml:space="preserve"><value>Toggle theme</value></data>
+  <data name="ScrollTop" xml:space="preserve"><value>To the top</value></data>
+  <data name="ScrollBottom" xml:space="preserve"><value>To the bottom</value></data>
 </root>

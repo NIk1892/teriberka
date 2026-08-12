@@ -1,12 +1,13 @@
 @using System.Globalization
+@using Microsoft.AspNetCore.Http
 
 <!DOCTYPE html>
-<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-theme="@Theme">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0f1d" />
+    <meta name="theme-color" content="@(Theme == "light" ? "#f2f6fc" : "#0a0f1d")" />
     @* title задаёт <PageTitle> каждой страницы через HeadOutlet *@
     <base href="/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -19,3 +20,11 @@
 </body>
 
 </html>
+
+@code {
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    // Тема хранится в cookie (ставит /set-theme); по умолчанию — тёмная.
+    private string Theme =>
+        HttpContext?.Request.Cookies["theme"] == "light" ? "light" : "dark";
+}

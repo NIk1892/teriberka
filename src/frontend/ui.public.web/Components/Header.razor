@@ -1,4 +1,5 @@
 @using System.Globalization
+@using Microsoft.AspNetCore.Http
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> L
 @inject NavigationManager Navigation
@@ -10,24 +11,36 @@
             @L["Brand"]
         </a>
 
-        @* Переключение языка без JavaScript: ссылки на /set-culture, который ставит
-           culture-cookie и возвращает на текущую страницу. *@
-        <nav class="lang-switch" aria-label="@L["LangLabel"]">
-            <a class="@ActiveClass("ru")" href="@CultureLink("ru")" hreflang="ru">RU</a>
-            <a class="@ActiveClass("en")" href="@CultureLink("en")" hreflang="en">EN</a>
-            <a class="@ActiveClass("zh")" href="@CultureLink("zh")" hreflang="zh">中文</a>
-        </nav>
+        <div class="header-controls">
+            @* Переключение темы и языка без JavaScript: ссылки на endpoints,
+               которые ставят cookie и возвращают на текущую страницу. *@
+            <a class="theme-toggle" href="@ThemeLink()" title="@L["ThemeToggle"]" aria-label="@L["ThemeToggle"]">
+                @(IsLight ? "☾" : "☀")
+            </a>
+
+            <nav class="lang-switch" aria-label="@L["LangLabel"]">
+                <a class="@ActiveClass("ru")" href="@CultureLink("ru")" hreflang="ru">RU</a>
+                <a class="@ActiveClass("en")" href="@CultureLink("en")" hreflang="en">EN</a>
+                <a class="@ActiveClass("zh")" href="@CultureLink("zh")" hreflang="zh">中文</a>
+            </nav>
+        </div>
     </div>
 </header>
 
 @code {
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    private bool IsLight => HttpContext?.Request.Cookies["theme"] == "light";
+
     private static string Current => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
     private static string ActiveClass(string culture) => Current == culture ? "active" : "";
 
-    private string CultureLink(string culture)
-    {
-        var path = "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
-        return $"/set-culture?culture={culture}&redirect={Uri.EscapeDataString(path)}";
-    }
+    private string CurrentPath => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+
+    private string CultureLink(string culture) =>
+        $"/set-culture?culture={culture}&redirect={Uri.EscapeDataString(CurrentPath)}";
+
+    private string ThemeLink() =>
+        $"/set-theme?theme={(IsLight ? "dark" : "light")}&redirect={Uri.EscapeDataString(CurrentPath)}";
 }

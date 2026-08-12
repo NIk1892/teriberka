@@ -156,6 +156,25 @@ app.MapGet("/set-culture", (string culture, string? redirect, HttpContext contex
     return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
 });
 
+// Переключение темы — тем же приёмом: cookie читает App.razor и вешает
+// data-theme на <html>; палитры лежат в app.css.
+app.MapGet("/set-theme", (string theme, string? redirect, HttpContext context) =>
+{
+    if (theme is not ("dark" or "light"))
+        return Results.BadRequest();
+
+    context.Response.Cookies.Append("theme", theme, new CookieOptions
+    {
+        Expires = DateTimeOffset.UtcNow.AddYears(1),
+        IsEssential = true,
+        SameSite = SameSiteMode.Lax,
+        HttpOnly = true,
+        Secure = context.Request.IsHttps
+    });
+
+    return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
+});
+
 app.MapRazorComponents<App>();
 
 app.MapHealthChecks("/health").DisableRateLimiting();

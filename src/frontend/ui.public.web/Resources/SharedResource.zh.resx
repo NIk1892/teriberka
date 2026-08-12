@@ -134,4 +134,7 @@
   <data name="Place5Detail2" xml:space="preserve"><value>极光变幻莫测：有时是淡淡的绿色薄雾，有时整个天空从地平线到地平线舞动着光波。请多层穿衣：追光意味着在严寒中度过几个小时，伴着热茶和三脚架。</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>通往捷里别尔卡的公路穿过真正的北极苔原：丘陵、湖泊、矮桦和成片的驯鹿苔藓。夏天苔原开满云莓和柳兰，冬天则变成一望无际的白色荒原。</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>途中我们会在全景观测点停留——从这里看到的科拉半岛，正是北方题材电影中的模样。运气好的话，还能遇见驯鹿。</value></data>
+  <data name="ThemeToggle" xml:space="preserve"><value>切换主题</value></data>
+  <data name="ScrollTop" xml:space="preserve"><value>回到顶部</value></data>
+  <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
 </root>

@@ -134,4 +134,7 @@
   <data name="Place5Detail2" xml:space="preserve"><value>Сияние — явление капризное: иногда это лёгкая зелёная дымка, а иногда всё небо танцует волнами от горизонта до горизонта. Одевайтесь слоями: охота — это несколько часов на морозе, с горячим чаем и штативом.</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>Дорога в Териберку идёт через настоящую арктическую тундру: сопки, озёра, карликовые берёзы и ковры ягеля. Летом тундра цветёт морошкой и иван-чаем, зимой превращается в бескрайнюю белую пустыню.</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>По пути делаем остановки на панорамных точках — отсюда Кольский полуостров виден таким, каким его показывают в фильмах о Севере. Если повезёт, встретим северных оленей.</value></data>
+  <data name="ThemeToggle" xml:space="preserve"><value>Переключить тему</value></data>
+  <data name="ScrollTop" xml:space="preserve"><value>Наверх</value></data>
+  <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
 </root>

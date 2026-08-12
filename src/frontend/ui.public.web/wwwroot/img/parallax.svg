@@ -56,6 +56,20 @@
   <path d="M0 870 L 420 700 L 780 850 L 1160 680 L 1520 870 L 1920 730 L 1920 1080 L 0 1080 Z"
         fill="#0b1329"/>
 
+  <!-- скелет кита на берегу — пасхалка для внимательных -->
+  <g transform="translate(1310 868) scale(0.62)" fill="none" stroke="#9fb6cf" stroke-opacity=".3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 10 96 C 4 84, 3 70, 9 57 C 36 41, 74 35, 110 41 C 129 44, 140 51, 144 59" stroke-width="6"/>
+    <path d="M 10 96 C 45 105, 88 100, 123 79 C 133 73, 140 66, 144 59" stroke-width="6"/>
+    <path d="M 148 66 C 215 88, 305 89, 420 58" stroke-width="10" stroke-dasharray="14 9"/>
+    <path d="M 160 70 C 150 42, 158 12, 180 0" stroke-width="5"/>
+    <path d="M 196 79 C 187 51, 195 22, 219 8" stroke-width="5"/>
+    <path d="M 232 84 C 225 58, 232 32, 254 19" stroke-width="5"/>
+    <path d="M 268 86 C 263 63, 269 40, 288 28" stroke-width="5"/>
+    <path d="M 304 85 C 300 66, 306 46, 322 36" stroke-width="5"/>
+    <path d="M 340 81 C 338 65, 343 49, 356 41" stroke-width="5"/>
+    <path d="M 374 75 C 373 63, 377 51, 386 45" stroke-width="5"/>
+  </g>
+
   <!-- вода -->
   <rect y="950" width="1920" height="130" fill="#081021"/>
   <g stroke="#3ce8a4" stroke-width="2" opacity="0.3">
