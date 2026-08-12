@@ -1,0 +1,32 @@
+# В репозитории всё текстовое хранится с LF, и в рабочем каталоге тоже — иначе
+# переводы строк зависят от настроек машины, а часть файлов ломается от CRLF.
+* text=auto eol=lf
+
+# Скрипты, которые исполняет bash в контейнере (init-db.sh монтируется в Postgres):
+# с CRLF такой файл не запустится — \r попадёт в shebang.
+*.sh text eol=lf
+
+# Windows-инструменты сами пишут CRLF, спорить с ними смысла нет.
+*.sln text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Бинарные файлы не трогать.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svgz binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.dll binary
+*.exe binary
+*.pdb binary
+*.snk binary
+*.zip binary
+*.gz binary
