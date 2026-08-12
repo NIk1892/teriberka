@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+
+  <data name="Brand" xml:space="preserve"><value>Teriberka</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Teriberka — a tour to the edge of the world</value></data>
+  <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
+
+  <data name="HeroKicker" xml:space="preserve"><value>Kola Peninsula · 69° North</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Teriberka: a journey to the edge of the world</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Northern lights, the Barents Sea and the Arctic scenery of a fishing village where the ocean begins. One day — and you are at the edge of the continent.</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Book the tour</value></data>
+  <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>Groups up to 8 · transfer from Murmansk</value></data>
+
+  <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>The tour route across Teriberka and the Barents Sea coast</value></data>
+  <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
+  <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
+
+  <data name="Place1Title" xml:space="preserve"><value>Dragon Eggs beach</value></data>
+  <data name="Place1Text" xml:space="preserve"><value>A shore of giant rounded boulders polished by the ocean over thousands of years.</value></data>
+  <data name="Place2Title" xml:space="preserve"><value>Ship graveyard</value></data>
+  <data name="Place2Text" xml:space="preserve"><value>Skeletons of wooden ships in the bay — the most recognisable view of Teriberka.</value></data>
+  <data name="Place3Title" xml:space="preserve"><value>Batareysky waterfall</value></data>
+  <data name="Place3Text" xml:space="preserve"><value>A river falling off the cliffs straight into the Arctic Ocean.</value></data>
+  <data name="Place4Title" xml:space="preserve"><value>Barents Sea</value></data>
+  <data name="Place4Text" xml:space="preserve"><value>Viewpoints at the edge of the continent: beyond — only the ocean and the Arctic.</value></data>
+  <data name="Place5Title" xml:space="preserve"><value>Northern lights</value></data>
+  <data name="Place5Text" xml:space="preserve"><value>Aurora hunting with a guide, far from light pollution. Season: September to April.</value></data>
+  <data name="Place6Title" xml:space="preserve"><value>Arctic tundra</value></data>
+  <data name="Place6Text" xml:space="preserve"><value>Hills, moss and panoramas of the Kola Peninsula along the coastal road.</value></data>
+
+  <data name="Stat1Num" xml:space="preserve"><value>6 years</value></data>
+  <data name="Stat1Label" xml:space="preserve"><value>of tours across the Kola Peninsula</value></data>
+  <data name="Stat2Num" xml:space="preserve"><value>2000+</value></data>
+  <data name="Stat2Label" xml:space="preserve"><value>happy travellers</value></data>
+  <data name="Stat3Num" xml:space="preserve"><value>4.9</value></data>
+  <data name="Stat3Label" xml:space="preserve"><value>average tour rating</value></data>
+
+  <data name="Band1Text" xml:space="preserve"><value>The warm Gulf Stream keeps the Barents Sea from freezing even through the polar night</value></data>
+  <data name="Band2Text" xml:space="preserve"><value>Further north there is only the ocean and the ice of the Arctic</value></data>
+
+  <data name="IncludedTitle" xml:space="preserve"><value>What's included</value></data>
+  <data name="IncludedSubtitle" xml:space="preserve"><value>One price — no extra charges on site</value></data>
+  <data name="Included1" xml:space="preserve"><value>Transfer from Murmansk and back in a comfortable minivan</value></data>
+  <data name="Included2" xml:space="preserve"><value>A guide who lives the North and knows spots without the crowds</value></data>
+  <data name="Included3" xml:space="preserve"><value>Seafood lunch: fresh cod, scallops, fish soup</value></data>
+  <data name="Included4" xml:space="preserve"><value>Thermoses of hot tea and snacks for the road</value></data>
+  <data name="Included5" xml:space="preserve"><value>Photo support — tour shots as a gift</value></data>
+  <data name="Included6" xml:space="preserve"><value>Groups up to 8: no queues, no rush</value></data>
+
+  <data name="GuidesTitle" xml:space="preserve"><value>Your guides</value></data>
+  <data name="GuidesSubtitle" xml:space="preserve"><value>They live in the North and show it the way it really is</value></data>
+  <data name="Guide1Name" xml:space="preserve"><value>Alexey Morozov</value></data>
+  <data name="Guide1Role" xml:space="preserve"><value>Founder and guide</value></data>
+  <data name="Guide1Text" xml:space="preserve"><value>Eight years of leading groups across the Kola Peninsula. Knows when to go aurora hunting and where to look for whales. A third-generation Murmansk local.</value></data>
+  <data name="Guide1Fact" xml:space="preserve"><value>8 years of experience · Russian, English</value></data>
+  <data name="Guide2Name" xml:space="preserve"><value>Polina Severova</value></data>
+  <data name="Guide2Role" xml:space="preserve"><value>Guide and photographer</value></data>
+  <data name="Guide2Text" xml:space="preserve"><value>Five years of shooting the North: aurora, storms and tundra. She will take you to the best viewpoints and gift you portraits under the northern lights.</value></data>
+  <data name="Guide2Fact" xml:space="preserve"><value>5 years of experience · photos as a gift</value></data>
+
+  <data name="ReviewsTitle" xml:space="preserve"><value>Traveller reviews</value></data>
+  <data name="Review1Name" xml:space="preserve"><value>Anna</value></data>
+  <data name="Review1From" xml:space="preserve"><value>Moscow</value></data>
+  <data name="Review1Text" xml:space="preserve"><value>We saw the aurora on the very first night! The guide knew spots without tourists and told stories that gave us chills. Best trip in years.</value></data>
+  <data name="Review2Name" xml:space="preserve"><value>Dmitry</value></data>
+  <data name="Review2From" xml:space="preserve"><value>Saint Petersburg</value></data>
+  <data name="Review2Text" xml:space="preserve"><value>Dragon Eggs, a storm on the Barents Sea and fresh cod soup. Flawless logistics: picked up in Murmansk, back in time for the train.</value></data>
+  <data name="Review3Name" xml:space="preserve"><value>Wang Lei</value></data>
+  <data name="Review3From" xml:space="preserve"><value>Beijing</value></data>
+  <data name="Review3Text" xml:space="preserve"><value>I dreamed of seeing the northern lights — and saw them over the ocean. The driver met me at the airport, everything went calmly and on schedule.</value></data>
+  <data name="Review4Name" xml:space="preserve"><value>Elena</value></data>
+  <data name="Review4From" xml:space="preserve"><value>Kazan</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>We went in March with the whole family. The kids still talk about the Dragon Eggs and the cod soup. Organisation gets a five.</value></data>
+  <data name="Review5Name" xml:space="preserve"><value>Igor</value></data>
+  <data name="Review5From" xml:space="preserve"><value>Yekaterinburg</value></data>
+  <data name="Review5Text" xml:space="preserve"><value>We caught the aurora on the second try: the guide honestly warned about clouds and moved the trip. I respect that. One star off for the long drive — but the North was worth it.</value></data>
+  <data name="Review6Name" xml:space="preserve"><value>Sarah</value></data>
+  <data name="Review6From" xml:space="preserve"><value>London</value></data>
+  <data name="Review6Text" xml:space="preserve"><value>I came for the aurora — and got it the very first evening, right over the ocean. The guides speak English, everything was easy.</value></data>
+  <data name="Review7Name" xml:space="preserve"><value>Maria</value></data>
+  <data name="Review7From" xml:space="preserve"><value>Novosibirsk</value></data>
+  <data name="Review7Text" xml:space="preserve"><value>Batareysky waterfall in a storm was the strongest impression of my year. Between the stops we were saved by the warm minivan and hot tea.</value></data>
+  <data name="Review8Name" xml:space="preserve"><value>Pavel</value></data>
+  <data name="Review8From" xml:space="preserve"><value>Minsk</value></data>
+  <data name="Review8Text" xml:space="preserve"><value>Booked the tour for my wife's birthday. The team arranged a surprise cake at the edge of the world — unforgettable.</value></data>
+  <data name="Review9Name" xml:space="preserve"><value>Zhang Wei</value></data>
+  <data name="Review9From" xml:space="preserve"><value>Shanghai</value></data>
+  <data name="Review9Text" xml:space="preserve"><value>A dream came true — standing on the shore of the Arctic Ocean. It was very handy that I could book on the site in Chinese.</value></data>
+
+  <data name="FormTitle" xml:space="preserve"><value>Book the tour</value></data>
+  <data name="FormText" xml:space="preserve"><value>Fill in the form — we will call you back, pick a date and answer your questions. No prepayment.</value></data>
+  <data name="FieldName" xml:space="preserve"><value>Name</value></data>
+  <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
+  <data name="FieldPeople" xml:space="preserve"><value>Number of people</value></data>
+  <data name="FieldDate" xml:space="preserve"><value>Arrival date</value></data>
+  <data name="Submit" xml:space="preserve"><value>Send request</value></data>
+  <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
+  <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
+  <data name="SentAgain" xml:space="preserve"><value>Send another request</value></data>
+
+  <data name="FooterLine" xml:space="preserve"><value>Teriberka · Murmansk region · Kola Peninsula</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>Tours to Teriberka and across the Kola Peninsula. Small groups, the real North, no rush.</value></data>
+  <data name="FooterNavTitle" xml:space="preserve"><value>Sections</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>Places</value></data>
+  <data name="NavGuides" xml:space="preserve"><value>Guides</value></data>
+  <data name="NavReviews" xml:space="preserve"><value>Reviews</value></data>
+  <data name="NavApply" xml:space="preserve"><value>Book now</value></data>
+  <data name="FooterContactsTitle" xml:space="preserve"><value>Contacts</value></data>
+  <data name="FooterDaily" xml:space="preserve"><value>Daily from 9:00 to 21:00 (MSK)</value></data>
+
+  <data name="PlaceMore" xml:space="preserve"><value>Read more →</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>← Back to home</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>Photos</value></data>
+  <data name="PlaceCtaTitle" xml:space="preserve"><value>Want to see it with your own eyes?</value></data>
+  <data name="PlaceCtaText" xml:space="preserve"><value>Leave a request — we will call you back, pick a date and answer your questions.</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Page not found</value></data>
+  <data name="NotFoundText" xml:space="preserve"><value>The requested address does not exist.</value></data>
+
+  <data name="Place1Detail1" xml:space="preserve"><value>Huge, perfectly rounded boulders cover the shore of the Barents Sea. Waves have been polishing them for thousands of years, and the beach now looks as if a dragon left its clutch here. The stones are most dramatic in a storm, when the ocean rolls them with a deep rumble.</value></data>
+  <data name="Place1Detail2" xml:space="preserve"><value>The beach lies beyond the village, on the way to Batareysky waterfall. Walk carefully: the stones get slippery in the rain. The best light for photos is the polar sunset, when the low sun paints the boulders in warm gold.</value></data>
+  <data name="Place2Detail1" xml:space="preserve"><value>At low tide the ribs of early 20th-century wooden fishing ships rise out of the bay. Teriberka was once a major centre of coastal fishing, and the old schooners lived out their days right by the shore.</value></data>
+  <data name="Place2Detail2" xml:space="preserve"><value>Today the blackened hulls are the most recognisable view of Teriberka — they appeared in “Leviathan” and dozens of documentaries. Come at low tide, when you can walk almost up to the ships.</value></data>
+  <data name="Place3Detail1" xml:space="preserve"><value>Lake Maloye Batareyskoye spills over the edge of a rocky canyon and falls straight into the Barents Sea. It is one of the few places in the world where a waterfall meets the ocean.</value></data>
+  <data name="Place3Detail2" xml:space="preserve"><value>The name comes from a WWII artillery battery that defended the entrance to the bay; its positions survive nearby. A trail across stony tundra leads to the waterfall — wear non-slip shoes.</value></data>
+  <data name="Place4Detail1" xml:space="preserve"><value>From the clifftop viewpoints you look out at the open ocean: beyond the horizon, all the way to the Pole, there is only water and ice. In winter the sea does not freeze thanks to the warm Gulf Stream.</value></data>
+  <data name="Place4Detail2" xml:space="preserve"><value>In spring and early summer you can spot whales and orcas from the shore, and kittiwakes nest on the cliffs. Bring a thermos: the wind at the edge of the continent almost never stops.</value></data>
+  <data name="Place5Detail1" xml:space="preserve"><value>From September to April it is dark enough above the Arctic Circle to see the aurora. We track solar activity and cloud cover and take the group to spots free of light pollution — the odds of seeing the lights in one night of hunting are high.</value></data>
+  <data name="Place5Detail2" xml:space="preserve"><value>The aurora is capricious: sometimes a faint green haze, sometimes the whole sky dancing in waves from horizon to horizon. Dress in layers — the hunt means several hours in the cold, with hot tea and a tripod.</value></data>
+  <data name="Place6Detail1" xml:space="preserve"><value>The road to Teriberka runs through true Arctic tundra: hills, lakes, dwarf birches and carpets of reindeer moss. In summer the tundra blooms with cloudberries and fireweed; in winter it becomes an endless white desert.</value></data>
+  <data name="Place6Detail2" xml:space="preserve"><value>Along the way we stop at panoramic points — from here the Kola Peninsula looks just like in films about the North. With luck, we will meet reindeer.</value></data>
+</root>

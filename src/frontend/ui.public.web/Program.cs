@@ -1,7 +1,9 @@
+using System.Globalization;
 using System.Threading.RateLimiting;
 using FluentValidation;
 using Mediator;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
 using UI.Shared;
@@ -32,6 +34,21 @@ if (useForwardedHeaders)
 
 builder.Services.AddHealthChecks();
 builder.Services.AddRazorComponents();
+
+// Три языка интерфейса. Нейтральный resx — русский, он же культура по умолчанию.
+// Выбор языка хранится в culture-cookie, которую ставит endpoint /set-culture:
+// страницы рендерятся без JavaScript, поэтому переключатель — обычные ссылки.
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+var supportedCultures = new[] { new CultureInfo("ru"), new CultureInfo("en"), new CultureInfo("zh") };
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("ru");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    // Только cookie: Accept-Language не учитываем, чтобы язык не «прыгал» сам по себе.
+    options.RequestCultureProviders = [new CookieRequestCultureProvider()];
+});
 
 // Форма отправляется POST'ом на сам сайт, а не в API, поэтому лимит нужен и здесь —
 // иначе ограничение на шлюзе обходится обычной отправкой формы в цикле.
@@ -92,8 +109,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Страницы отдаются без JavaScript, поэтому политика может быть предельно жёсткой:
-// скрипты запрещены полностью, отправка форм и загрузка ресурсов — только со своего
-// origin, встраивание в iframe запрещено.
+// скрипты запрещены полностью, стили и картинки — только со своего origin,
+// отправка форм — только на свой origin, встраивание в iframe запрещено.
 app.Use(async (context, next) =>
 {
     var headers = context.Response.Headers;
@@ -108,9 +125,36 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// Статика до rate limiter'а: css и картинки не должны сжигать лимит запросов.
+app.UseStaticFiles();
+
+app.UseRequestLocalization();
+
 app.UseRateLimiter();
 
 app.UseAntiforgery();
+
+// Переключение языка без JavaScript: GET-ссылка ставит culture-cookie и возвращает
+// на страницу. LocalRedirect не пускает редирект на чужие домены.
+app.MapGet("/set-culture", (string culture, string? redirect, HttpContext context) =>
+{
+    if (culture is not ("ru" or "en" or "zh"))
+        return Results.BadRequest();
+
+    context.Response.Cookies.Append(
+        CookieRequestCultureProvider.DefaultCookieName,
+        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+        new CookieOptions
+        {
+            Expires = DateTimeOffset.UtcNow.AddYears(1),
+            IsEssential = true,
+            SameSite = SameSiteMode.Lax,
+            HttpOnly = true,
+            Secure = context.Request.IsHttps
+        });
+
+    return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
+});
 
 app.MapRazorComponents<App>();
 

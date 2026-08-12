@@ -1,11 +1,16 @@
+@using System.Globalization
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Constants.BrandName</title>
+    <meta name="theme-color" content="#0a0f1d" />
+    @* title задаёт <PageTitle> каждой страницы через HeadOutlet *@
     <base href="/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/css/app.css" />
     <HeadOutlet />
 </head>
 

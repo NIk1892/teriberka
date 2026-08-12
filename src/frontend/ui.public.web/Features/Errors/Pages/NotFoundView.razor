@@ -1,8 +1,15 @@
 @page "/not-found"
-@using UI.Public.Web.Components
+@using Microsoft.Extensions.Localization
 @using UI.Public.Web.Layouts
 @layout MainLayout
+@inject IStringLocalizer<SharedResource> L
 
-<PageTitle>Не найдено · @Constants.BrandName</PageTitle>
+<PageTitle>@L["NotFoundTitle"] · @L["Brand"]</PageTitle>
 
-<NotFoundPanel />
+<section class="section">
+    <div class="container detail">
+        <h1>@L["NotFoundTitle"]</h1>
+        <p class="detail-lead">@L["NotFoundText"]</p>
+        <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
+    </div>
+</section>

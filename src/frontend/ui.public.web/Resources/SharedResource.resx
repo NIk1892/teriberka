@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+
+  <data name="Brand" xml:space="preserve"><value>Териберка</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Териберка — тур на край земли</value></data>
+  <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
+
+  <data name="HeroKicker" xml:space="preserve"><value>Кольский полуостров · 69° северной широты</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Териберка — путешествие на край земли</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Северное сияние, Баренцево море и арктические пейзажи рыбацкой деревни, за которой начинается океан. Один день — и вы на краю континента.</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Записаться на тур</value></data>
+  <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>Группы до 8 человек · трансфер из Мурманска</value></data>
+
+  <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Маршрут экскурсии по Териберке и побережью Баренцева моря</value></data>
+  <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
+  <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
+
+  <data name="Place1Title" xml:space="preserve"><value>Пляж «Драконьи яйца»</value></data>
+  <data name="Place1Text" xml:space="preserve"><value>Берег из гигантских округлых валунов, отшлифованных океаном за тысячи лет.</value></data>
+  <data name="Place2Title" xml:space="preserve"><value>Кладбище кораблей</value></data>
+  <data name="Place2Text" xml:space="preserve"><value>Остовы деревянных судов в заливе — самый узнаваемый кадр Териберки.</value></data>
+  <data name="Place3Title" xml:space="preserve"><value>Батарейский водопад</value></data>
+  <data name="Place3Text" xml:space="preserve"><value>Река срывается со скал прямо в Северный Ледовитый океан.</value></data>
+  <data name="Place4Title" xml:space="preserve"><value>Баренцево море</value></data>
+  <data name="Place4Text" xml:space="preserve"><value>Смотровые точки на краю континента: дальше — только океан и Арктика.</value></data>
+  <data name="Place5Title" xml:space="preserve"><value>Северное сияние</value></data>
+  <data name="Place5Text" xml:space="preserve"><value>Охота за авророй с гидом вдали от засветки. Сезон — с сентября по апрель.</value></data>
+  <data name="Place6Title" xml:space="preserve"><value>Арктическая тундра</value></data>
+  <data name="Place6Text" xml:space="preserve"><value>Сопки, мхи и панорамы Кольского полуострова по дороге вдоль побережья.</value></data>
+
+  <data name="Stat1Num" xml:space="preserve"><value>6 лет</value></data>
+  <data name="Stat1Label" xml:space="preserve"><value>водим туры по Кольскому</value></data>
+  <data name="Stat2Num" xml:space="preserve"><value>2000+</value></data>
+  <data name="Stat2Label" xml:space="preserve"><value>довольных путешественников</value></data>
+  <data name="Stat3Num" xml:space="preserve"><value>4,9</value></data>
+  <data name="Stat3Label" xml:space="preserve"><value>средняя оценка туров</value></data>
+
+  <data name="Band1Text" xml:space="preserve"><value>Тёплый Гольфстрим не даёт Баренцеву морю замёрзнуть даже полярной ночью</value></data>
+  <data name="Band2Text" xml:space="preserve"><value>Дальше на север — только океан и льды Арктики</value></data>
+
+  <data name="IncludedTitle" xml:space="preserve"><value>Что включено</value></data>
+  <data name="IncludedSubtitle" xml:space="preserve"><value>Одна цена — без доплат на месте</value></data>
+  <data name="Included1" xml:space="preserve"><value>Трансфер из Мурманска и обратно на комфортном минивэне</value></data>
+  <data name="Included2" xml:space="preserve"><value>Гид, который живёт Севером и знает точки без толп туристов</value></data>
+  <data name="Included3" xml:space="preserve"><value>Обед с морепродуктами: свежая треска, гребешки, уха</value></data>
+  <data name="Included4" xml:space="preserve"><value>Термосы с горячим чаем и перекус в дороге</value></data>
+  <data name="Included5" xml:space="preserve"><value>Фотосопровождение — кадры с тура в подарок</value></data>
+  <data name="Included6" xml:space="preserve"><value>Группы до 8 человек: без очередей и суеты</value></data>
+
+  <data name="GuidesTitle" xml:space="preserve"><value>Ваши гиды</value></data>
+  <data name="GuidesSubtitle" xml:space="preserve"><value>Живут на Севере и показывают его таким, какой он есть</value></data>
+  <data name="Guide1Name" xml:space="preserve"><value>Алексей Морозов</value></data>
+  <data name="Guide1Role" xml:space="preserve"><value>Основатель и гид</value></data>
+  <data name="Guide1Text" xml:space="preserve"><value>Восемь лет водит группы по Кольскому полуострову. Знает, когда выходить за сиянием и где искать китов. Мурманчанин в третьем поколении.</value></data>
+  <data name="Guide1Fact" xml:space="preserve"><value>8 лет опыта · русский, английский</value></data>
+  <data name="Guide2Name" xml:space="preserve"><value>Полина Северова</value></data>
+  <data name="Guide2Role" xml:space="preserve"><value>Гид-фотограф</value></data>
+  <data name="Guide2Text" xml:space="preserve"><value>Пять лет снимает Север: аврору, штормы и тундру. Довезёт до лучших ракурсов и подарит ваши портреты на фоне сияния.</value></data>
+  <data name="Guide2Fact" xml:space="preserve"><value>5 лет опыта · фото в подарок</value></data>
+
+  <data name="ReviewsTitle" xml:space="preserve"><value>Отзывы путешественников</value></data>
+  <data name="Review1Name" xml:space="preserve"><value>Анна</value></data>
+  <data name="Review1From" xml:space="preserve"><value>Москва</value></data>
+  <data name="Review1Text" xml:space="preserve"><value>Сияние увидели в первую же ночь! Гид знал точки без туристов и рассказывал так, что мурашки. Лучшая поездка за последние годы.</value></data>
+  <data name="Review2Name" xml:space="preserve"><value>Дмитрий</value></data>
+  <data name="Review2From" xml:space="preserve"><value>Санкт-Петербург</value></data>
+  <data name="Review2Text" xml:space="preserve"><value>Драконьи яйца, шторм на Баренцевом и уха из свежей трески. Организация чёткая: забрали из Мурманска, вернули к поезду.</value></data>
+  <data name="Review3Name" xml:space="preserve"><value>Ван Лэй</value></data>
+  <data name="Review3From" xml:space="preserve"><value>Пекин</value></data>
+  <data name="Review3Text" xml:space="preserve"><value>Мечтал увидеть северное сияние — и увидел его над океаном. Водитель встретил в аэропорту, всё прошло спокойно и по плану.</value></data>
+  <data name="Review4Name" xml:space="preserve"><value>Елена</value></data>
+  <data name="Review4From" xml:space="preserve"><value>Казань</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>Ездили в марте всей семьёй. Дети до сих пор вспоминают драконьи яйца и уху из трески. Организация — на пять.</value></data>
+  <data name="Review5Name" xml:space="preserve"><value>Игорь</value></data>
+  <data name="Review5From" xml:space="preserve"><value>Екатеринбург</value></data>
+  <data name="Review5Text" xml:space="preserve"><value>Сияние поймали со второй попытки: гид честно предупредил про облачность и перенёс выезд. Уважаю такой подход. Звезду снял за долгую дорогу — но Север того стоил.</value></data>
+  <data name="Review6Name" xml:space="preserve"><value>Сара</value></data>
+  <data name="Review6From" xml:space="preserve"><value>Лондон</value></data>
+  <data name="Review6Text" xml:space="preserve"><value>Приехала ради авроры — и получила её в первый же вечер, прямо над океаном. Гиды говорят по-английски, всё было просто.</value></data>
+  <data name="Review7Name" xml:space="preserve"><value>Мария</value></data>
+  <data name="Review7From" xml:space="preserve"><value>Новосибирск</value></data>
+  <data name="Review7Text" xml:space="preserve"><value>Батарейский водопад в шторм — самое сильное впечатление года. Между остановками спасали тёплый минивэн и горячий чай.</value></data>
+  <data name="Review8Name" xml:space="preserve"><value>Павел</value></data>
+  <data name="Review8From" xml:space="preserve"><value>Минск</value></data>
+  <data name="Review8Text" xml:space="preserve"><value>Брал тур на день рождения жены. Ребята устроили сюрприз с тортом на краю земли — такое не забывается.</value></data>
+  <data name="Review9Name" xml:space="preserve"><value>Чжан Вэй</value></data>
+  <data name="Review9From" xml:space="preserve"><value>Шанхай</value></data>
+  <data name="Review9Text" xml:space="preserve"><value>Сбылась мечта — постоять на берегу Северного Ледовитого океана. Очень удобно, что записаться можно было на сайте по-китайски.</value></data>
+
+  <data name="FormTitle" xml:space="preserve"><value>Оставить заявку</value></data>
+  <data name="FormText" xml:space="preserve"><value>Заполните форму — мы перезвоним, подберём дату и ответим на вопросы. Без предоплаты.</value></data>
+  <data name="FieldName" xml:space="preserve"><value>Имя</value></data>
+  <data name="FieldPhone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="FieldPeople" xml:space="preserve"><value>Количество человек</value></data>
+  <data name="FieldDate" xml:space="preserve"><value>Дата приезда</value></data>
+  <data name="Submit" xml:space="preserve"><value>Отправить заявку</value></data>
+  <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
+  <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
+  <data name="SentAgain" xml:space="preserve"><value>Оставить ещё одну заявку</value></data>
+
+  <data name="FooterLine" xml:space="preserve"><value>Териберка · Мурманская область · Кольский полуостров</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>Туры в Териберку и по Кольскому полуострову. Маленькие группы, живой Север и никакой суеты.</value></data>
+  <data name="FooterNavTitle" xml:space="preserve"><value>Разделы</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>Места</value></data>
+  <data name="NavGuides" xml:space="preserve"><value>Гиды</value></data>
+  <data name="NavReviews" xml:space="preserve"><value>Отзывы</value></data>
+  <data name="NavApply" xml:space="preserve"><value>Записаться</value></data>
+  <data name="FooterContactsTitle" xml:space="preserve"><value>Контакты</value></data>
+  <data name="FooterDaily" xml:space="preserve"><value>Ежедневно с 9:00 до 21:00 (мск)</value></data>
+
+  <data name="PlaceMore" xml:space="preserve"><value>Подробнее →</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>← На главную</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>Фотографии</value></data>
+  <data name="PlaceCtaTitle" xml:space="preserve"><value>Хотите увидеть это своими глазами?</value></data>
+  <data name="PlaceCtaText" xml:space="preserve"><value>Оставьте заявку — мы перезвоним, подберём дату и ответим на вопросы.</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Страница не найдена</value></data>
+  <data name="NotFoundText" xml:space="preserve"><value>Запрошенный адрес не существует.</value></data>
+
+  <data name="Place1Detail1" xml:space="preserve"><value>Огромные валуны идеальной округлой формы усыпают берег Баренцева моря. Волны обтачивали их тысячи лет, и теперь пляж выглядит так, будто здесь оставил кладку дракон. Особенно эффектно камни смотрятся в шторм, когда океан перекатывает их с гулким грохотом.</value></data>
+  <data name="Place1Detail2" xml:space="preserve"><value>Пляж находится за посёлком, по дороге к Батарейскому водопаду. Ходить по камням стоит аккуратно: в дождь они скользкие. Лучший свет для фотографий — полярный закат, когда низкое солнце подсвечивает камни тёплым золотом.</value></data>
+  <data name="Place2Detail1" xml:space="preserve"><value>В отлив из воды залива поднимаются рёбра деревянных рыболовецких судов начала XX века. Когда-то Териберка была крупным центром прибрежного промысла, и старые шхуны доживали свой век прямо у берега.</value></data>
+  <data name="Place2Detail2" xml:space="preserve"><value>Сегодня почерневшие остовы — самый узнаваемый кадр Териберки: их снимали в «Левиафане» и десятках документальных фильмов. Приходите в отлив — тогда к кораблям можно подойти почти вплотную.</value></data>
+  <data name="Place3Detail1" xml:space="preserve"><value>Малое Батарейское озеро переливается через край скального каньона и падает прямо в Баренцево море. Это одно из немногих мест в мире, где водопад впадает в океан.</value></data>
+  <data name="Place3Detail2" xml:space="preserve"><value>Название — от артиллерийской батареи времён Великой Отечественной, оборонявшей вход в губу; её позиции сохранились рядом. К водопаду ведёт тропа по каменистой тундре — надевайте нескользящую обувь.</value></data>
+  <data name="Place4Detail1" xml:space="preserve"><value>Со смотровых точек на скалах открывается вид на открытый океан: за горизонтом до самого полюса — только вода и льды. Зимой море не замерзает благодаря тёплому течению Гольфстрим.</value></data>
+  <data name="Place4Detail2" xml:space="preserve"><value>Весной и в начале лета с берега можно заметить китов и косаток, а на скалах гнездятся чайки-моевки. Возьмите термос: ветер на краю континента не утихает почти никогда.</value></data>
+  <data name="Place5Detail1" xml:space="preserve"><value>С сентября по апрель за полярным кругом достаточно темно, чтобы увидеть аврору. Мы отслеживаем солнечную активность и облачность и вывозим группу в точки без засветки — вероятность увидеть сияние за ночь охоты высокая.</value></data>
+  <data name="Place5Detail2" xml:space="preserve"><value>Сияние — явление капризное: иногда это лёгкая зелёная дымка, а иногда всё небо танцует волнами от горизонта до горизонта. Одевайтесь слоями: охота — это несколько часов на морозе, с горячим чаем и штативом.</value></data>
+  <data name="Place6Detail1" xml:space="preserve"><value>Дорога в Териберку идёт через настоящую арктическую тундру: сопки, озёра, карликовые берёзы и ковры ягеля. Летом тундра цветёт морошкой и иван-чаем, зимой превращается в бескрайнюю белую пустыню.</value></data>
+  <data name="Place6Detail2" xml:space="preserve"><value>По пути делаем остановки на панорамных точках — отсюда Кольский полуостров виден таким, каким его показывают в фильмах о Севере. Если повезёт, встретим северных оленей.</value></data>
+</root>

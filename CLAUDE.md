@@ -8,7 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Просмотр поступивших заявок на сайте намеренно **не делается** — заявки будут читаться из Telegram-бота (решение от 11.08.2026, бот ещё не начат). Серверная часть для этого уже есть: `GET /api/admin/application/list` и репозиторий, сортирующий заявки свежими сверху.
 
-Состав: два .NET 10 сервиса (`gateway` на YARP + `users` с БД) и Blazor-фронтенд на static SSR из одной страницы с формой. Визуальное оформление намеренно отсутствует — голый HTML, без CSS-фреймворка и компонентных библиотек. Пользовательские тексты и часть комментариев — на русском.
+Состав: два .NET 10 сервиса (`gateway` на YARP + `users` с БД) и Blazor-фронтенд на static SSR: лендинг (hero со статистикой → места → параллакс-полоса → «что включено» → гиды → параллакс-полоса → отзывы ×9 → форма → футер) плюс страницы мест `/place/{slug}`. Часть комментариев — на русском.
+
+**Контент-плейсхолдеры, которые надо заменить перед запуском**: контакты в футере (телефон/Telegram/WhatsApp), цифры статистики в hero (6 лет / 2000+ / 4,9), имена гидов и все отзывы — вымышленные.
 
 ## Команды
 
@@ -56,6 +58,21 @@ dotnet ef migrations add <Name> `
 ```
 
 Единственное, что делает сайт, — создаёт заявку через открытый маршрут `/api/public/application/create`. Чтение заявок наружу отдаётся только через `/api/admin/application/list`, закрытый на шлюзе политикой `Admin`.
+
+### UI: тема, статика, локализация
+
+- **Вся страница — без JavaScript** (CSP `script-src 'none'`), поэтому и тема, и язык решаются на сервере.
+- **Стили только в [wwwroot/css/app.css](src/frontend/ui.public.web/wwwroot/css/app.css)**: CSP `style-src 'self'` запрещает и `<style>`, и inline-атрибуты `style=""` — оформление добавляется классами. Дизайн-токены в `:root`; активная тема — тёмная («полярная ночь», аврора-акценты). Светлая палитра уже описана в `[data-theme="light"]` — включается атрибутом на `<html>`, переключателя пока нет (делать по образцу переключателя языка: cookie + endpoint).
+- **Локализация**: ru (по умолчанию, нейтральный resx) / en / zh. Строки — в [Resources/SharedResource*.resx](src/frontend/ui.public.web/Resources/), в разметке — `IStringLocalizer<SharedResource>`. Культура хранится в cookie; переключатель — GET-ссылки на `/set-culture?culture=xx&redirect=...` (endpoint в Program.cs валидирует культуру по белому списку и делает LocalRedirect). Accept-Language сознательно не учитывается. Тексты ошибок FluentValidation в контрактах — только русские.
+- **Страницы мест**: карточка на главной — ссылка на `/place/{slug}` ([PlaceView.razor](src/frontend/ui.public.web/Features/Places/Pages/PlaceView.razor)). Каталог мест — статический [PlaceCatalog](src/frontend/ui.public.web/Features/Places/PlaceCatalog.cs) (это контент, БД не нужна): новое место = запись в каталоге + ключи `Place{i}Title/Text/Detail1/Detail2` в трёх resx. Неизвестный slug отвечает честным 404 (StatusCode через каскадный `HttpContext`).
+- **Фото мест** пока одна SVG-заглушка [img/placeholder.svg](src/frontend/ui.public.web/wwwroot/img/placeholder.svg) + бейдж «Фото скоро»; в галерее страницы места она разведена CSS-фильтрами по оттенку. Настоящие фотографии кладутся в `wwwroot/img` и подставляются в Home.razor и PlaceView.razor.
+- `<title>` задаётся только через `<PageTitle>` (HeadOutlet); статического title в App.razor нет — иначе в head оказываются два тега.
+- Статика раздаётся `UseStaticFiles()` **до** rate limiter'а — css и картинки не сжигают лимит.
+- Ловушка биндинга: `[SupplyParameterFromQuery] bool` понимает только `true`/`false` — редирект после формы обязан быть `/?sent=true`, с `?sent=1` страница «спасибо» молча не покажется.
+- **Параллакс** — чистый CSS: у `.parallax-band` фон [img/parallax.svg](src/frontend/ui.public.web/wwwroot/img/parallax.svg) с `background-attachment: fixed` (iOS Safari игнорирует — полоса деградирует в обычный баннер). JavaScript-параллакс невозможен из-за CSP.
+- **Карусель отзывов** — тоже без JavaScript: `scroll-snap` (свайп/колесо), на десктопе видны три карточки + край четвёртой как аффорданс листания. Стрелок нет и не будет, пока действует запрет скриптов.
+- **Микроанимации** (мерцание звёзд и дрейф авроры в hero) анимируют только `opacity`/`transform` — исполняются GPU-композитором. При добавлении новых анимаций держаться этого правила (не анимировать background/box-shadow/filter) и не забывать ветку `prefers-reduced-motion`.
+- Скриншоты для проверки вёрстки: headless Chrome на Windows не отдаёт окно уже ~500px, поэтому мобильную ширину снимать через CDP `Emulation.setDeviceMetricsOverride` (+`Page.captureScreenshot` с `captureBeyondViewport`), а не `--window-size`. На таких скриншотах fixed-фоны параллакс-полос выглядят пустыми — это артефакт съёмки, вживую фон на месте.
 
 ### Форма без JavaScript
 
@@ -114,7 +131,7 @@ app.MediatePostCommand<ApplicationCreateCommand>("application", "create");  // P
 
 - **Rate limiting в двух местах.** Форма отправляется POST'ом на сам сайт, а API-вызов делает сервер UI, поэтому ограничение только на шлюзе обходится отправкой формы в цикле. В UI глобальный лимитер делит запросы по методу: POST — 5 за 5 минут на IP, остальное — 300 в минуту. На шлюзе маршрут `applications-public` помечен политикой `public-form` (те же 5 за 5 минут) плюс глобальные 300/мин; `/health` из лимитов исключён. Счётчики живут в памяти процесса — при нескольких инстансах фактический лимит умножается на их число.
 - **CORS сознательно узкий и, по сути, задел на будущее.** Браузер в API не обращается (страницы рендерит сервер UI), поэтому политика собирается строго из `UI_APP_URL`, без `AllowCredentials`, и не регистрируется вовсе, если список пуст. Прежняя dev-ветка с `SetIsOriginAllowed(_ => true)` + `AllowCredentials()` убрана: такое сочетание разрешало любому сайту читать ответы API с cookie пользователя.
-- **Заголовки ответа UI**: CSP (`script-src 'none'` — на страницах вообще нет JavaScript, проверено), `X-Content-Type-Options`, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, `Referrer-Policy: no-referrer`, `Permissions-Policy`. Заголовок `Server` отключён у обоих сервисов. Если появится интерактивный Blazor — CSP придётся ослаблять под `blazor.web.js`.
+- **Заголовки ответа UI**: CSP (`script-src 'none'` — на страницах вообще нет JavaScript, проверено; `style-src 'self'` — поэтому никаких inline-стилей), `X-Content-Type-Options`, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, `Referrer-Policy: no-referrer`, `Permissions-Policy`. Заголовок `Server` отключён у обоих сервисов. Если появится интерактивный Blazor — CSP придётся ослаблять под `blazor.web.js`.
 - **Antiforgery** — включён (`UseAntiforgery`), токен в форму добавляет `EditForm`.
 - **Валидация телефона** по формату, а не только по длине, и верхняя граница даты приезда: поле уходит оператору и в бота, без формата форма становится каналом для спам-ссылок.
 - **Лимит тела запроса** в UI — 64 КБ (загрузок файлов нет). Появится загрузка — поднять.
@@ -127,7 +144,7 @@ app.MediatePostCommand<ApplicationCreateCommand>("application", "create");  // P
 
 - В `UI.Shared` из handler'ов используется только `ApiCommandHandler`; `ApiSingleQueryHandler`, `ApiListQueryHandler`, `ApiPagedListQueryHandler`, `QueryBuilder`, `ConfigService` и `AuthorizationHeaderHandler` (с ключом `API_TOKEN`) остались от страницы заявок и сейчас без потребителей.
 - `SanitizationBehavior` + `HtmlSanitizer` написаны, но ни один сервис не добавляет behavior в `PipelineBehaviors`.
-- Локализация (`SharedStrings.resx`, `UsersStrings.resx`, `SharedLocalizer`) заведена, но нигде не используется.
+- Серверная локализация (`SharedStrings.resx` в Api, `UsersStrings.resx` в users, `SharedLocalizer`) заведена, но не используется — рабочая локализация есть только в UI (`SharedResource`).
 - Абстракции `ISlugable` / `IPictureable` и поле `Dto.ImagePath` есть в базовых типах, но ни одна сущность их не реализует; файлового сервиса и хранилища в проекте нет.
 
 ## Конфигурация

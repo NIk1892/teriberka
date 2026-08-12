@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+
+  <data name="Brand" xml:space="preserve"><value>捷里别尔卡</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>捷里别尔卡——世界尽头之旅</value></data>
+  <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
+
+  <data name="HeroKicker" xml:space="preserve"><value>科拉半岛 · 北纬 69°</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>捷里别尔卡——通往世界尽头的旅程</value></data>
+  <data name="HeroText" xml:space="preserve"><value>北极光、巴伦支海和渔村的北极风光，村外便是浩瀚大洋。只需一天，您就能站在大陆的尽头。</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>立即预约</value></data>
+  <data name="HeroPrice" xml:space="preserve"><value>每人 12 000 卢布起</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>小团 8 人以内 · 摩尔曼斯克接送</value></data>
+
+  <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>捷里别尔卡与巴伦支海沿岸的游览路线</value></data>
+  <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
+  <data name="PhotoSoon" xml:space="preserve"><value>照片即将上线</value></data>
+
+  <data name="Place1Title" xml:space="preserve"><value>“龙蛋”海滩</value></data>
+  <data name="Place1Text" xml:space="preserve"><value>由巨大浑圆的砾石组成的海岸，经海浪打磨了数千年。</value></data>
+  <data name="Place2Title" xml:space="preserve"><value>船舶墓地</value></data>
+  <data name="Place2Text" xml:space="preserve"><value>海湾中的木船残骸——捷里别尔卡最具代表性的景观。</value></data>
+  <data name="Place3Title" xml:space="preserve"><value>巴塔雷斯基瀑布</value></data>
+  <data name="Place3Text" xml:space="preserve"><value>河水从悬崖直接跌入北冰洋。</value></data>
+  <data name="Place4Title" xml:space="preserve"><value>巴伦支海</value></data>
+  <data name="Place4Text" xml:space="preserve"><value>大陆尽头的观景点：再往前，只有大海与北极。</value></data>
+  <data name="Place5Title" xml:space="preserve"><value>北极光</value></data>
+  <data name="Place5Text" xml:space="preserve"><value>跟随向导远离光污染追寻极光。观赏季节：九月至次年四月。</value></data>
+  <data name="Place6Title" xml:space="preserve"><value>北极苔原</value></data>
+  <data name="Place6Text" xml:space="preserve"><value>沿海公路上的丘陵、苔藓与科拉半岛的全景。</value></data>
+
+  <data name="Stat1Num" xml:space="preserve"><value>6 年</value></data>
+  <data name="Stat1Label" xml:space="preserve"><value>科拉半岛导览经验</value></data>
+  <data name="Stat2Num" xml:space="preserve"><value>2000+</value></data>
+  <data name="Stat2Label" xml:space="preserve"><value>位满意的旅客</value></data>
+  <data name="Stat3Num" xml:space="preserve"><value>4.9</value></data>
+  <data name="Stat3Label" xml:space="preserve"><value>行程平均评分</value></data>
+
+  <data name="Band1Text" xml:space="preserve"><value>温暖的墨西哥湾流让巴伦支海即使在极夜也不结冰</value></data>
+  <data name="Band2Text" xml:space="preserve"><value>再往北，只有大海和北极的冰</value></data>
+
+  <data name="IncludedTitle" xml:space="preserve"><value>费用包含</value></data>
+  <data name="IncludedSubtitle" xml:space="preserve"><value>一口价——现场无任何加收</value></data>
+  <data name="Included1" xml:space="preserve"><value>摩尔曼斯克往返接送，舒适商务车</value></data>
+  <data name="Included2" xml:space="preserve"><value>熟悉北方、避开人流的本地向导</value></data>
+  <data name="Included3" xml:space="preserve"><value>海鲜午餐：新鲜鳕鱼、扇贝、鱼汤</value></data>
+  <data name="Included4" xml:space="preserve"><value>保温壶热茶和路上的小食</value></data>
+  <data name="Included5" xml:space="preserve"><value>随队摄影——行程照片免费赠送</value></data>
+  <data name="Included6" xml:space="preserve"><value>8 人以内小团：不排队、不匆忙</value></data>
+
+  <data name="GuidesTitle" xml:space="preserve"><value>您的向导</value></data>
+  <data name="GuidesSubtitle" xml:space="preserve"><value>他们生活在北方，向您展示真实的北方</value></data>
+  <data name="Guide1Name" xml:space="preserve"><value>阿列克谢·莫罗佐夫</value></data>
+  <data name="Guide1Role" xml:space="preserve"><value>创始人兼向导</value></data>
+  <data name="Guide1Text" xml:space="preserve"><value>在科拉半岛带团八年。知道何时出发追极光、去哪里寻找鲸鱼。摩尔曼斯克第三代本地人。</value></data>
+  <data name="Guide1Fact" xml:space="preserve"><value>8 年经验 · 俄语、英语</value></data>
+  <data name="Guide2Name" xml:space="preserve"><value>波琳娜·谢韦罗娃</value></data>
+  <data name="Guide2Role" xml:space="preserve"><value>向导兼摄影师</value></data>
+  <data name="Guide2Text" xml:space="preserve"><value>拍摄北方五年：极光、风暴与苔原。带您到最佳机位，并赠送您在极光下的人像照片。</value></data>
+  <data name="Guide2Fact" xml:space="preserve"><value>5 年经验 · 赠送照片</value></data>
+
+  <data name="ReviewsTitle" xml:space="preserve"><value>旅客评价</value></data>
+  <data name="Review1Name" xml:space="preserve"><value>安娜</value></data>
+  <data name="Review1From" xml:space="preserve"><value>莫斯科</value></data>
+  <data name="Review1Text" xml:space="preserve"><value>第一晚就看到了极光！向导熟悉没有游客的观测点，讲解引人入胜。这是我近几年最棒的旅行。</value></data>
+  <data name="Review2Name" xml:space="preserve"><value>德米特里</value></data>
+  <data name="Review2From" xml:space="preserve"><value>圣彼得堡</value></data>
+  <data name="Review2Text" xml:space="preserve"><value>“龙蛋”海滩、巴伦支海的风暴和新鲜鳕鱼汤。安排周到：从摩尔曼斯克接站，返程赶上了火车。</value></data>
+  <data name="Review3Name" xml:space="preserve"><value>王磊</value></data>
+  <data name="Review3From" xml:space="preserve"><value>北京</value></data>
+  <data name="Review3Text" xml:space="preserve"><value>一直梦想亲眼看到北极光——终于在大海上空看到了。司机到机场接机，一切顺利而从容。</value></data>
+  <data name="Review4Name" xml:space="preserve"><value>叶莲娜</value></data>
+  <data name="Review4From" xml:space="preserve"><value>喀山</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>三月全家出行。孩子们至今还念叨“龙蛋”海滩和鳕鱼汤。组织工作满分。</value></data>
+  <data name="Review5Name" xml:space="preserve"><value>伊戈尔</value></data>
+  <data name="Review5From" xml:space="preserve"><value>叶卡捷琳堡</value></data>
+  <data name="Review5Text" xml:space="preserve"><value>第二次尝试才追到极光：向导如实告知云况并改期出发，这种态度令人敬佩。因路途较长扣一星——但北方值得。</value></data>
+  <data name="Review6Name" xml:space="preserve"><value>萨拉</value></data>
+  <data name="Review6From" xml:space="preserve"><value>伦敦</value></data>
+  <data name="Review6Text" xml:space="preserve"><value>为极光而来——第一晚就在大海上空看到了。向导会讲英语，一切都很轻松。</value></data>
+  <data name="Review7Name" xml:space="preserve"><value>玛丽亚</value></data>
+  <data name="Review7From" xml:space="preserve"><value>新西伯利亚</value></data>
+  <data name="Review7Text" xml:space="preserve"><value>风暴中的巴塔雷斯基瀑布是我今年最震撼的记忆。停靠点之间，温暖的车厢和热茶救了我们。</value></data>
+  <data name="Review8Name" xml:space="preserve"><value>帕维尔</value></data>
+  <data name="Review8From" xml:space="preserve"><value>明斯克</value></data>
+  <data name="Review8Text" xml:space="preserve"><value>为妻子的生日订了行程。团队在世界尽头准备了惊喜蛋糕——终生难忘。</value></data>
+  <data name="Review9Name" xml:space="preserve"><value>张伟</value></data>
+  <data name="Review9From" xml:space="preserve"><value>上海</value></data>
+  <data name="Review9Text" xml:space="preserve"><value>站在北冰洋岸边的梦想实现了。能用中文在网站上预约，非常方便。</value></data>
+
+  <data name="FormTitle" xml:space="preserve"><value>预约申请</value></data>
+  <data name="FormText" xml:space="preserve"><value>填写表单，我们会给您回电，确定日期并解答问题。无需预付。</value></data>
+  <data name="FieldName" xml:space="preserve"><value>姓名</value></data>
+  <data name="FieldPhone" xml:space="preserve"><value>电话</value></data>
+  <data name="FieldPeople" xml:space="preserve"><value>人数</value></data>
+  <data name="FieldDate" xml:space="preserve"><value>到达日期</value></data>
+  <data name="Submit" xml:space="preserve"><value>提交申请</value></data>
+  <data name="SentTitle" xml:space="preserve"><value>申请已收到！</value></data>
+  <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
+  <data name="SentAgain" xml:space="preserve"><value>再提交一份申请</value></data>
+
+  <data name="FooterLine" xml:space="preserve"><value>捷里别尔卡 · 摩尔曼斯克州 · 科拉半岛</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>捷里别尔卡与科拉半岛旅行团。小团出行，真实的北方，从容不迫。</value></data>
+  <data name="FooterNavTitle" xml:space="preserve"><value>栏目</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>景点</value></data>
+  <data name="NavGuides" xml:space="preserve"><value>向导</value></data>
+  <data name="NavReviews" xml:space="preserve"><value>评价</value></data>
+  <data name="NavApply" xml:space="preserve"><value>预约</value></data>
+  <data name="FooterContactsTitle" xml:space="preserve"><value>联系方式</value></data>
+  <data name="FooterDaily" xml:space="preserve"><value>每天 9:00–21:00（莫斯科时间）</value></data>
+
+  <data name="PlaceMore" xml:space="preserve"><value>了解详情 →</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>← 返回首页</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>照片</value></data>
+  <data name="PlaceCtaTitle" xml:space="preserve"><value>想亲眼看看吗？</value></data>
+  <data name="PlaceCtaText" xml:space="preserve"><value>提交申请——我们会给您回电，确定日期并解答问题。</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>页面未找到</value></data>
+  <data name="NotFoundText" xml:space="preserve"><value>您访问的地址不存在。</value></data>
+
+  <data name="Place1Detail1" xml:space="preserve"><value>巨大而浑圆的砾石铺满巴伦支海岸。海浪打磨了它们数千年，如今的海滩仿佛巨龙在此留下了一窝龙蛋。风暴天最为壮观：大海翻滚着巨石，发出低沉的轰鸣。</value></data>
+  <data name="Place1Detail2" xml:space="preserve"><value>海滩位于村外，通往巴塔雷斯基瀑布的路上。行走时请小心：雨天石头很滑。拍照的最佳光线是极地日落，低垂的太阳为巨石镀上温暖的金色。</value></data>
+  <data name="Place2Detail1" xml:space="preserve"><value>退潮时，二十世纪初木制渔船的龙骨从海湾中露出水面。捷里别尔卡曾是重要的近海渔业中心，老帆船就在岸边度过了余生。</value></data>
+  <data name="Place2Detail2" xml:space="preserve"><value>如今这些黑色的船骸是捷里别尔卡最具代表性的画面——出现在电影《利维坦》和众多纪录片中。请在退潮时前来，那时几乎可以走到船边。</value></data>
+  <data name="Place3Detail1" xml:space="preserve"><value>小巴塔雷斯科耶湖漫过岩石峡谷的边缘，直接跌入巴伦支海。这是世界上少数几个瀑布入海的地方之一。</value></data>
+  <data name="Place3Detail2" xml:space="preserve"><value>名字来自卫国战争时期守卫海湾入口的炮兵阵地，遗迹至今仍在附近。通往瀑布的小径穿过多石的苔原——请穿防滑鞋。</value></data>
+  <data name="Place4Detail1" xml:space="preserve"><value>从悬崖上的观景点望去是开阔的大洋：地平线之外直到北极点，只有海水和冰。得益于温暖的墨西哥湾流，这里的海冬季不结冰。</value></data>
+  <data name="Place4Detail2" xml:space="preserve"><value>春季和初夏可以从岸边看到鲸鱼和虎鲸，悬崖上有三趾鸥筑巢。请带上保温杯：大陆尽头的风几乎从不停歇。</value></data>
+  <data name="Place5Detail1" xml:space="preserve"><value>九月至次年四月，北极圈内的夜足够黑，可以看到极光。我们跟踪太阳活动和云量，把团队带到没有光污染的观测点——一夜之间看到极光的概率很高。</value></data>
+  <data name="Place5Detail2" xml:space="preserve"><value>极光变幻莫测：有时是淡淡的绿色薄雾，有时整个天空从地平线到地平线舞动着光波。请多层穿衣：追光意味着在严寒中度过几个小时，伴着热茶和三脚架。</value></data>
+  <data name="Place6Detail1" xml:space="preserve"><value>通往捷里别尔卡的公路穿过真正的北极苔原：丘陵、湖泊、矮桦和成片的驯鹿苔藓。夏天苔原开满云莓和柳兰，冬天则变成一望无际的白色荒原。</value></data>
+  <data name="Place6Detail2" xml:space="preserve"><value>途中我们会在全景观测点停留——从这里看到的科拉半岛，正是北方题材电影中的模样。运气好的话，还能遇见驯鹿。</value></data>
+</root>

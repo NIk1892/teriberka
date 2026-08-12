@@ -1,6 +1,33 @@
-<header>
-    <h1><a href="/">@Constants.BrandName</a></h1>
-    <nav>
-        <a href="/">Главная</a>
-    </nav>
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
+@inject NavigationManager Navigation
+
+<header class="site-header">
+    <div class="container">
+        <a class="brand" href="/">
+            <img class="brand-mark" src="/favicon.svg" alt="" />
+            @L["Brand"]
+        </a>
+
+        @* Переключение языка без JavaScript: ссылки на /set-culture, который ставит
+           culture-cookie и возвращает на текущую страницу. *@
+        <nav class="lang-switch" aria-label="@L["LangLabel"]">
+            <a class="@ActiveClass("ru")" href="@CultureLink("ru")" hreflang="ru">RU</a>
+            <a class="@ActiveClass("en")" href="@CultureLink("en")" hreflang="en">EN</a>
+            <a class="@ActiveClass("zh")" href="@CultureLink("zh")" hreflang="zh">中文</a>
+        </nav>
+    </div>
 </header>
+
+@code {
+    private static string Current => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    private static string ActiveClass(string culture) => Current == culture ? "active" : "";
+
+    private string CultureLink(string culture)
+    {
+        var path = "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+        return $"/set-culture?culture={culture}&redirect={Uri.EscapeDataString(path)}";
+    }
+}

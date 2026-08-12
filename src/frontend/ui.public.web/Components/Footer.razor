@@ -1,3 +1,37 @@
-<footer>
-    <p>@Constants.BrandName</p>
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
+
+@* Контакты — плейсхолдеры до появления настоящих: заменить телефон и ссылки
+   на реальные перед развёртыванием. *@
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <a class="brand" href="/">
+                <img class="brand-mark" src="/favicon.svg" alt="" />
+                @L["Brand"]
+            </a>
+            <p>@L["FooterSlogan"]</p>
+            <p class="footer-line">@L["FooterLine"]</p>
+        </div>
+
+        <nav class="footer-col" aria-label="@L["FooterNavTitle"]">
+            <h3>@L["FooterNavTitle"]</h3>
+            <a href="/#places">@L["NavPlaces"]</a>
+            <a href="/#guides">@L["NavGuides"]</a>
+            <a href="/#reviews">@L["NavReviews"]</a>
+            <a href="/#apply">@L["NavApply"]</a>
+        </nav>
+
+        <div class="footer-col">
+            <h3>@L["FooterContactsTitle"]</h3>
+            <a href="tel:+79215550123">+7 (921) 555-01-23</a>
+            <a href="https://t.me/teriberka_tour" rel="noopener">Telegram</a>
+            <a href="https://wa.me/79215550123" rel="noopener">WhatsApp</a>
+            <span class="footer-daily">@L["FooterDaily"]</span>
+        </div>
+    </div>
+
+    <div class="container footer-bottom">
+        © @DateTime.Now.Year @L["Brand"]
+    </div>
 </footer>

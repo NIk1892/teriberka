@@ -1,0 +1,82 @@
+@page "/place/{Slug}"
+@using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Places
+@using UI.Public.Web.Layouts
+@layout MainLayout
+@inject IStringLocalizer<SharedResource> L
+
+@if (_place is null)
+{
+    <PageTitle>@L["NotFoundTitle"] · @L["Brand"]</PageTitle>
+
+    <section class="section">
+        <div class="container detail">
+            <h1>@L["NotFoundTitle"]</h1>
+            <p class="detail-lead">@L["NotFoundText"]</p>
+            <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
+        </div>
+    </section>
+}
+else
+{
+    var i = _place.Index;
+
+    <PageTitle>@L[$"Place{i}Title"] · @L["Brand"]</PageTitle>
+
+    <section class="section detail-section">
+        <div class="container detail">
+            <a class="back-link" href="/#places">@L["BackToHome"]</a>
+
+            <span class="hero-kicker">@L["HeroKicker"]</span>
+            <h1>@L[$"Place{i}Title"]</h1>
+            <p class="detail-lead">@L[$"Place{i}Text"]</p>
+
+            <div class="detail-photo">
+                <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" />
+                <span class="photo-soon">@L["PhotoSoon"]</span>
+            </div>
+
+            <div class="detail-text">
+                <p>@L[$"Place{i}Detail1"]</p>
+                <p>@L[$"Place{i}Detail2"]</p>
+            </div>
+
+            <h2 class="gallery-title">@L["GalleryTitle"]</h2>
+            <div class="gallery-grid">
+                @* Пока фотографий нет — четыре заглушки; CSS-фильтры слегка меняют
+                   оттенок, чтобы галерея не выглядела копиями одного кадра. *@
+                @for (var n = 0; n < 4; n++)
+                {
+                    <div class="gallery-item">
+                        <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
+                        <span class="photo-soon">@L["PhotoSoon"]</span>
+                    </div>
+                }
+            </div>
+
+            <div class="cta-band">
+                <h2>@L["PlaceCtaTitle"]</h2>
+                <p>@L["PlaceCtaText"]</p>
+                <a class="btn" href="/#apply">@L["HeroCta"]</a>
+            </div>
+        </div>
+    </section>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = "";
+
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    private PlaceInfo? _place;
+
+    protected override void OnInitialized()
+    {
+        _place = PlaceCatalog.BySlug(Slug);
+
+        // Неизвестное место — честный 404, а не «мягкая» страница с кодом 200.
+        if (_place is null && HttpContext is not null)
+            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+    }
+}
