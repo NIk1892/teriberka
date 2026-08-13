@@ -1,0 +1,105 @@
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Places
+@inject IStringLocalizer<SharedResource> L
+
+@* Стилизованная карта Кольского полуострова. SVG инлайновый, чтобы краски брались
+   из CSS-переменных темы. Большие маркеры направлений — нативные <details>: клик
+   открывает карточку с текстом и ссылками; попап закрывается кликом в любом месте
+   (невидимый fixed-оверлей — часть summary). Малые точки — прямые ссылки на страницы
+   мест. JavaScript не нужен.
+   viewBox обрезан по контуру (10 30 580 490) — HTML-оверлеи позиционируются
+   в долях: left% = (x−10)/580, top% = (y−30)/490 от координат SVG. *@
+<div class="map-wrap">
+    <svg class="kola-map" viewBox="10 30 580 490" aria-hidden="true">
+        <path class="map-land" d="M 20 250
+            C 35 205, 60 165, 96 136
+            C 100 124, 104 112, 108 106
+            C 100 94, 102 78, 116 66
+            C 130 54, 154 48, 168 56
+            C 180 63, 178 78, 166 86
+            C 158 92, 146 95, 138 95
+            C 134 100, 132 106, 133 112
+            C 136 128, 138 142, 138 152
+            L 150 155
+            C 152 139, 152 123, 152 108
+            C 156 102, 162 100, 170 100
+            C 200 104, 240 110, 280 122
+            C 330 138, 390 170, 440 205
+            C 465 222, 480 238, 488 252
+            C 498 262, 512 278, 528 300
+            C 548 326, 562 344, 566 358
+            C 568 376, 560 394, 544 408
+            C 522 426, 494 446, 462 462
+            C 430 476, 380 482, 330 482
+            C 285 480, 240 462, 200 442
+            C 175 430, 150 421, 128 415
+            C 108 410, 88 408, 74 406
+            C 86 418, 102 432, 116 448
+            C 128 462, 136 473, 140 484
+            L 20 484 Z"/>
+
+        <!-- подписи географии -->
+        <text class="map-sea" x="400" y="62">@L["MapSeaNorth"]</text>
+        <text class="map-sea" x="505" y="500">@L["MapSeaSouth"]</text>
+        <text class="map-peninsula" x="360" y="330">@L["MapPeninsula"]</text>
+        <text class="map-geo" x="143" y="44">@L["MapRybachy"]</text>
+
+        <!-- Хибины: иконка гор + подпись -->
+        <g class="map-mounts">
+            <path d="M 164 264 L 173 248 L 180 257 L 186 250 L 194 264 Z"/>
+            <text class="map-geo map-geo-end" x="158" y="260">@L["MapKhibiny"]</text>
+        </g>
+
+        <!-- пунктирные маршруты из Мурманска к трём направлениям -->
+        <g class="map-routes">
+            <path d="M 144 152 C 160 128, 182 113, 205 108"/>
+            <path d="M 144 152 C 175 195, 212 236, 238 262"/>
+            <path d="M 144 152 C 152 250, 192 385, 255 452"/>
+        </g>
+
+        <!-- города -->
+        <circle class="map-city-dot" cx="144" cy="152" r="6"/>
+        <circle class="map-city-dot" cx="196" cy="284" r="4"/>
+        <circle class="map-city-dot" cx="166" cy="296" r="4"/>
+    </svg>
+
+    <div class="map-murmansk">
+        <strong>@L["MapMurmansk"]</strong>
+    </div>
+    <span class="map-city-label map-city-kirovsk">@L["MapKirovsk"]</span>
+    <span class="map-city-label map-city-apatity">@L["MapApatity"]</span>
+
+    @* расстояния по дорогам из Мурманска; единицы зависят от языка (км / мили) *@
+    <span class="map-dist map-dist-1">@L["MapDist1"]</span>
+    <span class="map-dist map-dist-2">@L["MapDist2"]</span>
+    <span class="map-dist map-dist-3">@L["MapDist3"]</span>
+
+    @* ориентиры — не туристические точки *@
+    <div class="map-poi map-poi-airport"><span class="poi-dot"></span><span class="poi-label">✈ @L["MapAirport"]</span></div>
+    <div class="map-poi map-poi-khibiny-air"><span class="poi-dot"></span><span class="poi-label">✈ @L["MapAirport"]</span></div>
+
+    @* туристические точки: единый стиль, прямые ссылки на страницы мест *@
+    <a class="map-place map-place-pass" href="/place/geologists-pass"><span class="place-dot"></span><span class="place-label">@L["Place8Title"]</span></a>
+    <a class="map-place map-place-umba" href="/place/umba"><span class="place-dot"></span><span class="place-label">@L["Place10Title"]</span></a>
+    <a class="map-place map-place-labyrinth" href="/place/stone-labyrinth"><span class="place-dot"></span><span class="place-label">@L["Place12Title"]</span></a>
+
+    @foreach (var dir in PlaceCatalog.Directions)
+    {
+        <details class="map-spot map-spot-@dir.Index">
+            <summary>
+                <span class="map-dot" aria-hidden="true"></span>
+                <span class="map-label">@L[$"MapSpot{dir.Index}"]</span>
+            </summary>
+            <div class="map-popup">
+                <strong>@L[$"Dir{dir.Index}Title"]</strong>
+                <p>@L[$"Dir{dir.Index}Text"]</p>
+                <div class="map-popup-links">
+                    @foreach (var idx in dir.PlaceIndexes)
+                    {
+                        <a href="/place/@(PlaceCatalog.ByIndex(idx).Slug)">@L[$"Place{idx}Title"]</a>
+                    }
+                </div>
+            </div>
+        </details>
+    }
+</div>

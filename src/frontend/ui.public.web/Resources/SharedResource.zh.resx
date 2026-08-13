@@ -5,19 +5,19 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>捷里别尔卡</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>捷里别尔卡——世界尽头之旅</value></data>
+  <data name="Brand" xml:space="preserve"><value>科拉之北</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>科拉之北——摩尔曼斯克州之旅</value></data>
   <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>科拉半岛 · 北纬 69°</value></data>
-  <data name="HeroTitle" xml:space="preserve"><value>捷里别尔卡——通往世界尽头的旅程</value></data>
-  <data name="HeroText" xml:space="preserve"><value>北极光、巴伦支海和渔村的北极风光，村外便是浩瀚大洋。只需一天，您就能站在大陆的尽头。</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>科拉半岛。</value></data>
+  <data name="HeroText" xml:space="preserve"><value>在这里，苔原与大海相遇，冬季的夜空被极光点亮。科拉不只是一次北上的旅行，更是一次走出日常的远行：巴伦支海拍打的悬崖、凝固在时光里的废弃村落、希比尼的冰川湖泊，以及人迹罕至、寂静如珍宝的辽阔大地。</value></data>
   <data name="HeroCta" xml:space="preserve"><value>立即预约</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>每人 12 000 卢布起</value></data>
   <data name="HeroNote" xml:space="preserve"><value>小团 8 人以内 · 摩尔曼斯克接送</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>捷里别尔卡与巴伦支海沿岸的游览路线</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>三个方向的十个景点——从大洋悬崖到波莫尔村落</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>照片即将上线</value></data>
 
@@ -33,6 +33,14 @@
   <data name="Place5Text" xml:space="preserve"><value>跟随向导远离光污染追寻极光。观赏季节：九月至次年四月。</value></data>
   <data name="Place6Title" xml:space="preserve"><value>北极苔原</value></data>
   <data name="Place6Text" xml:space="preserve"><value>沿海公路上的丘陵、苔藓与科拉半岛的全景。</value></data>
+  <data name="Place7Title" xml:space="preserve"><value>洛沃泽罗山地</value></data>
+  <data name="Place7Text" xml:space="preserve"><value>古老的山脉与萨米人的圣湖——谢伊德湖。</value></data>
+  <data name="Place8Title" xml:space="preserve"><value>地质学家山口</value></data>
+  <data name="Place8Text" xml:space="preserve"><value>乘越野车登上千米高处，俯瞰希比尼山脉与温布湖全景。</value></data>
+  <data name="Place9Title" xml:space="preserve"><value>捷尔斯基海岸</value></data>
+  <data name="Place9Text" xml:space="preserve"><value>白海之滨：科拉布尔角的紫水晶与库佐缅沙漠。</value></data>
+  <data name="Place10Title" xml:space="preserve"><value>温巴村</value></data>
+  <data name="Place10Text" xml:space="preserve"><value>五百年历史的波莫尔村落，附近有卡诺泽罗岩画。</value></data>
 
   <data name="Stat1Num" xml:space="preserve"><value>6 年</value></data>
   <data name="Stat1Label" xml:space="preserve"><value>科拉半岛导览经验</value></data>
@@ -104,8 +112,8 @@
   <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
   <data name="SentAgain" xml:space="preserve"><value>再提交一份申请</value></data>
 
-  <data name="FooterLine" xml:space="preserve"><value>捷里别尔卡 · 摩尔曼斯克州 · 科拉半岛</value></data>
-  <data name="FooterSlogan" xml:space="preserve"><value>捷里别尔卡与科拉半岛旅行团。小团出行，真实的北方，从容不迫。</value></data>
+  <data name="FooterLine" xml:space="preserve"><value>摩尔曼斯克 · 摩尔曼斯克州 · 科拉半岛</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>科拉半岛旅行团：捷里别尔卡、山地苔原与捷尔斯基海岸。小团出行，真实的北方，从容不迫。</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>栏目</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>景点</value></data>
   <data name="NavGuides" xml:space="preserve"><value>向导</value></data>
@@ -134,7 +142,67 @@
   <data name="Place5Detail2" xml:space="preserve"><value>极光变幻莫测：有时是淡淡的绿色薄雾，有时整个天空从地平线到地平线舞动着光波。请多层穿衣：追光意味着在严寒中度过几个小时，伴着热茶和三脚架。</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>通往捷里别尔卡的公路穿过真正的北极苔原：丘陵、湖泊、矮桦和成片的驯鹿苔藓。夏天苔原开满云莓和柳兰，冬天则变成一望无际的白色荒原。</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>途中我们会在全景观测点停留——从这里看到的科拉半岛，正是北方题材电影中的模样。运气好的话，还能遇见驯鹿。</value></data>
+  <data name="Place7Detail1" xml:space="preserve"><value>希比尼山以东的马蹄形山脉环抱着萨米人的圣湖——谢伊德湖。湖畔悬崖上是库伊瓦的身影，传说那是石化的巨人；四周是冰斗、峡谷和碎石坡，出产极为罕见的矿物。</value></data>
+  <data name="Place7Detail2" xml:space="preserve"><value>一日路线：经列夫达镇进山，徒步翻越山口后下到湖边。路线不难但多石，需要登山鞋。夏季是白夜，九月的苔原则燃成金红一片。</value></data>
+  <data name="Place8Detail1" xml:space="preserve"><value>地质学家山口位于洛沃泽罗山地的阿卢艾夫山旁，海拔一千余米。这里是科拉半岛最好的观景台之一：温布湖在脚下铺展，希比尼山脉如城墙般矗立在对岸。</value></data>
+  <data name="Place8Detail2" xml:space="preserve"><value>我们乘专业越野车上山——这段路本身就是一场冒险。山顶即使夏天也风大，请带保暖外套。冬季山口被大雪覆盖，晴朗的夜晚则是追寻极光的好地方。</value></data>
+  <data name="Place9Detail1" xml:space="preserve"><value>科拉半岛南岸沿白海延伸，是古老的波莫尔人地区。在科拉布尔角，紫水晶晶簇直接从岩石中露出；库佐缅村旁则是世界最北的沙漠——绵延数公里的红沙上有野马游荡。</value></data>
+  <data name="Place9Detail2" xml:space="preserve"><value>沿途有渔站、木教堂和退潮时大海退向天际的海滩。路途较远，因此捷尔斯基海岸是全天行程：清晨出发，在白海的日落中返程。</value></data>
+  <data name="Place10Detail1" xml:space="preserve"><value>温巴是科拉半岛最古老的波莫尔村落之一，已有五百多年历史。木屋矗立在同名河流的急滩之上，波莫尔生活博物馆讲述着世代靠海为生的故事。</value></data>
+  <data name="Place10Detail2" xml:space="preserve"><value>附近的卡诺泽罗湖岛屿上发现了数千幅岩画，最早可追溯到六千年前。夏天的温巴是漂流和垂钓之都——人们为鲑鱼、云莓和宁静而来。</value></data>
   <data name="ThemeToggle" xml:space="preserve"><value>切换主题</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>回到顶部</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
+  <data name="MapTitle" xml:space="preserve"><value>我们带您去哪里</value></data>
+  <data name="MapSubtitle" xml:space="preserve"><value>科拉半岛的三个方向——所有行程从摩尔曼斯克出发</value></data>
+  <data name="MapHint" xml:space="preserve"><value>点击地图上的圆点，了解各个方向</value></data>
+  <data name="MapMurmansk" xml:space="preserve"><value>摩尔曼斯克</value></data>
+  <data name="MapMurmanskNote" xml:space="preserve"><value>所有行程的起点</value></data>
+  <data name="MapClose" xml:space="preserve"><value>收起</value></data>
+  <data name="Dir1Title" xml:space="preserve"><value>捷里别尔卡与巴伦支海</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>“龙蛋”海滩、船舶墓地、入海瀑布，以及大陆尽头的极光。</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>洛沃泽罗山地</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>圣湖谢伊德湖、地质学家山口，以及千米高处的希比尼全景。</value></data>
+  <data name="Dir3Title" xml:space="preserve"><value>捷尔斯基海岸与温巴</value></data>
+  <data name="Dir3Text" xml:space="preserve"><value>科拉布尔角的紫水晶、库佐缅的沙丘和白海的波莫尔村落。</value></data>
+  <data name="MapSpot1" xml:space="preserve"><value>捷里别尔卡</value></data>
+  <data name="MapSpot2" xml:space="preserve"><value>洛沃泽罗山地</value></data>
+  <data name="MapSpot3" xml:space="preserve"><value>捷尔斯基海岸</value></data>
+  <data name="MapAirport" xml:space="preserve"><value>机场</value></data>
+  <data name="MapVarzuga" xml:space="preserve"><value>瓦尔祖加</value></data>
+  <data name="MapLabyrinth" xml:space="preserve"><value>古代石头迷宫</value></data>
+  <data name="MapSeaNorth" xml:space="preserve"><value>巴伦支海</value></data>
+  <data name="MapSeaSouth" xml:space="preserve"><value>白海</value></data>
+  <data name="MapDist1" xml:space="preserve"><value>约 120 公里</value></data>
+  <data name="MapDist2" xml:space="preserve"><value>约 160 公里</value></data>
+  <data name="MapDist3" xml:space="preserve"><value>约 350 公里</value></data>
+  <data name="Place11Title" xml:space="preserve"><value>瓦尔祖加</value></data>
+  <data name="Place11Text" xml:space="preserve"><value>十五世纪的村庄，木制圣母安息教堂不用一颗钉子建成。</value></data>
+  <data name="Place11Detail1" xml:space="preserve"><value>瓦尔祖加坐落在同名河畔，距海十五公里，是科拉半岛最古老的俄罗斯村落之一，最早记载于 1466 年。村中的奇迹是 1674 年的帐篷顶圣母安息教堂：全部用松木建造，不用一颗钉子，至今仍经受着北方的风暴。</value></data>
+  <data name="Place11Detail2" xml:space="preserve"><value>瓦尔祖加河是欧洲最好的鲑鱼河之一：每到季节，钓鱼人从全国各地赶来。途经库佐缅沙丘，那里有野化的马群在沙丘间游荡。</value></data>
+  <data name="Place12Title" xml:space="preserve"><value>石头迷宫</value></data>
+  <data name="Place12Text" xml:space="preserve"><value>白海岸边四千年前的巨石螺旋。</value></data>
+  <data name="Place12Detail1" xml:space="preserve"><value>在温巴附近的海岸上保存着一座石头迷宫——北方先民约四千年前用巨石摆出的螺旋。这样的迷宫遍布白海沿岸，用途至今成谜：捕鱼陷阱、祭祀场所，还是渔猎地图。</value></data>
+  <data name="Place12Detail2" xml:space="preserve"><value>我们沿海岸步行前往迷宫：短短的散步，一路是海湾风光，向导讲述波莫尔人和白海古文化的故事。最佳视角在山丘上——只有从高处才能看清整个螺旋。</value></data>
+  <data name="MapPeninsula" xml:space="preserve"><value>科拉半岛</value></data>
+  <data name="MapRybachy" xml:space="preserve"><value>雷巴奇半岛</value></data>
+  <data name="MapKhibiny" xml:space="preserve"><value>希比尼山脉</value></data>
+  <data name="MapKirovsk" xml:space="preserve"><value>基洛夫斯克</value></data>
+  <data name="MapTuriy" xml:space="preserve"><value>图里角</value></data>
+  <data name="MapArcticCircle" xml:space="preserve"><value>北极圈</value></data>
+  <data name="MapApatity" xml:space="preserve"><value>阿帕季特</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>地图的尽头，真正北方的开始</value></data>
+  <data name="HeroText2" xml:space="preserve"><value>我们将向您展示真实的半岛：严酷、坦诚、美得惊人。</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>科拉半岛之旅——希比尼山、捷里别尔卡、北极光、极地苔原和巴伦支海。为想见识真正北方的旅行者精心设计的路线。</value></data>
+  <data name="WhyTitle" xml:space="preserve"><value>为什么选择科拉</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>北极光</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>九月至次年四月，半岛的夜空化作一幅流动的画卷</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>希比尼山</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>古老的山脉，冰川湖泊与新手也能走的山口</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>捷里别尔卡与海岸</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>巴伦支海的冷峻之美与古老的波莫尔村落</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>极昼与极夜</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>献给想体验真正北方的人的独特经历</value></data>
+  <data name="Why5Title" xml:space="preserve"><value>萨米文化</value></data>
+  <data name="Why5Text" xml:space="preserve"><value>走近北极的原住民族</value></data>
 </root>

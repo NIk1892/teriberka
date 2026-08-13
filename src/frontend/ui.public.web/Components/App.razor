@@ -1,5 +1,7 @@
 @using System.Globalization
 @using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
 
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-theme="@Theme">
@@ -7,6 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="@L["MetaDescription"]" />
     <meta name="theme-color" content="@(Theme == "light" ? "#f2f6fc" : "#0a0f1d")" />
     @* title задаёт <PageTitle> каждой страницы через HeadOutlet *@
     <base href="/" />

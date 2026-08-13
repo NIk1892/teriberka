@@ -5,19 +5,19 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>Teriberka</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Teriberka — a tour to the edge of the world</value></data>
+  <data name="Brand" xml:space="preserve"><value>Kola North</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Kola North — tours across the Murmansk region</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>Kola Peninsula · 69° North</value></data>
-  <data name="HeroTitle" xml:space="preserve"><value>Teriberka: a journey to the edge of the world</value></data>
-  <data name="HeroText" xml:space="preserve"><value>Northern lights, the Barents Sea and the Arctic scenery of a fishing village where the ocean begins. One day — and you are at the edge of the continent.</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>The Kola Peninsula.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Here the tundra meets the ocean, and in winter the sky comes alive with the aurora. The Kola is more than a trip north — it is a step beyond the familiar: cliffs battered by the Barents Sea, abandoned villages frozen in time, glacial lakes of the Khibiny and endless expanses where people are rare and silence is a treasure.</value></data>
   <data name="HeroCta" xml:space="preserve"><value>Book the tour</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Groups up to 8 · transfer from Murmansk</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>The tour route across Teriberka and the Barents Sea coast</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Ten places across three destinations — from ocean cliffs to Pomor villages</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
 
@@ -33,6 +33,14 @@
   <data name="Place5Text" xml:space="preserve"><value>Aurora hunting with a guide, far from light pollution. Season: September to April.</value></data>
   <data name="Place6Title" xml:space="preserve"><value>Arctic tundra</value></data>
   <data name="Place6Text" xml:space="preserve"><value>Hills, moss and panoramas of the Kola Peninsula along the coastal road.</value></data>
+  <data name="Place7Title" xml:space="preserve"><value>Lovozero Tundras</value></data>
+  <data name="Place7Text" xml:space="preserve"><value>An ancient mountain range and Seydozero, the sacred lake of the Sami.</value></data>
+  <data name="Place8Title" xml:space="preserve"><value>Geologists' Pass</value></data>
+  <data name="Place8Text" xml:space="preserve"><value>A panorama of the Khibiny and Lake Umbozero from a kilometre up — by off-road trucks.</value></data>
+  <data name="Place9Title" xml:space="preserve"><value>Tersky Coast</value></data>
+  <data name="Place9Text" xml:space="preserve"><value>The White Sea shore: amethysts of Cape Korabl and the Kuzomen sands.</value></data>
+  <data name="Place10Title" xml:space="preserve"><value>Umba</value></data>
+  <data name="Place10Text" xml:space="preserve"><value>A five-century-old Pomor village and the Kanozero petroglyphs.</value></data>
 
   <data name="Stat1Num" xml:space="preserve"><value>6 years</value></data>
   <data name="Stat1Label" xml:space="preserve"><value>of tours across the Kola Peninsula</value></data>
@@ -104,8 +112,8 @@
   <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Send another request</value></data>
 
-  <data name="FooterLine" xml:space="preserve"><value>Teriberka · Murmansk region · Kola Peninsula</value></data>
-  <data name="FooterSlogan" xml:space="preserve"><value>Tours to Teriberka and across the Kola Peninsula. Small groups, the real North, no rush.</value></data>
+  <data name="FooterLine" xml:space="preserve"><value>Murmansk · Murmansk region · Kola Peninsula</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>Tours across the Kola Peninsula: Teriberka, mountain tundras and the Tersky Coast. Small groups, the real North, no rush.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Sections</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>Places</value></data>
   <data name="NavGuides" xml:space="preserve"><value>Guides</value></data>
@@ -134,7 +142,67 @@
   <data name="Place5Detail2" xml:space="preserve"><value>The aurora is capricious: sometimes a faint green haze, sometimes the whole sky dancing in waves from horizon to horizon. Dress in layers — the hunt means several hours in the cold, with hot tea and a tripod.</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>The road to Teriberka runs through true Arctic tundra: hills, lakes, dwarf birches and carpets of reindeer moss. In summer the tundra blooms with cloudberries and fireweed; in winter it becomes an endless white desert.</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>Along the way we stop at panoramic points — from here the Kola Peninsula looks just like in films about the North. With luck, we will meet reindeer.</value></data>
+  <data name="Place7Detail1" xml:space="preserve"><value>A mountain horseshoe east of the Khibiny hides Seydozero, the sacred lake of the Sami. From the cliff above the water stares Kuyva — a petrified giant, as the legend goes — surrounded by cirques, gorges and screes where some of the rarest minerals are found.</value></data>
+  <data name="Place7Detail2" xml:space="preserve"><value>A one-day route: approach via the settlement of Revda, a hike over the pass and a descent to the lake. The trail is easy but rocky — trekking shoes required. White nights in summer; in September the tundra blazes gold and crimson.</value></data>
+  <data name="Place8Detail1" xml:space="preserve"><value>Geologists' Pass is a saddle by Mount Alluaiv in the Lovozero Tundras, just over a kilometre above the sea. It offers one of the best panoramas of the Kola: Lake Umbozero spreads below, with the wall of the Khibiny rising beyond.</value></data>
+  <data name="Place8Detail2" xml:space="preserve"><value>We go up in prepared off-road trucks — the road itself is an adventure. It is windy on top even in summer, so bring a warm jacket. In winter the pass drowns in snow, and on clear nights it is a great spot to hunt the aurora.</value></data>
+  <data name="Place9Detail1" xml:space="preserve"><value>The southern shore of the Kola along the White Sea is old Pomor country. At Cape Korabl amethyst druses show right through the rocks, and near the village of Kuzomen lies the world's northernmost desert — kilometres of red sands roamed by wild horses.</value></data>
+  <data name="Place9Detail2" xml:space="preserve"><value>Along the way: fishing stations, wooden churches and beaches where the sea walks away over the horizon at low tide. It is a long drive, so the Tersky Coast is a full-day tour with an early start and a sunset over the White Sea.</value></data>
+  <data name="Place10Detail1" xml:space="preserve"><value>Umba is one of the oldest Pomor villages of the Kola Peninsula, more than five centuries old. Wooden houses stand over the rapids of the Umba river, and the museum of Pomor life keeps the stories of living off the sea for generations.</value></data>
+  <data name="Place10Detail2" xml:space="preserve"><value>Nearby lies Lake Kanozero, whose islands hold thousands of rock carvings up to six thousand years old. In summer Umba is the capital of rafting and fishing — people come for salmon, cloudberries and silence.</value></data>
   <data name="ThemeToggle" xml:space="preserve"><value>Toggle theme</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>To the top</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>To the bottom</value></data>
+  <data name="MapTitle" xml:space="preserve"><value>Where we will take you</value></data>
+  <data name="MapSubtitle" xml:space="preserve"><value>Three destinations across the Kola Peninsula — every tour starts in Murmansk</value></data>
+  <data name="MapHint" xml:space="preserve"><value>Tap a dot on the map to learn about the destination</value></data>
+  <data name="MapMurmansk" xml:space="preserve"><value>Murmansk</value></data>
+  <data name="MapMurmanskNote" xml:space="preserve"><value>all tours start here</value></data>
+  <data name="MapClose" xml:space="preserve"><value>Close</value></data>
+  <data name="Dir1Title" xml:space="preserve"><value>Teriberka and the Barents Sea</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>Dragon Eggs, the ship graveyard, a waterfall into the ocean and aurora hunting at the edge of the continent.</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>Lovozero Tundras</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>Sacred Seydozero, Geologists' Pass and Khibiny panoramas from a kilometre up.</value></data>
+  <data name="Dir3Title" xml:space="preserve"><value>Tersky Coast and Umba</value></data>
+  <data name="Dir3Text" xml:space="preserve"><value>Amethysts of Cape Korabl, the Kuzomen sands and Pomor villages by the White Sea.</value></data>
+  <data name="MapSpot1" xml:space="preserve"><value>Teriberka</value></data>
+  <data name="MapSpot2" xml:space="preserve"><value>Lovozero Tundras</value></data>
+  <data name="MapSpot3" xml:space="preserve"><value>Tersky Coast</value></data>
+  <data name="MapAirport" xml:space="preserve"><value>Airport</value></data>
+  <data name="MapVarzuga" xml:space="preserve"><value>Varzuga</value></data>
+  <data name="MapLabyrinth" xml:space="preserve"><value>Stone labyrinth</value></data>
+  <data name="MapSeaNorth" xml:space="preserve"><value>Barents Sea</value></data>
+  <data name="MapSeaSouth" xml:space="preserve"><value>White Sea</value></data>
+  <data name="MapDist1" xml:space="preserve"><value>~75 mi</value></data>
+  <data name="MapDist2" xml:space="preserve"><value>~100 mi</value></data>
+  <data name="MapDist3" xml:space="preserve"><value>~220 mi</value></data>
+  <data name="Place11Title" xml:space="preserve"><value>Varzuga</value></data>
+  <data name="Place11Text" xml:space="preserve"><value>A 15th-century village with a wooden church built without a single nail.</value></data>
+  <data name="Place11Detail1" xml:space="preserve"><value>Varzuga stands on the river of the same name, fifteen kilometres from the sea — one of the oldest Russian settlements of the Kola Peninsula, first mentioned in 1466. Its wonder is the tented Dormition church of 1674: hewn from pine without a single nail, it still withstands the northern storms.</value></data>
+  <data name="Place11Detail2" xml:space="preserve"><value>The Varzuga is one of Europe's finest salmon rivers: in season anglers come from all over the country. On the way — the Kuzomen sands, where feral horses roam the dunes.</value></data>
+  <data name="Place12Title" xml:space="preserve"><value>Stone labyrinth</value></data>
+  <data name="Place12Text" xml:space="preserve"><value>A four-thousand-year-old spiral of boulders on the White Sea shore.</value></data>
+  <data name="Place12Detail1" xml:space="preserve"><value>Near Umba the shore keeps a stone labyrinth — a spiral of boulders laid out by the ancient people of the North some four thousand years ago. Such labyrinths dot the whole White Sea coast, and their purpose is still a mystery: a fish trap, a sanctuary or a map of hunting grounds.</value></data>
+  <data name="Place12Detail2" xml:space="preserve"><value>We walk to the labyrinth along the shore: a short stroll with views over the bay and the guide's stories about the Pomors and the ancient cultures of the White Sea. The best view is from the hill — only from above does the spiral show itself whole.</value></data>
+  <data name="MapPeninsula" xml:space="preserve"><value>Kola Peninsula</value></data>
+  <data name="MapRybachy" xml:space="preserve"><value>Rybachy Peninsula</value></data>
+  <data name="MapKhibiny" xml:space="preserve"><value>Khibiny Mountains</value></data>
+  <data name="MapKirovsk" xml:space="preserve"><value>Kirovsk</value></data>
+  <data name="MapTuriy" xml:space="preserve"><value>Cape Turiy</value></data>
+  <data name="MapArcticCircle" xml:space="preserve"><value>Arctic Circle</value></data>
+  <data name="MapApatity" xml:space="preserve"><value>Apatity</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>Where the map ends — and the real North begins</value></data>
+  <data name="HeroText2" xml:space="preserve"><value>We will show you the peninsula as it is: harsh, honest and incredibly beautiful.</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Tours across the Kola Peninsula — the Khibiny, Teriberka, northern lights, polar tundra and the Barents Sea. Author-crafted routes for those who want to see the real North.</value></data>
+  <data name="WhyTitle" xml:space="preserve"><value>Why the Kola</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>Northern lights</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>from September to April the sky over the peninsula turns into a living painting</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>The Khibiny</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>ancient mountains with glacial lakes and passes that even beginners can walk</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>Teriberka and the coast</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>the stern beauty of the Barents Sea and old Pomor villages</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>Polar day and polar night</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>a unique experience for those who want to feel the true North</value></data>
+  <data name="Why5Title" xml:space="preserve"><value>Sami culture</value></data>
+  <data name="Why5Text" xml:space="preserve"><value>meeting the indigenous people of the Arctic</value></data>
 </root>

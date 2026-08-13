@@ -5,19 +5,19 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>Териберка</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Териберка — тур на край земли</value></data>
+  <data name="Brand" xml:space="preserve"><value>Кольский Север</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Кольский Север — туры по Мурманской области</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>Кольский полуостров · 69° северной широты</value></data>
-  <data name="HeroTitle" xml:space="preserve"><value>Териберка — путешествие на край земли</value></data>
-  <data name="HeroText" xml:space="preserve"><value>Северное сияние, Баренцево море и арктические пейзажи рыбацкой деревни, за которой начинается океан. Один день — и вы на краю континента.</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Кольский полуостров.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Здесь тундра встречается с океаном, а небо зимой расцвечивается северным сиянием. Кольский — это не просто путешествие на север, это выход за пределы привычного: скалы, о которые бьётся Баренцево море, заброшенные посёлки, застывшие во времени, горные озёра Хибин и бескрайние просторы, где человек — редкость, а тишина — драгоценность.</value></data>
   <data name="HeroCta" xml:space="preserve"><value>Записаться на тур</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Группы до 8 человек · трансфер из Мурманска</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>Маршрут экскурсии по Териберке и побережью Баренцева моря</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Десять мест в трёх направлениях — от океанских скал до поморских сёл</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
 
@@ -33,6 +33,14 @@
   <data name="Place5Text" xml:space="preserve"><value>Охота за авророй с гидом вдали от засветки. Сезон — с сентября по апрель.</value></data>
   <data name="Place6Title" xml:space="preserve"><value>Арктическая тундра</value></data>
   <data name="Place6Text" xml:space="preserve"><value>Сопки, мхи и панорамы Кольского полуострова по дороге вдоль побережья.</value></data>
+  <data name="Place7Title" xml:space="preserve"><value>Ловозерские тундры</value></data>
+  <data name="Place7Text" xml:space="preserve"><value>Древний горный массив и Сейдозеро — священное озеро саамов.</value></data>
+  <data name="Place8Title" xml:space="preserve"><value>Перевал Геологов</value></data>
+  <data name="Place8Text" xml:space="preserve"><value>Панорама Хибин и Умбозера с километровой высоты — едем на внедорожниках.</value></data>
+  <data name="Place9Title" xml:space="preserve"><value>Терский берег</value></data>
+  <data name="Place9Text" xml:space="preserve"><value>Побережье Белого моря: аметисты мыса Корабль и пески Кузомени.</value></data>
+  <data name="Place10Title" xml:space="preserve"><value>Умба</value></data>
+  <data name="Place10Text" xml:space="preserve"><value>Поморское село с пятивековой историей и петроглифы Канозера.</value></data>
 
   <data name="Stat1Num" xml:space="preserve"><value>6 лет</value></data>
   <data name="Stat1Label" xml:space="preserve"><value>водим туры по Кольскому</value></data>
@@ -104,8 +112,8 @@
   <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Оставить ещё одну заявку</value></data>
 
-  <data name="FooterLine" xml:space="preserve"><value>Териберка · Мурманская область · Кольский полуостров</value></data>
-  <data name="FooterSlogan" xml:space="preserve"><value>Туры в Териберку и по Кольскому полуострову. Маленькие группы, живой Север и никакой суеты.</value></data>
+  <data name="FooterLine" xml:space="preserve"><value>Мурманск · Мурманская область · Кольский полуостров</value></data>
+  <data name="FooterSlogan" xml:space="preserve"><value>Туры по Кольскому полуострову: Териберка, горные тундры и Терский берег. Маленькие группы, живой Север и никакой суеты.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Разделы</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>Места</value></data>
   <data name="NavGuides" xml:space="preserve"><value>Гиды</value></data>
@@ -134,7 +142,67 @@
   <data name="Place5Detail2" xml:space="preserve"><value>Сияние — явление капризное: иногда это лёгкая зелёная дымка, а иногда всё небо танцует волнами от горизонта до горизонта. Одевайтесь слоями: охота — это несколько часов на морозе, с горячим чаем и штативом.</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>Дорога в Териберку идёт через настоящую арктическую тундру: сопки, озёра, карликовые берёзы и ковры ягеля. Летом тундра цветёт морошкой и иван-чаем, зимой превращается в бескрайнюю белую пустыню.</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>По пути делаем остановки на панорамных точках — отсюда Кольский полуостров виден таким, каким его показывают в фильмах о Севере. Если повезёт, встретим северных оленей.</value></data>
+  <data name="Place7Detail1" xml:space="preserve"><value>Горная подкова к востоку от Хибин прячет в своей чаше Сейдозеро — священное озеро саамов. Со скалы над водой смотрит Куйва, по легенде — окаменевший великан, а вокруг лежат цирки, ущелья и осыпи, в которых находят редчайшие минералы.</value></data>
+  <data name="Place7Detail2" xml:space="preserve"><value>Маршрут на день: подъезд через посёлок Ревда, пеший выход через перевал и спуск к озеру. Тропа несложная, но каменистая — нужна треккинговая обувь. Летом здесь белые ночи, а в сентябре тундра вспыхивает золотом и багрянцем.</value></data>
+  <data name="Place8Detail1" xml:space="preserve"><value>Перевал Геологов — седловина у горы Аллуайв в Ловозерских тундрах, чуть выше километра над морем. Отсюда открывается одна из лучших панорам Кольского: внизу разлито Умбозеро, а за ним стеной встают Хибины.</value></data>
+  <data name="Place8Detail2" xml:space="preserve"><value>Поднимаемся на подготовленных внедорожниках — сама дорога уже приключение. Наверху ветрено даже летом, берите тёплую куртку. Зимой перевал утопает в снегу, а в ясные ночи отсюда охотятся за сиянием.</value></data>
+  <data name="Place9Detail1" xml:space="preserve"><value>Южный берег Кольского вдоль Белого моря — старинный поморский край. На мысе Корабль прямо из скал проступают щётки аметистов, а у деревни Кузомень раскинулась самая северная пустыня мира: километры красных песков, по которым бродят дикие лошади.</value></data>
+  <data name="Place9Detail2" xml:space="preserve"><value>По пути — рыбацкие тони, деревянные церкви и пляжи, с которых в отлив море уходит за горизонт. Дорога дальняя, поэтому Терский берег — это тур на целый день, с ранним выездом и закатом над Белым морем.</value></data>
+  <data name="Place10Detail1" xml:space="preserve"><value>Умба — одно из старейших поморских сёл Кольского полуострова, ему больше пяти веков. Деревянные дома стоят над порогами одноимённой реки, а музей поморского быта хранит истории о том, как здесь веками жили морем.</value></data>
+  <data name="Place10Detail2" xml:space="preserve"><value>Рядом — озеро Канозеро, на островах которого нашли тысячи наскальных рисунков возрастом до шести тысяч лет. Летом Умба — столица сплавов и рыбалки: сюда едут за сёмгой, морошкой и тишиной.</value></data>
   <data name="ThemeToggle" xml:space="preserve"><value>Переключить тему</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>Наверх</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
+  <data name="MapTitle" xml:space="preserve"><value>Куда мы вас отвезём</value></data>
+  <data name="MapSubtitle" xml:space="preserve"><value>Три направления по Кольскому полуострову — все туры стартуют из Мурманска</value></data>
+  <data name="MapHint" xml:space="preserve"><value>Нажмите на точку на карте, чтобы узнать о направлении</value></data>
+  <data name="MapMurmansk" xml:space="preserve"><value>Мурманск</value></data>
+  <data name="MapMurmanskNote" xml:space="preserve"><value>старт всех туров</value></data>
+  <data name="MapClose" xml:space="preserve"><value>Свернуть</value></data>
+  <data name="Dir1Title" xml:space="preserve"><value>Териберка и Баренцево море</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>Драконьи яйца, кладбище кораблей, водопад в океан и охота за сиянием на краю континента.</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>Ловозерские тундры</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>Священное Сейдозеро, перевал Геологов и панорамы Хибин с километровой высоты.</value></data>
+  <data name="Dir3Title" xml:space="preserve"><value>Терский берег и Умба</value></data>
+  <data name="Dir3Text" xml:space="preserve"><value>Аметисты мыса Корабль, пески Кузомени и поморские сёла Белого моря.</value></data>
+  <data name="MapSpot1" xml:space="preserve"><value>Териберка</value></data>
+  <data name="MapSpot2" xml:space="preserve"><value>Ловозерские тундры</value></data>
+  <data name="MapSpot3" xml:space="preserve"><value>Терский берег</value></data>
+  <data name="MapAirport" xml:space="preserve"><value>Аэропорт</value></data>
+  <data name="MapVarzuga" xml:space="preserve"><value>Варзуга</value></data>
+  <data name="MapLabyrinth" xml:space="preserve"><value>Каменный лабиринт</value></data>
+  <data name="MapSeaNorth" xml:space="preserve"><value>Баренцево море</value></data>
+  <data name="MapSeaSouth" xml:space="preserve"><value>Белое море</value></data>
+  <data name="MapDist1" xml:space="preserve"><value>~120 км</value></data>
+  <data name="MapDist2" xml:space="preserve"><value>~160 км</value></data>
+  <data name="MapDist3" xml:space="preserve"><value>~350 км</value></data>
+  <data name="Place11Title" xml:space="preserve"><value>Варзуга</value></data>
+  <data name="Place11Text" xml:space="preserve"><value>Село XV века с деревянной Успенской церковью, срубленной без единого гвоздя.</value></data>
+  <data name="Place11Detail1" xml:space="preserve"><value>Варзуга стоит на одноимённой реке в пятнадцати километрах от моря — одно из старейших русских поселений Кольского полуострова, упомянутое ещё в 1466 году. Главное чудо — шатровая Успенская церковь 1674 года: её срубили из сосны без единого гвоздя, и она до сих пор выдерживает северные шторма.</value></data>
+  <data name="Place11Detail2" xml:space="preserve"><value>Река Варзуга — одна из самых сёмужьих рек Европы: в сезон сюда съезжаются рыбаки со всей страны. По дороге — пески Кузомени, где среди дюн бродят одичавшие лошади.</value></data>
+  <data name="Place12Title" xml:space="preserve"><value>Каменный лабиринт</value></data>
+  <data name="Place12Text" xml:space="preserve"><value>Спиральная выкладка возрастом четыре тысячи лет на берегу Белого моря.</value></data>
+  <data name="Place12Detail1" xml:space="preserve"><value>На берегу близ Умбы сохранился каменный лабиринт-«вавилон» — спираль из валунов, выложенная древними жителями Севера около четырёх тысяч лет назад. Такие лабиринты встречаются по всему беломорскому побережью, а их назначение до сих пор загадка: ловушка для рыбы, святилище или карта промысловых угодий.</value></data>
+  <data name="Place12Detail2" xml:space="preserve"><value>К лабиринту идём пешком вдоль берега: короткая прогулка с видами на залив и рассказом гида о поморах и древних культурах Белого моря. Лучший ракурс — с холма: только сверху спираль видна целиком.</value></data>
+  <data name="MapPeninsula" xml:space="preserve"><value>Кольский полуостров</value></data>
+  <data name="MapRybachy" xml:space="preserve"><value>п-ов Рыбачий</value></data>
+  <data name="MapKhibiny" xml:space="preserve"><value>Хибины</value></data>
+  <data name="MapKirovsk" xml:space="preserve"><value>Кировск</value></data>
+  <data name="MapTuriy" xml:space="preserve"><value>Турий мыс</value></data>
+  <data name="MapArcticCircle" xml:space="preserve"><value>Северный полярный круг</value></data>
+  <data name="MapApatity" xml:space="preserve"><value>Апатиты</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>Край, где заканчивается карта — и начинается настоящее</value></data>
+  <data name="HeroText2" xml:space="preserve"><value>Мы покажем вам полуостров таким, какой он есть: суровым, честным и невероятно красивым.</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Экскурсии по Кольскому полуострову — Хибины, Териберка, северное сияние, полярная тундра и Баренцево море. Авторские маршруты для тех, кто хочет увидеть настоящий Север.</value></data>
+  <data name="WhyTitle" xml:space="preserve"><value>Почему Кольский</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>Северное сияние</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>с сентября по апрель небо над полуостровом превращается в живую картину</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>Хибины</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>древние горы с ледниковыми озёрами и перевалами, доступными даже новичкам</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>Териберка и побережье</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>суровая красота Баренцева моря, старинные поморские сёла</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>Полярный день и полярная ночь</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>уникальный опыт для тех, кто хочет почувствовать настоящий Север</value></data>
+  <data name="Why5Title" xml:space="preserve"><value>Саамская культура</value></data>
+  <data name="Why5Text" xml:space="preserve"><value>знакомство с коренным народом Арктики</value></data>
 </root>
