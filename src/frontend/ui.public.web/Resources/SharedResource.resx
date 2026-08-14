@@ -205,4 +205,6 @@
   <data name="Why4Text" xml:space="preserve"><value>уникальный опыт для тех, кто хочет почувствовать настоящий Север</value></data>
   <data name="Why5Title" xml:space="preserve"><value>Саамская культура</value></data>
   <data name="Why5Text" xml:space="preserve"><value>знакомство с коренным народом Арктики</value></data>
+  <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие отзывы</value></data>
+  <data name="CarouselNext" xml:space="preserve"><value>Следующие отзывы</value></data>
 </root>

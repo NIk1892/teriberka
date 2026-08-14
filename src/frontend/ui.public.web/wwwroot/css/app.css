@@ -29,6 +29,7 @@
     --star: #ffd166;
 
     --snow-rgb: 233, 238, 248;
+    --rock: #1c2946;
 
     --radius: 16px;
     --radius-sm: 10px;
@@ -58,6 +59,7 @@
 
     --shadow: 0 10px 30px rgba(23, 43, 77, .12);
     --snow-rgb: 47, 64, 94;
+    --rock: #9fb4cd;
 
     color-scheme: light;
 }
@@ -128,6 +130,7 @@ a { color: var(--accent-ice); }
     color: var(--text);
     text-decoration: none;
     letter-spacing: .3px;
+    white-space: nowrap;
 }
 
 .brand-mark {
@@ -163,6 +166,7 @@ a { color: var(--accent-ice); }
 /* переключатель языка — обычные ссылки, работают без JavaScript */
 .lang-switch {
     display: flex;
+    align-items: center;
     gap: 4px;
     padding: 4px;
     border: 1px solid var(--border);
@@ -177,6 +181,18 @@ a { color: var(--accent-ice); }
     font-weight: 600;
     color: var(--text-muted);
     text-decoration: none;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+/* узкая шапка: компактные бренд и переключатели, ничего не переносится */
+@media (max-width: 430px) {
+    .site-header .container { padding-inline: 12px; gap: 8px; }
+    .brand { font-size: .95rem; gap: 6px; }
+    .brand-mark { width: 24px; height: 24px; }
+    .theme-toggle { width: 32px; height: 32px; font-size: .95rem; }
+    .lang-switch a { padding: 3px 8px; font-size: .78rem; }
+    .header-controls { gap: 6px; }
 }
 
 .lang-switch a:hover { color: var(--text); }
@@ -1193,11 +1209,56 @@ a { color: var(--accent-ice); }
 
 [data-theme="light"] .reviews { background: var(--bg-elev-2); }
 
+/* обёртка карусели и стрелки (появляются только при работающем carousel.js) */
+.carousel-wrap { position: relative; }
+
+.car-btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    translate: 0 -50%;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.carousel-js .car-btn { display: flex; }
+
+.car-prev { left: -10px; }
+.car-next { right: -10px; }
+
+.car-btn:hover:not(:disabled) {
+    background: var(--aurora);
+    color: var(--on-accent);
+    border-color: transparent;
+}
+
+.car-btn:disabled {
+    opacity: .3;
+    cursor: default;
+}
+
+@media (max-width: 700px) {
+    /* на таче стрелки компактнее, наполовину вынесены за карточку; свайп тоже работает */
+    .car-btn { width: 36px; height: 36px; font-size: 1rem; }
+    .car-prev { left: -12px; }
+    .car-next { right: -12px; }
+}
+
 /* карусель на scroll-snap: без JavaScript, листается свайпом/колесом */
 .reviews-carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: min(85%, 340px);
+    grid-auto-columns: 100%;
     gap: 16px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -1616,20 +1677,57 @@ a { color: var(--accent-ice); }
    translate3d ровно на половину двухпериодного SVG (только transform/opacity). */
 .shore-band {
     position: relative;
+    z-index: 1;
     height: 190px;
-    overflow: hidden;
-    background: url("/img/leviathan.svg") center bottom 34px / min(560px, 86%) auto no-repeat;
 }
+
+/* левиафан лежит на дне: слой поверх воды, полупрозрачный — «просвечивает из глубины» */
+.sea-zone::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    translate: -50%;
+    z-index: 2;
+    width: min(520px, 80%);
+    height: 180px;
+    background: url("/img/leviathan.svg") center bottom / contain no-repeat;
+    opacity: .3;
+    pointer-events: none;
+}
+
+.sea-zone {
+    position: relative;
+    overflow: hidden;
+}
+
+/* слои: скалы (0) → берег с китом (1) → вода (2) → контент футера (3) */
+.rock {
+    position: absolute;
+    z-index: 0;
+}
+
+.rock .rock-body { fill: var(--rock); }
+
+.rock-left  { left: 0;  top: -14px; width: 210px; height: 400px; }
+.rock-right { right: 0; top: 0;     width: 170px; height: 370px; }
 
 .water-canvas {
     position: absolute;
     inset: 0;
+    z-index: 2;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 /* WebGL-вода запустилась — CSS-волны-фоллбек не нужны */
-.shore-band.water-live .wave { display: none; }
+.sea-zone.water-live .wave { display: none; }
+
+@media (max-width: 700px) {
+    .rock-left  { width: 110px; height: 280px; top: -10px; }
+    .rock-right { width: 88px;  height: 250px; top: 4px; }
+}
 
 .shore-band .wave {
     position: absolute;
@@ -1657,13 +1755,12 @@ a { color: var(--accent-ice); }
 /* ---------- подвал ---------- */
 
 .site-footer {
-    border-top: 1px solid var(--border);
-    background: var(--bg-elev);
+    position: relative;
+    z-index: 3;
+    background: transparent;
     color: var(--text-muted);
     font-size: .95rem;
 }
-
-[data-theme="light"] .site-footer { background: var(--bg-elev-2); }
 
 .footer-grid {
     display: grid;
@@ -1731,7 +1828,7 @@ a { color: var(--accent-ice); }
 
 @media (min-width: 800px) {
     /* в кадре три карточки + виден край четвёртой — подсказка, что лента листается */
-    .reviews-carousel { grid-auto-columns: calc((100% - 92px) / 3); }
+    .reviews-carousel { grid-auto-columns: calc((100% - 32px) / 3); }
 }
 
 @media (min-width: 960px) {
@@ -1755,15 +1852,38 @@ a { color: var(--accent-ice); }
     .map-whale { animation: none; opacity: 0; }
     .place-card, .review-card, .guide-card,
     .included-grid li, .why-grid li { animation: none; }
-    .water-canvas {
+    .sea-zone {
+    position: relative;
+    overflow: hidden;
+}
+
+/* слои: скалы (0) → берег с китом (1) → вода (2) → контент футера (3) */
+.rock {
+    position: absolute;
+    z-index: 0;
+}
+
+.rock .rock-body { fill: var(--rock); }
+
+.rock-left  { left: 0;  top: -14px; width: 210px; height: 400px; }
+.rock-right { right: 0; top: 0;     width: 170px; height: 370px; }
+
+.water-canvas {
     position: absolute;
     inset: 0;
+    z-index: 2;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 /* WebGL-вода запустилась — CSS-волны-фоллбек не нужны */
-.shore-band.water-live .wave { display: none; }
+.sea-zone.water-live .wave { display: none; }
+
+@media (max-width: 700px) {
+    .rock-left  { width: 110px; height: 280px; top: -10px; }
+    .rock-right { width: 88px;  height: 250px; top: 4px; }
+}
 
 .shore-band .wave { animation: none; }
 }

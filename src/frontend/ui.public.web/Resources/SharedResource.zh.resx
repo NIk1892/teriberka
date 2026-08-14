@@ -205,4 +205,6 @@
   <data name="Why4Text" xml:space="preserve"><value>献给想体验真正北方的人的独特经历</value></data>
   <data name="Why5Title" xml:space="preserve"><value>萨米文化</value></data>
   <data name="Why5Text" xml:space="preserve"><value>走近北极的原住民族</value></data>
+  <data name="CarouselPrev" xml:space="preserve"><value>上一页评价</value></data>
+  <data name="CarouselNext" xml:space="preserve"><value>下一页评价</value></data>
 </root>

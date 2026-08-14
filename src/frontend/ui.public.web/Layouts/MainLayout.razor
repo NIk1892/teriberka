@@ -15,21 +15,43 @@
     @Body
 </main>
 
-@* Декоративный «берег» перед футером: скелет кита из «Левиафана» у кромки воды.
-   Море — три слоя волн, плывущих навстречу друг другу (бесшовный transform-цикл). *@
+@* «Морская зона»: берег со скелетом кита + футер на фоне воды. WebGL-канвас
+   растянут на всю зону (за контентом футера), скалы по бокам обозначают
+   северный берег; CSS-волны — фоллбек без JavaScript. *@
+<div class="sea-zone">
+    <canvas class="water-canvas" aria-hidden="true"></canvas>
+
+    <svg class="rock rock-left" viewBox="0 0 200 400" preserveAspectRatio="none" aria-hidden="true">
+        <path class="rock-body" d="M 0 400 L 0 74
+            C 8 56, 24 46, 40 52
+            C 54 58, 60 74, 68 88
+            C 78 68, 94 64, 106 80
+            C 120 100, 128 132, 140 168
+            C 152 206, 170 270, 200 400 Z"/>
+    </svg>
+    <svg class="rock rock-right" viewBox="0 0 200 400" preserveAspectRatio="none" aria-hidden="true">
+        <path class="rock-body" d="M 200 400 L 200 96
+            C 192 76, 176 68, 162 76
+            C 150 84, 146 100, 138 114
+            C 128 98, 114 96, 104 112
+            C 92 132, 82 172, 70 222
+            C 58 270, 46 332, 38 400 Z"/>
+    </svg>
+
 <div class="shore-band" aria-hidden="true">
-    <canvas class="water-canvas"></canvas>
     <svg class="wave wave-1" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 Q 50 21 100 30 T 200 30 T 300 30 T 400 30 T 500 30 T 600 30 T 700 30 T 800 30 T 900 30 T 1000 30 T 1100 30 T 1200 30 L 1200 60 L 0 60 Z"/></svg>
     <svg class="wave wave-2" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 28 Q 30 16 60 28 T 120 28 T 180 28 T 240 28 T 300 28 T 360 28 T 420 28 T 480 28 T 540 28 T 600 28 T 660 28 T 720 28 T 780 28 T 840 28 T 900 28 T 960 28 T 1020 28 T 1080 28 T 1140 28 T 1200 28 L 1200 60 L 0 60 Z"/></svg>
     <svg class="wave wave-3" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 Q 18.75 22 37.5 30 T 75 30 T 112.5 30 T 150 30 T 187.5 30 T 225 30 T 262.5 30 T 300 30 T 337.5 30 T 375 30 T 412.5 30 T 450 30 T 487.5 30 T 525 30 T 562.5 30 T 600 30 T 637.5 30 T 675 30 T 712.5 30 T 750 30 T 787.5 30 T 825 30 T 862.5 30 T 900 30 T 937.5 30 T 975 30 T 1012.5 30 T 1050 30 T 1087.5 30 T 1125 30 T 1162.5 30 T 1200 30 L 1200 60 L 0 60 Z"/></svg>
 </div>
 
 <Footer />
+</div>
 
 @* Быстрая прокрутка без JavaScript: якорные ссылки + scroll-behavior: smooth.
    Кнопка «наверх» проявляется после первого экрана через CSS scroll-driven
    animation (в браузерах без поддержки просто видна всегда). *@
 <script src="/js/water.js" defer></script>
+<script src="/js/carousel.js" defer></script>
 
 <nav class="scrollers">
     <a class="scroller scroller-top" href="#top" aria-label="@L["ScrollTop"]" title="@L["ScrollTop"]">↑</a>
