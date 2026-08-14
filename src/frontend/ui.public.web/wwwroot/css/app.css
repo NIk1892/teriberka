@@ -28,6 +28,8 @@
     --danger: #ff7d7d;
     --star: #ffd166;
 
+    --snow-rgb: 233, 238, 248;
+
     --radius: 16px;
     --radius-sm: 10px;
     --shadow: 0 10px 30px rgba(3, 8, 20, .45);
@@ -55,6 +57,7 @@
     --star: #d9960a;
 
     --shadow: 0 10px 30px rgba(23, 43, 77, .12);
+    --snow-rgb: 47, 64, 94;
 
     color-scheme: light;
 }
@@ -1333,6 +1336,97 @@ a { color: var(--accent-ice); }
 
 .sent-card a { font-weight: 600; }
 
+/* ---------- метель ---------- */
+
+/* Порыв метели раз в ~40 секунд. Контейнер отвечает за «таймер» (длинный цикл
+   opacity: долгое затишье → порыв → затухание), слои ::before/::after — за движение
+   снега: бесшовный диагональный translate ровно на размер тайла паттерна.
+   Анимируются только opacity и transform — всё исполняется GPU-композитором. */
+.blizzard {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    animation: blizzard-cycle 40s linear infinite;
+    animation-delay: -18s; /* первый порыв — через несколько секунд после загрузки */
+}
+
+.blizzard::before,
+.blizzard::after {
+    content: "";
+    position: absolute;
+}
+
+/* дальний снег: мелкий, медленный */
+.blizzard::before {
+    top: -520px;
+    left: 0;
+    width: calc(100% + 720px);
+    height: calc(100% + 520px);
+    background-image:
+        radial-gradient(1.3px 1.3px at 8% 12%, rgba(var(--snow-rgb), .8), transparent 60%),
+        radial-gradient(1.1px 1.1px at 32% 44%, rgba(var(--snow-rgb), .6), transparent 60%),
+        radial-gradient(1.4px 1.4px at 55% 22%, rgba(var(--snow-rgb), .7), transparent 60%),
+        radial-gradient(1px 1px at 74% 60%, rgba(var(--snow-rgb), .5), transparent 60%),
+        radial-gradient(1.2px 1.2px at 88% 34%, rgba(var(--snow-rgb), .65), transparent 60%),
+        radial-gradient(1px 1px at 44% 78%, rgba(var(--snow-rgb), .55), transparent 60%),
+        radial-gradient(1.3px 1.3px at 18% 66%, rgba(var(--snow-rgb), .6), transparent 60%),
+        radial-gradient(1.1px 1.1px at 64% 90%, rgba(var(--snow-rgb), .5), transparent 60%);
+    background-size: 720px 520px;
+    animation: snow-far 7s linear infinite;
+}
+
+/* ближний снег: крупнее, быстрее */
+.blizzard::after {
+    top: -360px;
+    left: 0;
+    width: calc(100% + 500px);
+    height: calc(100% + 360px);
+    background-image:
+        radial-gradient(2.4px 2.4px at 12% 20%, rgba(var(--snow-rgb), .9), transparent 60%),
+        radial-gradient(2px 2px at 38% 56%, rgba(var(--snow-rgb), .7), transparent 60%),
+        radial-gradient(2.8px 2.8px at 60% 12%, rgba(var(--snow-rgb), .8), transparent 60%),
+        radial-gradient(2.2px 2.2px at 82% 44%, rgba(var(--snow-rgb), .75), transparent 60%),
+        radial-gradient(1.8px 1.8px at 26% 84%, rgba(var(--snow-rgb), .6), transparent 60%),
+        radial-gradient(2.5px 2.5px at 70% 74%, rgba(var(--snow-rgb), .7), transparent 60%);
+    background-size: 500px 360px;
+    animation: snow-near 3.4s linear infinite;
+}
+
+/* сдвиг ровно на один тайл паттерна → бесшовная диагональная позёмка ↙ */
+@keyframes snow-far {
+    to { transform: translate3d(-720px, 520px, 0); }
+}
+
+@keyframes snow-near {
+    to { transform: translate3d(-500px, 360px, 0); }
+}
+
+[data-theme="light"] .blizzard { animation-name: blizzard-cycle-light; }
+
+@keyframes blizzard-cycle-light {
+    0%   { opacity: 0; }
+    55%  { opacity: 0; }
+    60%  { opacity: .95; }
+    72%  { opacity: .75; }
+    82%  { opacity: 1; }
+    92%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* «таймер»: затишье → порыв ~14 секунд → затухание */
+@keyframes blizzard-cycle {
+    0%   { opacity: 0; }
+    55%  { opacity: 0; }
+    60%  { opacity: .55; }
+    72%  { opacity: .4; }
+    82%  { opacity: .6; }
+    92%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
 /* ---------- кнопки быстрой прокрутки ---------- */
 
 /* Якорные ссылки: «↑» — к началу (#top), «↓» — к футеру (#page-bottom).
@@ -1488,4 +1582,5 @@ a { color: var(--accent-ice); }
     .hero::after { animation: none; }
     .place-card { transition: none; }
     .map-dot::after { animation: none; }
+    .blizzard { display: none; }
 }
