@@ -350,6 +350,37 @@ a { color: var(--accent-ice); }
     font-size: .9rem;
 }
 
+.hero-facts {
+    display: grid;
+    gap: 8px;
+    max-width: 560px;
+    margin: 24px auto 28px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.hero-facts li {
+    position: relative;
+    padding-left: 28px;
+    color: var(--text);
+    font-size: .94rem;
+}
+
+.hero-facts li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+.hero-trust {
+    color: var(--accent);
+    font-size: .83rem;
+    font-weight: 600;
+}
+
 /* цифры-соцдоказательства под hero */
 .hero-stats {
     display: grid;
@@ -474,6 +505,149 @@ a { color: var(--accent-ice); }
 .section-head p {
     margin: 0;
     color: var(--text-muted);
+}
+
+/* ---------- быстрый выбор других направлений ---------- */
+
+.route-picker {
+    padding-block: 42px;
+    border-block: 1px solid var(--border);
+    background: var(--bg-elev);
+}
+
+.route-picker-head {
+    max-width: 680px;
+    margin-bottom: 24px;
+}
+
+.route-picker-head > span {
+    color: var(--accent);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.route-picker-head h2 {
+    margin: 7px 0 6px;
+    font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+}
+
+.route-picker-head p {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+.alt-routes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.alt-route {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 190px;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background:
+        radial-gradient(420px 180px at 100% 0, color-mix(in srgb, var(--accent-2) 12%, transparent), transparent 70%),
+        var(--bg);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform .18s ease, border-color .18s ease;
+}
+
+.alt-route:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+}
+
+.alt-route-type {
+    margin-bottom: 12px;
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.alt-route strong {
+    margin-bottom: 7px;
+    font-size: 1.18rem;
+}
+
+.alt-route-text {
+    color: var(--text-muted);
+    font-size: .92rem;
+}
+
+.alt-route-more {
+    margin-top: auto;
+    padding-top: 20px;
+    color: var(--accent);
+    font-size: .88rem;
+    font-weight: 700;
+}
+
+/* ---------- программа дня ---------- */
+
+.itinerary {
+    background: color-mix(in srgb, var(--bg-elev) 48%, transparent);
+}
+
+.itinerary-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.itinerary-list li {
+    display: flex;
+    gap: 18px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+}
+
+.itinerary-num {
+    flex: none;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--accent);
+}
+
+.itinerary-list strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.04rem;
+}
+
+.itinerary-list p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .94rem;
+}
+
+.section-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.section-cta span {
+    color: var(--text-muted);
+    font-size: .88rem;
 }
 
 /* ---------- почему Кольский ---------- */
@@ -1137,6 +1311,70 @@ a { color: var(--accent-ice); }
     font-weight: 800;
 }
 
+/* ---------- сезонность и практическая информация ---------- */
+
+.seasons-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.season-card {
+    padding: 24px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+}
+
+.season-card h3 {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: 1.08rem;
+}
+
+.season-card p,
+.season-note {
+    color: var(--text-muted);
+}
+
+.season-card p { margin: 0; }
+
+.season-note {
+    margin: 20px 0 0;
+    padding: 14px 18px;
+    border-left: 3px solid var(--star);
+    background: color-mix(in srgb, var(--star) 8%, transparent);
+    font-size: .92rem;
+}
+
+.faq-list {
+    display: grid;
+    gap: 12px;
+    max-width: 860px;
+}
+
+.faq-list details {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-elev);
+}
+
+.faq-list summary {
+    padding: 18px 52px 18px 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.faq-list details[open] summary {
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-list p {
+    margin: 0;
+    padding: 16px 20px 20px;
+    color: var(--text-muted);
+}
+
 /* ---------- гиды ---------- */
 
 .guides-grid {
@@ -1352,9 +1590,28 @@ a { color: var(--accent-ice); }
 
 .apply-card > h2 { font-size: 1.6rem; }
 
+.apply-kicker {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
 .apply-lead {
-    margin: 0 0 24px;
+    margin: 0 0 16px;
     color: var(--text-muted);
+}
+
+.apply-points {
+    display: grid;
+    gap: 7px;
+    margin: 0 0 26px;
+    padding-left: 22px;
+    color: var(--text-muted);
+    font-size: .9rem;
 }
 
 .form-grid {
@@ -1557,6 +1814,8 @@ a { color: var(--accent-ice); }
     .place-card,
     .review-card,
     .guide-card,
+    .itinerary-list li,
+    .season-card,
     .included-grid li,
     .why-grid li {
         animation: card-rise linear backwards;
@@ -1626,7 +1885,7 @@ a { color: var(--accent-ice); }
     position: fixed;
     right: 16px;
     bottom: 16px;
-    z-index: 20;
+    z-index: 40;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -1698,6 +1957,7 @@ a { color: var(--accent-ice); }
 
 .sea-zone {
     position: relative;
+    z-index: 31; /* выше метели (30): снег падает «в море», а не сыплется в толще воды */
     overflow: hidden;
 }
 
@@ -1811,6 +2071,8 @@ a { color: var(--accent-ice); }
     .places-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-stats { grid-template-columns: repeat(3, 1fr); }
     .included-grid { grid-template-columns: repeat(2, 1fr); }
+    .seasons-grid { grid-template-columns: repeat(3, 1fr); }
+    .alt-routes { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 680px) {
@@ -1819,6 +2081,9 @@ a { color: var(--accent-ice); }
 }
 
 @media (min-width: 700px) {
+    .itinerary-list { grid-template-columns: repeat(2, 1fr); }
+    .itinerary-list li:last-child { grid-column: 1 / -1; }
+    .section-cta { flex-direction: row; align-items: center; }
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid .form-errors,
     .form-grid .form-submit { grid-column: 1 / -1; }
@@ -1850,10 +2115,11 @@ a { color: var(--accent-ice); }
     .shooting-star { display: none; }
     .btn-pulse::after { animation: none; }
     .map-whale { animation: none; opacity: 0; }
-    .place-card, .review-card, .guide-card,
+    .place-card, .review-card, .guide-card, .alt-route, .itinerary-list li, .season-card,
     .included-grid li, .why-grid li { animation: none; }
     .sea-zone {
     position: relative;
+    z-index: 31; /* выше метели (30): снег падает «в море», а не сыплется в толще воды */
     overflow: hidden;
 }
 
