@@ -2011,7 +2011,8 @@ a { color: var(--accent-ice); }
 
 .orca-svg { display: block; width: 100%; height: 100%; }
 
-/* хвост качается вокруг стебля (origin — левый край собственного bbox);
+/* хвост ходит вбок «по-рыбьи»: в профиле боковой взмах выглядит как
+   укорачивание — scaleX к суставу (origin — левый край собственного bbox);
    разные задержки, чтобы стая не махала синхронно */
 .orca-tail {
     transform-box: fill-box;
@@ -2023,8 +2024,8 @@ a { color: var(--accent-ice); }
 .orca-3 .orca-tail { animation-delay: -1.1s; }
 
 @keyframes orca-tail {
-    from { transform: rotate(11deg); }
-    to   { transform: rotate(-11deg); }
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(.58); }
 }
 
 /* глубина: чем меньше и прозрачнее, тем дальше; задержки строят «клин» стаи */
