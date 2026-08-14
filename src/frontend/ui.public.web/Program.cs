@@ -108,14 +108,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// Страницы отдаются без JavaScript, поэтому политика может быть предельно жёсткой:
-// скрипты запрещены полностью, стили и картинки — только со своего origin,
-// отправка форм — только на свой origin, встраивание в iframe запрещено.
+// Жёсткая CSP: скрипты и стили — только собственные файлы (inline-скрипты и
+// inline-стили запрещены), картинки — свои и data:, отправка форм — только на свой
+// origin, встраивание в iframe запрещено. Скриптов на сайте минимум — сейчас это
+// только water.js (WebGL-вода у футера).
 app.Use(async (context, next) =>
 {
     var headers = context.Response.Headers;
     headers["Content-Security-Policy"] =
-        "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; " +
+        "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; " +
         "form-action 'self'; base-uri 'self'; frame-ancestors 'none'";
     headers["X-Content-Type-Options"] = "nosniff";
     headers["X-Frame-Options"] = "DENY";

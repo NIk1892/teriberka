@@ -414,6 +414,18 @@ a { color: var(--accent-ice); }
 
 .parallax-band.band-2 { background-position: center 80%; }
 
+/* светлая тема: дневной пейзаж вместо ночного, тёмный текст */
+[data-theme="light"] .parallax-band {
+    background-image:
+        linear-gradient(rgba(242, 246, 252, .2), rgba(242, 246, 252, .2)),
+        url("/img/parallax-light.svg");
+}
+
+[data-theme="light"] .parallax-band p {
+    color: #14213b;
+    text-shadow: 0 2px 16px rgba(242, 246, 252, .85);
+}
+
 .parallax-band p {
     margin: 0 auto;
     max-width: 26ch;
@@ -570,6 +582,27 @@ a { color: var(--accent-ice); }
     opacity: .7;
 }
 
+
+/* хвост кита: показывается из Баренцева моря раз в ~26 секунд */
+.map-whale path {
+    fill: var(--text-muted);
+    opacity: .75;
+}
+
+.map-whale {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    opacity: 0;
+    animation: whale-tail 26s ease-in-out infinite;
+    animation-delay: -10s;
+}
+
+@keyframes whale-tail {
+    0%, 88%   { opacity: 0; transform: translateY(10px) rotate(0deg); }
+    90%       { opacity: .8; transform: translateY(2px) rotate(-4deg); }
+    93%       { opacity: .8; transform: translateY(0) rotate(6deg); }
+    96%, 100% { opacity: 0; transform: translateY(8px) rotate(0deg); }
+}
 
 .map-city-dot {
     fill: var(--star);
@@ -905,12 +938,15 @@ a { color: var(--accent-ice); }
     padding: 3px 10px;
     border-radius: 999px;
     background: rgba(6, 12, 26, .72);
-    color: var(--text-muted);
+    color: #94a5be;
     font-size: .72rem;
     font-weight: 600;
     letter-spacing: .4px;
     text-transform: uppercase;
 }
+
+/* заглушки-«авроры» тёмные в обеих темах, поэтому бейдж остаётся тёмным;
+   светлый вариант включится вместе с настоящими фотографиями */
 
 .place-body {
     display: block;
@@ -1336,6 +1372,33 @@ a { color: var(--accent-ice); }
 
 .sent-card a { font-weight: 600; }
 
+/* ---------- полоска прогресса прокрутки ---------- */
+
+/* Аврора-линия наверху растёт по мере прокрутки — CSS scroll-driven animation.
+   В браузерах без поддержки полоска просто не показывается. */
+.scroll-progress { display: none; }
+
+@supports (animation-timeline: scroll()) {
+    .scroll-progress {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        z-index: 40;
+        background: var(--aurora);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        animation: scroll-progress-grow linear both;
+        animation-timeline: scroll();
+    }
+
+    @keyframes scroll-progress-grow {
+        to { transform: scaleX(1); }
+    }
+}
+
 /* ---------- метель ---------- */
 
 /* Порыв метели раз в ~40 секунд. Контейнер отвечает за «таймер» (длинный цикл
@@ -1427,6 +1490,73 @@ a { color: var(--accent-ice); }
     100% { opacity: 0; }
 }
 
+/* ---------- всплытие карточек при прокрутке ---------- */
+
+@supports (animation-timeline: view()) {
+    .place-card,
+    .review-card,
+    .guide-card,
+    .included-grid li,
+    .why-grid li {
+        animation: card-rise linear backwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 55%;
+    }
+
+    @keyframes card-rise {
+        from { opacity: 0; transform: translateY(26px); }
+        to   { opacity: 1; transform: none; }
+    }
+}
+
+/* ---------- падающая звезда ---------- */
+
+/* раз в ~24 секунды по небу hero прочерчивается метеор; только transform/opacity */
+.shooting-star {
+    position: absolute;
+    top: 16%;
+    right: 6%;
+    width: 130px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(270deg, rgba(var(--snow-rgb), .95), transparent);
+    rotate: -32deg;
+    opacity: 0;
+    pointer-events: none;
+    animation: shooting-star 24s linear infinite;
+    animation-delay: -14s;
+}
+
+@keyframes shooting-star {
+    0%, 91% { opacity: 0; transform: translate3d(0, 0, 0); }
+    92%     { opacity: .9; }
+    96%     { opacity: 0; transform: translate3d(-46vw, 29vw, 0); }
+    100%    { opacity: 0; transform: translate3d(-46vw, 29vw, 0); }
+}
+
+/* ---------- пульс CTA ---------- */
+
+.btn { position: relative; }
+
+/* редкое расходящееся кольцо у главной кнопки — как пульс маркеров карты */
+.btn-pulse::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 999px;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: cta-ping 6s ease-out infinite;
+}
+
+@keyframes cta-ping {
+    0%, 72% { opacity: 0; transform: scale(1); }
+    76%     { opacity: .65; }
+    92%     { opacity: 0; transform: scale(1.28); }
+    100%    { opacity: 0; transform: scale(1.28); }
+}
+
 /* ---------- кнопки быстрой прокрутки ---------- */
 
 /* Якорные ссылки: «↑» — к началу (#top), «↓» — к футеру (#page-bottom).
@@ -1481,11 +1611,47 @@ a { color: var(--accent-ice); }
 
 /* ---------- «берег» перед футером ---------- */
 
-/* Полоса с силуэтом скелета кита. Скелету отведено собственное пустое место,
-   чтобы он читался целиком и не спорил с контентом. */
+/* Полоса с силуэтом скелета кита у кромки воды. Море — три слоя волн:
+   разная высота, скорость и направление дают живую зыбь; движение — бесшовный
+   translate3d ровно на половину двухпериодного SVG (только transform/opacity). */
 .shore-band {
-    height: 150px;
-    background: url("/img/leviathan.svg") center bottom / min(560px, 86%) auto no-repeat;
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+    background: url("/img/leviathan.svg") center bottom 34px / min(560px, 86%) auto no-repeat;
+}
+
+.water-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* WebGL-вода запустилась — CSS-волны-фоллбек не нужны */
+.shore-band.water-live .wave { display: none; }
+
+.shore-band .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    animation: wave-roll linear infinite;
+}
+
+.shore-band .wave path { fill: var(--accent-ice); }
+
+.wave-1 { height: 62px; opacity: .14; animation-duration: 20s; }
+.wave-2 { height: 46px; opacity: .22; animation-duration: 12s; animation-direction: reverse; }
+.wave-3 { height: 32px; opacity: .34; animation-duration: 8s; }
+
+/* сдвиг на -50% = целое число периодов волны → бесшовно; лёгкая вертикальная качка */
+@keyframes wave-roll {
+    0%   { transform: translate3d(0, 0, 0); }
+    25%  { transform: translate3d(-12.5%, 3px, 0); }
+    50%  { transform: translate3d(-25%, 0, 0); }
+    75%  { transform: translate3d(-37.5%, -3px, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
 }
 
 /* ---------- подвал ---------- */
@@ -1583,4 +1749,21 @@ a { color: var(--accent-ice); }
     .place-card { transition: none; }
     .map-dot::after { animation: none; }
     .blizzard { display: none; }
+    .scroll-progress { display: none; }
+    .shooting-star { display: none; }
+    .btn-pulse::after { animation: none; }
+    .map-whale { animation: none; opacity: 0; }
+    .place-card, .review-card, .guide-card,
+    .included-grid li, .why-grid li { animation: none; }
+    .water-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* WebGL-вода запустилась — CSS-волны-фоллбек не нужны */
+.shore-band.water-live .wave { display: none; }
+
+.shore-band .wave { animation: none; }
 }
