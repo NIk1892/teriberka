@@ -6,18 +6,18 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>Kola North</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Kola North — tours across the Murmansk region</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — Kola North</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>Kola Peninsula · 69° North</value></data>
-  <data name="HeroTitle" xml:space="preserve"><value>The Kola Peninsula.</value></data>
-  <data name="HeroText" xml:space="preserve"><value>Here the tundra meets the ocean, and in winter the sky comes alive with the aurora. The Kola is more than a trip north — it is a step beyond the familiar: cliffs battered by the Barents Sea, abandoned villages frozen in time, glacial lakes of the Khibiny and endless expanses where people are rare and silence is a treasure.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Book the tour</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>One-day tour from Murmansk</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Teriberka in one day.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Check available dates</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
-  <data name="HeroNote" xml:space="preserve"><value>Groups up to 8 · transfer from Murmansk</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>Ten places across three destinations — from ocean cliffs to Pomor villages</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Teriberka is our flagship route. Below are two more destinations for your next Kola journey.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
 
@@ -101,13 +101,13 @@
   <data name="Review9From" xml:space="preserve"><value>Shanghai</value></data>
   <data name="Review9Text" xml:space="preserve"><value>A dream came true — standing on the shore of the Arctic Ocean. It was very handy that I could book on the site in Chinese.</value></data>
 
-  <data name="FormTitle" xml:space="preserve"><value>Book the tour</value></data>
-  <data name="FormText" xml:space="preserve"><value>Fill in the form — we will call you back, pick a date and answer your questions. No prepayment.</value></data>
+  <data name="FormTitle" xml:space="preserve"><value>Let's find your travel date</value></data>
+  <data name="FormText" xml:space="preserve"><value>Leave your details and we will confirm available dates, group format and final price. The request is non-binding.</value></data>
   <data name="FieldName" xml:space="preserve"><value>Name</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>Number of people</value></data>
   <data name="FieldDate" xml:space="preserve"><value>Arrival date</value></data>
-  <data name="Submit" xml:space="preserve"><value>Send request</value></data>
+  <data name="Submit" xml:space="preserve"><value>Check available dates</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
   <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Send another request</value></data>
@@ -115,7 +115,10 @@
   <data name="FooterLine" xml:space="preserve"><value>Murmansk · Murmansk region · Kola Peninsula</value></data>
   <data name="FooterSlogan" xml:space="preserve"><value>Tours across the Kola Peninsula: Teriberka, mountain tundras and the Tersky Coast. Small groups, the real North, no rush.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Sections</value></data>
+  <data name="NavItinerary" xml:space="preserve"><value>Day programme</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>Places</value></data>
+  <data name="NavSeasons" xml:space="preserve"><value>Seasons</value></data>
+  <data name="NavPractical" xml:space="preserve"><value>Questions</value></data>
   <data name="NavGuides" xml:space="preserve"><value>Guides</value></data>
   <data name="NavReviews" xml:space="preserve"><value>Reviews</value></data>
   <data name="NavApply" xml:space="preserve"><value>Book now</value></data>
@@ -191,20 +194,67 @@
   <data name="MapTuriy" xml:space="preserve"><value>Cape Turiy</value></data>
   <data name="MapArcticCircle" xml:space="preserve"><value>Arctic Circle</value></data>
   <data name="MapApatity" xml:space="preserve"><value>Apatity</value></data>
-  <data name="HeroTitleSub" xml:space="preserve"><value>Where the map ends — and the real North begins</value></data>
-  <data name="HeroText2" xml:space="preserve"><value>We will show you the peninsula as it is: harsh, honest and incredibly beautiful.</value></data>
-  <data name="MetaDescription" xml:space="preserve"><value>Tours across the Kola Peninsula — the Khibiny, Teriberka, northern lights, polar tundra and the Barents Sea. Author-crafted routes for those who want to see the real North.</value></data>
-  <data name="WhyTitle" xml:space="preserve"><value>Why the Kola</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>Northern lights</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>from September to April the sky over the peninsula turns into a living painting</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>The Khibiny</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>ancient mountains with glacial lakes and passes that even beginners can walk</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>Teriberka and the coast</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>the stern beauty of the Barents Sea and old Pomor villages</value></data>
-  <data name="Why4Title" xml:space="preserve"><value>Polar day and polar night</value></data>
-  <data name="Why4Text" xml:space="preserve"><value>a unique experience for those who want to feel the true North</value></data>
-  <data name="Why5Title" xml:space="preserve"><value>Sami culture</value></data>
-  <data name="Why5Text" xml:space="preserve"><value>meeting the indigenous people of the Arctic</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>From Arctic tundra to the shore of the Arctic Ocean</value></data>
+  <data name="HeroText2" xml:space="preserve"><value>We pick you up in Murmansk, guide you through the route and bring you back in the evening.</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>One-day Teriberka tour from Murmansk: the Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard. Transfer and guide included.</value></data>
+  <data name="WhyTitle" xml:space="preserve"><value>Why travel with us</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>Pickup in Murmansk</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>no need to find a car or navigate the road to Teriberka</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>Small groups</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>up to 8 people means a comfortable pace and no waiting for a large coach</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>Key sights in one day</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>a ready-made route with no planning required on your part</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>Clear programme</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>we explain what is included and what to bring before the trip</value></data>
+  <data name="Why5Title" xml:space="preserve"><value>No prepayment to enquire</value></data>
+  <data name="Why5Text" xml:space="preserve"><value>first we confirm the date, weather and details; then you make your decision</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous reviews</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next reviews</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>Guide and all main route stops</value></data>
+  <data name="HeroFact3" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
+  <data name="HeroTrust" xml:space="preserve"><value>No prepayment or obligation to enquire</value></data>
+  <data name="OtherRoutesKicker" xml:space="preserve"><value>Beyond Teriberka</value></data>
+  <data name="OtherRoutesTitle" xml:space="preserve"><value>Two more ways to explore the Kola</value></data>
+  <data name="OtherRoutesText" xml:space="preserve"><value>If you have already seen Teriberka or want a different North, head into the mountains or towards the White Sea.</value></data>
+  <data name="OtherRoute2Type" xml:space="preserve"><value>Mountain route</value></data>
+  <data name="OtherRoute3Type" xml:space="preserve"><value>White Sea coast</value></data>
+  <data name="OtherRoutesCta" xml:space="preserve"><value>Explore destination →</value></data>
+  <data name="ItineraryTitle" xml:space="preserve"><value>Your day in Teriberka</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>Meet in Murmansk</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>We collect the group at the agreed point and set off through the Arctic tundra.</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>Old Teriberka</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>Walk by the ship graveyard and learn how the settlement by the Barents Sea has changed.</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>Ocean coast</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>Visit Dragon Eggs beach and take in open views across the Barents Sea.</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>Batareysky waterfall</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>Walk across the tundra to the waterfall dropping from the cliffs towards the sea.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Return to Murmansk</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
+  <data name="MidCta" xml:space="preserve"><value>Find a travel date</value></data>
+  <data name="MidCtaNote" xml:space="preserve"><value>We will confirm route availability and the price for your group</value></data>
+  <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
+  <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
+  <data name="Season1Title" xml:space="preserve"><value>September — April</value></data>
+  <data name="Season1Text" xml:space="preserve"><value>Aurora season, snowy tundra and short daylight hours. Extra-warm clothing is essential.</value></data>
+  <data name="Season2Title" xml:space="preserve"><value>May — August</value></data>
+  <data name="Season2Text" xml:space="preserve"><value>Midnight sun, longer walks, open trails and vivid tundra colours.</value></data>
+  <data name="Season3Title" xml:space="preserve"><value>Late August — October</value></data>
+  <data name="Season3Text" xml:space="preserve"><value>Golden tundra, autumn storms and dark skies returning for aurora hunting.</value></data>
+  <data name="SeasonNote" xml:space="preserve"><value>The northern lights, whales and good weather are natural phenomena and cannot be guaranteed.</value></data>
+  <data name="PracticalTitle" xml:space="preserve"><value>Before you travel</value></data>
+  <data name="PracticalSubtitle" xml:space="preserve"><value>Quick answers to the questions travellers ask most often before Teriberka.</value></data>
+  <data name="Faq1Question" xml:space="preserve"><value>What if the road closes because of the weather?</value></data>
+  <data name="Faq1Answer" xml:space="preserve"><value>Safety comes before the programme. We will contact you and offer a new date or another available route.</value></data>
+  <data name="Faq2Question" xml:space="preserve"><value>What should I wear?</value></data>
+  <data name="Faq2Answer" xml:space="preserve"><value>Coastal weather changes quickly. Bring a windproof outer layer, warm layers and shoes with non-slip soles.</value></data>
+  <data name="Faq3Question" xml:space="preserve"><value>Can children join?</value></data>
+  <data name="Faq3Answer" xml:space="preserve"><value>Yes, but the route takes a full day and includes walks over rocky terrain. Tell the operator your child's age.</value></data>
+  <data name="Faq4Question" xml:space="preserve"><value>Do I pay when I submit the form?</value></data>
+  <data name="Faq4Answer" xml:space="preserve"><value>No. We first confirm the date, programme and final price; then you decide whether to book.</value></data>
+  <data name="FormKicker" xml:space="preserve"><value>Next step</value></data>
+  <data name="FormPoint1" xml:space="preserve"><value>Check whether your chosen date is available</value></data>
+  <data name="FormPoint2" xml:space="preserve"><value>Calculate the final price for your group</value></data>
+  <data name="FormPoint3" xml:space="preserve"><value>Answer questions about weather, clothing and the route</value></data>
 </root>

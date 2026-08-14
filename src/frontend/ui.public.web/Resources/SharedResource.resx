@@ -6,18 +6,18 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>Кольский Север</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Кольский Север — туры по Мурманской области</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Экскурсия в Териберку из Мурманска — Кольский Север</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>Кольский полуостров · 69° северной широты</value></data>
-  <data name="HeroTitle" xml:space="preserve"><value>Кольский полуостров.</value></data>
-  <data name="HeroText" xml:space="preserve"><value>Здесь тундра встречается с океаном, а небо зимой расцвечивается северным сиянием. Кольский — это не просто путешествие на север, это выход за пределы привычного: скалы, о которые бьётся Баренцево море, заброшенные посёлки, застывшие во времени, горные озёра Хибин и бескрайние просторы, где человек — редкость, а тишина — драгоценность.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Записаться на тур</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>Однодневная экскурсия из Мурманска</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Териберка за один день.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей — главные места Териберки в одной поездке.</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Узнать свободные даты</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
-  <data name="HeroNote" xml:space="preserve"><value>Группы до 8 человек · трансфер из Мурманска</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>Полный день · группа до 8 человек</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>Десять мест в трёх направлениях — от океанских скал до поморских сёл</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Териберка — наш главный маршрут. Ниже — ещё два направления для следующего путешествия по Кольскому.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
 
@@ -101,13 +101,13 @@
   <data name="Review9From" xml:space="preserve"><value>Шанхай</value></data>
   <data name="Review9Text" xml:space="preserve"><value>Сбылась мечта — постоять на берегу Северного Ледовитого океана. Очень удобно, что записаться можно было на сайте по-китайски.</value></data>
 
-  <data name="FormTitle" xml:space="preserve"><value>Оставить заявку</value></data>
-  <data name="FormText" xml:space="preserve"><value>Заполните форму — мы перезвоним, подберём дату и ответим на вопросы. Без предоплаты.</value></data>
+  <data name="FormTitle" xml:space="preserve"><value>Подберём дату поездки</value></data>
+  <data name="FormText" xml:space="preserve"><value>Оставьте контакты — уточним свободные даты, состав группы и итоговую стоимость. Заявка ни к чему не обязывает.</value></data>
   <data name="FieldName" xml:space="preserve"><value>Имя</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Телефон</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>Количество человек</value></data>
   <data name="FieldDate" xml:space="preserve"><value>Дата приезда</value></data>
-  <data name="Submit" xml:space="preserve"><value>Отправить заявку</value></data>
+  <data name="Submit" xml:space="preserve"><value>Узнать свободные даты</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
   <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Оставить ещё одну заявку</value></data>
@@ -115,7 +115,10 @@
   <data name="FooterLine" xml:space="preserve"><value>Мурманск · Мурманская область · Кольский полуостров</value></data>
   <data name="FooterSlogan" xml:space="preserve"><value>Туры по Кольскому полуострову: Териберка, горные тундры и Терский берег. Маленькие группы, живой Север и никакой суеты.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Разделы</value></data>
+  <data name="NavItinerary" xml:space="preserve"><value>Программа дня</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>Места</value></data>
+  <data name="NavSeasons" xml:space="preserve"><value>Сезоны</value></data>
+  <data name="NavPractical" xml:space="preserve"><value>Вопросы</value></data>
   <data name="NavGuides" xml:space="preserve"><value>Гиды</value></data>
   <data name="NavReviews" xml:space="preserve"><value>Отзывы</value></data>
   <data name="NavApply" xml:space="preserve"><value>Записаться</value></data>
@@ -191,20 +194,67 @@
   <data name="MapTuriy" xml:space="preserve"><value>Турий мыс</value></data>
   <data name="MapArcticCircle" xml:space="preserve"><value>Северный полярный круг</value></data>
   <data name="MapApatity" xml:space="preserve"><value>Апатиты</value></data>
-  <data name="HeroTitleSub" xml:space="preserve"><value>Край, где заканчивается карта — и начинается настоящее</value></data>
-  <data name="HeroText2" xml:space="preserve"><value>Мы покажем вам полуостров таким, какой он есть: суровым, честным и невероятно красивым.</value></data>
-  <data name="MetaDescription" xml:space="preserve"><value>Экскурсии по Кольскому полуострову — Хибины, Териберка, северное сияние, полярная тундра и Баренцево море. Авторские маршруты для тех, кто хочет увидеть настоящий Север.</value></data>
-  <data name="WhyTitle" xml:space="preserve"><value>Почему Кольский</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>Северное сияние</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>с сентября по апрель небо над полуостровом превращается в живую картину</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>Хибины</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>древние горы с ледниковыми озёрами и перевалами, доступными даже новичкам</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>Териберка и побережье</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>суровая красота Баренцева моря, старинные поморские сёла</value></data>
-  <data name="Why4Title" xml:space="preserve"><value>Полярный день и полярная ночь</value></data>
-  <data name="Why4Text" xml:space="preserve"><value>уникальный опыт для тех, кто хочет почувствовать настоящий Север</value></data>
-  <data name="Why5Title" xml:space="preserve"><value>Саамская культура</value></data>
-  <data name="Why5Text" xml:space="preserve"><value>знакомство с коренным народом Арктики</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>От тундры до берега Северного Ледовитого океана</value></data>
+  <data name="HeroText2" xml:space="preserve"><value>Заберём вас в Мурманске, проведём по маршруту и вечером привезём обратно.</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей. Трансфер и гид включены.</value></data>
+  <data name="WhyTitle" xml:space="preserve"><value>Почему удобно ехать с нами</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>Заберём в Мурманске</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>не нужно искать машину и разбираться с дорогой до Териберки</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>Небольшая группа</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>до 8 человек — легче держать комфортный темп и не ждать большой автобус</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>Главные места за день</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>маршрут собран так, чтобы увидеть Териберку без самостоятельной подготовки</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>Понятная программа</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>заранее расскажем, что входит в стоимость и что взять с собой</value></data>
+  <data name="Why5Title" xml:space="preserve"><value>Без предоплаты за заявку</value></data>
+  <data name="Why5Text" xml:space="preserve"><value>сначала уточним дату, погоду и детали поездки, затем вы примете решение</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие отзывы</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Следующие отзывы</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска и обратно</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>Гид и основные остановки по маршруту</value></data>
+  <data name="HeroFact3" xml:space="preserve"><value>Подберём программу по сезону и погоде</value></data>
+  <data name="HeroTrust" xml:space="preserve"><value>Заявка без предоплаты и обязательств</value></data>
+  <data name="OtherRoutesKicker" xml:space="preserve"><value>Не только Териберка</value></data>
+  <data name="OtherRoutesTitle" xml:space="preserve"><value>Ещё два маршрута по Кольскому</value></data>
+  <data name="OtherRoutesText" xml:space="preserve"><value>Если вы уже были в Териберке или хотите увидеть другой Север — отправляйтесь в горы или к Белому морю.</value></data>
+  <data name="OtherRoute2Type" xml:space="preserve"><value>Горный маршрут</value></data>
+  <data name="OtherRoute3Type" xml:space="preserve"><value>Побережье Белого моря</value></data>
+  <data name="OtherRoutesCta" xml:space="preserve"><value>Посмотреть направление →</value></data>
+  <data name="ItineraryTitle" xml:space="preserve"><value>Как пройдёт день в Териберке</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>Порядок и доступность остановок могут меняться из-за погоды — Север всегда оставляет последнее слово за собой.</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>Встреча в Мурманске</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>Забираем группу в согласованной точке и выезжаем через арктическую тундру.</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>Старая Териберка</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>Гуляем у кладбища кораблей и узнаём, как менялся посёлок у Баренцева моря.</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>Побережье океана</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>Выходим к пляжу «Драконьи яйца» и открытым видам на Баренцево море.</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>Батарейский водопад</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>Идём по тундре к водопаду, который срывается со скал прямо к морю.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Возвращение в Мурманск</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>После насыщенного дня возвращаемся в город и привозим вас в согласованную точку.</value></data>
+  <data name="MidCta" xml:space="preserve"><value>Подобрать дату поездки</value></data>
+  <data name="MidCtaNote" xml:space="preserve"><value>Уточним доступность маршрута и стоимость для вашей группы</value></data>
+  <data name="SeasonsTitle" xml:space="preserve"><value>Териберка в разное время года</value></data>
+  <data name="SeasonsSubtitle" xml:space="preserve"><value>У каждого сезона свой Север — подскажем, какой подходит именно вам.</value></data>
+  <data name="Season1Title" xml:space="preserve"><value>Сентябрь — апрель</value></data>
+  <data name="Season1Text" xml:space="preserve"><value>Сезон северного сияния, снежная тундра и короткий световой день. Нужна особенно тёплая одежда.</value></data>
+  <data name="Season2Title" xml:space="preserve"><value>Май — август</value></data>
+  <data name="Season2Text" xml:space="preserve"><value>Полярный день, долгие прогулки, открытые тропы и насыщенные краски тундры.</value></data>
+  <data name="Season3Title" xml:space="preserve"><value>Конец августа — октябрь</value></data>
+  <data name="Season3Text" xml:space="preserve"><value>Золотая тундра, осенние штормы и возвращение тёмного неба для охоты за сиянием.</value></data>
+  <data name="SeasonNote" xml:space="preserve"><value>Северное сияние, киты и хорошая погода — природные явления, поэтому гарантировать их нельзя.</value></data>
+  <data name="PracticalTitle" xml:space="preserve"><value>Что важно знать до поездки</value></data>
+  <data name="PracticalSubtitle" xml:space="preserve"><value>Короткие ответы на вопросы, которые чаще всего возникают перед Териберкой.</value></data>
+  <data name="Faq1Question" xml:space="preserve"><value>Что будет, если дорогу закроют из-за погоды?</value></data>
+  <data name="Faq1Answer" xml:space="preserve"><value>Безопасность важнее программы. Мы свяжемся с вами и предложим перенос или другой доступный маршрут.</value></data>
+  <data name="Faq2Question" xml:space="preserve"><value>Как одеться?</value></data>
+  <data name="Faq2Answer" xml:space="preserve"><value>Погода на побережье меняется быстро. Нужны непродуваемая верхняя одежда, тёплые слои и обувь с нескользящей подошвой.</value></data>
+  <data name="Faq3Question" xml:space="preserve"><value>Можно ли ехать с детьми?</value></data>
+  <data name="Faq3Answer" xml:space="preserve"><value>Можно, но маршрут занимает полный день и включает прогулки по каменистой местности. Укажите возраст ребёнка в разговоре с оператором.</value></data>
+  <data name="Faq4Question" xml:space="preserve"><value>Нужно ли платить при отправке заявки?</value></data>
+  <data name="Faq4Answer" xml:space="preserve"><value>Нет. Сначала мы подтвердим дату, программу и итоговую стоимость; после этого вы решите, бронировать ли поездку.</value></data>
+  <data name="FormKicker" xml:space="preserve"><value>Следующий шаг</value></data>
+  <data name="FormPoint1" xml:space="preserve"><value>Уточним, свободна ли выбранная дата</value></data>
+  <data name="FormPoint2" xml:space="preserve"><value>Рассчитаем итоговую стоимость для вашей группы</value></data>
+  <data name="FormPoint3" xml:space="preserve"><value>Ответим на вопросы о погоде, одежде и маршруте</value></data>
 </root>
