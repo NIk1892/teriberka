@@ -38,6 +38,9 @@ services:
       DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       OTLP_EXPORT_ENABLED: "false"
+      # Telegram-бот живёт внутри users: без токена сервис просто работает без бота.
+      TG_BOT_TOKEN: "${TG_BOT_TOKEN:-}"
+      SITE_URL: "http://localhost:7002"
     expose:
       - "8080"
     # Порт открыт только для локальной отладки: сервис не проверяет авторизацию и доверяет
@@ -55,6 +58,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       API_URL: "http://api-gateway:8080"
+      TG_BOT_URL: "${TG_BOT_URL:-}"
     ports:
       - "7002:8080"
     depends_on:

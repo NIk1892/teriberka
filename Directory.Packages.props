@@ -57,6 +57,10 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup Label="Telegram">
+    <PackageVersion Include="Telegram.Bot" Version="22.10.2.1" />
+  </ItemGroup>
+
   <ItemGroup Label="Misc">
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />

@@ -1,8 +1,10 @@
 @using System.Globalization
 @using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Configuration
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> L
 @inject NavigationManager Navigation
+@inject IConfiguration Configuration
 
 <header class="site-header">
     <div class="container">
@@ -12,6 +14,16 @@
         </a>
 
         <div class="header-controls">
+            @* Ссылка на Telegram-бота появляется, только когда задан TG_BOT_URL. *@
+            @if (!string.IsNullOrWhiteSpace(BotUrl))
+            {
+                <a class="bot-link" href="@BotUrl" rel="noopener" title="@L["BotLink"]" aria-label="@L["BotLink"]">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                        <path d="M21.7 3.3c.3-1.1-.8-2-1.9-1.6L2.7 8.3c-1.2.4-1.2 2-.1 2.5l4.4 1.8 1.7 5.5c.3 1 1.6 1.3 2.3.5l2.4-2.5 4.5 3.3c.9.7 2.2.2 2.4-.9l3.4-15.2ZM8.3 11.7l9.2-5.9c.2-.1.4.1.2.3l-7.6 7-.3 3.3-1.5-4.7Z"/>
+                    </svg>
+                </a>
+            }
+
             @* Переключение темы и языка без JavaScript: ссылки на endpoints,
                которые ставят cookie и возвращают на текущую страницу. *@
             <a class="theme-toggle" href="@ThemeLink()" title="@L["ThemeToggle"]" aria-label="@L["ThemeToggle"]">
@@ -29,6 +41,8 @@
 
 @code {
     [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    private string? BotUrl => Configuration["TG_BOT_URL"];
 
     private bool IsLight => HttpContext?.Request.Cookies["theme"] == "light";
 

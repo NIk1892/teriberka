@@ -123,6 +123,7 @@
   <data name="NavReviews" xml:space="preserve"><value>Reviews</value></data>
   <data name="NavApply" xml:space="preserve"><value>Book now</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>Contacts</value></data>
+  <data name="BotLink" xml:space="preserve"><value>Our Telegram bot</value></data>
   <data name="FooterDaily" xml:space="preserve"><value>Daily from 9:00 to 21:00 (MSK)</value></data>
 
   <data name="PlaceMore" xml:space="preserve"><value>Read more →</value></data>

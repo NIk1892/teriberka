@@ -123,6 +123,7 @@
   <data name="NavReviews" xml:space="preserve"><value>评价</value></data>
   <data name="NavApply" xml:space="preserve"><value>预约</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>联系方式</value></data>
+  <data name="BotLink" xml:space="preserve"><value>我们的 Telegram 机器人</value></data>
   <data name="FooterDaily" xml:space="preserve"><value>每天 9:00–21:00（莫斯科时间）</value></data>
 
   <data name="PlaceMore" xml:space="preserve"><value>了解详情 →</value></data>

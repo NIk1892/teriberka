@@ -145,6 +145,23 @@ a { color: var(--accent-ice); }
     gap: 8px;
 }
 
+/* ссылка на Telegram-бота: круглая кнопка в ряду с переключателем темы */
+.bot-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-elev);
+    color: var(--text-muted);
+    text-decoration: none;
+    line-height: 1;
+}
+
+.bot-link:hover { color: var(--accent); }
+
 /* переключатель темы — ссылка на /set-theme (cookie + redirect), без JavaScript */
 .theme-toggle {
     display: flex;
@@ -191,6 +208,8 @@ a { color: var(--accent-ice); }
     .brand { font-size: .95rem; gap: 6px; }
     .brand-mark { width: 24px; height: 24px; }
     .theme-toggle { width: 32px; height: 32px; font-size: .95rem; }
+    .bot-link { width: 32px; height: 32px; }
+    .bot-link svg { width: 16px; height: 16px; }
     .lang-switch a { padding: 3px 8px; font-size: .78rem; }
     .header-controls { gap: 6px; }
 }
