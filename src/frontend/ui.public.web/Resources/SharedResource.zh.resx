@@ -17,7 +17,7 @@
   <data name="HeroNote" xml:space="preserve"><value>全天行程 · 8 人以内小团</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>捷里别尔卡是我们的主打路线。下方还有两个科拉半岛旅行方向。</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>一天中的主要地点：从船舶墓地和“龙蛋”海滩，到坠入大洋的瀑布。</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>照片即将上线</value></data>
 
@@ -117,6 +117,7 @@
   <data name="FooterNavTitle" xml:space="preserve"><value>栏目</value></data>
   <data name="NavItinerary" xml:space="preserve"><value>一日行程</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>景点</value></data>
+  <data name="NavMoreRoutes" xml:space="preserve"><value>其他路线</value></data>
   <data name="NavSeasons" xml:space="preserve"><value>季节</value></data>
   <data name="NavPractical" xml:space="preserve"><value>常见问题</value></data>
   <data name="NavGuides" xml:space="preserve"><value>向导</value></data>
@@ -212,19 +213,20 @@
   <data name="CarouselPrev" xml:space="preserve"><value>上一页评价</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一页评价</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克往返接送</value></data>
-  <data name="HeroFact2" xml:space="preserve"><value>向导与路线主要停靠点</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>向导、主要停靠点与海鲜午餐</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>根据季节和天气调整行程</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>提交申请无需预付，也不强制预订</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>不止捷里别尔卡</value></data>
-  <data name="OtherRoutesTitle" xml:space="preserve"><value>探索科拉半岛的另外两条路线</value></data>
-  <data name="OtherRoutesText" xml:space="preserve"><value>如果您已经去过捷里别尔卡，或想看不同的北方，可以走进群山或前往白海。</value></data>
+  <data name="OtherRoutesTitle" xml:space="preserve"><value>其他路线</value></data>
+  <data name="OtherRoutesText" xml:space="preserve"><value>如果您已经去过捷里别尔卡，或想看不同的北方，我们可以帮您选择路线。来电时告知想去的方向即可。</value></data>
   <data name="OtherRoute2Type" xml:space="preserve"><value>山地路线</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>白海海岸</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>查看方向 →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>捷里别尔卡的一天</value></data>
-  <data name="ItinerarySubtitle" xml:space="preserve"><value>停靠顺序与开放情况可能因天气调整——北方的大自然拥有最终决定权。</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>全天行程：摩尔曼斯克集合，游览海岸主要景点，傍晚返回。</value></data>
+  <data name="ItineraryNote" xml:space="preserve"><value>停靠顺序与开放情况可能因天气调整——北方的大自然拥有最终决定权。</value></data>
   <data name="Itinerary1Title" xml:space="preserve"><value>摩尔曼斯克集合</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>在约定地点接团，穿越北极苔原前往捷里别尔卡。</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>在摩尔曼斯克约定地点接团。穿越苔原的车程约两小时。</value></data>
   <data name="Itinerary2Title" xml:space="preserve"><value>老捷里别尔卡</value></data>
   <data name="Itinerary2Text" xml:space="preserve"><value>参观船舶墓地，了解这座巴伦支海村落的历史。</value></data>
   <data name="Itinerary3Title" xml:space="preserve"><value>大洋海岸</value></data>
@@ -254,6 +256,9 @@
   <data name="Faq3Answer" xml:space="preserve"><value>可以，但行程为全天并包含石地徒步。请向客服说明儿童年龄。</value></data>
   <data name="Faq4Question" xml:space="preserve"><value>提交申请时需要付款吗？</value></data>
   <data name="Faq4Answer" xml:space="preserve"><value>不需要。我们先确认日期、行程和最终价格，再由您决定是否预订。</value></data>
+  <data name="Faq5Question" xml:space="preserve"><value>行程需要多长时间？</value></data>
+  <data name="Faq5Answer" xml:space="preserve"><value>全天行程：早上从摩尔曼斯克出发，傍晚返回。具体时间在预订时确认，取决于季节和日照。</value></data>
+  <data name="OtherRoutesApplyNote" xml:space="preserve"><value>来电时告知想去的路线，我们也会为该路线安排日期</value></data>
   <data name="FormKicker" xml:space="preserve"><value>下一步</value></data>
   <data name="FormPoint1" xml:space="preserve"><value>确认您选择的日期是否可用</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>计算您团队的最终价格</value></data>

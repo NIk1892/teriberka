@@ -12,6 +12,8 @@
 
 <PageTitle>@L["PageTitle"]</PageTitle>
 
+@* Воронка главной: сначала один день в Териберке до формы, другие маршруты — после заявки. *@
+
 <section class="hero" id="directions">
     <div class="container hero-grid">
         <div class="hero-copy">
@@ -43,27 +45,6 @@
     </div>
 </section>
 
-<section class="route-picker" aria-labelledby="other-routes-title">
-    <div class="container">
-        <div class="route-picker-head">
-            <span>@L["OtherRoutesKicker"]</span>
-            <h2 id="other-routes-title">@L["OtherRoutesTitle"]</h2>
-            <p>@L["OtherRoutesText"]</p>
-        </div>
-        <div class="alt-routes">
-            @foreach (var dir in PlaceCatalog.Directions.Skip(1))
-            {
-                <a class="alt-route" href="#dir-@dir.Key">
-                    <span class="alt-route-type">@L[$"OtherRoute{dir.Index}Type"]</span>
-                    <strong>@L[$"Dir{dir.Index}Title"]</strong>
-                    <span class="alt-route-text">@L[$"Dir{dir.Index}Text"]</span>
-                    <span class="alt-route-more">@L["OtherRoutesCta"]</span>
-                </a>
-            }
-        </div>
-    </div>
-</section>
-
 <section class="section itinerary" id="itinerary">
     <div class="container">
         <div class="section-head">
@@ -86,6 +67,33 @@
             <a class="btn" href="#apply">@L["MidCta"]</a>
             <span>@L["MidCtaNote"]</span>
         </div>
+        <p class="itinerary-note">@L["ItineraryNote"]</p>
+    </div>
+</section>
+
+<section class="section" id="places">
+    <div class="container">
+        <div class="section-head">
+            <h2>@L["PlacesTitle"]</h2>
+            <p>@L["PlacesSubtitle"]</p>
+        </div>
+        <div class="places-grid">
+            @foreach (var idx in PlaceCatalog.Directions[0].PlaceIndexes)
+            {
+                var place = PlaceCatalog.ByIndex(idx);
+                <a class="place-card" href="/place/@place.Slug">
+                    <span class="place-photo">
+                        <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
+                        <span class="photo-soon">@L["PhotoSoon"]</span>
+                    </span>
+                    <span class="place-body">
+                        <strong class="place-title">@L[$"Place{idx}Title"]</strong>
+                        <span class="place-text">@L[$"Place{idx}Text"]</span>
+                        <span class="place-more">@L["PlaceMore"]</span>
+                    </span>
+                </a>
+            }
+        </div>
     </div>
 </section>
 
@@ -106,53 +114,6 @@
     </div>
 </section>
 
-<section class="section" id="places">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["PlacesTitle"]</h2>
-            <p>@L["PlacesSubtitle"]</p>
-        </div>
-
-        @foreach (var dir in PlaceCatalog.Directions)
-        {
-            <div class="direction-block" id="dir-@dir.Key">
-                <div class="direction-head">
-                    <span class="direction-num" aria-hidden="true">0@(dir.Index)</span>
-                    <div>
-                        <h3>@L[$"Dir{dir.Index}Title"]</h3>
-                        <p>@L[$"Dir{dir.Index}Text"]</p>
-                    </div>
-                </div>
-                <div class="places-grid @(dir.PlaceIndexes.Length % 3 != 0 ? "cols-2" : "")">
-                    @foreach (var idx in dir.PlaceIndexes)
-                    {
-                        var place = PlaceCatalog.ByIndex(idx);
-                        <a class="place-card" href="/place/@place.Slug">
-                            <span class="place-photo">
-                                <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
-                                <span class="photo-soon">@L["PhotoSoon"]</span>
-                            </span>
-                            <span class="place-body">
-                                <strong class="place-title">@L[$"Place{idx}Title"]</strong>
-                                <span class="place-text">@L[$"Place{idx}Text"]</span>
-                                <span class="place-more">@L["PlaceMore"]</span>
-                            </span>
-                        </a>
-                    }
-                </div>
-            </div>
-        }
-    </div>
-</section>
-
-@* Параллакс: фон полосы закреплён relative to viewport (background-attachment: fixed),
-   поэтому при прокрутке пейзаж «стоит», а контент едет поверх. Работает без JavaScript. *@
-<div class="parallax-band">
-    <div class="container">
-        <p>@L["Band1Text"]</p>
-    </div>
-</div>
-
 <section class="section" id="included">
     <div class="container">
         <div class="section-head">
@@ -165,8 +126,20 @@
                 <li>@L[$"Included{i}"]</li>
             }
         </ul>
+        <div class="section-cta">
+            <a class="btn" href="#apply">@L["MidCta"]</a>
+            <span>@L["MidCtaNote"]</span>
+        </div>
     </div>
 </section>
+
+@* Параллакс: фон полосы закреплён relative to viewport (background-attachment: fixed),
+   поэтому при прокрутке пейзаж «стоит», а контент едет поверх. Работает без JavaScript. *@
+<div class="parallax-band">
+    <div class="container">
+        <p>@L["Band1Text"]</p>
+    </div>
+</div>
 
 <section class="section seasons" id="seasons">
     <div class="container">
@@ -200,7 +173,7 @@
             <p>@L["PracticalSubtitle"]</p>
         </div>
         <div class="faq-list">
-            @foreach (var i in Enumerable.Range(1, 4))
+            @foreach (var i in Enumerable.Range(1, 5))
             {
                 <details>
                     <summary>@L[$"Faq{i}Question"]</summary>
@@ -267,6 +240,52 @@
                     </div>
                 </EditForm>
             }
+        </div>
+    </div>
+</section>
+
+<section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
+    <div class="container">
+        <div class="route-picker-head">
+            <span>@L["OtherRoutesKicker"]</span>
+            <h2 id="other-routes-title">@L["OtherRoutesTitle"]</h2>
+            <p>@L["OtherRoutesText"]</p>
+        </div>
+
+        @foreach (var dir in PlaceCatalog.Directions.Skip(1))
+        {
+            <div class="direction-block" id="dir-@dir.Key">
+                <div class="direction-head">
+                    <span class="direction-num" aria-hidden="true">0@(dir.Index)</span>
+                    <div>
+                        <span class="alt-route-type">@L[$"OtherRoute{dir.Index}Type"]</span>
+                        <h3>@L[$"Dir{dir.Index}Title"]</h3>
+                        <p>@L[$"Dir{dir.Index}Text"]</p>
+                    </div>
+                </div>
+                <div class="places-grid @(dir.PlaceIndexes.Length % 3 != 0 ? "cols-2" : "")">
+                    @foreach (var idx in dir.PlaceIndexes)
+                    {
+                        var place = PlaceCatalog.ByIndex(idx);
+                        <a class="place-card" href="/place/@place.Slug">
+                            <span class="place-photo">
+                                <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
+                                <span class="photo-soon">@L["PhotoSoon"]</span>
+                            </span>
+                            <span class="place-body">
+                                <strong class="place-title">@L[$"Place{idx}Title"]</strong>
+                                <span class="place-text">@L[$"Place{idx}Text"]</span>
+                                <span class="place-more">@L["PlaceMore"]</span>
+                            </span>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="section-cta">
+            <a class="btn" href="#apply">@L["MidCta"]</a>
+            <span>@L["OtherRoutesApplyNote"]</span>
         </div>
     </div>
 </section>

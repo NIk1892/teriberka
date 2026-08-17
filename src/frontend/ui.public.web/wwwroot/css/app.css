@@ -669,6 +669,30 @@ a { color: var(--accent-ice); }
     font-size: .88rem;
 }
 
+.itinerary-note {
+    margin: 20px 0 0;
+    color: var(--text-muted);
+    font-size: .88rem;
+}
+
+.more-routes {
+    padding-block: 64px;
+    scroll-margin-top: 70px;
+}
+
+.more-routes .direction-block {
+    margin-top: 40px;
+}
+
+.more-routes .direction-block:last-of-type {
+    margin-bottom: 12px;
+}
+
+.direction-head .alt-route-type {
+    display: block;
+    margin-bottom: 6px;
+}
+
 /* ---------- почему Кольский ---------- */
 
 .why { padding-top: 56px; }

@@ -17,7 +17,7 @@
   <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>Teriberka is our flagship route. Below are two more destinations for your next Kola journey.</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>The day's landmarks: from the ship graveyard and Dragon Eggs to the waterfall that falls into the ocean.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
 
@@ -117,6 +117,7 @@
   <data name="FooterNavTitle" xml:space="preserve"><value>Sections</value></data>
   <data name="NavItinerary" xml:space="preserve"><value>Day programme</value></data>
   <data name="NavPlaces" xml:space="preserve"><value>Places</value></data>
+  <data name="NavMoreRoutes" xml:space="preserve"><value>Other routes</value></data>
   <data name="NavSeasons" xml:space="preserve"><value>Seasons</value></data>
   <data name="NavPractical" xml:space="preserve"><value>Questions</value></data>
   <data name="NavGuides" xml:space="preserve"><value>Guides</value></data>
@@ -212,19 +213,20 @@
   <data name="CarouselPrev" xml:space="preserve"><value>Previous reviews</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next reviews</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk</value></data>
-  <data name="HeroFact2" xml:space="preserve"><value>Guide and all main route stops</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>Guide, route stops and a seafood lunch</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>No prepayment or obligation to enquire</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Beyond Teriberka</value></data>
-  <data name="OtherRoutesTitle" xml:space="preserve"><value>Two more ways to explore the Kola</value></data>
-  <data name="OtherRoutesText" xml:space="preserve"><value>If you have already seen Teriberka or want a different North, head into the mountains or towards the White Sea.</value></data>
+  <data name="OtherRoutesTitle" xml:space="preserve"><value>Other routes</value></data>
+  <data name="OtherRoutesText" xml:space="preserve"><value>If you have already seen Teriberka or want a different North, we will help you choose a route. Just name it when we call.</value></data>
   <data name="OtherRoute2Type" xml:space="preserve"><value>Mountain route</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>White Sea coast</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>Explore destination →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>Your day in Teriberka</value></data>
-  <data name="ItinerarySubtitle" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>A full day: meet in Murmansk, the main coastal stops and return in the evening.</value></data>
+  <data name="ItineraryNote" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
   <data name="Itinerary1Title" xml:space="preserve"><value>Meet in Murmansk</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>We collect the group at the agreed point and set off through the Arctic tundra.</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>We collect the group at an agreed point in Murmansk. The drive across the tundra takes about two hours.</value></data>
   <data name="Itinerary2Title" xml:space="preserve"><value>Old Teriberka</value></data>
   <data name="Itinerary2Text" xml:space="preserve"><value>Walk by the ship graveyard and learn how the settlement by the Barents Sea has changed.</value></data>
   <data name="Itinerary3Title" xml:space="preserve"><value>Ocean coast</value></data>
@@ -254,6 +256,9 @@
   <data name="Faq3Answer" xml:space="preserve"><value>Yes, but the route takes a full day and includes walks over rocky terrain. Tell the operator your child's age.</value></data>
   <data name="Faq4Question" xml:space="preserve"><value>Do I pay when I submit the form?</value></data>
   <data name="Faq4Answer" xml:space="preserve"><value>No. We first confirm the date, programme and final price; then you decide whether to book.</value></data>
+  <data name="Faq5Question" xml:space="preserve"><value>How long is the tour?</value></data>
+  <data name="Faq5Answer" xml:space="preserve"><value>A full day: we leave Murmansk in the morning and return in the evening. We confirm exact times when you book — they depend on the season and daylight.</value></data>
+  <data name="OtherRoutesApplyNote" xml:space="preserve"><value>Name the route you want when we call — we will find a date for that one too</value></data>
   <data name="FormKicker" xml:space="preserve"><value>Next step</value></data>
   <data name="FormPoint1" xml:space="preserve"><value>Check whether your chosen date is available</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Calculate the final price for your group</value></data>
