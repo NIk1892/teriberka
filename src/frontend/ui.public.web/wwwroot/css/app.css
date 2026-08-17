@@ -202,16 +202,18 @@ a { color: var(--accent-ice); }
     line-height: 1.4;
 }
 
-/* узкая шапка: компактные бренд и переключатели, ничего не переносится */
+/* узкая шапка: компактные бренд и переключатели, ничего не переносится;
+   иконка бота уходит из шапки — её дубль появляется строкой в бургер-панели */
 @media (max-width: 430px) {
     .site-header .container { padding-inline: 12px; gap: 8px; }
     .brand { font-size: .95rem; gap: 6px; }
     .brand-mark { width: 24px; height: 24px; }
     .theme-toggle { width: 32px; height: 32px; font-size: .95rem; }
-    .bot-link { width: 32px; height: 32px; }
-    .bot-link svg { width: 16px; height: 16px; }
+    .bot-link { display: none; }
+    .nav-burger summary { width: 32px; height: 32px; }
     .lang-switch a { padding: 3px 8px; font-size: .78rem; }
     .header-controls { gap: 6px; }
+    .burger-bot { display: block; }
 }
 
 .lang-switch a:hover { color: var(--text); }
@@ -219,6 +221,100 @@ a { color: var(--accent-ice); }
 .lang-switch a.active {
     background: var(--aurora);
     color: var(--on-accent);
+}
+
+/* ---------- меню разделов ---------- */
+
+/* десктоп (≥900px): строка ссылок между брендом и переключателями */
+.main-nav {
+    display: none;
+    align-items: center;
+    gap: 18px;
+}
+
+.main-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: .92rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.main-nav a:hover { color: var(--text); }
+
+.main-nav .nav-apply {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--aurora);
+    color: var(--on-accent);
+}
+
+/* бургер для узких экранов: нативный details, без JavaScript.
+   ВАЖНО: как и .map-spot — без transform, иначе fixed-оверлей закрытия
+   станет локальным (transform создаёт containing block). */
+.nav-burger { position: relative; }
+
+.nav-burger summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-elev);
+    color: var(--text-muted);
+    cursor: pointer;
+    list-style: none;
+}
+
+.nav-burger summary::-webkit-details-marker { display: none; }
+
+.nav-burger[open] summary { color: var(--accent); }
+
+/* невидимый оверлей на весь экран — клик мимо панели сворачивает details */
+.nav-burger[open] summary::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    cursor: default;
+}
+
+.burger-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 220px;
+    padding: 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+.burger-panel a {
+    padding: 9px 12px;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: .95rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.burger-panel a:hover { background: var(--bg-elev-2); }
+
+.burger-panel .burger-apply { color: var(--accent); }
+
+/* дубль ссылки на бота включается только на самых узких экранах,
+   где иконка бота убрана из шапки ради места */
+.burger-bot { display: none; }
+
+@media (min-width: 900px) {
+    .main-nav { display: flex; }
+    .nav-burger { display: none; }
 }
 
 /* ---------- hero ---------- */
@@ -1042,6 +1138,8 @@ a { color: var(--accent-ice); }
 .map-place-pass      { left: 34.7%; top: 40.6%; translate: -100% -50%; flex-direction: row-reverse; }
 .map-place-umba      { left: 30.2%; top: 82.8%; translate: -100% -50%; flex-direction: row-reverse; }
 .map-place-labyrinth { left: 19%; top: 78%; translate: -100% -50%; flex-direction: row-reverse; }
+/* точка на полуострове Рыбачий (svg ≈ 150,78); подпись слева, как у остальных */
+.map-place-rybachy   { left: 24.1%; top: 9.8%; translate: -100% -50%; flex-direction: row-reverse; }
 
 @media (max-width: 560px) {
     .place-label { font-size: .6rem; }
@@ -1687,7 +1785,8 @@ a { color: var(--accent-ice); }
     color: var(--text-muted);
 }
 
-.field input {
+.field input,
+.field textarea {
     width: 100%;
     min-height: 50px;
     padding: 10px 14px;
@@ -1699,11 +1798,20 @@ a { color: var(--accent-ice); }
     transition: border-color .15s ease, box-shadow .15s ease;
 }
 
-[data-theme="light"] .field input { background: var(--bg-elev-2); }
+.field textarea {
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
 
-.field input::placeholder { color: color-mix(in srgb, var(--text-muted) 65%, transparent); }
+[data-theme="light"] .field input,
+[data-theme="light"] .field textarea { background: var(--bg-elev-2); }
 
-.field input:focus {
+.field input::placeholder,
+.field textarea::placeholder { color: color-mix(in srgb, var(--text-muted) 65%, transparent); }
+
+.field input:focus,
+.field textarea:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
@@ -1884,6 +1992,36 @@ a { color: var(--accent-ice); }
         from { opacity: 0; transform: translateY(26px); }
         to   { opacity: 1; transform: none; }
     }
+}
+
+/* ---------- индивидуальный тур ---------- */
+
+/* последний конверсионный блок перед морем: центрированный текст на аврора-подсветке */
+.custom-tour {
+    padding-block: 72px 88px;
+    text-align: center;
+    background:
+        radial-gradient(720px 320px at 50% 0%, rgba(139, 124, 246, .13), transparent 65%),
+        radial-gradient(880px 360px at 12% 100%, rgba(60, 232, 164, .10), transparent 60%);
+}
+
+.custom-tour .container { max-width: 720px; }
+
+.custom-tour-kicker {
+    display: block;
+    margin-bottom: 10px;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.custom-tour h2 { margin-bottom: .4em; }
+
+.custom-tour p {
+    margin: 0 0 28px;
+    color: var(--text-muted);
 }
 
 /* ---------- пульс CTA ---------- */
@@ -2171,6 +2309,7 @@ a { color: var(--accent-ice); }
     .section-cta { flex-direction: row; align-items: center; }
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid .form-errors,
+    .form-grid .field-wide,
     .form-grid .form-submit { grid-column: 1 / -1; }
     .form-submit .btn { width: auto; min-width: 260px; }
     .apply-card { padding: 36px 40px; }
@@ -2183,7 +2322,7 @@ a { color: var(--accent-ice); }
 
 @media (min-width: 960px) {
     .places-grid { grid-template-columns: repeat(3, 1fr); }
-    .places-grid.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
+    .places-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
     .hero { padding-block: 96px 108px; }
     .section { padding-block: 80px; }
 }

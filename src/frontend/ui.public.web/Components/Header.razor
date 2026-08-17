@@ -13,6 +13,16 @@
             @L["Brand"]
         </a>
 
+        @* Быстрые переходы к разделам главной (ссылки с "/" работают и со страниц мест).
+           На десктопе — строка ссылок, на узких экранах вместо неё бургер ниже. *@
+        <nav class="main-nav" aria-label="@L["MenuLabel"]">
+            <a href="/#itinerary">@L["NavItinerary"]</a>
+            <a href="/#places">@L["NavPlaces"]</a>
+            <a href="/#seasons">@L["NavSeasons"]</a>
+            <a href="/#practical">@L["NavPractical"]</a>
+            <a class="nav-apply" href="/#apply">@L["NavApply"]</a>
+        </nav>
+
         <div class="header-controls">
             @* Ссылка на Telegram-бота появляется, только когда задан TG_BOT_URL. *@
             @if (!string.IsNullOrWhiteSpace(BotUrl))
@@ -35,6 +45,30 @@
                 <a class="@ActiveClass("en")" href="@CultureLink("en")" hreflang="en">EN</a>
                 <a class="@ActiveClass("zh")" href="@CultureLink("zh")" hreflang="zh">中文</a>
             </nav>
+
+            @* Бургер для узких экранов: нативный details без JavaScript, закрывается
+               кликом в любом месте (fixed-оверлей — summary::before). Как и у .map-spot,
+               на .nav-burger нельзя вешать transform — сломается оверлей закрытия. *@
+            <details class="nav-burger">
+                <summary aria-label="@L["MenuLabel"]" title="@L["MenuLabel"]">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </summary>
+                <nav class="burger-panel" aria-label="@L["MenuLabel"]">
+                    <a href="/#itinerary">@L["NavItinerary"]</a>
+                    <a href="/#places">@L["NavPlaces"]</a>
+                    <a href="/#more-routes">@L["NavMoreRoutes"]</a>
+                    <a href="/#seasons">@L["NavSeasons"]</a>
+                    <a href="/#practical">@L["NavPractical"]</a>
+                    <a class="burger-apply" href="/#apply">@L["NavApply"]</a>
+                    @if (!string.IsNullOrWhiteSpace(BotUrl))
+                    {
+                        @* дубль ссылки на бота: показывается только там, где иконка скрыта из шапки *@
+                        <a class="burger-bot" href="@BotUrl" rel="noopener">@L["BotLink"]</a>
+                    }
+                </nav>
+            </details>
         </div>
     </div>
 </header>

@@ -107,6 +107,12 @@
   <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>Number of people</value></data>
   <data name="FieldDate" xml:space="preserve"><value>Arrival date</value></data>
+  <data name="FieldComment" xml:space="preserve"><value>Wishes (optional)</value></data>
+  <data name="FieldCommentHint" xml:space="preserve"><value>For example: a two-day custom tour to the Rybachy Peninsula</value></data>
+  <data name="CustomTourKicker" xml:space="preserve"><value>Your own route</value></data>
+  <data name="CustomTourTitle" xml:space="preserve"><value>Need a custom tour?</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Describe your wishes in the request and we will discuss the details by phone.</value></data>
+  <data name="CustomTourCta" xml:space="preserve"><value>Leave a request</value></data>
   <data name="Submit" xml:space="preserve"><value>Check available dates</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
   <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
@@ -125,6 +131,7 @@
   <data name="NavApply" xml:space="preserve"><value>Book now</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>Contacts</value></data>
   <data name="BotLink" xml:space="preserve"><value>Our Telegram bot</value></data>
+  <data name="MenuLabel" xml:space="preserve"><value>Menu</value></data>
   <data name="FooterDaily" xml:space="preserve"><value>Daily from 9:00 to 21:00 (MSK)</value></data>
 
   <data name="PlaceMore" xml:space="preserve"><value>Read more →</value></data>
@@ -166,8 +173,8 @@
   <data name="MapClose" xml:space="preserve"><value>Close</value></data>
   <data name="Dir1Title" xml:space="preserve"><value>Teriberka and the Barents Sea</value></data>
   <data name="Dir1Text" xml:space="preserve"><value>Dragon Eggs, the ship graveyard, a waterfall into the ocean and aurora hunting at the edge of the continent.</value></data>
-  <data name="Dir2Title" xml:space="preserve"><value>Lovozero Tundras</value></data>
-  <data name="Dir2Text" xml:space="preserve"><value>Sacred Seydozero, Geologists' Pass and Khibiny panoramas from a kilometre up.</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>Tundras and the Rybachy Peninsula</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>Sacred Seydozero, the Geologists' Pass and the road to land's end — the Sredny and Rybachy peninsulas.</value></data>
   <data name="Dir3Title" xml:space="preserve"><value>Tersky Coast and Umba</value></data>
   <data name="Dir3Text" xml:space="preserve"><value>Amethysts of Cape Korabl, the Kuzomen sands and Pomor villages by the White Sea.</value></data>
   <data name="MapSpot1" xml:space="preserve"><value>Teriberka</value></data>
@@ -189,6 +196,10 @@
   <data name="Place12Text" xml:space="preserve"><value>A four-thousand-year-old spiral of boulders on the White Sea shore.</value></data>
   <data name="Place12Detail1" xml:space="preserve"><value>Near Umba the shore keeps a stone labyrinth — a spiral of boulders laid out by the ancient people of the North some four thousand years ago. Such labyrinths dot the whole White Sea coast, and their purpose is still a mystery: a fish trap, a sanctuary or a map of hunting grounds.</value></data>
   <data name="Place12Detail2" xml:space="preserve"><value>We walk to the labyrinth along the shore: a short stroll with views over the bay and the guide's stories about the Pomors and the ancient cultures of the White Sea. The best view is from the hill — only from above does the spiral show itself whole.</value></data>
+  <data name="Place13Title" xml:space="preserve"><value>Sredny and Rybachy</value></data>
+  <data name="Place13Text" xml:space="preserve"><value>Land's end beyond Murmansk: the Musta-Tunturi ridge and the open-ocean shore.</value></data>
+  <data name="Place13Detail1" xml:space="preserve"><value>Sredny and Rybachy are the northernmost peninsulas of European Russia. The track climbs over the Musta-Tunturi ridge and follows rocky shores past old wartime positions; the coast rewards you with waterfalls, seabird colonies and a horizon-wide view of the open Arctic Ocean.</value></data>
+  <data name="Place13Detail2" xml:space="preserve"><value>The route is fully off-road and takes the whole day. Bring windproof layers and food: the peninsulas have no cafes and no mobile coverage — only tundra, ocean and wind.</value></data>
   <data name="MapPeninsula" xml:space="preserve"><value>Kola Peninsula</value></data>
   <data name="MapRybachy" xml:space="preserve"><value>Rybachy Peninsula</value></data>
   <data name="MapKhibiny" xml:space="preserve"><value>Khibiny Mountains</value></data>
@@ -219,7 +230,7 @@
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Beyond Teriberka</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Other routes</value></data>
   <data name="OtherRoutesText" xml:space="preserve"><value>If you have already seen Teriberka or want a different North, we will help you choose a route. Just name it when we call.</value></data>
-  <data name="OtherRoute2Type" xml:space="preserve"><value>Mountain route</value></data>
+  <data name="OtherRoute2Type" xml:space="preserve"><value>Off-road routes</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>White Sea coast</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>Explore destination →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>Your day in Teriberka</value></data>

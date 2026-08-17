@@ -31,12 +31,13 @@ public static class PlaceCatalog
         new(10, "umba"),
         new(11, "varzuga"),
         new(12, "stone-labyrinth"),
+        new(13, "sredny-rybachy"),
     ];
 
     public static readonly Direction[] Directions =
     [
         new(1, "teriberka", [1, 2, 3, 4, 5, 6]),
-        new(2, "tundras", [7, 8]),
+        new(2, "tundras", [7, 8, 13]),
         new(3, "tersky", [9, 10, 11, 12]),
     ];
 

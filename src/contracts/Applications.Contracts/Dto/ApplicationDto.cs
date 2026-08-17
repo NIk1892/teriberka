@@ -7,4 +7,5 @@ public record ApplicationDto : AuditableDto
     public string? Phone { get; init; }
     public int PeopleCount { get; init; }
     public DateOnly ArrivalDate { get; init; }
+    public string? Comment { get; init; }
 }

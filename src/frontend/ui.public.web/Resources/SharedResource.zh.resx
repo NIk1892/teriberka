@@ -107,6 +107,12 @@
   <data name="FieldPhone" xml:space="preserve"><value>电话</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>人数</value></data>
   <data name="FieldDate" xml:space="preserve"><value>到达日期</value></data>
+  <data name="FieldComment" xml:space="preserve"><value>期望（选填）</value></data>
+  <data name="FieldCommentHint" xml:space="preserve"><value>例如：想要为期两天的雷巴奇半岛定制行程</value></data>
+  <data name="CustomTourKicker" xml:space="preserve"><value>定制路线</value></data>
+  <data name="CustomTourTitle" xml:space="preserve"><value>需要定制行程？</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣定制行程——从一日游到科拉半岛为期一周的远征。请在申请中写下您的期望，细节我们电话商谈。</value></data>
+  <data name="CustomTourCta" xml:space="preserve"><value>提交申请</value></data>
   <data name="Submit" xml:space="preserve"><value>查询可选日期</value></data>
   <data name="SentTitle" xml:space="preserve"><value>申请已收到！</value></data>
   <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
@@ -125,6 +131,7 @@
   <data name="NavApply" xml:space="preserve"><value>预约</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>联系方式</value></data>
   <data name="BotLink" xml:space="preserve"><value>我们的 Telegram 机器人</value></data>
+  <data name="MenuLabel" xml:space="preserve"><value>菜单</value></data>
   <data name="FooterDaily" xml:space="preserve"><value>每天 9:00–21:00（莫斯科时间）</value></data>
 
   <data name="PlaceMore" xml:space="preserve"><value>了解详情 →</value></data>
@@ -166,8 +173,8 @@
   <data name="MapClose" xml:space="preserve"><value>收起</value></data>
   <data name="Dir1Title" xml:space="preserve"><value>捷里别尔卡与巴伦支海</value></data>
   <data name="Dir1Text" xml:space="preserve"><value>“龙蛋”海滩、船舶墓地、入海瀑布，以及大陆尽头的极光。</value></data>
-  <data name="Dir2Title" xml:space="preserve"><value>洛沃泽罗山地</value></data>
-  <data name="Dir2Text" xml:space="preserve"><value>圣湖谢伊德湖、地质学家山口，以及千米高处的希比尼全景。</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>苔原与雷巴奇半岛</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>圣湖谢伊德湖、地质学家山口，以及通往天涯海角——斯列德尼与雷巴奇半岛的道路。</value></data>
   <data name="Dir3Title" xml:space="preserve"><value>捷尔斯基海岸与温巴</value></data>
   <data name="Dir3Text" xml:space="preserve"><value>科拉布尔角的紫水晶、库佐缅的沙丘和白海的波莫尔村落。</value></data>
   <data name="MapSpot1" xml:space="preserve"><value>捷里别尔卡</value></data>
@@ -189,6 +196,10 @@
   <data name="Place12Text" xml:space="preserve"><value>白海岸边四千年前的巨石螺旋。</value></data>
   <data name="Place12Detail1" xml:space="preserve"><value>在温巴附近的海岸上保存着一座石头迷宫——北方先民约四千年前用巨石摆出的螺旋。这样的迷宫遍布白海沿岸，用途至今成谜：捕鱼陷阱、祭祀场所，还是渔猎地图。</value></data>
   <data name="Place12Detail2" xml:space="preserve"><value>我们沿海岸步行前往迷宫：短短的散步，一路是海湾风光，向导讲述波莫尔人和白海古文化的故事。最佳视角在山丘上——只有从高处才能看清整个螺旋。</value></data>
+  <data name="Place13Title" xml:space="preserve"><value>斯列德尼与雷巴奇</value></data>
+  <data name="Place13Text" xml:space="preserve"><value>摩尔曼斯克以北的天涯海角：穆斯塔-通图里山脊与开阔大洋之岸。</value></data>
+  <data name="Place13Detail1" xml:space="preserve"><value>斯列德尼与雷巴奇是俄罗斯欧洲部分最北的半岛。道路翻越穆斯塔-通图里山脊，沿岩石海岸经过旧日的战争阵地；海岸上有瀑布、海鸟聚集的悬崖，以及一望无际的北冰洋。</value></data>
+  <data name="Place13Detail2" xml:space="preserve"><value>全程越野，需要一整天。请带好防风衣物和食物：半岛上没有咖啡馆，也没有手机信号——只有苔原、海洋和风。</value></data>
   <data name="MapPeninsula" xml:space="preserve"><value>科拉半岛</value></data>
   <data name="MapRybachy" xml:space="preserve"><value>雷巴奇半岛</value></data>
   <data name="MapKhibiny" xml:space="preserve"><value>希比尼山脉</value></data>
@@ -219,7 +230,7 @@
   <data name="OtherRoutesKicker" xml:space="preserve"><value>不止捷里别尔卡</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>其他路线</value></data>
   <data name="OtherRoutesText" xml:space="preserve"><value>如果您已经去过捷里别尔卡，或想看不同的北方，我们可以帮您选择路线。来电时告知想去的方向即可。</value></data>
-  <data name="OtherRoute2Type" xml:space="preserve"><value>山地路线</value></data>
+  <data name="OtherRoute2Type" xml:space="preserve"><value>越野路线</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>白海海岸</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>查看方向 →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>捷里别尔卡的一天</value></data>

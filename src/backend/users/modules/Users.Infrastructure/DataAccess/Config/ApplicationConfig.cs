@@ -17,6 +17,7 @@ public class ApplicationConfig : AuditableEntityConfig<ApplicationEntity>
         builder.Property(e => e.Phone).HasMaxLength(Constatnts.FieldLength.Text64);
         builder.Property(e => e.PeopleCount).IsRequired();
         builder.Property(e => e.ArrivalDate).HasColumnType("date").IsRequired();
+        builder.Property(e => e.Comment).HasMaxLength(Constatnts.FieldLength.Text512);
     }
 
     protected override void ConfigureIndexes(EntityTypeBuilder<ApplicationEntity> builder)

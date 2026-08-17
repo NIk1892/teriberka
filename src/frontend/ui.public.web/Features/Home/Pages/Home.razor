@@ -235,6 +235,11 @@
                         <span>@L["FieldDate"]</span>
                         <InputDate @bind-Value="Model.ArrivalDate" required min="@Today.ToString("yyyy-MM-dd")" />
                     </label>
+                    <label class="field field-wide">
+                        <span>@L["FieldComment"]</span>
+                        <InputTextArea @bind-Value="Model.Comment" maxlength="500" rows="3"
+                                       placeholder="@L["FieldCommentHint"]" />
+                    </label>
                     <div class="form-submit">
                         <button class="btn" type="submit">@L["Submit"]</button>
                     </div>
@@ -263,7 +268,8 @@
                         <p>@L[$"Dir{dir.Index}Text"]</p>
                     </div>
                 </div>
-                <div class="places-grid @(dir.PlaceIndexes.Length % 3 != 0 ? "cols-2" : "")">
+                @* меньше трёх карточек — двухколоночная сетка (в трёх колонках пусто), иначе обычные три *@
+                <div class="places-grid @(dir.PlaceIndexes.Length < 3 ? "cols-2" : "")">
                     @foreach (var idx in dir.PlaceIndexes)
                     {
                         var place = PlaceCatalog.ByIndex(idx);
@@ -287,6 +293,17 @@
             <a class="btn" href="#apply">@L["MidCta"]</a>
             <span>@L["OtherRoutesApplyNote"]</span>
         </div>
+    </div>
+</section>
+
+@* Индивидуальный тур: последний конверсионный блок — CTA ведёт к общей форме,
+   пожелания пишутся в поле «Пожелания» той же заявки. *@
+<section class="custom-tour" id="custom-tour">
+    <div class="container">
+        <span class="custom-tour-kicker">@L["CustomTourKicker"]</span>
+        <h2>@L["CustomTourTitle"]</h2>
+        <p>@L["CustomTourText"]</p>
+        <a class="btn" href="#apply">@L["CustomTourCta"]</a>
     </div>
 </section>
 

@@ -23,5 +23,10 @@ public class ApplicationCreateCommandValidator : CreateCommandValidator<Applicat
             .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.UtcNow.Date))
             .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.UtcNow.Date.AddYears(2)))
             .WithMessage("Дата приезда должна быть в пределах двух лет");
+
+        // Пожелания свободным текстом; спам отсекается требованием валидного телефона выше.
+        RuleFor(x => x.Comment)
+            .MaximumLength(500)
+            .WithMessage("Пожелания — не длиннее 500 символов");
     }
 }

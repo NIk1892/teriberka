@@ -107,6 +107,12 @@
   <data name="FieldPhone" xml:space="preserve"><value>Телефон</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>Количество человек</value></data>
   <data name="FieldDate" xml:space="preserve"><value>Дата приезда</value></data>
+  <data name="FieldComment" xml:space="preserve"><value>Пожелания (необязательно)</value></data>
+  <data name="FieldCommentHint" xml:space="preserve"><value>Например: хотим индивидуальный тур на Рыбачий на два дня</value></data>
+  <data name="CustomTourKicker" xml:space="preserve"><value>Свой маршрут</value></data>
+  <data name="CustomTourTitle" xml:space="preserve"><value>Нужен индивидуальный тур?</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Опишите пожелания в заявке, а детали обсудим по телефону.</value></data>
+  <data name="CustomTourCta" xml:space="preserve"><value>Оставить заявку</value></data>
   <data name="Submit" xml:space="preserve"><value>Узнать свободные даты</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
   <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
@@ -125,6 +131,7 @@
   <data name="NavApply" xml:space="preserve"><value>Записаться</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>Контакты</value></data>
   <data name="BotLink" xml:space="preserve"><value>Наш Telegram-бот</value></data>
+  <data name="MenuLabel" xml:space="preserve"><value>Меню</value></data>
   <data name="FooterDaily" xml:space="preserve"><value>Ежедневно с 9:00 до 21:00 (мск)</value></data>
 
   <data name="PlaceMore" xml:space="preserve"><value>Подробнее →</value></data>
@@ -166,8 +173,8 @@
   <data name="MapClose" xml:space="preserve"><value>Свернуть</value></data>
   <data name="Dir1Title" xml:space="preserve"><value>Териберка и Баренцево море</value></data>
   <data name="Dir1Text" xml:space="preserve"><value>Драконьи яйца, кладбище кораблей, водопад в океан и охота за сиянием на краю континента.</value></data>
-  <data name="Dir2Title" xml:space="preserve"><value>Ловозерские тундры</value></data>
-  <data name="Dir2Text" xml:space="preserve"><value>Священное Сейдозеро, перевал Геологов и панорамы Хибин с километровой высоты.</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>Тундры и полуостров Рыбачий</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>Священное Сейдозеро, перевал Геологов и дорога на край земли — полуострова Средний и Рыбачий.</value></data>
   <data name="Dir3Title" xml:space="preserve"><value>Терский берег и Умба</value></data>
   <data name="Dir3Text" xml:space="preserve"><value>Аметисты мыса Корабль, пески Кузомени и поморские сёла Белого моря.</value></data>
   <data name="MapSpot1" xml:space="preserve"><value>Териберка</value></data>
@@ -189,6 +196,10 @@
   <data name="Place12Text" xml:space="preserve"><value>Спиральная выкладка возрастом четыре тысячи лет на берегу Белого моря.</value></data>
   <data name="Place12Detail1" xml:space="preserve"><value>На берегу близ Умбы сохранился каменный лабиринт-«вавилон» — спираль из валунов, выложенная древними жителями Севера около четырёх тысяч лет назад. Такие лабиринты встречаются по всему беломорскому побережью, а их назначение до сих пор загадка: ловушка для рыбы, святилище или карта промысловых угодий.</value></data>
   <data name="Place12Detail2" xml:space="preserve"><value>К лабиринту идём пешком вдоль берега: короткая прогулка с видами на залив и рассказом гида о поморах и древних культурах Белого моря. Лучший ракурс — с холма: только сверху спираль видна целиком.</value></data>
+  <data name="Place13Title" xml:space="preserve"><value>Средний и Рыбачий</value></data>
+  <data name="Place13Text" xml:space="preserve"><value>Край земли за Мурманском: хребет Муста-Тунтури и берег открытого океана.</value></data>
+  <data name="Place13Detail1" xml:space="preserve"><value>Средний и Рыбачий — самые северные полуострова европейской России. Дорога перебирается через хребет Муста-Тунтури и идёт вдоль скалистых берегов мимо старых военных позиций; на побережье — водопады, птичьи базары и вид на открытый Ледовитый океан до самого горизонта.</value></data>
+  <data name="Place13Detail2" xml:space="preserve"><value>Маршрут полностью внедорожный и занимает весь день. Возьмите ветрозащиту и запас еды: на полуостровах нет ни кафе, ни связи — только тундра, океан и ветер.</value></data>
   <data name="MapPeninsula" xml:space="preserve"><value>Кольский полуостров</value></data>
   <data name="MapRybachy" xml:space="preserve"><value>п-ов Рыбачий</value></data>
   <data name="MapKhibiny" xml:space="preserve"><value>Хибины</value></data>
@@ -219,7 +230,7 @@
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Не только Териберка</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Другие маршруты</value></data>
   <data name="OtherRoutesText" xml:space="preserve"><value>Если Териберка уже была или хочется увидеть другой Север — подберём маршрут. При звонке просто назовите, куда хотите.</value></data>
-  <data name="OtherRoute2Type" xml:space="preserve"><value>Горный маршрут</value></data>
+  <data name="OtherRoute2Type" xml:space="preserve"><value>Внедорожные маршруты</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>Побережье Белого моря</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>Посмотреть направление →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>Как пройдёт день в Териберке</value></data>
