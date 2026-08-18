@@ -74,6 +74,12 @@ else
                                placeholder="@L["FieldCommentHint"]" />
             }
         </label>
+        @* Согласие пока только на клиенте (required): в контракт не входит,
+           сервер его не проверяет — плейсхолдер до настоящей политики ПД. *@
+        <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span>@L["ConsentLabel"] <a href="/privacy" target="_blank" rel="noopener">@L["ConsentPolicyLink"]</a></span>
+        </label>
         <div class="form-submit">
             <button class="btn" type="submit">@L["Submit"]</button>
         </div>

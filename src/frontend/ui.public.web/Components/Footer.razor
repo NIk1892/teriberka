@@ -33,7 +33,9 @@
         </div>
     </div>
 
+    @* Реквизиты — фейковые нули-заглушки: заменить на настоящие перед запуском. *@
     <div class="container footer-bottom">
-        © @DateTime.Now.Year @L["Brand"]
+        <span>© @DateTime.Now.Year @L["Brand"] · @L["FooterLegal"]</span>
+        <a href="/privacy">@L["FooterPrivacyLink"]</a>
     </div>
 </footer>

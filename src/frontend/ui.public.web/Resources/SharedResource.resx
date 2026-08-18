@@ -311,4 +311,20 @@
   <data name="FormPoint1" xml:space="preserve"><value>Уточним, свободна ли выбранная дата</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Рассчитаем итоговую стоимость для вашей группы</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Ответим на вопросы о погоде, одежде и маршруте</value></data>
+  <data name="ConsentLabel" xml:space="preserve"><value>Соглашаюсь на обработку персональных данных и принимаю</value></data>
+  <data name="ConsentPolicyLink" xml:space="preserve"><value>политику конфиденциальности</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>ИП Иванов Иван Иванович · ИНН 000000000000 · ОГРНИП 000000000000000</value></data>
+  <data name="FooterPrivacyLink" xml:space="preserve"><value>Политика конфиденциальности</value></data>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Политика конфиденциальности</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>Эта страница описывает, какие данные мы получаем из формы заявки и что с ними делаем.</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>Это черновик-заглушка: перед запуском сайта текст политики и реквизиты оператора будут заменены на настоящие.</value></data>
+  <data name="PrivacyS1Title" xml:space="preserve"><value>Какие данные мы собираем</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Имя, телефон, число участников, желаемую дату и необязательный комментарий — только то, что вы сами указываете в форме заявки. Файлы cookie используются лишь для запоминания темы и языка сайта.</value></data>
+  <data name="PrivacyS2Title" xml:space="preserve"><value>Зачем они нужны</value></data>
+  <data name="PrivacyS2Text" xml:space="preserve"><value>Только чтобы связаться с вами по заявке: подтвердить дату, рассчитать стоимость и ответить на вопросы. Рассылок и рекламы нет.</value></data>
+  <data name="PrivacyS3Title" xml:space="preserve"><value>Кто имеет доступ</value></data>
+  <data name="PrivacyS3Text" xml:space="preserve"><value>Заявки видит только оператор туров. Мы не передаём данные третьим лицам и не публикуем их.</value></data>
+  <data name="PrivacyS4Title" xml:space="preserve"><value>Хранение и удаление</value></data>
+  <data name="PrivacyS4Text" xml:space="preserve"><value>Заявка хранится, пока актуальна поездка. Чтобы удалить свои данные, напишите или позвоните по любому контакту из подвала сайта — удалим без лишних вопросов.</value></data>
+  <data name="PlaceTitleSuffix" xml:space="preserve"><value>экскурсия из Мурманска</value></data>
 </root>

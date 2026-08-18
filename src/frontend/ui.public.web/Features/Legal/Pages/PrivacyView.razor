@@ -1,0 +1,35 @@
+@page "/privacy"
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Layouts
+@layout MainLayout
+@inject IStringLocalizer<SharedResource> L
+
+@* Черновик политики конфиденциальности — плейсхолдер: перед запуском текст
+   и реквизиты оператора заменить на настоящие (см. PrivacyDraftNote). *@
+
+<PageTitle>@L["PrivacyTitle"] · @L["Brand"]</PageTitle>
+<PageMeta Title="@L["PrivacyTitle"]" Description="@L["PrivacyLead"]" Path="/privacy" />
+
+<section class="section">
+    <div class="container detail legal">
+        <h1>@L["PrivacyTitle"]</h1>
+        <p class="detail-lead">@L["PrivacyLead"]</p>
+        <p class="legal-draft">@L["PrivacyDraftNote"]</p>
+
+        <h2>@L["PrivacyS1Title"]</h2>
+        <p>@L["PrivacyS1Text"]</p>
+
+        <h2>@L["PrivacyS2Title"]</h2>
+        <p>@L["PrivacyS2Text"]</p>
+
+        <h2>@L["PrivacyS3Title"]</h2>
+        <p>@L["PrivacyS3Text"]</p>
+
+        <h2>@L["PrivacyS4Title"]</h2>
+        <p>@L["PrivacyS4Text"]</p>
+
+        <p class="legal-operator">@L["FooterLegal"]</p>
+
+        <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
+    </div>
+</section>

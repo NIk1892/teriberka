@@ -311,4 +311,20 @@
   <data name="FormPoint1" xml:space="preserve"><value>Check whether your chosen date is available</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Calculate the final price for your group</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Answer questions about weather, clothing and the route</value></data>
+  <data name="ConsentLabel" xml:space="preserve"><value>I agree to the processing of my personal data and accept the</value></data>
+  <data name="ConsentPolicyLink" xml:space="preserve"><value>privacy policy</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>Sole proprietor Ivan Ivanov · Taxpayer ID (INN) 000000000000 · OGRNIP 000000000000000</value></data>
+  <data name="FooterPrivacyLink" xml:space="preserve"><value>Privacy policy</value></data>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Privacy policy</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>This page explains what data we receive from the booking form and what we do with it.</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>This is a placeholder draft: the policy text and the operator's legal details will be replaced with real ones before launch.</value></data>
+  <data name="PrivacyS1Title" xml:space="preserve"><value>What data we collect</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Your name, phone number, group size, preferred date and an optional comment — only what you enter in the form yourself. Cookies are used solely to remember the site theme and language.</value></data>
+  <data name="PrivacyS2Title" xml:space="preserve"><value>Why we need it</value></data>
+  <data name="PrivacyS2Text" xml:space="preserve"><value>Only to contact you about your request: confirm the date, calculate the price and answer questions. No newsletters, no advertising.</value></data>
+  <data name="PrivacyS3Title" xml:space="preserve"><value>Who has access</value></data>
+  <data name="PrivacyS3Text" xml:space="preserve"><value>Requests are seen only by the tour operator. We do not share your data with third parties or publish it.</value></data>
+  <data name="PrivacyS4Title" xml:space="preserve"><value>Storage and deletion</value></data>
+  <data name="PrivacyS4Text" xml:space="preserve"><value>A request is kept while the trip is relevant. To delete your data, call or message any contact in the site footer — we will remove it, no questions asked.</value></data>
+  <data name="PlaceTitleSuffix" xml:space="preserve"><value>tour from Murmansk</value></data>
 </root>

@@ -311,4 +311,20 @@
   <data name="FormPoint1" xml:space="preserve"><value>确认您选择的日期是否可用</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>计算您团队的最终价格</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>解答天气、服装和路线问题</value></data>
+  <data name="ConsentLabel" xml:space="preserve"><value>我同意处理我的个人数据，并接受</value></data>
+  <data name="ConsentPolicyLink" xml:space="preserve"><value>隐私政策</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>个体经营者 Ivan Ivanov · 纳税人识别号（INN）000000000000 · OGRNIP 000000000000000</value></data>
+  <data name="FooterPrivacyLink" xml:space="preserve"><value>隐私政策</value></data>
+  <data name="PrivacyTitle" xml:space="preserve"><value>隐私政策</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>本页说明我们从预订表单收到哪些数据，以及如何处理这些数据。</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>这是占位草稿：网站上线前，政策文本和经营者的法律信息将替换为真实内容。</value></data>
+  <data name="PrivacyS1Title" xml:space="preserve"><value>我们收集哪些数据</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>姓名、电话、人数、期望日期和可选留言——仅限您在表单中自行填写的内容。Cookie 仅用于记住网站的主题和语言。</value></data>
+  <data name="PrivacyS2Title" xml:space="preserve"><value>用途</value></data>
+  <data name="PrivacyS2Text" xml:space="preserve"><value>仅用于就您的申请与您联系：确认日期、计算价格并解答问题。没有邮件推送，也没有广告。</value></data>
+  <data name="PrivacyS3Title" xml:space="preserve"><value>谁可以访问</value></data>
+  <data name="PrivacyS3Text" xml:space="preserve"><value>申请仅由旅行团经营者查看。我们不会向第三方提供或公开您的数据。</value></data>
+  <data name="PrivacyS4Title" xml:space="preserve"><value>保存与删除</value></data>
+  <data name="PrivacyS4Text" xml:space="preserve"><value>申请在行程有效期内保存。如需删除您的数据，请通过页脚的任一联系方式告知我们——我们会直接删除。</value></data>
+  <data name="PlaceTitleSuffix" xml:space="preserve"><value>摩尔曼斯克出发的游览</value></data>
 </root>
