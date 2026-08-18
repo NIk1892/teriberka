@@ -1366,6 +1366,15 @@ a { color: var(--accent-ice); }
     object-fit: cover;
 }
 
+/* атрибуция фото (обязательна по лицензиям CC) */
+.photo-credit {
+    margin: 8px 0 0;
+    font-size: .78rem;
+    color: var(--text-muted);
+}
+
+.photo-credit a { color: var(--text-muted); }
+
 .detail-text {
     margin-top: 24px;
     font-size: 1.02rem;

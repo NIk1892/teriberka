@@ -19,6 +19,7 @@
   <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>Главные точки дня: от кладбища кораблей и «Драконьих яиц» до водопада, который падает в океан.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
+  <data name="PhotoCreditPrefix" xml:space="preserve"><value>Фото:</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
 
   <data name="Place1Title" xml:space="preserve"><value>Пляж «Драконьи яйца»</value></data>
@@ -109,6 +110,11 @@
   <data name="FieldDate" xml:space="preserve"><value>Дата приезда</value></data>
   <data name="FieldComment" xml:space="preserve"><value>Пожелания (необязательно)</value></data>
   <data name="FieldCommentHint" xml:space="preserve"><value>Например: хотим индивидуальный тур на Рыбачий на два дня</value></data>
+  <data name="FieldCommentCustom" xml:space="preserve"><value>Пожелания</value></data>
+  <data name="FieldCommentHintCustom" xml:space="preserve"><value>Куда хотите, в какие даты и каким составом — например: Рыбачий на два дня, вдвоём, начало сентября</value></data>
+  <data name="FormCustomKicker" xml:space="preserve"><value>Индивидуальный тур</value></data>
+  <data name="FormCustomTitle" xml:space="preserve"><value>Расскажите, какой тур вам нужен</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>Оставьте контакты и опишите пожелания — перезвоним, предложим программу и стоимость.</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>Свой маршрут</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>Нужен индивидуальный тур?</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Опишите пожелания в заявке, а детали обсудим по телефону.</value></data>

@@ -1,13 +1,9 @@
 @page "/"
 @using UI.Public.Web.Layouts
 @using UI.Public.Web.Features.Places
-@using global::Applications.Contracts
-@using FluentValidation
+@using UI.Public.Web.Components
 @using Microsoft.Extensions.Localization
 @layout MainLayout
-@inject IMediator Mediator
-@inject NavigationManager Navigation
-@inject IEnumerable<IValidator<ApplicationCreateCommand>> Validators
 @inject IStringLocalizer<SharedResource> L
 
 <PageTitle>@L["PageTitle"]</PageTitle>
@@ -83,8 +79,7 @@
                 var place = PlaceCatalog.ByIndex(idx);
                 <a class="place-card" href="/place/@place.Slug">
                     <span class="place-photo">
-                        <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
-                        <span class="photo-soon">@L["PhotoSoon"]</span>
+                        <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" />
                     </span>
                     <span class="place-body">
                         <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -187,64 +182,7 @@
 <section class="section apply" id="apply">
     <div class="container">
         <div class="apply-card">
-            @if (Sent)
-            {
-                <div class="sent-card">
-                    <span class="sent-icon" aria-hidden="true">✓</span>
-                    <h2>@L["SentTitle"]</h2>
-                    <p>@L["SentText"]</p>
-                    <a href="/">@L["SentAgain"]</a>
-                </div>
-            }
-            else
-            {
-                <span class="apply-kicker">@L["FormKicker"]</span>
-                <h2>@L["FormTitle"]</h2>
-                <p class="apply-lead">@L["FormText"]</p>
-                <ul class="apply-points">
-                    <li>@L["FormPoint1"]</li>
-                    <li>@L["FormPoint2"]</li>
-                    <li>@L["FormPoint3"]</li>
-                </ul>
-
-                @if (_errors.Length > 0)
-                {
-                    <ul class="form-errors">
-                        @foreach (var error in _errors)
-                        {
-                            <li>@error</li>
-                        }
-                    </ul>
-                }
-
-                <EditForm class="form-grid" Model="Model" FormName="application" OnValidSubmit="SubmitAsync">
-                    <label class="field">
-                        <span>@L["FieldName"]</span>
-                        <InputText @bind-Value="Model.Title" required maxlength="255" autocomplete="name" />
-                    </label>
-                    <label class="field">
-                        <span>@L["FieldPhone"]</span>
-                        <InputText type="tel" @bind-Value="Model.Phone" required maxlength="32"
-                                   placeholder="+7 900 000-00-00" autocomplete="tel" />
-                    </label>
-                    <label class="field">
-                        <span>@L["FieldPeople"]</span>
-                        <InputNumber @bind-Value="Model.PeopleCount" required min="1" max="50" />
-                    </label>
-                    <label class="field">
-                        <span>@L["FieldDate"]</span>
-                        <InputDate @bind-Value="Model.ArrivalDate" required min="@Today.ToString("yyyy-MM-dd")" />
-                    </label>
-                    <label class="field field-wide">
-                        <span>@L["FieldComment"]</span>
-                        <InputTextArea @bind-Value="Model.Comment" maxlength="500" rows="3"
-                                       placeholder="@L["FieldCommentHint"]" />
-                    </label>
-                    <div class="form-submit">
-                        <button class="btn" type="submit">@L["Submit"]</button>
-                    </div>
-                </EditForm>
-            }
+            <ApplicationForm Sent="Sent" Custom="CustomTour" />
         </div>
     </div>
 </section>
@@ -275,8 +213,7 @@
                         var place = PlaceCatalog.ByIndex(idx);
                         <a class="place-card" href="/place/@place.Slug">
                             <span class="place-photo">
-                                <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
-                                <span class="photo-soon">@L["PhotoSoon"]</span>
+                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" />
                             </span>
                             <span class="place-body">
                                 <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -296,60 +233,25 @@
     </div>
 </section>
 
-@* Индивидуальный тур: последний конверсионный блок — CTA ведёт к общей форме,
-   пожелания пишутся в поле «Пожелания» той же заявки. *@
+@* Индивидуальный тур: последний конверсионный блок — CTA открывает ту же форму
+   в ветке Custom (?tour=custom): другие тексты, обязательные «Пожелания». *@
 <section class="custom-tour" id="custom-tour">
     <div class="container">
         <span class="custom-tour-kicker">@L["CustomTourKicker"]</span>
         <h2>@L["CustomTourTitle"]</h2>
         <p>@L["CustomTourText"]</p>
-        <a class="btn" href="#apply">@L["CustomTourCta"]</a>
+        <a class="btn" href="/?tour=custom#apply">@L["CustomTourCta"]</a>
     </div>
 </section>
 
 @code {
-    // Форма работает на static SSR (обычный POST), поэтому JavaScript в браузере не нужен:
-    // значения приезжают в Model через [SupplyParameterFromForm], ответ — редирект по схеме
-    // post-redirect-get, чтобы F5 на странице «спасибо» не отправлял заявку повторно.
-    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
-
-    [SupplyParameterFromForm]
-    public ApplicationCreateCommand Model { get; set; } = default!;
-
+    // Сама форма (POST, валидация, редирект) живёт в компоненте ApplicationForm —
+    // здесь только флаги из query: показана ли карточка «спасибо» и какая ветка формы.
     [SupplyParameterFromQuery(Name = "sent")]
     public bool Sent { get; set; }
 
-    private string[] _errors = [];
+    [SupplyParameterFromQuery(Name = "tour")]
+    public string? Tour { get; set; }
 
-    protected override void OnInitialized() =>
-        Model ??= new ApplicationCreateCommand
-        {
-            PeopleCount = 2,
-            ArrivalDate = Today.AddDays(7)
-        };
-
-    private async Task SubmitAsync()
-    {
-        _errors = Validators
-            .Select(validator => validator.Validate(Model))
-            .SelectMany(result => result.Errors)
-            .Select(failure => failure.ErrorMessage)
-            .ToArray();
-
-        if (_errors.Length > 0)
-            return;
-
-        try
-        {
-            await Mediator.Send(Model);
-        }
-        catch (Exception ex)
-        {
-            _errors = [ex.Message];
-            return;
-        }
-
-        // именно "true": биндинг bool из query не понимает "1"
-        Navigation.NavigateTo("/?sent=true");
-    }
+    private bool CustomTour => string.Equals(Tour, "custom", StringComparison.OrdinalIgnoreCase);
 }

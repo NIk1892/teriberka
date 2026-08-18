@@ -1,0 +1,128 @@
+@using global::Applications.Contracts
+@using FluentValidation
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.Extensions.Localization
+@inject IMediator Mediator
+@inject NavigationManager Navigation
+@inject IEnumerable<IValidator<ApplicationCreateCommand>> Validators
+@inject IStringLocalizer<SharedResource> L
+
+@* Единственная форма заявки на сайте. Ветка Custom (открывается ссылкой
+   /?tour=custom#apply) меняет тексты и делает «Пожелания» обязательными —
+   сам POST, FormName и обработка общие, отдельной формы для индивидуального
+   тура сознательно нет. Работает на static SSR: значения приезжают через
+   [SupplyParameterFromForm], после успеха — редирект (post-redirect-get). *@
+
+@if (Sent)
+{
+    <div class="sent-card">
+        <span class="sent-icon" aria-hidden="true">✓</span>
+        <h2>@L["SentTitle"]</h2>
+        <p>@L["SentText"]</p>
+        <a href="/">@L["SentAgain"]</a>
+    </div>
+}
+else
+{
+    <span class="apply-kicker">@L[Custom ? "FormCustomKicker" : "FormKicker"]</span>
+    <h2>@L[Custom ? "FormCustomTitle" : "FormTitle"]</h2>
+    <p class="apply-lead">@L[Custom ? "FormCustomText" : "FormText"]</p>
+    <ul class="apply-points">
+        <li>@L["FormPoint1"]</li>
+        <li>@L["FormPoint2"]</li>
+        <li>@L["FormPoint3"]</li>
+    </ul>
+
+    @if (_errors.Length > 0)
+    {
+        <ul class="form-errors">
+            @foreach (var error in _errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    }
+
+    <EditForm class="form-grid" Model="Model" FormName="application" OnValidSubmit="SubmitAsync">
+        <label class="field">
+            <span>@L["FieldName"]</span>
+            <InputText @bind-Value="Model.Title" required maxlength="255" autocomplete="name" />
+        </label>
+        <label class="field">
+            <span>@L["FieldPhone"]</span>
+            <InputText type="tel" @bind-Value="Model.Phone" required maxlength="32"
+                       placeholder="+7 900 000-00-00" autocomplete="tel" />
+        </label>
+        <label class="field">
+            <span>@L["FieldPeople"]</span>
+            <InputNumber @bind-Value="Model.PeopleCount" required min="1" max="50" />
+        </label>
+        <label class="field">
+            <span>@L["FieldDate"]</span>
+            <InputDate @bind-Value="Model.ArrivalDate" required min="@Today.ToString("yyyy-MM-dd")" />
+        </label>
+        <label class="field field-wide">
+            <span>@L[Custom ? "FieldCommentCustom" : "FieldComment"]</span>
+            @if (Custom)
+            {
+                <InputTextArea @bind-Value="Model.Comment" required maxlength="500" rows="4"
+                               placeholder="@L["FieldCommentHintCustom"]" />
+            }
+            else
+            {
+                <InputTextArea @bind-Value="Model.Comment" maxlength="500" rows="3"
+                               placeholder="@L["FieldCommentHint"]" />
+            }
+        </label>
+        <div class="form-submit">
+            <button class="btn" type="submit">@L["Submit"]</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
+
+    /// <summary>Показывать карточку «спасибо» вместо формы (после редиректа ?sent=true).</summary>
+    [Parameter] public bool Sent { get; set; }
+
+    /// <summary>Ветка индивидуального тура: другие тексты, обязательные «Пожелания».</summary>
+    [Parameter] public bool Custom { get; set; }
+
+    [SupplyParameterFromForm]
+    public ApplicationCreateCommand Model { get; set; } = default!;
+
+    private string[] _errors = [];
+
+    protected override void OnInitialized() =>
+        Model ??= new ApplicationCreateCommand
+        {
+            PeopleCount = 2,
+            ArrivalDate = Today.AddDays(7)
+        };
+
+    private async Task SubmitAsync()
+    {
+        _errors = Validators
+            .Select(validator => validator.Validate(Model))
+            .SelectMany(result => result.Errors)
+            .Select(failure => failure.ErrorMessage)
+            .ToArray();
+
+        if (_errors.Length > 0)
+            return;
+
+        try
+        {
+            await Mediator.Send(Model);
+        }
+        catch (Exception ex)
+        {
+            _errors = [ex.Message];
+            return;
+        }
+
+        // именно "true": биндинг bool из query не понимает "1"
+        Navigation.NavigateTo("/?sent=true");
+    }
+}

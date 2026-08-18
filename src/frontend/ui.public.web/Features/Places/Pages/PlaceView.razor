@@ -33,9 +33,13 @@ else
             <p class="detail-lead">@L[$"Place{i}Text"]</p>
 
             <div class="detail-photo">
-                <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" />
-                <span class="photo-soon">@L["PhotoSoon"]</span>
+                <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" />
             </div>
+            @if (_place.Photo is not null)
+            {
+                @* атрибуция обязательна по лицензии CC — не удалять *@
+                <p class="photo-credit">@L["PhotoCreditPrefix"] <a href="@_place.Photo.SourceUrl" rel="noopener nofollow">@_place.Photo.Author</a> · @_place.Photo.License</p>
+            }
 
             <div class="detail-text">
                 <p>@L[$"Place{i}Detail1"]</p>

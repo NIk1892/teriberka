@@ -19,6 +19,7 @@
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>The day's landmarks: from the ship graveyard and Dragon Eggs to the waterfall that falls into the ocean.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
+  <data name="PhotoCreditPrefix" xml:space="preserve"><value>Photo:</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
 
   <data name="Place1Title" xml:space="preserve"><value>Dragon Eggs beach</value></data>
@@ -109,6 +110,11 @@
   <data name="FieldDate" xml:space="preserve"><value>Arrival date</value></data>
   <data name="FieldComment" xml:space="preserve"><value>Wishes (optional)</value></data>
   <data name="FieldCommentHint" xml:space="preserve"><value>For example: a two-day custom tour to the Rybachy Peninsula</value></data>
+  <data name="FieldCommentCustom" xml:space="preserve"><value>Wishes</value></data>
+  <data name="FieldCommentHintCustom" xml:space="preserve"><value>Where you want to go, on which dates and with how many people — for example: two days on Rybachy, two of us, early September</value></data>
+  <data name="FormCustomKicker" xml:space="preserve"><value>Custom tour</value></data>
+  <data name="FormCustomTitle" xml:space="preserve"><value>Tell us about the tour you want</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>Leave your contacts and describe your wishes — we will call back with a programme and a price.</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>Your own route</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>Need a custom tour?</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Describe your wishes in the request and we will discuss the details by phone.</value></data>

@@ -19,6 +19,7 @@
   <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>一天中的主要地点：从船舶墓地和“龙蛋”海滩，到坠入大洋的瀑布。</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
+  <data name="PhotoCreditPrefix" xml:space="preserve"><value>摄影：</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>照片即将上线</value></data>
 
   <data name="Place1Title" xml:space="preserve"><value>“龙蛋”海滩</value></data>
@@ -109,6 +110,11 @@
   <data name="FieldDate" xml:space="preserve"><value>到达日期</value></data>
   <data name="FieldComment" xml:space="preserve"><value>期望（选填）</value></data>
   <data name="FieldCommentHint" xml:space="preserve"><value>例如：想要为期两天的雷巴奇半岛定制行程</value></data>
+  <data name="FieldCommentCustom" xml:space="preserve"><value>期望</value></data>
+  <data name="FieldCommentHintCustom" xml:space="preserve"><value>想去哪里、日期和人数——例如：雷巴奇半岛两日游，两人，九月初</value></data>
+  <data name="FormCustomKicker" xml:space="preserve"><value>定制行程</value></data>
+  <data name="FormCustomTitle" xml:space="preserve"><value>告诉我们您想要的行程</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>请留下联系方式并写下期望——我们会回电，提供行程方案和价格。</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>定制路线</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>需要定制行程？</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣定制行程——从一日游到科拉半岛为期一周的远征。请在申请中写下您的期望，细节我们电话商谈。</value></data>
