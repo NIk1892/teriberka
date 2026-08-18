@@ -1350,6 +1350,9 @@ a { color: var(--accent-ice); }
 }
 
 .detail-photo {
+    /* block обязателен: это ссылка (лайтбокс), инлайновый вариант рисует
+       рамку вокруг пустого line box'а — «палочку» над фото */
+    display: block;
     position: relative;
     overflow: hidden;
     aspect-ratio: 16 / 9;
@@ -1357,6 +1360,7 @@ a { color: var(--accent-ice); }
     border-radius: var(--radius);
     background: var(--bg-elev-2);
     box-shadow: var(--shadow);
+    cursor: zoom-in;
 }
 
 .detail-photo img {
@@ -1408,10 +1412,84 @@ a { color: var(--accent-ice); }
     object-fit: cover;
 }
 
-/* пока в галерее заглушки — слегка разводим их по оттенку, чтобы не были копиями */
-.gallery-item:nth-child(2) img { filter: hue-rotate(25deg); }
-.gallery-item:nth-child(3) img { filter: hue-rotate(-30deg) brightness(1.08); }
-.gallery-item:nth-child(4) img { filter: hue-rotate(55deg) brightness(.92); }
+/* сетка-фоллбек с заглушками: слегка разводим их по оттенку, чтобы не были копиями
+   (селектор нарочно ограничен .gallery-grid — настоящие фото в карусели не красим) */
+.gallery-grid .gallery-item:nth-child(2) img { filter: hue-rotate(25deg); }
+.gallery-grid .gallery-item:nth-child(3) img { filter: hue-rotate(-30deg) brightness(1.08); }
+.gallery-grid .gallery-item:nth-child(4) img { filter: hue-rotate(55deg) brightness(.92); }
+
+/* карусель галереи: scroll-snap (свайп/колесо без JavaScript) + стрелки carousel.js.
+   Кадры целые: один во всю ширину на мобиле, два — на десктопе */
+.gallery-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    /* скроллбар спрятан: листание — свайп/колесо/стрелки carousel.js */
+    scrollbar-width: none;
+}
+
+.gallery-carousel::-webkit-scrollbar { display: none; }
+
+.gallery-carousel .gallery-item {
+    display: block;
+    scroll-snap-align: start;
+    cursor: zoom-in;
+}
+
+@media (min-width: 700px) {
+    .gallery-carousel { grid-auto-columns: calc((100% - 14px) / 2); }
+}
+
+/* «интересный факт» — акцентная вставка после текста места */
+.detail-fact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: var(--bg-elev);
+}
+
+.detail-fact-label {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.detail-fact p { margin: 0; }
+
+/* лайтбокс: оверлей поверх всего, кадр по центру; открывается lightbox.js */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 4vw;
+    background: rgba(4, 8, 18, .92);
+    cursor: zoom-out;
+}
+
+/* display:flex выше перебил бы UA-правило для [hidden] — возвращаем явно */
+.lightbox[hidden] { display: none; }
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+html.lightbox-open { overflow: hidden; }
 
 .cta-band {
     margin-top: 44px;

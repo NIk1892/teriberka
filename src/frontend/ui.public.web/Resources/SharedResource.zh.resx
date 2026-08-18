@@ -208,6 +208,33 @@
   <data name="Place13Text" xml:space="preserve"><value>摩尔曼斯克以北的天涯海角：穆斯塔-通图里山脊与开阔大洋之岸。</value></data>
   <data name="Place13Detail1" xml:space="preserve"><value>斯列德尼与雷巴奇是俄罗斯欧洲部分最北的半岛。道路翻越穆斯塔-通图里山脊，沿岩石海岸经过旧日的战争阵地；海岸上有瀑布、海鸟聚集的悬崖，以及一望无际的北冰洋。</value></data>
   <data name="Place13Detail2" xml:space="preserve"><value>全程越野，需要一整天。请带好防风衣物和食物：半岛上没有咖啡馆，也没有手机信号——只有苔原、海洋和风。</value></data>
+  <data name="FactLabel" xml:space="preserve"><value>你知道吗</value></data>
+  <data name="Place1Detail3" xml:space="preserve"><value>每块巨石重达几十甚至上百公斤，但在大风暴中海浪能像卵石一样翻滚它们——第二天早晨海滩的模样可能与前一天不同。冬天石头披上冰壳，在低垂的阳光下像玻璃一样闪光。</value></data>
+  <data name="Place1Fact" xml:space="preserve"><value>禁止把“龙蛋”带走：海岸属于受保护的自然区域，失去了巨石，这片海滩就会消失。</value></data>
+  <data name="Place2Detail3" xml:space="preserve"><value>大多数船只是木制渔船和机动艇：近海捕捞停止后，船队被拖上浅滩，从此留在了那里。冰冷的咸水保存了木材，船体的肋骨已经矗立了半个多世纪。</value></data>
+  <data name="Place2Fact" xml:space="preserve"><value>二十世纪中叶，捷里别尔卡是摩尔曼海岸最重要的渔村之一，拥有自己的鱼品厂和修船作坊。</value></data>
+  <data name="Place3Detail3" xml:space="preserve"><value>瀑布沿黑色岩壁分几级跌入大海，峡谷像号角一样放大水声——还没走近就能听见轰鸣。春季融雪时水量最大；到了夏末水流平缓，变得清澈见底。</value></data>
+  <data name="Place3Fact" xml:space="preserve"><value>即使在严寒中瀑布也不会完全封冻——冰层之下仍能听见流水声。</value></data>
+  <data name="Place4Detail3" xml:space="preserve"><value>在捷里别尔卡外海，温暖的大西洋洋流与北极水域相遇，让这片海格外富有生机：鳕鱼、狼鱼、帝王蟹，座头鲸追着毛鳞鱼一直游到岸边。全国各地的游客正是为观鲸而来。</value></data>
+  <data name="Place4Fact" xml:space="preserve"><value>巴伦支海平均深度只有约220米——按大洋的标准是浅浅的大陆架，因此鱼类格外丰富。</value></data>
+  <data name="Place5Detail3" xml:space="preserve"><value>极光诞生在100–300公里的高空：太阳风粒子撞击大气层，氧气发出绿光，氮气添上紫色的闪光。太阳耀斑越强，极光就能到达越南的纬度——而在捷里别尔卡，即使平静的夜晚它也会亮起。</value></data>
+  <data name="Place5Fact" xml:space="preserve"><value>追光的最佳月份是九月和三月：春分秋分前后地磁暴明显更频繁。</value></data>
+  <data name="Place6Detail3" xml:space="preserve"><value>苔原只是看起来空旷：这里生活着数百种苔藓和地衣，驯鹿苔每年只生长几毫米。所以我们只走小径——车辙或篝火留下的伤痕，苔原要用几十年才能愈合。</value></data>
+  <data name="Place6Fact" xml:space="preserve"><value>一株刚到脚踝的矮桦，树龄可能超过一百年。</value></data>
+  <data name="Place7Detail3" xml:space="preserve"><value>萨米传说中，库伊瓦是被众神雷电击倒的巨人，他黑色的身影从此留在了水面上方的悬崖上。科学解释这是苔藓和水痕组成的图案，但湖泊的神圣光环依旧：几个世纪以来萨米人视它为圣湖，非必要甚至不在此捕鱼。</value></data>
+  <data name="Place7Fact" xml:space="preserve"><value>悬崖上库伊瓦的身影高达74米——比二十层的楼房还高。</value></data>
+  <data name="Place8Detail3" xml:space="preserve"><value>洛沃泽罗山地和相邻的希比尼山是古老的碱性岩体，是稀有矿物的宝库：这里出产被称为“萨米之血”的异性石，以及数十种世界上几乎别处没有的矿石。</value></data>
+  <data name="Place8Fact" xml:space="preserve"><value>这些山脉已有数亿年历史——冰川和风早已把它们磨成平缓的石质高原。</value></data>
+  <data name="Place9Detail3" xml:space="preserve"><value>科拉布尔角的紫水晶早在波莫尔时代就已开采，最早经营矿场的是索洛韦茨基修道院的修士——在乌拉尔矿床发现之前，捷尔斯基海岸一直是俄罗斯珠宝紫水晶的主要产地。如今海角是地质遗迹：可以欣赏晶簇，但不能敲取。</value></data>
+  <data name="Place9Fact" xml:space="preserve"><value>库佐缅的沙漠是人为造成的：为盐场砍伐森林后沙地蔓延，放牧又破坏了沙丘。</value></data>
+  <data name="Place10Detail3" xml:space="preserve"><value>卡诺泽罗岩画是偶然发现的：1997年7月5日，列夫达博物馆的工作人员沿乌姆巴河漂流时注意到岛上岩石上的图案。如今已记录了1200多幅图像——驼鹿、鲸鱼、小船、萨满；主岩上方建起了保护穹顶。</value></data>
+  <data name="Place10Fact" xml:space="preserve"><value>乌姆巴在1466年首次见于文献记载——比俄罗斯许多北方城市还要古老。</value></data>
+  <data name="Place11Detail3" xml:space="preserve"><value>瓦尔祖加曾是北方的珍珠之都：人们在河里采集河珠，用来装点波莫尔妇女的盛装和圣像框。如今村庄靠鲑鱼和朝圣者生活——人们来这里看不用一颗钉子的木构建筑如何屹立三个多世纪。</value></data>
+  <data name="Place11Fact" xml:space="preserve"><value>圣母安息教堂的帐篷顶高达34米——全部由松木构件于1674年不用钉子搭建而成。</value></data>
+  <data name="Place12Detail3" xml:space="preserve"><value>石头螺旋“瓦维隆”散布在整个白海和斯堪的纳维亚北部；坎达拉克沙的这一座最容易到达，沿海湾的步道即可走到。不要走进石道之间——既是对远古的尊重，也为了不移动躺了几千年的石头。</value></data>
+  <data name="Place12Fact" xml:space="preserve"><value>有一种假说认为，螺旋是为了“困住”被捕之鱼的灵魂，使它无法回到海里带走渔获。</value></data>
+  <data name="Place13Detail3" xml:space="preserve"><value>公路翻越的穆斯塔-通图里山脊，是整个卫国战争期间敌人唯一未能越过苏联陆地边界的地方：从战争第一天到1944年，战线在这里纹丝未动。岩石间至今还能捡到弹壳，山脊脚下设有半岛保卫战博物馆。</value></data>
+  <data name="Place13Fact" xml:space="preserve"><value>雷巴奇半岛上的涅梅茨基角是俄罗斯欧洲部分的最北端。</value></data>
   <data name="MapPeninsula" xml:space="preserve"><value>科拉半岛</value></data>
   <data name="MapRybachy" xml:space="preserve"><value>雷巴奇半岛</value></data>
   <data name="MapKhibiny" xml:space="preserve"><value>希比尼山脉</value></data>
@@ -231,8 +258,8 @@
   <data name="Why5Text" xml:space="preserve"><value>先确认日期、天气和行程细节，再由您决定是否预订</value></data>
   <data name="Why6Title" xml:space="preserve"><value>贴心的向导相伴</value></data>
   <data name="Why6Text" xml:space="preserve"><value>根据团队调整节奏并告诉您最佳拍摄角度；茶点中有北方柳兰茶（伊万茶）——天然不含咖啡因，富含维生素C</value></data>
-  <data name="CarouselPrev" xml:space="preserve"><value>上一页评价</value></data>
-  <data name="CarouselNext" xml:space="preserve"><value>下一页评价</value></data>
+  <data name="CarouselPrev" xml:space="preserve"><value>上一张照片</value></data>
+  <data name="CarouselNext" xml:space="preserve"><value>下一张照片</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克往返接送</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>向导、主要停靠点与海鲜午餐</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>根据季节和天气调整行程</value></data>

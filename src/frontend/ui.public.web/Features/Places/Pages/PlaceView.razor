@@ -32,32 +32,56 @@ else
             <h1>@L[$"Place{i}Title"]</h1>
             <p class="detail-lead">@L[$"Place{i}Text"]</p>
 
-            <div class="detail-photo">
+            @* Лайтбокс: клик открывает фото на весь экран (js/lightbox.js);
+               без JavaScript ссылка честно открывает файл в новой вкладке. *@
+            <a class="detail-photo lightbox-link" href="/img/places/@(_place.Slug).webp" target="_blank" rel="noopener">
                 <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" />
-            </div>
-            @if (_place.Photo is not null)
-            {
-                @* атрибуция обязательна по лицензии CC — не удалять *@
-                <p class="photo-credit">@L["PhotoCreditPrefix"] <a href="@_place.Photo.SourceUrl" rel="noopener nofollow">@_place.Photo.Author</a> · @_place.Photo.License</p>
-            }
+            </a>
 
             <div class="detail-text">
                 <p>@L[$"Place{i}Detail1"]</p>
                 <p>@L[$"Place{i}Detail2"]</p>
+                <p>@L[$"Place{i}Detail3"]</p>
+            </div>
+
+            <div class="detail-fact">
+                <span class="detail-fact-label">@L["FactLabel"]</span>
+                <p>@L[$"Place{i}Fact"]</p>
             </div>
 
             <h2 class="gallery-title">@L["GalleryTitle"]</h2>
-            <div class="gallery-grid">
-                @* Пока фотографий нет — четыре заглушки; CSS-фильтры слегка меняют
-                   оттенок, чтобы галерея не выглядела копиями одного кадра. *@
-                @for (var n = 0; n < 4; n++)
-                {
-                    <div class="gallery-item">
-                        <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
-                        <span class="photo-soon">@L["PhotoSoon"]</span>
+            @if (_place.Gallery is { Length: > 0 } gallery)
+            {
+                @* Карусель на scroll-snap (механика отзывов): свайп/колесо работают без
+                   JavaScript, стрелки добавляет carousel.js (без него скрыты). Клик по
+                   кадру — полноэкранный просмотр (лайтбокс, фоллбек — новая вкладка). *@
+                <div class="carousel-wrap">
+                    <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                    <div class="gallery-carousel carousel-track">
+                        @for (var n = 0; n < gallery.Length; n++)
+                        {
+                            <a class="gallery-item lightbox-link" href="/img/places/@(_place.Slug)-g@(n + 1).webp" target="_blank" rel="noopener">
+                                <img src="/img/places/@(_place.Slug)-g@(n + 1).webp" alt="@L[$"Place{i}Title"]" loading="lazy" />
+                            </a>
+                        }
                     </div>
-                }
-            </div>
+                    <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+                </div>
+            }
+            else
+            {
+                <div class="gallery-grid">
+                    @* Фотографий пока нет — четыре заглушки; CSS-фильтры слегка меняют
+                       оттенок, чтобы галерея не выглядела копиями одного кадра. *@
+                    @for (var n = 0; n < 4; n++)
+                    {
+                        <div class="gallery-item">
+                            <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
+                            <span class="photo-soon">@L["PhotoSoon"]</span>
+                        </div>
+                    }
+                </div>
+            }
 
             <div class="cta-band">
                 <h2>@L["PlaceCtaTitle"]</h2>
