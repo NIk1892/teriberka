@@ -23,6 +23,10 @@ services:
       JWT_ISSUER: "http://localhost:5000"
       JWT_KEY: "TTlsGWhaANa47dV8uAFVQLVqaVxtV6cDbGzB8lbLvM0"
       OTLP_EXPORT_ENABLED: "false"
+      # appsettings.Development.json целит кластер в localhost:5012 (локальный запуск);
+      # в compose-сети users доступен по имени сервиса — переопределяем env-переменными.
+      ReverseProxy__Clusters__users__Destinations__default__Address: "http://api-users:8080"
+      SwaggerEndpoints__users: "http://api-users:8080/swagger/v1/swagger.json"
     ports:
       - "5000:8080"
     depends_on:
