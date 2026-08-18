@@ -112,6 +112,8 @@
   <data name="FieldCommentHint" xml:space="preserve"><value>Например: хотим индивидуальный тур на Рыбачий на два дня</value></data>
   <data name="FieldCommentCustom" xml:space="preserve"><value>Пожелания</value></data>
   <data name="FieldCommentHintCustom" xml:space="preserve"><value>Куда хотите, в какие даты и каким составом — например: Рыбачий на два дня, вдвоём, начало сентября</value></data>
+  <data name="GuideTitle" xml:space="preserve"><value>Сергей — аттестованный гид по Кольскому полуострову</value></data>
+  <data name="GuideText" xml:space="preserve"><value>Круглый год водит группы в Териберку, Хибины и на Терский берег: знает, когда выйти к океану, чтобы застать китов, где ловить северное сияние и как одеться, чтобы день на арктическом ветру прошёл в удовольствие. На маршруте держит комфортный темп и отвечает за безопасность группы.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Индивидуальный тур</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>Расскажите, какой тур вам нужен</value></data>
   <data name="FormCustomText" xml:space="preserve"><value>Оставьте контакты и опишите пожелания — перезвоним, предложим программу и стоимость.</value></data>
@@ -227,6 +229,8 @@
   <data name="Why4Text" xml:space="preserve"><value>заранее расскажем, что входит в стоимость и что взять с собой</value></data>
   <data name="Why5Title" xml:space="preserve"><value>Без предоплаты за заявку</value></data>
   <data name="Why5Text" xml:space="preserve"><value>сначала уточним дату, погоду и детали поездки, затем вы примете решение</value></data>
+  <data name="Why6Title" xml:space="preserve"><value>Внимательный гид рядом</value></data>
+  <data name="Why6Text" xml:space="preserve"><value>подстроит темп под группу и подскажет лучшие ракурсы; в угощение входит чай из северного иван-чая — кипрей не содержит кофеина и богат витамином C</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие отзывы</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Следующие отзывы</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска и обратно</value></data>

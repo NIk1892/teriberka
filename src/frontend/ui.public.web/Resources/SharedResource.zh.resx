@@ -112,6 +112,8 @@
   <data name="FieldCommentHint" xml:space="preserve"><value>例如：想要为期两天的雷巴奇半岛定制行程</value></data>
   <data name="FieldCommentCustom" xml:space="preserve"><value>期望</value></data>
   <data name="FieldCommentHintCustom" xml:space="preserve"><value>想去哪里、日期和人数——例如：雷巴奇半岛两日游，两人，九月初</value></data>
+  <data name="GuideTitle" xml:space="preserve"><value>谢尔盖——科拉半岛持证向导</value></data>
+  <data name="GuideText" xml:space="preserve"><value>他常年带团前往捷里别尔卡、希比尼山和捷尔斯基海岸：知道何时到岸边能遇见鲸鱼、去哪里追寻极光、以及如何穿衣让北极大风天依然舒适。行程中他掌握舒适的节奏，并负责团队的安全。</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>定制行程</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>告诉我们您想要的行程</value></data>
   <data name="FormCustomText" xml:space="preserve"><value>请留下联系方式并写下期望——我们会回电，提供行程方案和价格。</value></data>
@@ -227,6 +229,8 @@
   <data name="Why4Text" xml:space="preserve"><value>出发前说明费用包含项目和需要携带的物品</value></data>
   <data name="Why5Title" xml:space="preserve"><value>咨询无需预付</value></data>
   <data name="Why5Text" xml:space="preserve"><value>先确认日期、天气和行程细节，再由您决定是否预订</value></data>
+  <data name="Why6Title" xml:space="preserve"><value>贴心的向导相伴</value></data>
+  <data name="Why6Text" xml:space="preserve"><value>根据团队调整节奏并告诉您最佳拍摄角度；茶点中有北方柳兰茶（伊万茶）——天然不含咖啡因，富含维生素C</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>上一页评价</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一页评价</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克往返接送</value></data>

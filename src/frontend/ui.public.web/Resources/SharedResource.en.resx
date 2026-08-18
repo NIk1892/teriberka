@@ -112,6 +112,8 @@
   <data name="FieldCommentHint" xml:space="preserve"><value>For example: a two-day custom tour to the Rybachy Peninsula</value></data>
   <data name="FieldCommentCustom" xml:space="preserve"><value>Wishes</value></data>
   <data name="FieldCommentHintCustom" xml:space="preserve"><value>Where you want to go, on which dates and with how many people — for example: two days on Rybachy, two of us, early September</value></data>
+  <data name="GuideTitle" xml:space="preserve"><value>Sergey — certified Kola Peninsula guide</value></data>
+  <data name="GuideText" xml:space="preserve"><value>He leads groups to Teriberka, the Khibiny mountains and the Tersky coast all year round: he knows when to reach the shore to catch the whales, where to hunt the aurora and how to dress so a day in the Arctic wind stays a pleasure. On the route he keeps a comfortable pace and looks after the group's safety.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Custom tour</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>Tell us about the tour you want</value></data>
   <data name="FormCustomText" xml:space="preserve"><value>Leave your contacts and describe your wishes — we will call back with a programme and a price.</value></data>
@@ -227,6 +229,8 @@
   <data name="Why4Text" xml:space="preserve"><value>we explain what is included and what to bring before the trip</value></data>
   <data name="Why5Title" xml:space="preserve"><value>No prepayment to enquire</value></data>
   <data name="Why5Text" xml:space="preserve"><value>first we confirm the date, weather and details; then you make your decision</value></data>
+  <data name="Why6Title" xml:space="preserve"><value>An attentive guide by your side</value></data>
+  <data name="Why6Text" xml:space="preserve"><value>they adjust the pace to your group and point out the best photo angles; the treat includes northern fireweed tea — naturally caffeine-free and rich in vitamin C</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous reviews</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next reviews</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk</value></data>

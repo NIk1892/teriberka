@@ -62,7 +62,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       API_URL: "http://api-gateway:8080"
-      TG_BOT_URL: "${TG_BOT_URL:-}"
+      # тот же dev-плейсхолдер, что в appsettings.Development.json (пустая строка
+      # перекрывала его и прятала кнопку бота из шапки); заменить на реальный username
+      TG_BOT_URL: "${TG_BOT_URL:-https://t.me/kola_north_bot}"
     ports:
       - "7002:8080"
     depends_on:

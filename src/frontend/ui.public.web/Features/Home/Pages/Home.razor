@@ -98,7 +98,7 @@
             <h2>@L["WhyTitle"]</h2>
         </div>
         <ul class="why-grid">
-            @foreach (var i in Enumerable.Range(1, 5))
+            @foreach (var i in Enumerable.Range(1, 6))
             {
                 <li>
                     <strong>@L[$"Why{i}Title"]</strong>
@@ -181,6 +181,17 @@
 
 <section class="section apply" id="apply">
     <div class="container">
+        @* Настоящий гид — блок доверия у формы. Фото реальное (wwwroot/img/guide.webp),
+           тексты без выдуманных цифр — только подтверждённые владельцем факты. *@
+        <div class="guide-note">
+            <span class="guide-ring">
+                <img class="guide-photo" src="/img/guide.webp" alt="@L["GuideTitle"]" width="128" height="128" />
+            </span>
+            <div>
+                <strong>@L["GuideTitle"]</strong>
+                <p>@L["GuideText"]</p>
+            </div>
+        </div>
         <div class="apply-card">
             <ApplicationForm Sent="Sent" Custom="CustomTour" />
         </div>

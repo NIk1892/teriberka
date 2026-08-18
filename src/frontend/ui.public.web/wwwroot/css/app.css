@@ -822,7 +822,6 @@ a { color: var(--accent-ice); }
 
 @media (min-width: 700px) {
     .why-grid { grid-template-columns: repeat(2, 1fr); }
-    .why-grid li:last-child { grid-column: 1 / -1; }
 }
 
 /* ---------- карта направлений ---------- */
@@ -2001,6 +2000,55 @@ a { color: var(--accent-ice); }
         from { opacity: 0; transform: translateY(26px); }
         to   { opacity: 1; transform: none; }
     }
+}
+
+/* ---------- гид у формы ---------- */
+
+/* блок доверия перед формой: настоящее фото в аврора-кольце + пара предложений.
+   Верхний отступ секции ужат: перед блоком и так лежит нижний отступ FAQ */
+.section.apply { padding-top: 36px; }
+
+@media (min-width: 960px) {
+    .section.apply { padding-top: 48px; }
+}
+
+.guide-note {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 760px;
+    margin: 0 auto 28px;
+}
+
+.guide-ring {
+    flex: none;
+    display: block;
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--aurora);
+}
+
+.guide-photo {
+    display: block;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.guide-note strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.guide-note p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+@media (max-width: 560px) {
+    .guide-note { flex-direction: column; text-align: center; }
 }
 
 /* ---------- индивидуальный тур ---------- */
