@@ -35,15 +35,17 @@
             }
 
             @* Переключение темы и языка без JavaScript: ссылки на endpoints,
-               которые ставят cookie и возвращают на текущую страницу. *@
-            <a class="theme-toggle" href="@ThemeLink()" title="@L["ThemeToggle"]" aria-label="@L["ThemeToggle"]">
+               которые ставят cookie и возвращают на текущую страницу.
+               nofollow — чтобы краулеры не ходили по служебным редиректам
+               (в robots.txt эти пути дополнительно закрыты Disallow). *@
+            <a class="theme-toggle" href="@ThemeLink()" rel="nofollow" title="@L["ThemeToggle"]" aria-label="@L["ThemeToggle"]">
                 @(IsLight ? "☾" : "☀")
             </a>
 
             <nav class="lang-switch" aria-label="@L["LangLabel"]">
-                <a class="@ActiveClass("ru")" href="@CultureLink("ru")" hreflang="ru">RU</a>
-                <a class="@ActiveClass("en")" href="@CultureLink("en")" hreflang="en">EN</a>
-                <a class="@ActiveClass("zh")" href="@CultureLink("zh")" hreflang="zh">中文</a>
+                <a class="@ActiveClass("ru")" href="@CultureLink("ru")" rel="nofollow" hreflang="ru">RU</a>
+                <a class="@ActiveClass("en")" href="@CultureLink("en")" rel="nofollow" hreflang="en">EN</a>
+                <a class="@ActiveClass("zh")" href="@CultureLink("zh")" rel="nofollow" hreflang="zh">中文</a>
             </nav>
 
             @* Бургер для узких экранов: нативный details без JavaScript, закрывается

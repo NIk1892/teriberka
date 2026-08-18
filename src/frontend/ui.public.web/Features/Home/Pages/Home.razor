@@ -1,12 +1,15 @@
 @page "/"
 @using UI.Public.Web.Layouts
 @using UI.Public.Web.Features.Places
+@using UI.Public.Web.Features.Seo
 @using UI.Public.Web.Components
 @using Microsoft.Extensions.Localization
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
+@inject SeoUrls Seo
 
 <PageTitle>@L["PageTitle"]</PageTitle>
+<PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/places/dragon-eggs.webp" />
 
 @* Воронка главной: сначала один день в Териберке до формы, другие маршруты — после заявки. *@
 
@@ -79,7 +82,7 @@
                 var place = PlaceCatalog.ByIndex(idx);
                 <a class="place-card" href="/place/@place.Slug">
                     <span class="place-photo">
-                        <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" />
+                        <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                     </span>
                     <span class="place-body">
                         <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -224,7 +227,7 @@
                         var place = PlaceCatalog.ByIndex(idx);
                         <a class="place-card" href="/place/@place.Slug">
                             <span class="place-photo">
-                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" />
+                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                             </span>
                             <span class="place-body">
                                 <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -255,6 +258,15 @@
     </div>
 </section>
 
+@* Разметка schema.org: FAQ из блока «Практично» и минимальный WebSite.
+   Контакты и логотип сознательно не указываем: в футере плейсхолдеры,
+   а логотип у schema.org должен быть растровым (см. чек-лист в CLAUDE.md). *@
+<JsonLd Data="FaqLd" />
+@if (Seo.HasSiteUrl)
+{
+    <JsonLd Data="SiteLd" />
+}
+
 @code {
     // Сама форма (POST, валидация, редирект) живёт в компоненте ApplicationForm —
     // здесь только флаги из query: показана ли карточка «спасибо» и какая ветка формы.
@@ -265,4 +277,30 @@
     public string? Tour { get; set; }
 
     private bool CustomTour => string.Equals(Tour, "custom", StringComparison.OrdinalIgnoreCase);
+
+    // JSON-LD собирается словарями: ключи "@context"/"@type" невозможны в анонимных
+    // типах, а .Value обязателен — LocalizedString сам в строку не сериализуется.
+    private IReadOnlyDictionary<string, object?> FaqLd => new Dictionary<string, object?>
+    {
+        ["@context"] = "https://schema.org",
+        ["@type"] = "FAQPage",
+        ["mainEntity"] = Enumerable.Range(1, 5).Select(i => new Dictionary<string, object?>
+        {
+            ["@type"] = "Question",
+            ["name"] = L[$"Faq{i}Question"].Value,
+            ["acceptedAnswer"] = new Dictionary<string, object?>
+            {
+                ["@type"] = "Answer",
+                ["text"] = L[$"Faq{i}Answer"].Value
+            }
+        }).ToArray()
+    };
+
+    private IReadOnlyDictionary<string, object?> SiteLd => new Dictionary<string, object?>
+    {
+        ["@context"] = "https://schema.org",
+        ["@type"] = "WebSite",
+        ["name"] = L["Brand"].Value,
+        ["url"] = Seo.Absolute("/")
+    };
 }

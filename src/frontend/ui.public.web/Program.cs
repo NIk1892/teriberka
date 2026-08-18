@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text;
 using System.Threading.RateLimiting;
 using FluentValidation;
 using Mediator;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
+using UI.Public.Web.Features.Seo;
 using UI.Shared;
 using UI.Shared.Interceptors;
 
@@ -34,6 +36,18 @@ if (useForwardedHeaders)
 
 builder.Services.AddHealthChecks();
 builder.Services.AddRazorComponents();
+
+// Абсолютные URL для canonical/OG/sitemap строятся от SITE_URL (см. SeoUrls).
+builder.Services.AddSingleton<SeoUrls>();
+
+// Сжатие только для статики: text/html сознательно не сжимаем — в страницах
+// antiforgery-токен плюс отражённый query в ссылках set-culture/set-theme,
+// их сжатие открывало бы BREACH. Картинки webp уже сжаты кодеком.
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true; // безопасно: HTML исключён из списка MIME
+    options.MimeTypes = ["text/css", "text/javascript", "image/svg+xml", "application/xml", "text/plain"];
+});
 
 // Три языка интерфейса. Нейтральный resx — русский, он же культура по умолчанию.
 // Выбор языка хранится в culture-cookie, которую ставит endpoint /set-culture:
@@ -126,8 +140,27 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// URL, не совпавший ни с одним @page (например, /qwerty), не доходит до Blazor-роутера
+// и отдал бы голый 404 без тела — re-execute рендерит человеку страницу NotFoundView.
+// Внутри неё guard по уже выставленному коду не даёт зациклить Navigation.NotFound().
+app.UseStatusCodePagesWithReExecute("/not-found");
+
+app.UseResponseCompression();
+
 // Статика до rate limiter'а: css и картинки не должны сжигать лимит запросов.
-app.UseStaticFiles();
+// Кэш: css/js — час (fingerprinting нет, при деплое стили должны подтянуться
+// быстро; ETag делает повторную проверку дешёвой — 304), картинки — 30 дней
+// (webp меняются только вместе с новым файлом).
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        var maxAge = ctx.File.Name.EndsWith(".css") || ctx.File.Name.EndsWith(".js")
+            ? TimeSpan.FromHours(1)
+            : TimeSpan.FromDays(30);
+        ctx.Context.Response.Headers.CacheControl = $"public, max-age={(int)maxAge.TotalSeconds}";
+    }
+});
 
 app.UseRequestLocalization();
 
@@ -174,6 +207,26 @@ app.MapGet("/set-theme", (string theme, string? redirect, HttpContext context) =
     });
 
     return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
+});
+
+// robots.txt и sitemap.xml — endpoints, а не файлы в wwwroot: robots нужна
+// динамическая строка Sitemap (только при заданном SITE_URL), а sitemap
+// собирается из PlaceCatalog. Должны быть объявлены до MapRazorComponents,
+// иначе запрос уйдёт в Razor-роутер и вернёт страницу 404.
+app.MapGet("/robots.txt", (SeoUrls seo, HttpContext context) =>
+{
+    context.Response.Headers.CacheControl = "public, max-age=3600";
+    return Results.Text(seo.RobotsTxt, "text/plain", Encoding.UTF8);
+});
+
+app.MapGet("/sitemap.xml", (SeoUrls seo, HttpContext context) =>
+{
+    // Sitemap с относительными URL невалиден — без SITE_URL его просто нет.
+    if (!seo.HasSiteUrl)
+        return Results.NotFound();
+
+    context.Response.Headers.CacheControl = "public, max-age=3600";
+    return Results.Text(seo.SitemapXml, "application/xml", Encoding.UTF8);
 });
 
 app.MapRazorComponents<App>();

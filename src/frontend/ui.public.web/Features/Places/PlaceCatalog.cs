@@ -124,8 +124,10 @@ public static class PlaceCatalog
         new(3, "tersky", [9, 10, 11, 12]),
     ];
 
+    // Сравнение сознательно чувствительно к регистру: иначе /place/UMBA был бы
+    // 200-дублем канонической страницы, а slug'и в каталоге и ссылках и так строчные.
     public static PlaceInfo? BySlug(string slug) =>
-        All.FirstOrDefault(p => string.Equals(p.Slug, slug, StringComparison.OrdinalIgnoreCase));
+        All.FirstOrDefault(p => string.Equals(p.Slug, slug, StringComparison.Ordinal));
 
     public static PlaceInfo ByIndex(int index) => All.First(p => p.Index == index);
 }

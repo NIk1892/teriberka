@@ -1,28 +1,28 @@
 @page "/place/{Slug}"
-@using Microsoft.AspNetCore.Http
 @using Microsoft.Extensions.Localization
+@using UI.Public.Web.Components
 @using UI.Public.Web.Features.Places
+@using UI.Public.Web.Features.Seo
 @using UI.Public.Web.Layouts
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
+@inject SeoUrls Seo
+@inject NavigationManager Navigation
 
-@if (_place is null)
-{
-    <PageTitle>@L["NotFoundTitle"] · @L["Brand"]</PageTitle>
-
-    <section class="section">
-        <div class="container detail">
-            <h1>@L["NotFoundTitle"]</h1>
-            <p class="detail-lead">@L["NotFoundText"]</p>
-            <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
-        </div>
-    </section>
-}
-else
+@* Ветки разметки для неизвестного slug нет: Navigation.NotFound() в OnInitialized
+   прерывает рендер, и роутер показывает NotFoundView с честным 404. *@
+@if (_place is not null)
 {
     var i = _place.Index;
 
-    <PageTitle>@L[$"Place{i}Title"] · @L["Brand"]</PageTitle>
+    @* Заголовок с транзакционным ключевым словом; в og:title (PageMeta) — голое
+       название места: карточки в мессенджерах читаются лучше короткими. *@
+    <PageTitle>@L[$"Place{i}Title"] — @L["PlaceTitleSuffix"] · @L["Brand"]</PageTitle>
+    <PageMeta Title="@L[$"Place{i}Title"]"
+              Description="@L[$"Place{i}Text"]"
+              Path="@($"/place/{_place.Slug}")"
+              ImagePath="@($"/img/places/{_place.Slug}.webp")"
+              OgType="article" />
 
     <section class="section detail-section">
         <div class="container detail">
@@ -35,7 +35,7 @@ else
             @* Лайтбокс: клик открывает фото на весь экран (js/lightbox.js);
                без JavaScript ссылка честно открывает файл в новой вкладке. *@
             <a class="detail-photo lightbox-link" href="/img/places/@(_place.Slug).webp" target="_blank" rel="noopener">
-                <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" />
+                <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" fetchpriority="high" />
             </a>
 
             <div class="detail-text">
@@ -61,7 +61,7 @@ else
                         @for (var n = 0; n < gallery.Length; n++)
                         {
                             <a class="gallery-item lightbox-link" href="/img/places/@(_place.Slug)-g@(n + 1).webp" target="_blank" rel="noopener">
-                                <img src="/img/places/@(_place.Slug)-g@(n + 1).webp" alt="@L[$"Place{i}Title"]" loading="lazy" />
+                                <img src="/img/places/@(_place.Slug)-g@(n + 1).webp" alt="@L[$"Place{i}Title"]" loading="lazy" decoding="async" />
                             </a>
                         }
                     </div>
@@ -76,7 +76,7 @@ else
                     @for (var n = 0; n < 4; n++)
                     {
                         <div class="gallery-item">
-                            <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" />
+                            <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" decoding="async" />
                             <span class="photo-soon">@L["PhotoSoon"]</span>
                         </div>
                     }
@@ -90,12 +90,14 @@ else
             </div>
         </div>
     </section>
+
+    @* Разметка schema.org для места. Адрес и телефон сознательно не указываем —
+       настоящих контактов пока нет (в футере плейсхолдеры). *@
+    <JsonLd Data="PlaceLd(_place)" />
 }
 
 @code {
     [Parameter] public string Slug { get; set; } = "";
-
-    [CascadingParameter] public HttpContext? HttpContext { get; set; }
 
     private PlaceInfo? _place;
 
@@ -104,7 +106,17 @@ else
         _place = PlaceCatalog.BySlug(Slug);
 
         // Неизвестное место — честный 404, а не «мягкая» страница с кодом 200.
-        if (_place is null && HttpContext is not null)
-            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+        if (_place is null)
+            Navigation.NotFound();
     }
+
+    private IReadOnlyDictionary<string, object?> PlaceLd(PlaceInfo place) => new Dictionary<string, object?>
+    {
+        ["@context"] = "https://schema.org",
+        ["@type"] = "TouristAttraction",
+        ["name"] = L[$"Place{place.Index}Title"].Value,
+        ["description"] = L[$"Place{place.Index}Text"].Value,
+        ["url"] = Seo.Absolute($"/place/{place.Slug}"),
+        ["image"] = Seo.Absolute($"/img/places/{place.Slug}.webp")
+    };
 }

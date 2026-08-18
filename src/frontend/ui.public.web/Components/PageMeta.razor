@@ -1,0 +1,66 @@
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Seo
+@inject SeoUrls Seo
+@inject IStringLocalizer<SharedResource> L
+
+@* SEO-метаданные страницы. Глобального description в App.razor нет — каждая
+   индексируемая страница обязана рендерить этот компонент; страницы-404 рендерят
+   <PageMeta Noindex />. Path — канонический путь без query (slug из каталога),
+   поэтому ?sent=true / ?tour=custom канонизируются сами. Без SITE_URL canonical,
+   og:url и og:image (а с ним и твиттер-карточка) не рендерятся. *@
+<HeadContent>
+    @if (Noindex)
+    {
+        <meta name="robots" content="noindex" />
+    }
+    else
+    {
+        <meta name="description" content="@Description" />
+        @if (Canonical is not null)
+        {
+            <link rel="canonical" href="@Canonical" />
+            <meta property="og:url" content="@Canonical" />
+        }
+        <meta property="og:type" content="@OgType" />
+        <meta property="og:site_name" content="@L["Brand"]" />
+        <meta property="og:locale" content="@OgLocale" />
+        <meta property="og:title" content="@Title" />
+        <meta property="og:description" content="@Description" />
+        @if (ImageUrl is not null)
+        {
+            <meta property="og:image" content="@ImageUrl" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="@Title" />
+            <meta name="twitter:description" content="@Description" />
+            <meta name="twitter:image" content="@ImageUrl" />
+        }
+    }
+</HeadContent>
+
+@code {
+    [Parameter] public string? Title { get; set; }
+
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>Канонический путь без query: "/", "/place/umba", "/privacy".</summary>
+    [Parameter] public string? Path { get; set; }
+
+    /// <summary>Относительный путь OG-картинки, например "/img/places/umba.webp".</summary>
+    [Parameter] public string? ImagePath { get; set; }
+
+    [Parameter] public string OgType { get; set; } = "website";
+
+    [Parameter] public bool Noindex { get; set; }
+
+    private string? Canonical => Path is null ? null : Seo.Absolute(Path);
+
+    private string? ImageUrl => ImagePath is null ? null : Seo.Absolute(ImagePath);
+
+    private static string OgLocale => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName switch
+    {
+        "en" => "en_US",
+        "zh" => "zh_CN",
+        _ => "ru_RU"
+    };
+}

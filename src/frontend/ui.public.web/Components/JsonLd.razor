@@ -1,0 +1,22 @@
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+@* Разметка schema.org. Data — словарь, потому что ключи "@context"/"@type"
+   невозможны в анонимных типах; null-значения (например, url при пустом SITE_URL)
+   из JSON выпадают. Дефолтный энкодер сериализатора экранирует угловые скобки и
+   амперсанды юникод-последовательностями, поэтому вставка внутрь script безопасна. CSP script-src 'self' это не блокирует:
+   application/ld+json — data block, а не исполняемый скрипт. *@
+<script type="application/ld+json">@((MarkupString)_json)</script>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyDictionary<string, object?> Data { get; set; } = default!;
+
+    private string _json = "";
+
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
+    protected override void OnParametersSet() => _json = JsonSerializer.Serialize(Data, Options);
+}
