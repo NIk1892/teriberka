@@ -558,16 +558,24 @@ a { color: var(--accent-ice); }
 
 /* ---------- параллакс-полосы ---------- */
 
-/* Фон закреплён относительно вьюпорта (background-attachment: fixed) — при прокрутке
-   пейзаж «стоит на месте», а страница едет поверх. Чистый CSS, без JavaScript.
-   iOS Safari fixed-фон не поддерживает — там полоса деградирует в обычный баннер. */
+/* Многослойная сцена (небо → дальняя гряда → туман → ближняя гряда с водой →
+   текст), три яруса реализации:
+   1) База — везде, даже без JS: небо закреплено относительно вьюпорта
+      (background-attachment: fixed, iOS игнорирует), слои сопок и тумана статичны.
+   2) @supports (animation-timeline: view()) — слои едут от прокрутки чистым CSS.
+   3) html.js-parallax (js/parallax.js) — инерционный ход + отклик на мышь;
+      скрипт пишет переменные --p-*, CSS-анимации яруса 2 выключаются.
+   --parallax-shift — амплитуда CSS-хода: плюс = слой отстаёт (дальше от зрителя),
+   минус = обгоняет (ближе). Запас слоя (отрицательный inset) обязан превышать
+   амплитуду, иначе при крайних положениях оголится край. */
 .parallax-band {
     position: relative;
+    overflow: hidden;
     padding-block: 110px;
     text-align: center;
     background-image:
         linear-gradient(rgba(7, 11, 24, .38), rgba(7, 11, 24, .38)),
-        url("/img/parallax.svg");
+        url("/img/parallax-sky.svg");
     background-attachment: fixed, fixed;
     background-position: center;
     background-size: cover;
@@ -576,11 +584,11 @@ a { color: var(--accent-ice); }
 
 .parallax-band.band-2 { background-position: center 80%; }
 
-/* светлая тема: дневной пейзаж вместо ночного, тёмный текст */
+/* светлая тема: дневное небо вместо ночного, тёмный текст */
 [data-theme="light"] .parallax-band {
     background-image:
         linear-gradient(rgba(242, 246, 252, .2), rgba(242, 246, 252, .2)),
-        url("/img/parallax-light.svg");
+        url("/img/parallax-sky-light.svg");
 }
 
 [data-theme="light"] .parallax-band p {
@@ -598,6 +606,123 @@ a { color: var(--accent-ice); }
     letter-spacing: -.3px;
     text-shadow: 0 2px 18px rgba(3, 8, 20, .8);
     text-wrap: balance;
+}
+
+/* Слои сопок. Порядок отрисовки при равном z-index — по позиции в дереве:
+   ::before (дальняя гряда) → .parallax-mist (туман) → ::after (ближняя гряда,
+   псевдоэлемент ::after идёт после детей) → .container (текст, z-index 1).
+   Туман оказывается МЕЖДУ грядами и выглядывает в долинах — так и задумано. */
+.parallax-band::before,
+.parallax-band::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+/* дальняя гряда: сильнее отстаёт от прокрутки — читается дальше */
+.parallax-band::before {
+    inset: -140px -40px;
+    --parallax-shift: 110px;
+    background-image: url("/img/parallax-hills-far.svg");
+}
+
+/* ближняя гряда с водой и китом: отстаёт слабо — читается ближе */
+.parallax-band::after {
+    inset: -72px -40px;
+    --parallax-shift: 40px;
+    background-image: url("/img/parallax-hills-near.svg");
+}
+
+[data-theme="light"] .parallax-band::before { background-image: url("/img/parallax-hills-far-light.svg"); }
+[data-theme="light"] .parallax-band::after { background-image: url("/img/parallax-hills-near-light.svg"); }
+
+/* текст: при параллаксе слегка обгоняет прокрутку — «выплывает» навстречу */
+.parallax-band .container {
+    position: relative;
+    z-index: 1;
+    --parallax-shift: -30px;
+}
+
+/* Туман в долинах. Вертикальный ход — на самом .parallax-mist (ярусы 2/3),
+   горизонтальный дрейф — на его ::before: бесшовный цикл translate3d ровно
+   на ширину тайла mist.svg (960px), поэтому ::before шире зоны на тайл. */
+.parallax-mist {
+    position: absolute;
+    left: -40px;
+    right: -40px;
+    top: 22%;
+    height: 52%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .34;
+    --parallax-shift: 68px;
+}
+
+[data-theme="light"] .parallax-mist { opacity: .55; }
+
+.parallax-mist::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: calc(100% + 960px);
+    background: url("/img/mist.svg") left center / 960px 240px repeat-x;
+    animation: mist-drift 80s linear infinite;
+}
+
+@keyframes mist-drift {
+    to { transform: translate3d(-960px, 0, 0); }
+}
+
+/* Ярус 2: слои едут от прокрутки — CSS scroll-driven animations, без JS. */
+@supports (animation-timeline: view()) {
+    .parallax-band::before,
+    .parallax-band::after,
+    .parallax-band .container,
+    .parallax-mist {
+        animation: parallax-lag linear both;
+        animation-timeline: view();
+    }
+
+    @keyframes parallax-lag {
+        from { transform: translateY(calc(-1 * var(--parallax-shift))); }
+        to   { transform: translateY(var(--parallax-shift)); }
+    }
+}
+
+/* Ярус 3: js/parallax.js пишет --p-* на полосе — инерционный ход + мышь.
+   CSS-анимации яруса 2 выключаются, трансформы берутся из переменных. */
+html.js-parallax .parallax-band::before {
+    animation: none;
+    transform: translate3d(var(--p-farx, 0px), var(--p-far, 0px), 0);
+}
+
+html.js-parallax .parallax-band::after {
+    animation: none;
+    transform: translate3d(var(--p-nearx, 0px), var(--p-near, 0px), 0);
+}
+
+html.js-parallax .parallax-mist {
+    animation: none;
+    transform: translate3d(var(--p-mistx, 0px), var(--p-mist, 0px), 0);
+}
+
+html.js-parallax .parallax-band .container {
+    animation: none;
+    transform: translate3d(0, var(--p-text, 0px), 0);
+}
+
+/* при reduced-motion слои стоят в базовой композиции (JS тоже не запускается) */
+@media (prefers-reduced-motion: reduce) {
+    .parallax-band::before,
+    .parallax-band::after,
+    .parallax-band .container,
+    .parallax-mist,
+    .parallax-mist::before { animation: none; }
 }
 
 /* ---------- секции ---------- */
@@ -2078,6 +2203,80 @@ html.lightbox-open { overflow: hidden; }
     82%  { opacity: .6; }
     92%  { opacity: 0; }
     100% { opacity: 0; }
+}
+
+/* ---------- переходы между страницами (View Transitions) ---------- */
+
+/* Кросс-документные view transitions: плавный кроссфейд между страницами.
+   Фото места морфится между карточкой на главной и страницей места —
+   view-transition-name на <img> назначает effects.js (CSSOM, CSP не мешает).
+   Браузеры без поддержки (Firefox) просто переходят как обычно. */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .4s; }
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
+}
+
+/* ---------- WebGL-искажение фото при наведении (js/photo-fx.js) ---------- */
+
+/* Общий канвас, накладываемый поверх фото под курсором. pointer-events: none —
+   клики проходят к ссылке (лайтбокс, карточка места). z-index 20: выше
+   карточек, ниже метели (30) и лайтбокса (100). */
+.photo-fx {
+    position: fixed;
+    display: none;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.photo-fx.active { display: block; }
+
+/* ---------- js-эффекты (effects.js) ---------- */
+
+/* Lenis: рекомендованные стили; при активной инерционной прокрутке нативный
+   scroll-behavior выключается, чтобы не было двойного сглаживания. */
+html.lenis,
+html.lenis body { height: auto; }
+
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Пружинящие reveal-каскады. Классы reveal/appear ставит только effects.js
+   (и только под html.js-fx), поэтому без JavaScript ничего не прячется.
+   transition-delay для каскада скрипт выставляет по индексу среди соседей. */
+html.js-fx .reveal {
+    opacity: 0;
+    transform: translateY(56px);
+    transition:
+        opacity .9s cubic-bezier(.22, 1, .36, 1),
+        transform .9s cubic-bezier(.22, 1, .36, 1);
+}
+
+html.js-fx .reveal.appear {
+    opacity: 1;
+    transform: none;
+}
+
+/* при JS-каскаде CSS-подъём card-rise уступает место, чтобы не двоить анимацию */
+html.js-fx .place-card,
+html.js-fx .itinerary-list li,
+html.js-fx .season-card,
+html.js-fx .included-grid li,
+html.js-fx .why-grid li,
+html.js-fx .guide-card { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    html.js-fx .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* ---------- всплытие карточек при прокрутке ---------- */

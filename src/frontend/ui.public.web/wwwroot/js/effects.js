@@ -1,0 +1,112 @@
+// «Дорогие» эффекты сайта: инерционная прокрутка (вендоренный Lenis из
+// js/vendor/lenis.min.js), параллакс-слои по data-speed (как у andyhardy.co:
+// элемент отстаёт от прокрутки на долю speed) и пружинящие reveal-каскады.
+// Скрипт вешает html.js-fx — только под этим классом CSS прячет элементы
+// перед появлением, поэтому без JS страница остаётся полностью видимой.
+// При prefers-reduced-motion не запускается вовсе; если Lenis не загрузился,
+// остальные эффекты работают на нативной прокрутке.
+(function () {
+    "use strict";
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    document.documentElement.classList.add("js-fx");
+
+    // ---- инерционная прокрутка -------------------------------------------
+    // anchors: true — якорные ссылки (#apply, #top…) едут плавно через Lenis.
+    // На тач-устройствах Lenis по умолчанию не трогает нативный скролл.
+    var lenis = null;
+    try {
+        if (typeof Lenis === "function") {
+            lenis = new Lenis({ autoRaf: true, anchors: true });
+        }
+    } catch (e) { /* без Lenis остаётся нативная прокрутка */ }
+
+    // ---- параллакс-слои по data-speed ------------------------------------
+    // translate = смещение элемента от начала страницы * speed: положительный
+    // speed — элемент отстаёт (читается дальше), отрицательный — обгоняет.
+    // Считаем только пока элемент около вьюпорта (IntersectionObserver).
+    var layers = Array.prototype.slice.call(document.querySelectorAll("[data-speed]"))
+        .map(function (el) {
+            return { el: el, speed: parseFloat(el.dataset.speed) || 0, visible: false, base: 0 };
+        });
+
+    function measure() {
+        layers.forEach(function (l) {
+            l.el.style.transform = "";
+            l.base = l.el.getBoundingClientRect().top + window.scrollY;
+        });
+    }
+
+    function applyLayers() {
+        var sy = window.scrollY, vh = window.innerHeight;
+        for (var i = 0; i < layers.length; i++) {
+            var l = layers[i];
+            if (!l.visible) continue;
+            // насколько элемент «проехал» от своей исходной позиции
+            var passed = sy - (l.base - vh > 0 ? l.base - vh : 0);
+            if (passed < 0) passed = 0;
+            var y = passed * l.speed;
+            l.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+        }
+    }
+
+    // Слои — только на широких экранах: в мобильной вёрстке hero складывается
+    // в колонку и отстающий слой наезжал бы на следующую секцию (у andyhardy
+    // hero-параллакс тоже desktop-only).
+    if (layers.length && window.matchMedia("(min-width: 900px)").matches) {
+        measure();
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                layers.forEach(function (l) {
+                    if (l.el === en.target) l.visible = en.isIntersecting;
+                });
+            });
+            applyLayers();
+        }, { rootMargin: "120px 0px" });
+        layers.forEach(function (l) { io.observe(l.el); });
+        window.addEventListener("scroll", applyLayers, { passive: true });
+        window.addEventListener("resize", function () { measure(); applyLayers(); }, { passive: true });
+    }
+
+    // ---- морф фото места между страницами (View Transitions) ------------
+    // Одинаковый view-transition-name на карточке главной и на странице места:
+    // при переходе фото «перелетает» из карточки в шапку места и обратно.
+    // Ставится через CSSOM (инлайновый style="" запрещён CSP, el.style — нет).
+    if (CSS.supports("view-transition-name: none")) {
+        document.querySelectorAll(".place-card").forEach(function (a) {
+            var m = (a.getAttribute("href") || "").match(/\/place\/([A-Za-z0-9-]+)/);
+            var img = a.querySelector(".place-photo img");
+            if (m && img) img.style.viewTransitionName = "place-" + m[1];
+        });
+        var detailImg = document.querySelector(".detail-photo img");
+        var m2 = location.pathname.match(/\/place\/([A-Za-z0-9-]+)/);
+        if (detailImg && m2) detailImg.style.viewTransitionName = "place-" + m2[1];
+    }
+
+    // ---- пружинящие reveal-каскады ---------------------------------------
+    // Тем же селекторам, что поднимает CSS card-rise (под js-fx он выключен),
+    // плюс заголовкам секций JS даёт каскад: transition-delay по индексу
+    // среди соседей-ревилов, чтобы карточки выезжали одна за другой.
+    var revealTargets = document.querySelectorAll(
+        ".section-head, .place-card, .itinerary-list li, .season-card, " +
+        ".included-grid li, .why-grid li, .guide-card, .guide-note, .section-cta"
+    );
+
+    var ro = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            en.target.classList.add("appear");
+            obs.unobserve(en.target);
+        });
+    }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
+
+    Array.prototype.forEach.call(revealTargets, function (el) {
+        el.classList.add("reveal");
+        // каскад: задержка по номеру среди соседних ревил-элементов
+        var i = 0, sib = el;
+        while ((sib = sib.previousElementSibling) && sib.classList.contains("reveal")) i++;
+        el.style.transitionDelay = Math.min(i * 90, 540) + "ms";
+        ro.observe(el);
+    });
+}());

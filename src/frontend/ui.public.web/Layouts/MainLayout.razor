@@ -58,6 +58,14 @@
    Кнопка «наверх» проявляется после первого экрана через CSS scroll-driven
    animation (в браузерах без поддержки просто видна всегда). *@
 <script src="/js/water.js" defer></script>
+@* Инерционный параллакс полос .parallax-band (фоллбек без JS — CSS-ярусы в app.css) *@
+<script src="/js/parallax.js" defer></script>
+@* Вендоренный Lenis (инерционная прокрутка) + effects.js: слои data-speed в hero
+   и пружинящие reveal-каскады. Порядок важен: effects.js ждёт глобал Lenis. *@
+<script src="/js/vendor/lenis.min.js" defer></script>
+<script src="/js/effects.js" defer></script>
+@* WebGL-«жидкое» искажение фото мест при наведении (desktop, pointer: fine) *@
+<script src="/js/photo-fx.js" defer></script>
 @* v=2: carousel.js обобщён с отзывов на любые карусели — сбрасываем кеш браузеров *@
 <script src="/js/carousel.js?v=2" defer></script>
 @* сохранение прокрутки при переключении темы/языка (см. комментарий в файле) *@

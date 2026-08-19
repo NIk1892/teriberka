@@ -13,9 +13,12 @@
 
 @* Воронка главной: сначала один день в Териберке до формы, другие маршруты — после заявки. *@
 
+@* data-speed — параллакс-слои effects.js: положительное значение = слой отстаёт
+   от прокрутки (читается дальше). Карта отстаёт сильнее текста — глубина как
+   в hero andyhardy.co. Без JS атрибут просто игнорируется. *@
 <section class="hero" id="directions">
     <div class="container hero-grid">
-        <div class="hero-copy">
+        <div class="hero-copy" data-speed="0.07">
             <span class="hero-kicker">@L["HeroKicker"]</span>
             <h1>
                 @L["HeroTitle"]
@@ -37,7 +40,7 @@
             </div>
         </div>
 
-        <div class="hero-map">
+        <div class="hero-map" data-speed="0.16">
             <KolaMap />
             <p class="map-hint">@L["MapHint"]</p>
         </div>
@@ -131,9 +134,11 @@
     </div>
 </section>
 
-@* Параллакс: фон полосы закреплён relative to viewport (background-attachment: fixed),
-   поэтому при прокрутке пейзаж «стоит», а контент едет поверх. Работает без JavaScript. *@
+@* Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды сопок
+   и текст едут с разной скоростью через CSS scroll-driven animations), фоллбек — цельный
+   fixed-пейзаж. Всё без JavaScript, см. блок «параллакс-полосы» в app.css. *@
 <div class="parallax-band">
+    <div class="parallax-mist" aria-hidden="true"></div>
     <div class="container">
         <p>@L["Band1Text"]</p>
     </div>
@@ -159,6 +164,7 @@
 </section>
 
 <div class="parallax-band band-2">
+    <div class="parallax-mist" aria-hidden="true"></div>
     <div class="container">
         <p>@L["Band2Text"]</p>
     </div>

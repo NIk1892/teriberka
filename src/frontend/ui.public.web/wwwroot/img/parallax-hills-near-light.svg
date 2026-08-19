@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 560" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <!-- Слой «ближняя гряда», дневная версия: снежные сопки, кит-пасхалка, светлое море. -->
+  <defs>
+    <linearGradient id="lsea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c8ddf2"/>
+      <stop offset="1" stop-color="#b3cfe9"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M0 425 C 80 412 150 372 250 338 C 350 305 430 268 540 262 C 650 257 730 298 820 340 C 905 379 990 400 1100 394 C 1210 388 1280 336 1390 306 C 1490 279 1580 285 1670 325 C 1755 362 1840 395 1920 405 L 1920 410 L 0 410 Z"
+        fill="#cfdff0"/>
+
+  <!-- скелет кита на берегу — пасхалка, как в тёмной версии -->
+  <g transform="translate(1500 330) scale(0.62)" fill="none" stroke="#8ba6c4" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 10 96 C 4 84, 3 70, 9 57 C 36 41, 74 35, 110 41 C 129 44, 140 51, 144 59" stroke-width="6"/>
+    <path d="M 10 96 C 45 105, 88 100, 123 79 C 133 73, 140 66, 144 59" stroke-width="6"/>
+    <path d="M 148 66 C 215 88, 305 89, 420 58" stroke-width="10" stroke-dasharray="14 9"/>
+    <path d="M 160 70 C 150 42, 158 12, 180 0" stroke-width="5"/>
+    <path d="M 196 79 C 187 51, 195 22, 219 8" stroke-width="5"/>
+    <path d="M 232 84 C 225 58, 232 32, 254 19" stroke-width="5"/>
+    <path d="M 268 86 C 263 63, 269 40, 288 28" stroke-width="5"/>
+    <path d="M 304 85 C 300 66, 306 46, 322 36" stroke-width="5"/>
+    <path d="M 340 81 C 338 65, 343 49, 356 41" stroke-width="5"/>
+    <path d="M 374 75 C 373 63, 377 51, 386 45" stroke-width="5"/>
+  </g>
+
+  <!-- море -->
+  <rect y="410" width="1920" height="150" fill="url(#lsea)"/>
+  <g stroke="#8fb6d8" stroke-width="2" opacity="0.5">
+    <line x1="280" y1="440" x2="520" y2="440"/>
+    <line x1="760" y1="472" x2="1050" y2="472"/>
+    <line x1="1300" y1="430" x2="1560" y2="430"/>
+    <line x1="520" y1="495" x2="800" y2="495"/>
+  </g>
+</svg>

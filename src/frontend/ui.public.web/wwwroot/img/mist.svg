@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" aria-hidden="true">
+  <!-- Тайл тумана для параллакс-полос: мягкие размытые клочья, повторяется
+       по горизонтали (repeat-x). Края тайла чистые — эллипсы с блюром не
+       доходят до кромок, поэтому стык бесшовный. Итоговая прозрачность
+       задаётся в CSS (.parallax-mist), здесь клочья полупрозрачно-белые. -->
+  <defs>
+    <filter id="mblur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <g fill="#e9f2fb" filter="url(#mblur)">
+    <ellipse cx="200" cy="150" rx="150" ry="34" opacity="0.55"/>
+    <ellipse cx="330" cy="110" rx="110" ry="26" opacity="0.4"/>
+    <ellipse cx="560" cy="160" rx="170" ry="30" opacity="0.5"/>
+    <ellipse cx="700" cy="100" rx="120" ry="24" opacity="0.35"/>
+    <ellipse cx="800" cy="170" rx="110" ry="26" opacity="0.45"/>
+  </g>
+</svg>
