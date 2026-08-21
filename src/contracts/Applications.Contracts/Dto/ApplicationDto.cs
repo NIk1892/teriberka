@@ -5,7 +5,7 @@ namespace Applications.Contracts;
 public record ApplicationDto : AuditableDto
 {
     public string? Phone { get; init; }
-    public int PeopleCount { get; init; }
-    public DateOnly ArrivalDate { get; init; }
-    public string? Comment { get; init; }
+
+    /// <summary>Код направления из <see cref="ApplicationRoutes"/>.</summary>
+    public string? Route { get; init; }
 }

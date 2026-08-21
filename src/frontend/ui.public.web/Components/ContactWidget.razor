@@ -1,0 +1,105 @@
+@using Microsoft.Extensions.Configuration
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
+@inject IConfiguration Configuration
+
+@* Плавающая кнопка связи в правом нижнем углу: фото гида в аврора-кольце,
+   клик разворачивает вверх «ёлочку» каналов.
+
+   Меню — нативный <details>, как .nav-burger и маркеры карты: работает без
+   JavaScript, клик мимо сворачивает его фиксированным оверлеем (см. app.css,
+   секция «плавающая кнопка связи»). На <details> и <summary> нельзя вешать
+   transform/filter — сломается оверлей закрытия.
+
+   Каналы берутся из конфига: ни одного — виджета нет вовсе, ровно один —
+   кнопка ведёт прямо в него, без лишнего клика по меню. *@
+
+@if (_channels.Count == 1)
+{
+    var only = _channels[0];
+
+    <a class="contact-widget contact-solo" href="@only.Href" target="_blank" rel="noopener"
+       title="@only.Label" aria-label="@only.Label">
+        <span class="contact-fab-face">
+            <img class="contact-fab-photo" src="/img/guide.webp" alt="" aria-hidden="true"
+                 width="50" height="50" decoding="async" />
+        </span>
+    </a>
+}
+else if (_channels.Count > 1)
+{
+    <details class="contact-widget">
+        @* aria-expanded не ставим: состояние disclosure браузер сообщает сам по
+           атрибуту open, а на static SSR мы бы его всё равно не обновляли. *@
+        <summary class="contact-fab" title="@L["ContactLabel"]" aria-label="@L["ContactLabel"]">
+            @* Пузырь-подсказка: одно фото не читается как «здесь можно написать».
+               Лежит внутри summary, поэтому виден в закрытом состоянии, кликается
+               вместе с кнопкой и не требует JavaScript. Для скринридера скрыт —
+               имя кнопке уже даёт aria-label. *@
+            <span class="contact-teaser" aria-hidden="true">@L["ContactTeaser"]</span>
+            <span class="contact-fab-face">
+                <img class="contact-fab-photo" src="/img/guide.webp" alt="" aria-hidden="true"
+                     width="50" height="50" decoding="async" />
+                <svg class="contact-fab-close" viewBox="0 0 24 24" width="22" height="22" fill="none"
+                     stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+            </span>
+        </summary>
+
+        <nav class="contact-panel" aria-label="@L["ContactLabel"]">
+            <span class="contact-hint">@L["ContactHint"]</span>
+
+            @foreach (var channel in _channels)
+            {
+                <a class="contact-item" href="@channel.Href" target="_blank" rel="noopener">
+                    @if (channel.Kind == ChannelKind.Telegram)
+                    {
+                        <svg class="contact-item-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M21.5 3.6 2.9 10.8c-1 .4-1 1.3-.2 1.6l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2 1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM17.2 7.7l-8.1 7.4-.3 3.2-1.4-4.5 9.3-5.9c.4-.3.8 0 .5.3Z" fill="currentColor" />
+                        </svg>
+                    }
+                    else
+                    {
+                        @* Нейтральный глиф «пузырь с M», а не логотип MAX: фирменный знак —
+                           торговая марка, а сторонние файлы и CDN запрещены CSP. Появится
+                           официальный SVG — положить в wwwroot/img (img-src 'self' разрешает). *@
+                        <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.4a8.4 8.4 0 0 1-8.6 8.4 9 9 0 0 1-3.9-.9L3 21l1.2-4.2a8.2 8.2 0 0 1-1.2-4.4A8.4 8.4 0 0 1 11.6 4h.8A8.4 8.4 0 0 1 21 12.4Z" />
+                            <path d="M8.4 15.2V9.6l3.6 3.4 3.6-3.4v5.6" />
+                        </svg>
+                    }
+                    <span>@channel.Label</span>
+                </a>
+            }
+        </nav>
+    </details>
+}
+
+@code {
+    private enum ChannelKind { Telegram, Max }
+
+    private sealed record Channel(ChannelKind Kind, string Href, string Label);
+
+    private string? BotUrl => Configuration["TG_BOT_URL"];
+    private string? MaxUrl => Configuration["MAX_URL"];
+
+    private List<Channel> _channels = [];
+
+    protected override void OnInitialized()
+    {
+        // Порядок = сверху вниз в раскрытом меню. Последний пункт оказывается ближе
+        // всех к кнопке и выезжает первым (задержки в CSS считаются :nth-last-child).
+        _channels = [];
+
+        if (!string.IsNullOrWhiteSpace(BotUrl))
+            _channels.Add(new Channel(ChannelKind.Telegram, BotUrl, L["ContactTelegram"]));
+
+        if (!string.IsNullOrWhiteSpace(MaxUrl))
+            _channels.Add(new Channel(ChannelKind.Max, MaxUrl, L["ContactMax"]));
+
+        // Следующий шаг — чат на сайте (см. план happy-launching-horizon):
+        // добавить пункт с ключом ContactChat, у него target/rel не нужны.
+    }
+}

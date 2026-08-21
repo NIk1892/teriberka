@@ -14,17 +14,15 @@ public class ApplicationConfig : AuditableEntityConfig<ApplicationEntity>
     {
         base.ConfigureEntity(builder);
 
-        builder.Property(e => e.Phone).HasMaxLength(Constatnts.FieldLength.Text64);
-        builder.Property(e => e.PeopleCount).IsRequired();
-        builder.Property(e => e.ArrivalDate).HasColumnType("date").IsRequired();
-        builder.Property(e => e.Comment).HasMaxLength(Constatnts.FieldLength.Text512);
+        builder.Property(e => e.Phone).HasMaxLength(Constatnts.FieldLength.Text64).IsRequired();
+        builder.Property(e => e.Route).HasMaxLength(Constatnts.FieldLength.Text32);
     }
 
+    // Без уникального индекса на Title из базового конфига: имя необязательно,
+    // а два тёзки должны иметь возможность записаться.
     protected override void ConfigureIndexes(EntityTypeBuilder<ApplicationEntity> builder)
     {
         builder.HasIndex(e => e.Id)
-            .IncludeProperties(p => new { p.Title, p.Phone, p.PeopleCount, p.ArrivalDate });
-
-        builder.HasIndex(e => e.ArrivalDate);
+            .IncludeProperties(p => new { p.Title, p.Phone });
     }
 }

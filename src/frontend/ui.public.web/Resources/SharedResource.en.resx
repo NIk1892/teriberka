@@ -103,25 +103,27 @@
   <data name="Review9Text" xml:space="preserve"><value>A dream came true — standing on the shore of the Arctic Ocean. It was very handy that I could book on the site in Chinese.</value></data>
 
   <data name="FormTitle" xml:space="preserve"><value>Let's find your travel date</value></data>
-  <data name="FormText" xml:space="preserve"><value>Leave your details and we will confirm available dates, group format and final price. The request is non-binding.</value></data>
+  <data name="FormText" xml:space="preserve"><value>Leave your phone number — we will get in touch shortly after you send the request to confirm available dates, group format and final price. The request is non-binding.</value></data>
   <data name="FieldName" xml:space="preserve"><value>Name</value></data>
+  <data name="FieldNameHint" xml:space="preserve"><value>For example: Anna</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
-  <data name="FieldPeople" xml:space="preserve"><value>Number of people</value></data>
-  <data name="FieldDate" xml:space="preserve"><value>Tour date</value></data>
-  <data name="FieldComment" xml:space="preserve"><value>Wishes (optional)</value></data>
-  <data name="FieldCommentHint" xml:space="preserve"><value>For example: a two-day custom tour to the Rybachy Peninsula</value></data>
-  <data name="FieldCommentCustom" xml:space="preserve"><value>Wishes</value></data>
-  <data name="FieldCommentHintCustom" xml:space="preserve"><value>Where you want to go, on which dates and with how many people — for example: two days on Rybachy, two of us, early September</value></data>
+  <data name="FieldRoute" xml:space="preserve"><value>Route</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>Sergey — certified Kola Peninsula guide</value></data>
   <data name="GuideText" xml:space="preserve"><value>He leads groups to Teriberka, the Khibiny mountains and the Tersky coast all year round: he knows when to reach the shore to catch the whales, where to hunt the aurora and how to dress so a day in the Arctic wind stays a pleasure. On the route he keeps a comfortable pace and looks after the group's safety.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Custom tour</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>Tell us about the tour you want</value></data>
-  <data name="FormCustomText" xml:space="preserve"><value>Leave your contacts and describe your wishes — we will call back with a programme and a price.</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>Leave your phone number — we will get in touch shortly, discuss the route, dates and group, and offer a programme and a price.</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>Your own route</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>Need a custom tour?</value></data>
-  <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Describe your wishes in the request and we will discuss the details by phone.</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Leave a request and we will discuss the details by phone.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Leave a request</value></data>
-  <data name="Submit" xml:space="preserve"><value>Check available dates</value></data>
+  <data name="Submit" xml:space="preserve"><value>Send request</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>During working hours we reply within half an hour</value></data>
+  <data name="FormOr" xml:space="preserve"><value>or</value></data>
+  <data name="FormTelegram" xml:space="preserve"><value>Book via the bot</value></data>
+  <data name="FormTelegramNote" xml:space="preserve"><value>Through the bot you can find out the approximate trip price</value></data>
+  <data name="ValPhone" xml:space="preserve"><value>Enter a phone number like +7 900 000-00-00</value></data>
+  <data name="ValConsent" xml:space="preserve"><value>Confirm consent to data processing</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
   <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Send another request</value></data>
@@ -173,6 +175,12 @@
   <data name="ThemeToggle" xml:space="preserve"><value>Toggle theme</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>To the top</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>To the bottom</value></data>
+  <data name="ContactLabel" xml:space="preserve"><value>Contact us</value></data>
+  <data name="ContactTeaser" xml:space="preserve"><value>Any questions?</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>Pick a channel</value></data>
+  <data name="ContactTelegram" xml:space="preserve"><value>Message us on Telegram</value></data>
+  <data name="ContactMax" xml:space="preserve"><value>Message us on MAX</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>Chat on the site</value></data>
   <data name="MapTitle" xml:space="preserve"><value>Where we will take you</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>Three destinations across the Kola Peninsula — every tour starts in Murmansk</value></data>
   <data name="MapHint" xml:space="preserve"><value>Tap a dot on the map to learn about the destination</value></data>
@@ -280,7 +288,7 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>Fresh cod, scallops and fish soup — lunch in Teriberka before the drive back.</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>Return to Murmansk</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
-  <data name="MidCta" xml:space="preserve"><value>Find a travel date</value></data>
+  <data name="MidCta" xml:space="preserve"><value>Check available dates</value></data>
   <data name="MidCtaNote" xml:space="preserve"><value>We will confirm route availability and the price for your group</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
@@ -306,8 +314,8 @@
   <data name="Faq6Question" xml:space="preserve"><value>What happens after I send a request?</value></data>
   <data name="Faq6Answer" xml:space="preserve"><value>We call you back on the number you gave, confirm the date, group size and wishes, and quote the final price. Booking happens only once you agree.</value></data>
   <data name="OtherRoutesApplyNote" xml:space="preserve"><value>Name the route you want when we call — we will find a date for that one too</value></data>
-  <data name="FormKicker" xml:space="preserve"><value>Next step</value></data>
-  <data name="FormPoint1" xml:space="preserve"><value>Check whether your chosen date is available</value></data>
+  <data name="FormKicker" xml:space="preserve"><value>No prepayment</value></data>
+  <data name="FormPoint1" xml:space="preserve"><value>Find a travel date that suits you</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Calculate the final price for your group</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Answer questions about weather, clothing and the route</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>I agree to the processing of my personal data and accept the</value></data>

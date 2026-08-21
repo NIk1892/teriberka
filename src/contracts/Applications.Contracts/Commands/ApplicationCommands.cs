@@ -2,12 +2,15 @@ using Contracts;
 
 namespace Applications.Contracts;
 
+/// <summary>
+/// Заявка с сайта: имя (<see cref="Command.Title"/>, необязательно), телефон и
+/// выбранное направление. Остальные детали — дата, состав группы, пожелания —
+/// уточняются по телефону, поэтому в форме их сознательно нет (решение от 21.08.2026).
+/// </summary>
 public record ApplicationCreateCommand : Command
 {
     public string? Phone { get; set; }
-    public int PeopleCount { get; set; }
-    public DateOnly ArrivalDate { get; set; }
 
-    /// <summary>Пожелания к поездке; заполняется в том числе заявками на индивидуальный тур.</summary>
-    public string? Comment { get; set; }
+    /// <summary>Код направления из <see cref="ApplicationRoutes"/>; по умолчанию Териберка.</summary>
+    public string? Route { get; set; } = ApplicationRoutes.Teriberka;
 }

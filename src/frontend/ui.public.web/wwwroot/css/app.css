@@ -256,6 +256,21 @@ a { color: var(--accent-ice); }
     color: var(--on-accent);
 }
 
+/* Заявка в шапке для узких экранов. На десктопе скрыта: там та же кнопка уже
+   есть в строке разделов (.nav-apply), два одинаковых призыва рядом не нужны.
+   Показывается в @media (max-width: 899px) вместе с переносом языка в бургер. */
+.header-apply {
+    display: none;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--aurora);
+    color: var(--on-accent);
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
 /* бургер для узких экранов: нативный details, без JavaScript.
    ВАЖНО: как и .map-spot — без transform, иначе fixed-оверлей закрытия
    станет локальным (transform создаёт containing block). */
@@ -313,7 +328,29 @@ a { color: var(--accent-ice); }
 
 .burger-panel a:hover { background: var(--bg-elev-2); }
 
-.burger-panel .burger-apply { color: var(--accent); }
+/* язык внутри бургера: три пилюли в строку, как в шапке на десктопе */
+.burger-lang {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+}
+
+.burger-panel .burger-lang a {
+    flex: 1;
+    padding: 7px 8px;
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: .82rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.burger-panel .burger-lang a.active {
+    background: var(--aurora);
+    color: var(--on-accent);
+}
 
 /* дубль ссылки на бота включается только на самых узких экранах,
    где иконка бота убрана из шапки ради места */
@@ -322,6 +359,13 @@ a { color: var(--accent-ice); }
 @media (min-width: 900px) {
     .main-nav { display: flex; }
     .nav-burger { display: none; }
+}
+
+/* Узкие экраны: заявка выходит в шапку, а переключатель языка уступает ей место
+   и уезжает в бургер — язык меняют раз за визит, заявка нужна всё время. */
+@media (max-width: 899px) {
+    .header-apply { display: inline-flex; }
+    .header-controls > .lang-switch { display: none; }
 }
 
 /* ---------- hero ---------- */
@@ -545,6 +589,11 @@ a { color: var(--accent-ice); }
     color: var(--accent);
     font-size: .88rem;
     font-weight: 600;
+}
+
+.hero-trust::before {
+    content: "✓ ";
+    font-weight: 800;
 }
 
 /* на самых узких экранах длинный кикер не должен ломать «пилюлю» */
@@ -2078,18 +2127,36 @@ html.lightbox-open { overflow: hidden; }
 
 /* ---------- форма заявки ---------- */
 
-.apply { scroll-margin-top: 80px; }
+/* Якорь #apply стоит на самой форме (и на карточке «спасибо»), а не на секции —
+   переход по «Записаться» должен показывать поля, а не шапку карточки. */
+.apply-form,
+.sent-card { scroll-margin-top: 80px; }
 
 .apply-card {
     max-width: 720px;
     margin-inline: auto;
     padding: 28px 22px;
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background:
         radial-gradient(600px 300px at 90% -20%, rgba(76, 201, 240, .10), transparent 60%),
         var(--bg-elev);
     box-shadow: var(--shadow);
+}
+
+/* кадры дня в шапке карточки формы — желание в момент решения, без ссылок */
+.apply-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: -28px -22px 22px;
+}
+
+.apply-photos img {
+    width: 100%;
+    height: 92px;
+    object-fit: cover;
 }
 
 .apply-card > h2 { font-size: 1.6rem; }
@@ -2113,9 +2180,23 @@ html.lightbox-open { overflow: hidden; }
     display: grid;
     gap: 7px;
     margin: 0 0 26px;
-    padding-left: 22px;
+    padding: 0;
+    list-style: none;
     color: var(--text-muted);
     font-size: .9rem;
+}
+
+.apply-points li {
+    position: relative;
+    padding-left: 28px;
+}
+
+.apply-points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
 }
 
 .form-grid {
@@ -2126,7 +2207,7 @@ html.lightbox-open { overflow: hidden; }
 
 .field { display: block; }
 
-.field span {
+.field-label {
     display: block;
     margin-bottom: 6px;
     font-size: .9rem;
@@ -2134,8 +2215,15 @@ html.lightbox-open { overflow: hidden; }
     color: var(--text-muted);
 }
 
+.field-required {
+    display: inline;
+    margin-left: 2px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
 .field input,
-.field textarea {
+.field select {
     width: 100%;
     min-height: 50px;
     padding: 10px 14px;
@@ -2147,28 +2235,89 @@ html.lightbox-open { overflow: hidden; }
     transition: border-color .15s ease, box-shadow .15s ease;
 }
 
-.field textarea {
-    resize: vertical;
-    font-family: inherit;
-    line-height: 1.5;
+/* Своя стрелка вместо системной: нативный select в тёмной теме выглядит инородно,
+   как было с чекбоксом согласия. Стрелка — data: URI, потому что CSP запрещает
+   и inline-стили, и внешние источники картинок (img-src 'self' data:). */
+.field select {
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%2394a5be' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px 8px;
+    cursor: pointer;
 }
 
-[data-theme="light"] .field input,
-[data-theme="light"] .field textarea { background: var(--bg-elev-2); }
-
-.field input::placeholder,
-.field textarea::placeholder { color: color-mix(in srgb, var(--text-muted) 65%, transparent); }
-
-.field input:focus,
-.field textarea:focus {
+.field select:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+[data-theme="light"] .field input { background: var(--bg-elev-2); }
+
+.field input::placeholder { color: color-mix(in srgb, var(--text-muted) 65%, transparent); }
+
+.field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* ошибки валидации: мягкая подсветка поля в --danger и подсказка с маркером под ним.
+   Системные пузыри браузера не показываются — form-ui.js ставит novalidate. */
+.field-invalid input {
+    border-color: color-mix(in srgb, var(--danger) 70%, var(--border));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 16%, transparent);
+}
+
+.field-invalid input:focus {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 24%, transparent);
+}
+
+.field-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: .84rem;
+    line-height: 1.4;
+}
+
+.field-hint-error {
+    color: var(--danger);
+    animation: hint-in .25s ease both;
+}
+
+.field-hint-error::before {
+    content: "!";
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--danger) 18%, transparent);
+    font-size: .7rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+@keyframes hint-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .field-hint-error { animation: none; }
 }
 
 .form-errors {
     margin: 0 0 16px;
-    padding: 12px 16px 12px 32px;
+    padding: 12px 16px;
     border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent);
     border-radius: var(--radius-sm);
     background: color-mix(in srgb, var(--danger) 10%, transparent);
@@ -2176,30 +2325,176 @@ html.lightbox-open { overflow: hidden; }
     font-size: .92rem;
 }
 
-/* согласие на обработку ПД: проверяется только браузером (required) */
+/* согласие на обработку ПД: проверяется только браузером (required + form-ui.js) */
 .consent {
     grid-column: 1 / -1;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+    align-items: start;
     font-size: .88rem;
     color: var(--text-muted);
     cursor: pointer;
 }
 
+/* свой чекбокс: нативный на тёмном фоне выглядел инородно, а рамка ошибки
+   рисовалась квадратом вокруг него. Анимируются только transform/opacity. */
 .consent input {
-    flex: none;
-    width: 16px;
-    height: 16px;
-    margin-top: 2px;
-    accent-color: var(--accent);
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 1px 0 0;
+    border: 1.5px solid color-mix(in srgb, var(--text-muted) 55%, var(--border));
+    border-radius: 6px;
+    background: var(--bg);
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+[data-theme="light"] .consent input { background: var(--bg-elev-2); }
+
+.consent input::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--on-accent);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    transition: transform .15s ease, opacity .15s ease;
+}
+
+.consent input:checked {
+    border-color: transparent;
+    background: var(--aurora);
+}
+
+.consent input:checked::after {
+    transform: rotate(45deg) scale(1);
+    opacity: 1;
+}
+
+.consent:hover input:not(:checked) { border-color: var(--accent); }
+
+.consent input:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.consent.field-invalid input {
+    border-color: color-mix(in srgb, var(--danger) 70%, var(--border));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 16%, transparent);
+}
+
+.consent-text { line-height: 1.5; }
+
+.consent .field-hint {
+    grid-column: 1 / -1; /* подсказка на всю ширину — маркер «!» в одну линию с чекбоксом и полями */
+    margin-top: 6px;
 }
 
 .consent a { color: var(--accent); }
 
-.form-submit { margin-top: 8px; }
+/* кнопка отправки + альтернатива: написать боту в Telegram (только при TG_BOT_URL) */
+.form-submit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
 
 .form-submit .btn { width: 100%; }
+
+/* что происходит после отправки — сразу под кнопкой, до альтернативы «или» */
+.form-submit-note {
+    width: 100%;
+    margin-top: -4px;
+    color: var(--accent);
+    font-size: .84rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.btn-tg {
+    width: 100%;
+    gap: 10px;
+    padding-inline: 16px;
+    text-align: center;
+}
+
+/* обе кнопки формы — одним кеглем: глобальный .btn крупнее, здесь выравниваем */
+.form-submit .btn,
+.form-submit .btn-tg { font-size: .95rem; }
+
+.btn-tg::after { content: none; }
+
+/* кольцо-пульс как у главной кнопки, но в противофазе (задержка — полпериода cta-ping)
+   и в «ледяном» цвете: две кнопки не вспыхивают одновременно */
+.btn-tg { position: relative; }
+
+.btn-tg::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 999px;
+    border: 2px solid var(--accent-ice);
+    opacity: 0;
+    pointer-events: none;
+    animation: cta-ping 6s ease-out 3s infinite;
+}
+
+/* «или» между кнопками: на мобиле — отдельной строкой, на десктопе — в строку */
+.form-submit-or {
+    flex: 1 1 100%;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.btn-tg-icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: var(--accent-ice);
+    transition: transform .15s ease;
+}
+
+.btn-tg:hover .btn-tg-icon { transform: translate(2px, -2px); }
+
+/* кнопка бота со сноской под ней: что именно даёт бот. Колонка, чтобы подпись
+   держалась за кнопку, а не за форму целиком. */
+.form-submit-alt {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.btn-tg-note {
+    color: var(--text-muted);
+    font-size: .8rem;
+    line-height: 1.35;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .form-submit .btn,
+    .form-submit .btn-tg {
+        gap: 8px;
+        padding-inline: 12px;
+        font-size: .88rem;
+    }
+}
 
 /* карточка «заявка принята» */
 .sent-card {
@@ -2560,7 +2855,8 @@ html.js-fx .guide-card { animation: none; }
 .scrollers {
     position: fixed;
     right: 16px;
-    bottom: 16px;
+    /* сам угол занят кнопкой связи (56px) — встаём столбиком над ней */
+    bottom: calc(16px + 56px + 12px);
     z-index: 40;
     display: flex;
     flex-direction: column;
@@ -2604,6 +2900,274 @@ html.js-fx .guide-card { animation: none; }
         to { opacity: 1; }
     }
 }
+
+/* ---------- плавающая кнопка связи ---------- */
+
+/* Круглая кнопка с фото гида в правом нижнем углу: клик разворачивает вверх
+   «ёлочку» каналов (Telegram, MAX, дальше — чат на сайте). Меню — нативный
+   <details>, как .nav-burger и .map-spot: работает без JavaScript, а клик мимо
+   сворачивает его фиксированным оверлеем .contact-fab::before.
+   ВАЖНО: ни на .contact-widget, ни на .contact-fab (это <summary>) нельзя
+   вешать transform / filter / backdrop-filter / will-change: transform — любое
+   из них создаёт containing block, и оверлей перестанет покрывать экран.
+   Всё движение живёт на дочернем .contact-fab-face и на пунктах панели. */
+.contact-widget {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    /* выше .scrollers (40) и метели (30), ниже лайтбокса (100) */
+    z-index: 45;
+}
+
+.contact-fab {
+    position: relative;
+    display: flex;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    list-style: none;
+}
+
+/* Пузырь-подсказка слева от кнопки: без него фото гида не читается как «напишите
+   нам». Появляется с задержкой, чтобы не мешать первому впечатлению, и исчезает,
+   когда меню раскрыто. */
+.contact-teaser {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    margin-top: -16px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px 999px 4px 999px;
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-size: .84rem;
+    font-weight: 600;
+    white-space: nowrap;
+    animation: contact-teaser-in .5s ease-out 1.6s backwards;
+}
+
+/* хвостик к кнопке — маленький ромб у нижнего правого угла пузыря */
+.contact-teaser::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    bottom: 4px;
+    width: 9px;
+    height: 9px;
+    background: var(--bg-elev);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transform: rotate(-45deg);
+}
+
+@keyframes contact-teaser-in {
+    from { opacity: 0; transform: translateX(8px); }
+}
+
+.contact-widget[open] .contact-teaser {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .15s ease, visibility .15s;
+}
+
+.contact-fab::-webkit-details-marker { display: none; }
+
+.contact-fab:focus-visible {
+    border-radius: 50%;
+    outline-offset: 4px;
+}
+
+/* невидимый оверлей на весь экран — клик мимо панели сворачивает details.
+   Он лежит и поверх самой кнопки, поэтому повторный клик по ней тоже закрывает. */
+.contact-widget[open] .contact-fab::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    cursor: default;
+}
+
+/* аврора-кольцо вокруг фото — тот же приём, что у .guide-ring */
+.contact-fab-face {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    background: var(--aurora);
+    color: var(--on-accent);
+    box-shadow: var(--shadow), 0 8px 28px color-mix(in srgb, var(--accent) 26%, transparent);
+    transition: transform .18s ease;
+}
+
+.contact-widget:hover .contact-fab-face { transform: translateY(-2px) scale(1.05); }
+
+/* фото и крестик — в одной ячейке grid, поэтому кроссфейд без position: absolute */
+.contact-fab-photo {
+    grid-area: 1 / 1;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: opacity .18s ease;
+}
+
+.contact-fab-close {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: rotate(-90deg) scale(.5);
+    transition: opacity .18s ease, transform .25s ease;
+}
+
+.contact-widget[open] .contact-fab-photo { opacity: .18; }
+
+.contact-widget[open] .contact-fab-close {
+    opacity: 1;
+    transform: none;
+}
+
+/* Дышащий ореол. Начинается ЗА кромкой кольца (стоп 72%) и уходит в прозрачность —
+   иначе заливает аврора-градиент ровным зелёным, и кольцо перестаёт читаться.
+   Два цвета вместо одного: свечение остаётся в аврора-гамме, а не кислотно-зелёным. */
+.contact-fab-face::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(closest-side,
+        transparent 72%,
+        color-mix(in srgb, var(--accent) 20%, transparent) 84%,
+        color-mix(in srgb, var(--accent-ice) 14%, transparent) 92%,
+        transparent 100%);
+    animation: contact-glow 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes contact-glow {
+    from { opacity: .3; transform: scale(.98); }
+    to   { opacity: .7; transform: scale(1.1); }
+}
+
+/* редкий пульс — тот же cta-ping, что у главной кнопки формы */
+.contact-fab-face::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: cta-ping 6s ease-out infinite;
+}
+
+/* открыто: кнопка успокаивается — пульс молчит, ореол приглушён */
+.contact-widget[open] .contact-fab-face::after { animation: none; }
+
+.contact-widget[open] .contact-fab-face::before {
+    animation: none;
+    opacity: .25;
+}
+
+/* панель обязана лежать выше оверлея закрытия (z-index: 0), иначе пункты
+   видно, но нажать нельзя — та же пара, что у .map-spot */
+.contact-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 12px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    width: max-content;
+    max-width: min(78vw, 320px);
+}
+
+/* «Ёлочка»: пункты влетают снизу вверх с задержкой. Именно animation, а не
+   transition: details показывает содержимое скачком из display: none, и
+   переходу не от чего стартовать. backwards держит пункт невидимым всю задержку.
+   Задержки считаются от кнопки вверх (:nth-last-child), поэтому новый канал
+   дописывается в список без правки CSS. */
+.contact-widget[open] .contact-panel > * {
+    transform-origin: 100% 100%;
+    animation: contact-item-in .26s cubic-bezier(.22, .68, .32, 1.15) backwards;
+}
+
+.contact-widget[open] .contact-panel > :nth-last-child(1) { animation-delay: 30ms; }
+.contact-widget[open] .contact-panel > :nth-last-child(2) { animation-delay: 90ms; }
+.contact-widget[open] .contact-panel > :nth-last-child(3) { animation-delay: 150ms; }
+.contact-widget[open] .contact-panel > :nth-last-child(4) { animation-delay: 210ms; }
+.contact-widget[open] .contact-panel > :nth-last-child(5) { animation-delay: 270ms; }
+
+@keyframes contact-item-in {
+    from { opacity: 0; transform: translateY(12px) scale(.94); }
+}
+
+.contact-hint {
+    padding: 5px 13px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-size: .92rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: border-color .15s ease, color .15s ease;
+}
+
+.contact-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.contact-item-icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: var(--accent-ice);
+}
+
+.contact-item:hover .contact-item-icon { color: inherit; }
+
+/* единственный канал — меню не нужно, кнопка ведёт прямо в него */
+.contact-solo { display: block; }
+
+@media (max-width: 360px) {
+    .contact-fab { width: 52px; height: 52px; }
+    .contact-fab-photo { width: 44px; height: 44px; }
+    .contact-item { padding: 9px 14px; font-size: .88rem; }
+}
+
+/* в альбоме на телефоне высоты мало — раскрытая ёлочка не должна упираться в верх */
+@media (max-height: 480px) {
+    .contact-hint { display: none; }
+}
+
+/* Липкая полоса заявки внизу экрана убрана 21.08.2026 вместе со sticky-cta.js:
+   на узких экранах её роль играет кнопка .header-apply в шапке, а низ отдан
+   плавающей кнопке связи — два фиксированных элемента внизу мешали друг другу. */
 
 /* ---------- «берег» перед футером ---------- */
 
@@ -2851,10 +3415,27 @@ html.js-fx .guide-card { animation: none; }
     .section-cta { flex-direction: row; align-items: center; }
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid .form-errors,
-    .form-grid .field-wide,
     .form-grid .form-submit { grid-column: 1 / -1; }
-    .form-submit .btn { width: auto; min-width: 260px; }
+    .form-submit .btn,
+    .form-submit .btn-tg { width: auto; }
+    .form-submit-alt {
+        width: auto;
+        max-width: 280px;
+    }
+    /* ряд выравнивается по верху: иначе сноска утягивала бы кнопку бота вверх
+       относительно главной. «или» центрируем по высоте кнопки (min-height у .btn). */
+    .form-submit { align-items: flex-start; }
+    .form-submit-or {
+        flex: none;
+        display: flex;
+        align-items: center;
+        min-height: 52px;
+        padding-inline: 4px;
+    }
+    .form-submit .btn { min-width: 240px; }
     .apply-card { padding: 36px 40px; }
+    .apply-photos { margin: -36px -40px 24px; }
+    .apply-photos img { height: 110px; }
 }
 
 @media (min-width: 800px) {
@@ -2879,6 +3460,15 @@ html.js-fx .guide-card { animation: none; }
     .blizzard { display: none; }
     .scroll-progress { display: none; }
     .btn-pulse::after { animation: none; }
+    .btn-tg::before { animation: none; }
+    .contact-fab-face::before,
+    .contact-fab-face::after,
+    .contact-teaser { animation: none; }
+    .contact-widget[open] .contact-panel > * { animation: none; }
+    .contact-fab-face,
+    .contact-fab-photo,
+    .contact-fab-close,
+    .contact-item { transition: none; }
     .map-whale { animation: none; opacity: 0; }
     .place-card, .review-card, .guide-card, .alt-route, .itinerary-list li, .season-card,
     .included-grid li, .why-grid li { animation: none; }

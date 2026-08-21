@@ -6,16 +6,21 @@
 @inject NavigationManager Navigation
 @inject IEnumerable<IValidator<ApplicationCreateCommand>> Validators
 @inject IStringLocalizer<SharedResource> L
+@inject IConfiguration Configuration
 
-@* Единственная форма заявки на сайте. Ветка Custom (открывается ссылкой
-   /?tour=custom#apply) меняет тексты и делает «Пожелания» обязательными —
-   сам POST, FormName и обработка общие, отдельной формы для индивидуального
-   тура сознательно нет. Работает на static SSR: значения приезжают через
-   [SupplyParameterFromForm], после успеха — редирект (post-redirect-get). *@
+@* Единственная форма заявки на сайте: имя (необязательно) и телефон — всё остальное
+   уточняется по телефону. Ветка Custom (открывается ссылкой /?tour=custom#apply)
+   меняет только тексты; POST, FormName и обработка общие, отдельной формы для
+   индивидуального тура сознательно нет. Работает на static SSR: значения приезжают
+   через [SupplyParameterFromForm], после успеха — редирект (post-redirect-get).
+   Клиентская валидация — form-ui.js (novalidate + подсказки под полями);
+   без JavaScript работают HTML5-атрибуты и серверная проверка. *@
 
 @if (Sent)
 {
-    <div class="sent-card">
+    @* тот же id, что у формы: ссылка «Записаться» не должна вести в пустоту,
+       когда вместо формы показана карточка «спасибо» *@
+    <div class="sent-card" id="apply">
         <span class="sent-icon" aria-hidden="true">✓</span>
         <h2>@L["SentTitle"]</h2>
         <p>@L["SentText"]</p>
@@ -24,6 +29,12 @@
 }
 else
 {
+    @* Три кадра дня — декоративно, без ссылок: иначе уводили бы с формы. *@
+    <div class="apply-photos" aria-hidden="true">
+        <img src="/img/places/dragon-eggs.webp" alt="" loading="lazy" decoding="async" />
+        <img src="/img/places/ship-graveyard.webp" alt="" loading="lazy" decoding="async" />
+        <img src="/img/places/batareysky-waterfall.webp" alt="" loading="lazy" decoding="async" />
+    </div>
     <span class="apply-kicker">@L[Custom ? "FormCustomKicker" : "FormKicker"]</span>
     <h2>@L[Custom ? "FormCustomTitle" : "FormTitle"]</h2>
     <p class="apply-lead">@L[Custom ? "FormCustomText" : "FormText"]</p>
@@ -33,89 +44,101 @@ else
         <li>@L["FormPoint3"]</li>
     </ul>
 
-    @if (_errors.Length > 0)
+    @if (!string.IsNullOrEmpty(_generalError))
     {
-        <ul class="form-errors">
-            @foreach (var error in _errors)
-            {
-                <li>@error</li>
-            }
-        </ul>
+        <p class="form-errors" role="alert">@_generalError</p>
     }
 
-    <EditForm class="form-grid" Model="Model" FormName="application" OnValidSubmit="SubmitAsync">
-        <label class="field">
-            <span>@L["FieldName"]</span>
-            <InputText @bind-Value="Model.Title" required maxlength="255" autocomplete="name" />
+    @* id="apply" висит на самой форме, а не на секции: ссылки «Записаться» должны
+       приводить к первому полю, а не к шапке карточки с фото и подводкой. *@
+    <EditForm id="apply" class="form-grid apply-form" Model="Model" FormName="application"
+              OnValidSubmit="SubmitAsync"
+              data-val-phone="@L["ValPhone"]"
+              data-val-consent="@L["ValConsent"]">
+        <label class="field @FieldClass("Title")" data-field="Title">
+            <span class="field-label">@L["FieldName"]</span>
+            <InputText @bind-Value="Model.Title" maxlength="255" autocomplete="name"
+                       placeholder="@L["FieldNameHint"]"
+                       aria-invalid="@HasError("Title")" />
+            @FieldHint("Title")
         </label>
-        <label class="field">
-            <span>@L["FieldPhone"]</span>
-            <InputText type="tel" @bind-Value="Model.Phone" required maxlength="32"
-                       placeholder="+7 900 000-00-00" autocomplete="tel" />
+        <label class="field @FieldClass("Phone")" data-field="Phone">
+            <span class="field-label">@L["FieldPhone"]<span class="field-required" aria-hidden="true">*</span></span>
+            <InputText type="tel" @bind-Value="Model.Phone" maxlength="32" required
+                       inputmode="tel" autocomplete="tel"
+                       placeholder="+7 900 000-00-00"
+                       aria-invalid="@HasError("Phone")" />
+            @FieldHint("Phone")
         </label>
-        <label class="field">
-            <span>@L["FieldPeople"]</span>
-            <InputNumber @bind-Value="Model.PeopleCount" required min="1" max="50" />
+        @* Направление: коды из ApplicationRoutes, названия — те же короткие
+           подписи, что у маркеров карты (MapSpot1..3). По умолчанию Териберка —
+           основной маршрут, за ним приходит большинство. *@
+        <label class="field @FieldClass("Route")" data-field="Route">
+            <span class="field-label">@L["FieldRoute"]</span>
+            <InputSelect @bind-Value="Model.Route" aria-invalid="@HasError("Route")">
+                <option value="@ApplicationRoutes.Teriberka">@L["MapSpot1"]</option>
+                <option value="@ApplicationRoutes.Lovozero">@L["MapSpot2"]</option>
+                <option value="@ApplicationRoutes.Tersky">@L["MapSpot3"]</option>
+            </InputSelect>
+            @FieldHint("Route")
         </label>
-        <label class="field">
-            <span>@L["FieldDate"]</span>
-            <InputDate @bind-Value="Model.ArrivalDate" required min="@Today.ToString("yyyy-MM-dd")" />
-        </label>
-        <label class="field field-wide">
-            <span>@L[Custom ? "FieldCommentCustom" : "FieldComment"]</span>
-            @if (Custom)
-            {
-                <InputTextArea @bind-Value="Model.Comment" required maxlength="500" rows="4"
-                               placeholder="@L["FieldCommentHintCustom"]" />
-            }
-            else
-            {
-                <InputTextArea @bind-Value="Model.Comment" maxlength="500" rows="3"
-                               placeholder="@L["FieldCommentHint"]" />
-            }
-        </label>
-        @* Согласие пока только на клиенте (required): в контракт не входит,
+        @* Согласие пока только на клиенте: в контракт не входит,
            сервер его не проверяет — плейсхолдер до настоящей политики ПД. *@
-        <label class="consent">
+        <label class="consent @ConsentClass()" data-field="Consent">
             <input type="checkbox" name="consent" required />
-            <span>@L["ConsentLabel"] <a href="/privacy" target="_blank" rel="noopener">@L["ConsentPolicyLink"]</a></span>
+            <span class="consent-text">@L["ConsentLabel"] <a href="/privacy" target="_blank" rel="noopener">@L["ConsentPolicyLink"]</a><span class="field-required" aria-hidden="true">*</span></span>
+            @FieldHint("Consent")
         </label>
         <div class="form-submit">
-            <button class="btn" type="submit">@L["Submit"]</button>
+            <button class="btn btn-pulse" type="submit">@L["Submit"]</button>
+            @* Что будет дальше — сразу под кнопкой: снимает главный вопрос
+               «когда со мной свяжутся» до того, как человек нажмёт. *@
+            <span class="form-submit-note">@L["FormCallbackNote"]</span>
+            @* Альтернатива форме — тот же Telegram-бот, что в шапке; рендерится только при заданном TG_BOT_URL. *@
+            @if (!string.IsNullOrWhiteSpace(BotUrl))
+            {
+                <span class="form-submit-or" aria-hidden="true">@L["FormOr"]</span>
+                <span class="form-submit-alt">
+                    <a class="btn-ghost btn-tg" href="@BotUrl" target="_blank" rel="noopener">
+                        <svg class="btn-tg-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M21.5 3.6 2.9 10.8c-1 .4-1 1.3-.2 1.6l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2 1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM17.2 7.7l-8.1 7.4-.3 3.2-1.4-4.5 9.3-5.9c.4-.3.8 0 .5.3Z" fill="currentColor"/>
+                        </svg>
+                        <span>@L["FormTelegram"]</span>
+                    </a>
+                    @* Сноска привязана к кнопке бота, а не к форме целиком. *@
+                    <span class="btn-tg-note">@L["FormTelegramNote"]</span>
+                </span>
+            }
         </div>
     </EditForm>
 }
 
 @code {
-    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
-
     /// <summary>Показывать карточку «спасибо» вместо формы (после редиректа ?sent=true).</summary>
     [Parameter] public bool Sent { get; set; }
 
-    /// <summary>Ветка индивидуального тура: другие тексты, обязательные «Пожелания».</summary>
+    /// <summary>Ветка индивидуального тура: другие кикер, заголовок и подводка.</summary>
     [Parameter] public bool Custom { get; set; }
 
     [SupplyParameterFromForm]
     public ApplicationCreateCommand Model { get; set; } = default!;
 
-    private string[] _errors = [];
+    private Dictionary<string, string> _fieldErrors = [];
+    private string? _generalError;
 
-    protected override void OnInitialized() =>
-        Model ??= new ApplicationCreateCommand
-        {
-            PeopleCount = 2,
-            ArrivalDate = Today.AddDays(7)
-        };
+    private string? BotUrl => Configuration["TG_BOT_URL"];
+
+    protected override void OnInitialized() => Model ??= new ApplicationCreateCommand();
 
     private async Task SubmitAsync()
     {
-        _errors = Validators
-            .Select(validator => validator.Validate(Model))
-            .SelectMany(result => result.Errors)
-            .Select(failure => failure.ErrorMessage)
-            .ToArray();
+        _generalError = null;
+        _fieldErrors = Validators
+            .SelectMany(validator => validator.Validate(Model).Errors)
+            .GroupBy(failure => failure.PropertyName)
+            .ToDictionary(group => group.Key, group => group.First().ErrorMessage);
 
-        if (_errors.Length > 0)
+        if (_fieldErrors.Count > 0)
             return;
 
         try
@@ -124,11 +147,29 @@ else
         }
         catch (Exception ex)
         {
-            _errors = [ex.Message];
+            _generalError = ex.Message;
             return;
         }
 
         // именно "true": биндинг bool из query не понимает "1"
         Navigation.NavigateTo("/?sent=true");
     }
+
+    private bool HasError(string field) => _fieldErrors.ContainsKey(field);
+
+    private string FieldClass(string field) => HasError(field) ? "field-invalid" : "";
+
+    private string ConsentClass() => HasError("Consent") ? "field-invalid" : "";
+
+    private RenderFragment FieldHint(string field) => builder =>
+    {
+        if (!_fieldErrors.TryGetValue(field, out var message))
+            return;
+
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "class", "field-hint field-hint-error");
+        builder.AddAttribute(2, "role", "alert");
+        builder.AddContent(3, message);
+        builder.CloseElement();
+    };
 }

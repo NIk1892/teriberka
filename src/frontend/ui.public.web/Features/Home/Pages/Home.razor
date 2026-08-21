@@ -78,6 +78,10 @@
                 </li>
             }
         </ol>
+        @* Единственный призыв в середине лендинга (21.08.2026): раньше такой же блок
+           стоял ещё после мест, после «что включено» и после других маршрутов —
+           четыре одинаковые кнопки подряд переставали читаться. Вход в форму и так
+           всегда на виду: кнопка в шапке, виджет связи в углу и полоска на телефоне. *@
         <div class="section-cta">
             <a class="btn" href="#apply">@L["MidCta"]</a>
             <span>@L["MidCtaNote"]</span>
@@ -140,10 +144,6 @@
                 <li>@L[$"Included{i}"]</li>
             }
         </ul>
-        <div class="section-cta">
-            <a class="btn" href="#apply">@L["MidCta"]</a>
-            <span>@L["MidCtaNote"]</span>
-        </div>
     </div>
 </section>
 
@@ -201,10 +201,14 @@
     </div>
 </section>
 
-<section class="section apply" id="apply">
+@* id="apply" перенесён внутрь, на саму форму (ApplicationForm.razor): якорь
+   должен приводить к первому полю, а не к началу карточки. *@
+<section class="section apply">
     <div class="container">
-        @* Настоящий гид — блок доверия у формы. Фото реальное (wwwroot/img/guide.webp),
-           тексты без выдуманных цифр — только подтверждённые владельцем факты. *@
+        @* Блок гида временно убран (21.08.2026): его фото теперь работает лицом
+           плавающей кнопки связи в углу, и второй раз перед формой не нужно.
+           Разметка, стили .guide-note и ключи GuideTitle/GuideText сохранены —
+           блок вернётся, если владелец захочет его обратно.
         <div class="guide-note">
             <span class="guide-ring">
                 <img class="guide-photo" src="/img/guide.webp" alt="@L["GuideTitle"]" width="128" height="128" />
@@ -214,6 +218,7 @@
                 <p>@L["GuideText"]</p>
             </div>
         </div>
+        *@
         <div class="apply-card">
             <ApplicationForm Sent="Sent" Custom="CustomTour" />
         </div>
@@ -259,15 +264,11 @@
             </div>
         }
 
-        <div class="section-cta">
-            <a class="btn" href="#apply">@L["MidCta"]</a>
-            <span>@L["OtherRoutesApplyNote"]</span>
-        </div>
     </div>
 </section>
 
 @* Индивидуальный тур: последний конверсионный блок — CTA открывает ту же форму
-   в ветке Custom (?tour=custom): другие тексты, обязательные «Пожелания». *@
+   в ветке Custom (?tour=custom): другие кикер, заголовок и подводка. *@
 <section class="custom-tour" id="custom-tour">
     <div class="container">
         <span class="custom-tour-kicker">@L["CustomTourKicker"]</span>

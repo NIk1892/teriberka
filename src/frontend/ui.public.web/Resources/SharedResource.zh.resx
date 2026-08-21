@@ -103,25 +103,27 @@
   <data name="Review9Text" xml:space="preserve"><value>站在北冰洋岸边的梦想实现了。能用中文在网站上预约，非常方便。</value></data>
 
   <data name="FormTitle" xml:space="preserve"><value>为您选择出行日期</value></data>
-  <data name="FormText" xml:space="preserve"><value>留下联系方式，我们将确认可选日期、团队安排和最终价格。提交申请不代表必须预订。</value></data>
+  <data name="FormText" xml:space="preserve"><value>留下电话，提交申请后我们会尽快与您联系：确认可选日期、团队安排和最终价格。提交申请不代表必须预订。</value></data>
   <data name="FieldName" xml:space="preserve"><value>姓名</value></data>
+  <data name="FieldNameHint" xml:space="preserve"><value>例如：安娜</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>电话</value></data>
-  <data name="FieldPeople" xml:space="preserve"><value>人数</value></data>
-  <data name="FieldDate" xml:space="preserve"><value>出行日期</value></data>
-  <data name="FieldComment" xml:space="preserve"><value>期望（选填）</value></data>
-  <data name="FieldCommentHint" xml:space="preserve"><value>例如：想要为期两天的雷巴奇半岛定制行程</value></data>
-  <data name="FieldCommentCustom" xml:space="preserve"><value>期望</value></data>
-  <data name="FieldCommentHintCustom" xml:space="preserve"><value>想去哪里、日期和人数——例如：雷巴奇半岛两日游，两人，九月初</value></data>
+  <data name="FieldRoute" xml:space="preserve"><value>行程路线</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>谢尔盖——科拉半岛持证向导</value></data>
   <data name="GuideText" xml:space="preserve"><value>他常年带团前往捷里别尔卡、希比尼山和捷尔斯基海岸：知道何时到岸边能遇见鲸鱼、去哪里追寻极光、以及如何穿衣让北极大风天依然舒适。行程中他掌握舒适的节奏，并负责团队的安全。</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>定制行程</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>告诉我们您想要的行程</value></data>
-  <data name="FormCustomText" xml:space="preserve"><value>请留下联系方式并写下期望——我们会回电，提供行程方案和价格。</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>留下电话——我们会尽快与您联系，商谈路线、日期和人数，并提供行程方案和价格。</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>定制路线</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>需要定制行程？</value></data>
-  <data name="CustomTourText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣定制行程——从一日游到科拉半岛为期一周的远征。请在申请中写下您的期望，细节我们电话商谈。</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣定制行程——从一日游到科拉半岛为期一周的远征。提交申请，细节我们电话商谈。</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>提交申请</value></data>
-  <data name="Submit" xml:space="preserve"><value>查询可选日期</value></data>
+  <data name="Submit" xml:space="preserve"><value>提交申请</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>工作时间内，我们将在半小时内与您联系</value></data>
+  <data name="FormOr" xml:space="preserve"><value>或</value></data>
+  <data name="FormTelegram" xml:space="preserve"><value>通过机器人预订</value></data>
+  <data name="FormTelegramNote" xml:space="preserve"><value>通过机器人您可以了解行程的大致费用</value></data>
+  <data name="ValPhone" xml:space="preserve"><value>请按 +7 900 000-00-00 格式填写电话</value></data>
+  <data name="ValConsent" xml:space="preserve"><value>请确认同意数据处理</value></data>
   <data name="SentTitle" xml:space="preserve"><value>申请已收到！</value></data>
   <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
   <data name="SentAgain" xml:space="preserve"><value>再提交一份申请</value></data>
@@ -173,6 +175,12 @@
   <data name="ThemeToggle" xml:space="preserve"><value>切换主题</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>回到顶部</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
+  <data name="ContactLabel" xml:space="preserve"><value>联系我们</value></data>
+  <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>哪种方式更方便？</value></data>
+  <data name="ContactTelegram" xml:space="preserve"><value>通过 Telegram 联系我们</value></data>
+  <data name="ContactMax" xml:space="preserve"><value>通过 MAX 联系我们</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>网站在线聊天</value></data>
   <data name="MapTitle" xml:space="preserve"><value>我们带您去哪里</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>科拉半岛的三个方向——所有行程从摩尔曼斯克出发</value></data>
   <data name="MapHint" xml:space="preserve"><value>点击地图上的圆点，了解各个方向</value></data>
@@ -280,7 +288,7 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>新鲜鳕鱼、扇贝和鱼汤——返程前在捷里别尔卡享用午餐。</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>返回摩尔曼斯克</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>全天游览结束后返回市区，并送至约定地点。</value></data>
-  <data name="MidCta" xml:space="preserve"><value>选择出行日期</value></data>
+  <data name="MidCta" xml:space="preserve"><value>查询可选日期</value></data>
   <data name="MidCtaNote" xml:space="preserve"><value>我们将确认路线开放情况和团队价格</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>不同季节的捷里别尔卡</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>每个季节都有不同的北方，我们帮您选择。</value></data>
@@ -306,8 +314,8 @@
   <data name="Faq6Question" xml:space="preserve"><value>提交申请后会发生什么？</value></data>
   <data name="Faq6Answer" xml:space="preserve"><value>我们会按您留下的电话回访，确认日期、人数和需求，并告知最终价格。只有在您同意后才会正式预订。</value></data>
   <data name="OtherRoutesApplyNote" xml:space="preserve"><value>来电时告知想去的路线，我们也会为该路线安排日期</value></data>
-  <data name="FormKicker" xml:space="preserve"><value>下一步</value></data>
-  <data name="FormPoint1" xml:space="preserve"><value>确认您选择的日期是否可用</value></data>
+  <data name="FormKicker" xml:space="preserve"><value>无需预付</value></data>
+  <data name="FormPoint1" xml:space="preserve"><value>为您挑选合适的出行日期</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>计算您团队的最终价格</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>解答天气、服装和路线问题</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>我同意处理我的个人数据，并接受</value></data>

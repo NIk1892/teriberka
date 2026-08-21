@@ -42,6 +42,12 @@
                 @(IsLight ? "☾" : "☀")
             </a>
 
+            @* Заявка — главное действие, поэтому на узких экранах она живёт прямо
+               в шапке (на десктопе её роль играет .nav-apply в строке разделов).
+               Так постоянный путь к форме есть всегда, а низ экрана свободен под
+               кнопку связи. *@
+            <a class="header-apply" href="/#apply">@L["NavApply"]</a>
+
             <nav class="lang-switch" aria-label="@L["LangLabel"]">
                 <a class="@ActiveClass("ru")" href="@CultureLink("ru")" rel="nofollow" hreflang="ru">RU</a>
                 <a class="@ActiveClass("en")" href="@CultureLink("en")" rel="nofollow" hreflang="en">EN</a>
@@ -63,7 +69,16 @@
                     <a href="/#more-routes">@L["NavMoreRoutes"]</a>
                     <a href="/#seasons">@L["NavSeasons"]</a>
                     <a href="/#practical">@L["NavPractical"]</a>
-                    <a class="burger-apply" href="/#apply">@L["NavApply"]</a>
+
+                    @* Язык переехал сюда из шапки: на телефоне место занимает кнопка
+                       заявки, а язык меняют раз за визит — ему хватает бургера.
+                       На десктопе переключатель остаётся в шапке. *@
+                    <nav class="burger-lang" aria-label="@L["LangLabel"]">
+                        <a class="@ActiveClass("ru")" href="@CultureLink("ru")" rel="nofollow" hreflang="ru">RU</a>
+                        <a class="@ActiveClass("en")" href="@CultureLink("en")" rel="nofollow" hreflang="en">EN</a>
+                        <a class="@ActiveClass("zh")" href="@CultureLink("zh")" rel="nofollow" hreflang="zh">中文</a>
+                    </nav>
+
                     @if (!string.IsNullOrWhiteSpace(BotUrl))
                     {
                         @* дубль ссылки на бота: показывается только там, где иконка скрыта из шапки *@

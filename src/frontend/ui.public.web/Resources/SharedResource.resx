@@ -103,25 +103,27 @@
   <data name="Review9Text" xml:space="preserve"><value>Сбылась мечта — постоять на берегу Северного Ледовитого океана. Очень удобно, что записаться можно было на сайте по-китайски.</value></data>
 
   <data name="FormTitle" xml:space="preserve"><value>Подберём дату поездки</value></data>
-  <data name="FormText" xml:space="preserve"><value>Оставьте контакты — уточним свободные даты, состав группы и итоговую стоимость. Заявка ни к чему не обязывает.</value></data>
+  <data name="FormText" xml:space="preserve"><value>Оставьте телефон — свяжемся с вами в ближайшее время после заявки: уточним свободные даты, состав группы и итоговую стоимость. Заявка ни к чему не обязывает.</value></data>
   <data name="FieldName" xml:space="preserve"><value>Имя</value></data>
+  <data name="FieldNameHint" xml:space="preserve"><value>Например: Анна</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Телефон</value></data>
-  <data name="FieldPeople" xml:space="preserve"><value>Количество человек</value></data>
-  <data name="FieldDate" xml:space="preserve"><value>Дата поездки</value></data>
-  <data name="FieldComment" xml:space="preserve"><value>Пожелания (необязательно)</value></data>
-  <data name="FieldCommentHint" xml:space="preserve"><value>Например: хотим индивидуальный тур на Рыбачий на два дня</value></data>
-  <data name="FieldCommentCustom" xml:space="preserve"><value>Пожелания</value></data>
-  <data name="FieldCommentHintCustom" xml:space="preserve"><value>Куда хотите, в какие даты и каким составом — например: Рыбачий на два дня, вдвоём, начало сентября</value></data>
+  <data name="FieldRoute" xml:space="preserve"><value>Маршрут</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>Серёга Северный — аттестованный гид по Кольскому полуострову</value></data>
   <data name="GuideText" xml:space="preserve"><value>Круглый год водит группы в Териберку, Хибины и на Терский берег: знает, когда выйти к океану, чтобы застать китов, где ловить северное сияние и как одеться, чтобы день на арктическом ветру прошёл в удовольствие. На маршруте держит комфортный темп и отвечает за безопасность группы.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Индивидуальный тур</value></data>
   <data name="FormCustomTitle" xml:space="preserve"><value>Расскажите, какой тур вам нужен</value></data>
-  <data name="FormCustomText" xml:space="preserve"><value>Оставьте контакты и опишите пожелания — перезвоним, предложим программу и стоимость.</value></data>
+  <data name="FormCustomText" xml:space="preserve"><value>Оставьте телефон — свяжемся в ближайшее время, обсудим маршрут, даты и состав группы, предложим программу и стоимость.</value></data>
   <data name="CustomTourKicker" xml:space="preserve"><value>Свой маршрут</value></data>
   <data name="CustomTourTitle" xml:space="preserve"><value>Нужен индивидуальный тур?</value></data>
-  <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Опишите пожелания в заявке, а детали обсудим по телефону.</value></data>
+  <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Оставьте заявку, а детали обсудим по телефону.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Оставить заявку</value></data>
-  <data name="Submit" xml:space="preserve"><value>Узнать свободные даты</value></data>
+  <data name="Submit" xml:space="preserve"><value>Отправить заявку</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>В рабочее время свяжемся в течение получаса</value></data>
+  <data name="FormOr" xml:space="preserve"><value>или</value></data>
+  <data name="FormTelegram" xml:space="preserve"><value>Забронировать через бота</value></data>
+  <data name="FormTelegramNote" xml:space="preserve"><value>Через бот вы сможете узнать приблизительную стоимость поездки</value></data>
+  <data name="ValPhone" xml:space="preserve"><value>Укажите телефон в формате +7 900 000-00-00</value></data>
+  <data name="ValConsent" xml:space="preserve"><value>Подтвердите согласие на обработку данных</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
   <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Оставить ещё одну заявку</value></data>
@@ -173,6 +175,12 @@
   <data name="ThemeToggle" xml:space="preserve"><value>Переключить тему</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>Наверх</value></data>
   <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
+  <data name="ContactLabel" xml:space="preserve"><value>Связаться с нами</value></data>
+  <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>Как удобнее написать?</value></data>
+  <data name="ContactTelegram" xml:space="preserve"><value>Написать в Telegram</value></data>
+  <data name="ContactMax" xml:space="preserve"><value>Написать в MAX</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>Чат на сайте</value></data>
   <data name="MapTitle" xml:space="preserve"><value>Куда мы вас отвезём</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>Три направления по Кольскому полуострову — все туры стартуют из Мурманска</value></data>
   <data name="MapHint" xml:space="preserve"><value>Нажмите на точку на карте, чтобы узнать о направлении</value></data>
@@ -280,7 +288,7 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>Свежая треска, гребешки, уха — обед в Териберке перед обратной дорогой.</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>Возвращение в Мурманск</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>После насыщенного дня возвращаемся в город и привозим вас в согласованную точку.</value></data>
-  <data name="MidCta" xml:space="preserve"><value>Подобрать дату поездки</value></data>
+  <data name="MidCta" xml:space="preserve"><value>Узнать свободные даты</value></data>
   <data name="MidCtaNote" xml:space="preserve"><value>Уточним доступность маршрута и стоимость для вашей группы</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Териберка в разное время года</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>У каждого сезона свой Север — подскажем, какой подходит именно вам.</value></data>
@@ -306,8 +314,8 @@
   <data name="Faq6Question" xml:space="preserve"><value>Что происходит после отправки заявки?</value></data>
   <data name="Faq6Answer" xml:space="preserve"><value>Мы перезвоним по указанному номеру, уточним дату, состав группы и пожелания и назовём итоговую стоимость. Бронирование — только после вашего согласия.</value></data>
   <data name="OtherRoutesApplyNote" xml:space="preserve"><value>Назовите нужный маршрут при звонке — подберём дату и для него</value></data>
-  <data name="FormKicker" xml:space="preserve"><value>Следующий шаг</value></data>
-  <data name="FormPoint1" xml:space="preserve"><value>Уточним, свободна ли выбранная дата</value></data>
+  <data name="FormKicker" xml:space="preserve"><value>Без предоплаты</value></data>
+  <data name="FormPoint1" xml:space="preserve"><value>Подберём удобную дату поездки</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Рассчитаем итоговую стоимость для вашей группы</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Ответим на вопросы о погоде, одежде и маршруте</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>Соглашаюсь на обработку персональных данных и принимаю</value></data>
