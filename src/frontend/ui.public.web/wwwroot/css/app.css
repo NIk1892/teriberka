@@ -2249,18 +2249,31 @@ html.lenis body { height: auto; }
 
 /* Пружинящие reveal-каскады. Классы reveal/appear ставит только effects.js
    (и только под html.js-fx), поэтому без JavaScript ничего не прячется.
-   transition-delay для каскада скрипт выставляет по индексу среди соседей. */
+   transition-delay для каскада скрипт выставляет по индексу среди соседей.
+   Блок стартует ниже И меньше (scale) — «подъезжает издалека» и
+   выравнивается в свой размер; после появления effects.js снимает классы,
+   возвращая элементу его собственные transition (быстрый hover карточек). */
 html.js-fx .reveal {
     opacity: 0;
-    transform: translateY(56px);
+    transform: translateY(72px) scale(.8) rotate(var(--reveal-rot, 0deg));
     transition:
-        opacity .9s cubic-bezier(.22, 1, .36, 1),
-        transform .9s cubic-bezier(.22, 1, .36, 1);
+        opacity .8s cubic-bezier(.22, 1, .36, 1),
+        transform .8s cubic-bezier(.22, 1, .36, 1);
 }
 
 html.js-fx .reveal.appear {
     opacity: 1;
     transform: none;
+}
+
+/* лёгкий поворот на старте — только карточкам (не заголовкам), направление
+   чередуется у соседей: каскад читается «россыпью», а не строем */
+html.js-fx :is(.place-card, .season-card, .guide-card, .itinerary-list li, .included-grid li, .why-grid li) {
+    --reveal-rot: 1.6deg;
+}
+
+html.js-fx :is(.place-card, .season-card, .guide-card, .itinerary-list li, .included-grid li, .why-grid li):nth-child(even) {
+    --reveal-rot: -1.6deg;
 }
 
 /* при JS-каскаде CSS-подъём card-rise уступает место, чтобы не двоить анимацию */

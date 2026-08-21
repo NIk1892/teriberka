@@ -96,17 +96,31 @@
     var ro = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (en) {
             if (!en.isIntersecting) return;
-            en.target.classList.add("appear");
-            obs.unobserve(en.target);
+            var el = en.target;
+            el.classList.add("appear");
+            obs.unobserve(el);
+            // после появления снять классы: элемент возвращает свои transition
+            // (например, быстрый hover-подъём карточек вместо reveal-овских 1s)
+            var done = function (e) {
+                // transitionend всплывает от детей — ждём именно свой transform
+                if (e && (e.target !== el || e.propertyName !== "transform")) return;
+                el.classList.remove("reveal", "appear");
+                el.style.transitionDelay = "";
+                el.removeEventListener("transitionend", done);
+            };
+            el.addEventListener("transitionend", done);
+            setTimeout(done, 1800); // страховка, если transitionend не пришёл
         });
-    }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
+    // срабатываем за 40px ДО входа блока в экран: анимация уже идёт, когда
+    // блок показывается, — нет ощущения запаздывания при прокрутке
+    }, { threshold: 0, rootMargin: "0px 0px 40px 0px" });
 
     Array.prototype.forEach.call(revealTargets, function (el) {
         el.classList.add("reveal");
         // каскад: задержка по номеру среди соседних ревил-элементов
         var i = 0, sib = el;
         while ((sib = sib.previousElementSibling) && sib.classList.contains("reveal")) i++;
-        el.style.transitionDelay = Math.min(i * 90, 540) + "ms";
+        el.style.transitionDelay = Math.min(i * 60, 300) + "ms";
         ro.observe(el);
     });
 }());
