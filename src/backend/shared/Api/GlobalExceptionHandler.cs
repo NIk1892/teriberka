@@ -17,7 +17,7 @@ public class GlobalExceptionHandler(
         CancellationToken cancellationToken)
     {
         var innerException = exception.InnerException ?? exception;
-        var errorMsg = GetErrorDetails(exception.InnerException?? exception, out var statusCode);
+        var errorMsg = GetErrorDetails(exception, out var statusCode);
 
         if (statusCode >= 500)
             logger.LogError(exception, "Unhandled exception on {Method} {Path}", httpContext.Request.Method, httpContext.Request.Path);
@@ -53,6 +53,18 @@ public class GlobalExceptionHandler(
 
     private string GetErrorDetails(Exception exception, out int statusCode)
     {
+        // Ошибку разбора тела запроса ASP.NET заворачивает в BadHttpRequestException, а внутрь
+        // кладёт JsonException. Нужный код ответа знает только внешнее исключение, поэтому
+        // смотрим его до разворачивания: иначе битый JSON от клиента отдавал бы 500 и падал
+        // в лог как сбой сервера.
+        if (exception is BadHttpRequestException badRequest)
+        {
+            statusCode = badRequest.StatusCode;
+            return "Bad Request";
+        }
+
+        exception = exception.InnerException ?? exception;
+
         statusCode = exception switch
         {
             ValidationException => StatusCodes.Status422UnprocessableEntity,

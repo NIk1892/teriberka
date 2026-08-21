@@ -15,6 +15,13 @@ public enum UserRole
     SuperAdmin = 2
 }
 
+/// <summary>Кто написал сообщение в чате. Лежит здесь, чтобы enum видели и контракты, и Domain сервиса.</summary>
+public enum ChatDirection
+{
+    Visitor = 0,
+    Admin = 1
+}
+
 public static class Constatnts
 {
     public static class FieldLength

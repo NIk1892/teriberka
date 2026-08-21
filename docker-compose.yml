@@ -23,14 +23,17 @@ services:
       JWT_ISSUER: "http://localhost:5000"
       JWT_KEY: "TTlsGWhaANa47dV8uAFVQLVqaVxtV6cDbGzB8lbLvM0"
       OTLP_EXPORT_ENABLED: "false"
-      # appsettings.Development.json целит кластер в localhost:5012 (локальный запуск);
-      # в compose-сети users доступен по имени сервиса — переопределяем env-переменными.
+      # appsettings.Development.json целит кластеры в localhost (локальный запуск);
+      # в compose-сети сервисы доступны по именам — переопределяем env-переменными.
       ReverseProxy__Clusters__users__Destinations__default__Address: "http://api-users:8080"
+      ReverseProxy__Clusters__chat__Destinations__default__Address: "http://api-chat:8080"
       SwaggerEndpoints__users: "http://api-users:8080/swagger/v1/swagger.json"
+      SwaggerEndpoints__chat: "http://api-chat:8080/swagger/v1/swagger.json"
     ports:
       - "5000:8080"
     depends_on:
       - api-users
+      - api-chat
 
   api-users:
     image: teriberka-api-users
@@ -42,15 +45,45 @@ services:
       DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       OTLP_EXPORT_ENABLED: "false"
-      # Telegram-бот живёт внутри users: без токена сервис просто работает без бота.
-      TG_BOT_TOKEN: "${TG_BOT_TOKEN:-}"
-      SITE_URL: "http://localhost:7002"
     expose:
       - "8080"
     # Порт открыт только для локальной отладки: сервис не проверяет авторизацию и доверяет
     # вызывающему, поэтому в реальном развёртывании публиковать его наружу нельзя.
     ports:
       - "5012:8080"
+    depends_on:
+      - postgres
+
+  api-chat:
+    image: teriberka-api-chat
+    build:
+      context: .
+      dockerfile: src/backend/chat/service/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # Своя схема в той же БД: разделение делается search path'ом в строке подключения,
+      # переезд на отдельную базу — правкой этой же строки, без изменений в коде.
+      DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=chat,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=chat,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      OTLP_EXPORT_ENABLED: "false"
+      # Telegram-бот живёт здесь: без токена сервис работает, переписка сохраняется,
+      # но в группу гидов ничего не уезжает.
+      TG_BOT_TOKEN: "${TG_BOT_TOKEN:-}"
+      # Приватная группа гидов, куда уходят сообщения посетителей. Как узнать id:
+      # добавить бота в группу и посмотреть строку «Бота добавили в чат …» в логе.
+      TG_ADMIN_CHAT_ID: "${TG_ADMIN_CHAT_ID:-}"
+      # Язык служебных сообщений в группе (к языку посетителя отношения не имеет).
+      TG_ADMIN_LANG: "ru"
+      # Срок хранения переписки; по нему идёт жёсткое удаление персональных данных.
+      CHAT_RETENTION_DAYS: "90"
+      # Куда бот ведёт кнопкой «Открыть сайт».
+      SITE_URL: "http://localhost:7002"
+    expose:
+      - "8080"
+    # ВАЖНО: масштабировать этот сервис нельзя — long polling Telegram должен работать
+    # ровно в одном экземпляре, иначе апдейты начнут теряться.
+    ports:
+      - "5013:8080"
     depends_on:
       - postgres
 

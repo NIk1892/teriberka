@@ -9,7 +9,7 @@
   <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — Kola North</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>One-day tour from Murmansk</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk, Apatity and Kirovsk</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Teriberka in one day.</value></data>
   <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
   <data name="HeroCta" xml:space="preserve"><value>Check available dates</value></data>
@@ -107,7 +107,7 @@
   <data name="FieldName" xml:space="preserve"><value>Name</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>Number of people</value></data>
-  <data name="FieldDate" xml:space="preserve"><value>Arrival date</value></data>
+  <data name="FieldDate" xml:space="preserve"><value>Tour date</value></data>
   <data name="FieldComment" xml:space="preserve"><value>Wishes (optional)</value></data>
   <data name="FieldCommentHint" xml:space="preserve"><value>For example: a two-day custom tour to the Rybachy Peninsula</value></data>
   <data name="FieldCommentCustom" xml:space="preserve"><value>Wishes</value></data>
@@ -189,6 +189,7 @@
   <data name="MapSpot2" xml:space="preserve"><value>Lovozero Tundras</value></data>
   <data name="MapSpot3" xml:space="preserve"><value>Tersky Coast</value></data>
   <data name="MapAirport" xml:space="preserve"><value>Airport</value></data>
+  <data name="MapAirportHint" xml:space="preserve"><value>We meet travellers at the airport and in town</value></data>
   <data name="MapVarzuga" xml:space="preserve"><value>Varzuga</value></data>
   <data name="MapLabyrinth" xml:space="preserve"><value>Stone labyrinth</value></data>
   <data name="MapSeaNorth" xml:space="preserve"><value>Barents Sea</value></data>
@@ -243,24 +244,18 @@
   <data name="MapArcticCircle" xml:space="preserve"><value>Arctic Circle</value></data>
   <data name="MapApatity" xml:space="preserve"><value>Apatity</value></data>
   <data name="HeroTitleSub" xml:space="preserve"><value>From Arctic tundra to the shore of the Arctic Ocean</value></data>
-  <data name="HeroText2" xml:space="preserve"><value>We pick you up in Murmansk, guide you through the route and bring you back in the evening.</value></data>
+  <data name="HeroCta2" xml:space="preserve"><value>Day’s programme</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>One-day Teriberka tour from Murmansk: the Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard. Transfer and guide included.</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Why travel with us</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>Pickup in Murmansk</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>no need to find a car or navigate the road to Teriberka</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>Small groups</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>up to 8 people means a comfortable pace and no waiting for a large coach</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>Key sights in one day</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>a ready-made route with no planning required on your part</value></data>
-  <data name="Why4Title" xml:space="preserve"><value>Clear programme</value></data>
-  <data name="Why4Text" xml:space="preserve"><value>we explain what is included and what to bring before the trip</value></data>
-  <data name="Why5Title" xml:space="preserve"><value>No prepayment to enquire</value></data>
-  <data name="Why5Text" xml:space="preserve"><value>first we confirm the date, weather and details; then you make your decision</value></data>
-  <data name="Why6Title" xml:space="preserve"><value>An attentive guide by your side</value></data>
-  <data name="Why6Text" xml:space="preserve"><value>they adjust the pace to your group and point out the best photo angles; the treat includes northern fireweed tea — naturally caffeine-free and rich in vitamin C</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>Key sights in one day</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>a ready-made route with no planning required on your part</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>We adapt to the weather</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>the North is unpredictable: we reorder the stops to fit the forecast and tell you in advance what to bring</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>No prepayment to enquire</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>first we confirm the date, weather and details; then you make your decision</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous photos</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next photos</value></data>
-  <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk, Apatity or Kirovsk</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>Guide, route stops and a seafood lunch</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>No prepayment or obligation to enquire</value></data>
@@ -271,27 +266,29 @@
   <data name="OtherRoute3Type" xml:space="preserve"><value>White Sea coast</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>Explore destination →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>Your day in Teriberka</value></data>
-  <data name="ItinerarySubtitle" xml:space="preserve"><value>A full day: meet in Murmansk, the main coastal stops and return in the evening.</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>A full day: we meet you at the airport or in town, drive you in comfort to the highlights of the coast and bring you back in the evening.</value></data>
   <data name="ItineraryNote" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
-  <data name="Itinerary1Title" xml:space="preserve"><value>Meet in Murmansk</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>We collect the group at an agreed point in Murmansk. The drive across the tundra takes about two hours.</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>Airport or city pickup</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>We collect you at the airport or at an agreed point in Murmansk, Apatity or Kirovsk and travel in a comfortable minivan. From Murmansk, the road across the tundra takes about two hours.</value></data>
   <data name="Itinerary2Title" xml:space="preserve"><value>Old Teriberka</value></data>
   <data name="Itinerary2Text" xml:space="preserve"><value>Walk by the ship graveyard and learn how the settlement by the Barents Sea has changed.</value></data>
   <data name="Itinerary3Title" xml:space="preserve"><value>Ocean coast</value></data>
   <data name="Itinerary3Text" xml:space="preserve"><value>Visit Dragon Eggs beach and take in open views across the Barents Sea.</value></data>
   <data name="Itinerary4Title" xml:space="preserve"><value>Batareysky waterfall</value></data>
   <data name="Itinerary4Text" xml:space="preserve"><value>Walk across the tundra to the waterfall dropping from the cliffs towards the sea.</value></data>
-  <data name="Itinerary5Title" xml:space="preserve"><value>Return to Murmansk</value></data>
-  <data name="Itinerary5Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Seafood lunch</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>Fresh cod, scallops and fish soup — lunch in Teriberka before the drive back.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Return to Murmansk</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
   <data name="MidCta" xml:space="preserve"><value>Find a travel date</value></data>
   <data name="MidCtaNote" xml:space="preserve"><value>We will confirm route availability and the price for your group</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
-  <data name="Season1Title" xml:space="preserve"><value>September — April</value></data>
+  <data name="Season1Title" xml:space="preserve"><value>November — April</value></data>
   <data name="Season1Text" xml:space="preserve"><value>Aurora season, snowy tundra and short daylight hours. Extra-warm clothing is essential.</value></data>
   <data name="Season2Title" xml:space="preserve"><value>May — August</value></data>
   <data name="Season2Text" xml:space="preserve"><value>Midnight sun, longer walks, open trails and vivid tundra colours.</value></data>
-  <data name="Season3Title" xml:space="preserve"><value>Late August — October</value></data>
+  <data name="Season3Title" xml:space="preserve"><value>September — October</value></data>
   <data name="Season3Text" xml:space="preserve"><value>Golden tundra, autumn storms and dark skies returning for aurora hunting.</value></data>
   <data name="SeasonNote" xml:space="preserve"><value>The northern lights, whales and good weather are natural phenomena and cannot be guaranteed.</value></data>
   <data name="PracticalTitle" xml:space="preserve"><value>Before you travel</value></data>
@@ -306,6 +303,8 @@
   <data name="Faq4Answer" xml:space="preserve"><value>No. We first confirm the date, programme and final price; then you decide whether to book.</value></data>
   <data name="Faq5Question" xml:space="preserve"><value>How long is the tour?</value></data>
   <data name="Faq5Answer" xml:space="preserve"><value>A full day: we leave Murmansk in the morning and return in the evening. We confirm exact times when you book — they depend on the season and daylight.</value></data>
+  <data name="Faq6Question" xml:space="preserve"><value>What happens after I send a request?</value></data>
+  <data name="Faq6Answer" xml:space="preserve"><value>We call you back on the number you gave, confirm the date, group size and wishes, and quote the final price. Booking happens only once you agree.</value></data>
   <data name="OtherRoutesApplyNote" xml:space="preserve"><value>Name the route you want when we call — we will find a date for that one too</value></data>
   <data name="FormKicker" xml:space="preserve"><value>Next step</value></data>
   <data name="FormPoint1" xml:space="preserve"><value>Check whether your chosen date is available</value></data>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\contracts\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\contracts\Chat.Contracts\Chat.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\Application\Application.csproj" />
+    <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

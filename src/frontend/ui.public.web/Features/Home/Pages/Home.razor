@@ -25,19 +25,23 @@
                 <span class="hero-title-sub">@L["HeroTitleSub"]</span>
             </h1>
             <p class="hero-text">@L["HeroText"]</p>
-            <p class="hero-text hero-text-accent">@L["HeroText2"]</p>
             <ul class="hero-facts">
                 @foreach (var i in Enumerable.Range(1, 3))
                 {
                     <li>@L[$"HeroFact{i}"]</li>
                 }
             </ul>
+            @* Два пути из hero: готовые — к форме, сомневающиеся — к программе дня
+               (второстепенная кнопка вместо ухода со страницы). *@
             <div class="hero-actions">
                 <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
-                <span class="hero-price">@L["HeroPrice"]</span>
+                <a class="btn-ghost" href="#itinerary">@L["HeroCta2"]</a>
+            </div>
+            <p class="hero-meta">
+                <strong class="hero-price">@L["HeroPrice"]</strong>
                 <span class="hero-note">@L["HeroNote"]</span>
                 <span class="hero-trust">@L["HeroTrust"]</span>
-            </div>
+            </p>
         </div>
 
         <div class="hero-map" data-speed="0.16">
@@ -54,14 +58,23 @@
             <p>@L["ItinerarySubtitle"]</p>
         </div>
         <ol class="itinerary-list">
-            @foreach (var i in Enumerable.Range(1, 5))
+            @foreach (var i in Enumerable.Range(1, 6))
             {
+                var slug = StepPlaceSlug(i);
                 <li>
                     <span class="itinerary-num">0@(i)</span>
                     <div>
                         <strong>@L[$"Itinerary{i}Title"]</strong>
                         <p>@L[$"Itinerary{i}Text"]</p>
                     </div>
+                    @if (slug is not null)
+                    {
+                        @* миниатюра — ссылка на страницу места; класс не .place-photo,
+                           чтобы effects.js не повесил на неё view-transition-name карточки *@
+                        <a class="itinerary-thumb" href="/place/@slug" title="@L["PlaceMore"]">
+                            <img src="/img/places/@(slug).webp" alt="" loading="lazy" decoding="async" />
+                        </a>
+                    }
                 </li>
             }
         </ol>
@@ -104,7 +117,7 @@
             <h2>@L["WhyTitle"]</h2>
         </div>
         <ul class="why-grid">
-            @foreach (var i in Enumerable.Range(1, 6))
+            @foreach (var i in Enumerable.Range(1, 3))
             {
                 <li>
                     <strong>@L[$"Why{i}Title"]</strong>
@@ -177,7 +190,7 @@
             <p>@L["PracticalSubtitle"]</p>
         </div>
         <div class="faq-list">
-            @foreach (var i in Enumerable.Range(1, 5))
+            @foreach (var i in Enumerable.Range(1, 6))
             {
                 <details>
                     <summary>@L[$"Faq{i}Question"]</summary>
@@ -290,7 +303,7 @@
     {
         ["@context"] = "https://schema.org",
         ["@type"] = "FAQPage",
-        ["mainEntity"] = Enumerable.Range(1, 5).Select(i => new Dictionary<string, object?>
+        ["mainEntity"] = Enumerable.Range(1, 6).Select(i => new Dictionary<string, object?>
         {
             ["@type"] = "Question",
             ["name"] = L[$"Faq{i}Question"].Value,
@@ -300,6 +313,15 @@
                 ["text"] = L[$"Faq{i}Answer"].Value
             }
         }).ToArray()
+    };
+
+    // Шаги программы дня, у которых есть своя страница места (миниатюра-ссылка в карточке шага).
+    private static string? StepPlaceSlug(int step) => step switch
+    {
+        2 => "ship-graveyard",
+        3 => "dragon-eggs",
+        4 => "batareysky-waterfall",
+        _ => null
     };
 
     private IReadOnlyDictionary<string, object?> SiteLd => new Dictionary<string, object?>

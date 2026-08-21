@@ -78,6 +78,12 @@ builder.Services.AddHealthChecks();
 // засыпают спамом. Политика назначается маршруту через "RateLimiterPolicy" в appsettings.
 const string publicFormPolicy = "public-form";
 
+// Чат зовёт API гораздо чаще формы (отправка сообщений плюс поллинг ответов), поэтому
+// у него своя политика. ВАЖНО: сюда все запросы приходят с адреса сервера UI — страницы
+// рендерит он, а не браузер, — так что это общий потолок пропускной способности чата,
+// а не лимит на посетителя. Справедливость между посетителями обеспечивает лимитер сайта.
+const string publicChatPolicy = "public-chat";
+
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -87,6 +93,14 @@ builder.Services.AddRateLimiter(options =>
         {
             PermitLimit = 5,
             Window = TimeSpan.FromMinutes(5),
+            QueueLimit = 0
+        }));
+
+    options.AddPolicy(publicChatPolicy, context =>
+        RateLimitPartition.GetFixedWindowLimiter(ClientKey(context), _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 300,
+            Window = TimeSpan.FromMinutes(1),
             QueueLimit = 0
         }));
 

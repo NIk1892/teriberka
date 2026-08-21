@@ -4,7 +4,6 @@ using Mediator;
 using Domain;
 using Applications.Contracts;
 using Users.Contracts;
-using Users.Bot;
 using Users.Infrastructure.DataAccess;
 using Constants = Api.Constants;
 
@@ -24,10 +23,6 @@ namespace Users
             });
 
             Services.AddScoped<IIdentityService, IdentityService>();
-
-            // Telegram-бот. Без TG_BOT_TOKEN просто пишет в лог и не мешает
-            // сервису — API заявок работает независимо от бота.
-            Services.AddHostedService<BotService>();
         }
 
         public override void ConfigureEndPoints(WebApplication app)

@@ -9,7 +9,7 @@
   <data name="PageTitle" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游——科拉之北</value></data>
   <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>摩尔曼斯克出发的一日游</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>从摩尔曼斯克、阿帕季特、基洛夫斯克出发</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>一天游遍捷里别尔卡。</value></data>
   <data name="HeroText" xml:space="preserve"><value>巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地——一次看遍捷里别尔卡的主要景点。</value></data>
   <data name="HeroCta" xml:space="preserve"><value>查询可选日期</value></data>
@@ -107,7 +107,7 @@
   <data name="FieldName" xml:space="preserve"><value>姓名</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>电话</value></data>
   <data name="FieldPeople" xml:space="preserve"><value>人数</value></data>
-  <data name="FieldDate" xml:space="preserve"><value>到达日期</value></data>
+  <data name="FieldDate" xml:space="preserve"><value>出行日期</value></data>
   <data name="FieldComment" xml:space="preserve"><value>期望（选填）</value></data>
   <data name="FieldCommentHint" xml:space="preserve"><value>例如：想要为期两天的雷巴奇半岛定制行程</value></data>
   <data name="FieldCommentCustom" xml:space="preserve"><value>期望</value></data>
@@ -189,6 +189,7 @@
   <data name="MapSpot2" xml:space="preserve"><value>洛沃泽罗山地</value></data>
   <data name="MapSpot3" xml:space="preserve"><value>捷尔斯基海岸</value></data>
   <data name="MapAirport" xml:space="preserve"><value>机场</value></data>
+  <data name="MapAirportHint" xml:space="preserve"><value>我们在机场和市区接送游客</value></data>
   <data name="MapVarzuga" xml:space="preserve"><value>瓦尔祖加</value></data>
   <data name="MapLabyrinth" xml:space="preserve"><value>古代石头迷宫</value></data>
   <data name="MapSeaNorth" xml:space="preserve"><value>巴伦支海</value></data>
@@ -243,24 +244,18 @@
   <data name="MapArcticCircle" xml:space="preserve"><value>北极圈</value></data>
   <data name="MapApatity" xml:space="preserve"><value>阿帕季特</value></data>
   <data name="HeroTitleSub" xml:space="preserve"><value>从北极苔原到北冰洋海岸</value></data>
-  <data name="HeroText2" xml:space="preserve"><value>我们在摩尔曼斯克接您，带您走完整条路线，晚上送您返回。</value></data>
+  <data name="HeroCta2" xml:space="preserve"><value>行程安排</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游：巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地。包含接送与向导。</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>为什么跟我们出发更方便</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>摩尔曼斯克接送</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>无需租车，也无需研究前往捷里别尔卡的路况</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>小团出行</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>最多 8 人，节奏舒适，不必等待大型旅游巴士</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>一天看遍主要景点</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>无需自己做攻略，我们已安排好核心路线</value></data>
-  <data name="Why4Title" xml:space="preserve"><value>行程清晰</value></data>
-  <data name="Why4Text" xml:space="preserve"><value>出发前说明费用包含项目和需要携带的物品</value></data>
-  <data name="Why5Title" xml:space="preserve"><value>咨询无需预付</value></data>
-  <data name="Why5Text" xml:space="preserve"><value>先确认日期、天气和行程细节，再由您决定是否预订</value></data>
-  <data name="Why6Title" xml:space="preserve"><value>贴心的向导相伴</value></data>
-  <data name="Why6Text" xml:space="preserve"><value>根据团队调整节奏并告诉您最佳拍摄角度；茶点中有北方柳兰茶（伊万茶）——天然不含咖啡因，富含维生素C</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>一天看遍主要景点</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>无需自己做攻略，我们已安排好核心路线</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>随天气灵活调整</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>北方天气多变：我们会根据预报调整停靠顺序，并提前告诉您需要携带的物品</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>咨询无需预付</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>先确认日期、天气和行程细节，再由您决定是否预订</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>上一张照片</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一张照片</value></data>
-  <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克往返接送</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克、阿帕季特或基洛夫斯克往返接送</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>向导、主要停靠点与海鲜午餐</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>根据季节和天气调整行程</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>提交申请无需预付，也不强制预订</value></data>
@@ -271,27 +266,29 @@
   <data name="OtherRoute3Type" xml:space="preserve"><value>白海海岸</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>查看方向 →</value></data>
   <data name="ItineraryTitle" xml:space="preserve"><value>捷里别尔卡的一天</value></data>
-  <data name="ItinerarySubtitle" xml:space="preserve"><value>全天行程：摩尔曼斯克集合，游览海岸主要景点，傍晚返回。</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>全天行程：我们在机场或市区接您，乘舒适车辆前往海岸主要景点，傍晚送您返回。</value></data>
   <data name="ItineraryNote" xml:space="preserve"><value>停靠顺序与开放情况可能因天气调整——北方的大自然拥有最终决定权。</value></data>
-  <data name="Itinerary1Title" xml:space="preserve"><value>摩尔曼斯克集合</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>在摩尔曼斯克约定地点接团。穿越苔原的车程约两小时。</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>机场或市区接送</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>我们在机场或摩尔曼斯克、阿帕季特、基洛夫斯克的约定地点接您，乘舒适的小型客车出发。从摩尔曼斯克穿越苔原约两小时车程。</value></data>
   <data name="Itinerary2Title" xml:space="preserve"><value>老捷里别尔卡</value></data>
   <data name="Itinerary2Text" xml:space="preserve"><value>参观船舶墓地，了解这座巴伦支海村落的历史。</value></data>
   <data name="Itinerary3Title" xml:space="preserve"><value>大洋海岸</value></data>
   <data name="Itinerary3Text" xml:space="preserve"><value>前往“龙蛋”海滩，欣赏开阔的巴伦支海景色。</value></data>
   <data name="Itinerary4Title" xml:space="preserve"><value>巴塔雷斯基瀑布</value></data>
   <data name="Itinerary4Text" xml:space="preserve"><value>穿过苔原，前往从悬崖奔向大海的瀑布。</value></data>
-  <data name="Itinerary5Title" xml:space="preserve"><value>返回摩尔曼斯克</value></data>
-  <data name="Itinerary5Text" xml:space="preserve"><value>全天游览结束后返回市区，并送至约定地点。</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>海鲜午餐</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>新鲜鳕鱼、扇贝和鱼汤——返程前在捷里别尔卡享用午餐。</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>返回摩尔曼斯克</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>全天游览结束后返回市区，并送至约定地点。</value></data>
   <data name="MidCta" xml:space="preserve"><value>选择出行日期</value></data>
   <data name="MidCtaNote" xml:space="preserve"><value>我们将确认路线开放情况和团队价格</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>不同季节的捷里别尔卡</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>每个季节都有不同的北方，我们帮您选择。</value></data>
-  <data name="Season1Title" xml:space="preserve"><value>九月—四月</value></data>
+  <data name="Season1Title" xml:space="preserve"><value>十一月—四月</value></data>
   <data name="Season1Text" xml:space="preserve"><value>极光季、雪原与较短的白昼，需要特别保暖。</value></data>
   <data name="Season2Title" xml:space="preserve"><value>五月—八月</value></data>
   <data name="Season2Text" xml:space="preserve"><value>极昼、较长的徒步时间、开放的步道和色彩丰富的苔原。</value></data>
-  <data name="Season3Title" xml:space="preserve"><value>八月底—十月</value></data>
+  <data name="Season3Title" xml:space="preserve"><value>九月—十月</value></data>
   <data name="Season3Text" xml:space="preserve"><value>金色苔原、秋季风暴，以及适合追光的黑夜重新归来。</value></data>
   <data name="SeasonNote" xml:space="preserve"><value>极光、鲸鱼和晴好天气均为自然现象，无法保证一定出现。</value></data>
   <data name="PracticalTitle" xml:space="preserve"><value>出发前须知</value></data>
@@ -306,6 +303,8 @@
   <data name="Faq4Answer" xml:space="preserve"><value>不需要。我们先确认日期、行程和最终价格，再由您决定是否预订。</value></data>
   <data name="Faq5Question" xml:space="preserve"><value>行程需要多长时间？</value></data>
   <data name="Faq5Answer" xml:space="preserve"><value>全天行程：早上从摩尔曼斯克出发，傍晚返回。具体时间在预订时确认，取决于季节和日照。</value></data>
+  <data name="Faq6Question" xml:space="preserve"><value>提交申请后会发生什么？</value></data>
+  <data name="Faq6Answer" xml:space="preserve"><value>我们会按您留下的电话回访，确认日期、人数和需求，并告知最终价格。只有在您同意后才会正式预订。</value></data>
   <data name="OtherRoutesApplyNote" xml:space="preserve"><value>来电时告知想去的路线，我们也会为该路线安排日期</value></data>
   <data name="FormKicker" xml:space="preserve"><value>下一步</value></data>
   <data name="FormPoint1" xml:space="preserve"><value>确认您选择的日期是否可用</value></data>
