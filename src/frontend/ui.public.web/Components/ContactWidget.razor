@@ -1,7 +1,10 @@
+@using Microsoft.AspNetCore.Http
 @using Microsoft.Extensions.Configuration
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> L
 @inject IConfiguration Configuration
+@inject NavigationManager Navigation
+@using UI.Public.Web.Features.Chat
 
 @* Плавающая кнопка связи в правом нижнем углу: фото гида в аврора-кольце,
    клик разворачивает вверх «ёлочку» каналов.
@@ -52,23 +55,41 @@ else if (_channels.Count > 1)
 
             @foreach (var channel in _channels)
             {
-                <a class="contact-item" href="@channel.Href" target="_blank" rel="noopener">
-                    @if (channel.Kind == ChannelKind.Telegram)
+                <a class="contact-item @channel.CssClass" href="@channel.Href"
+                   target="@(channel.External ? "_blank" : null)"
+                   rel="@(channel.External ? "noopener" : null)">
+                    @switch (channel.Kind)
                     {
-                        <svg class="contact-item-icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M21.5 3.6 2.9 10.8c-1 .4-1 1.3-.2 1.6l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2 1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM17.2 7.7l-8.1 7.4-.3 3.2-1.4-4.5 9.3-5.9c.4-.3.8 0 .5.3Z" fill="currentColor" />
-                        </svg>
-                    }
-                    else
-                    {
-                        @* Нейтральный глиф «пузырь с M», а не логотип MAX: фирменный знак —
-                           торговая марка, а сторонние файлы и CDN запрещены CSP. Появится
-                           официальный SVG — положить в wwwroot/img (img-src 'self' разрешает). *@
-                        <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M21 12.4a8.4 8.4 0 0 1-8.6 8.4 9 9 0 0 1-3.9-.9L3 21l1.2-4.2a8.2 8.2 0 0 1-1.2-4.4A8.4 8.4 0 0 1 11.6 4h.8A8.4 8.4 0 0 1 21 12.4Z" />
-                            <path d="M8.4 15.2V9.6l3.6 3.4 3.6-3.4v5.6" />
-                        </svg>
+                        case ChannelKind.Chat:
+                            <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 11.5a8.4 8.4 0 0 1-8.6 8.4 9.3 9.3 0 0 1-3.4-.6L4.4 21l1.4-4.2A8.2 8.2 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5Z" />
+                            </svg>
+                            break;
+
+                        case ChannelKind.Phone:
+                            <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L7.1 9.3a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.8 2.1Z" />
+                            </svg>
+                            break;
+
+                        case ChannelKind.Telegram:
+                            <svg class="contact-item-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21.5 3.6 2.9 10.8c-1 .4-1 1.3-.2 1.6l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2 1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM17.2 7.7l-8.1 7.4-.3 3.2-1.4-4.5 9.3-5.9c.4-.3.8 0 .5.3Z" fill="currentColor" />
+                            </svg>
+                            break;
+
+                        default:
+                            @* Нейтральный глиф «пузырь с M», а не логотип MAX: фирменный знак —
+                               торговая марка, а сторонние файлы и CDN запрещены CSP. Появится
+                               официальный SVG — положить в wwwroot/img (img-src 'self' разрешает). *@
+                            <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 12.4a8.4 8.4 0 0 1-8.6 8.4 9 9 0 0 1-3.9-.9L3 21l1.2-4.2a8.2 8.2 0 0 1-1.2-4.4A8.4 8.4 0 0 1 11.6 4h.8A8.4 8.4 0 0 1 21 12.4Z" />
+                                <path d="M8.4 15.2V9.6l3.6 3.4 3.6-3.4v5.6" />
+                            </svg>
+                            break;
                     }
                     <span>@channel.Label</span>
                 </a>
@@ -78,20 +99,33 @@ else if (_channels.Count > 1)
 }
 
 @code {
-    private enum ChannelKind { Telegram, Max }
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
 
-    private sealed record Channel(ChannelKind Kind, string Href, string Label);
+    private enum ChannelKind { Chat, Phone, Telegram, Max }
+
+    private sealed record Channel(ChannelKind Kind, string Href, string Label, bool External = true)
+    {
+        /// <summary>Класс нужен скрипту: по нему он ловит клик и открывает панель на месте.</summary>
+        public string CssClass => Kind == ChannelKind.Chat ? "contact-chat" : string.Empty;
+    }
 
     private string? BotUrl => Configuration["TG_BOT_URL"];
     private string? MaxUrl => Configuration["MAX_URL"];
+    private string? Phone => Configuration["CONTACT_PHONE"];
 
     private List<Channel> _channels = [];
+
+    private string CurrentPath => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
 
     protected override void OnInitialized()
     {
         // Порядок = сверху вниз в раскрытом меню. Последний пункт оказывается ближе
-        // всех к кнопке и выезжает первым (задержки в CSS считаются :nth-last-child).
+        // всех к кнопке и выезжает первым (задержки в CSS считаются :nth-last-child),
+        // поэтому чат — главный канал — стоит последним.
         _channels = [];
+
+        if (!string.IsNullOrWhiteSpace(Phone))
+            _channels.Add(new Channel(ChannelKind.Phone, $"tel:{Phone.Replace(" ", string.Empty)}", L["ContactPhone"]));
 
         if (!string.IsNullOrWhiteSpace(BotUrl))
             _channels.Add(new Channel(ChannelKind.Telegram, BotUrl, L["ContactTelegram"]));
@@ -99,7 +133,8 @@ else if (_channels.Count > 1)
         if (!string.IsNullOrWhiteSpace(MaxUrl))
             _channels.Add(new Channel(ChannelKind.Max, MaxUrl, L["ContactMax"]));
 
-        // Следующий шаг — чат на сайте (см. план happy-launching-horizon):
-        // добавить пункт с ключом ContactChat, у него target/rel не нужны.
+        // Чат на сайте: без JavaScript это обычная ссылка — страница перезагрузится
+        // с ?chat=open, и панель отрендерит сервер. Свой домен, поэтому без target.
+        _channels.Add(new Channel(ChannelKind.Chat, ChatPaths.WithOpen(CurrentPath), L["ContactChat"], External: false));
     }
 }

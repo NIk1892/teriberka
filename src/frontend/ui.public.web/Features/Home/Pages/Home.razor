@@ -1,5 +1,6 @@
 @page "/"
 @using UI.Public.Web.Layouts
+@using UI.Public.Web.Features.Home
 @using UI.Public.Web.Features.Places
 @using UI.Public.Web.Features.Seo
 @using UI.Public.Web.Components
@@ -7,9 +8,10 @@
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
 @inject SeoUrls Seo
+@inject IWebHostEnvironment Env
 
 <PageTitle>@L["PageTitle"]</PageTitle>
-<PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/places/dragon-eggs.webp" />
+<PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
 
 @* Воронка главной: сначала один день в Териберке до формы, другие маршруты — после заявки. *@
 
@@ -26,13 +28,65 @@
             </h1>
             <p class="hero-text">@L["HeroText"]</p>
             <ul class="hero-facts">
-                @foreach (var i in Enumerable.Range(1, 3))
+                @foreach (var i in Enumerable.Range(1, 4))
                 {
                     <li>@L[$"HeroFact{i}"]</li>
                 }
             </ul>
-            @* Два пути из hero: готовые — к форме, сомневающиеся — к программе дня
-               (второстепенная кнопка вместо ухода со страницы). *@
+        </div>
+
+        <div class="hero-visual" data-speed="0.16">
+            @* Только карта (вернулись к этому 24.08.2026 после эксперимента с
+               фото-каруселью в hero: они тесни́ли друг друга; фото уехали в полосу
+               «Что вас ждёт» сразу под hero). *@
+            <div class="hero-map">
+                <KolaMap />
+                <p class="map-hint">@L["MapHint"]</p>
+            </div>
+        </div>
+
+        @* Полоса «Что вас ждёт» — часть hero-грида (решение владельца 24.08.2026):
+           на мобиле она стоит МЕЖДУ картой и кнопками — вся витрина (оффер → карта →
+           фото) идёт до действия; на десктопе grid-area растягивает её во всю ширину
+           под колонками. Механика галерей мест: scroll-snap + carousel.js, автопрокрут
+           по data-autoplay, тонировка .photo-strip::after вписывает кадры в тему.
+           Подписи на кадрах были и убраны владельцем 24.08.2026 — текст спорил
+           с сюжетом; alt-тексты остались. Файлы 5:4 (1500×1200) кропаются CSS в ленту 21:9;
+           ?v=2 в src — аспект менялся при тех же именах (кеш картинок 30 дней).
+           Кредиты фото — в HeroSlides. *@
+        <div class="hero-highlights" id="highlights">
+            <div class="section-head">
+                <h2>@L["HighlightsTitle"]</h2>
+                <p>@L["HighlightsSubtitle"]</p>
+            </div>
+            <div class="photo-strip carousel-wrap" data-autoplay="6000">
+                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                <div class="photo-strip-track carousel-track">
+                    @for (var n = 0; n < HeroSlides.All.Length; n++)
+                    {
+                        @* Фото кладёт владелец (см. HeroSlides); пока файла нет — заглушка,
+                           а не битая картинка. ?v=3 — прежние файлы под теми же именами
+                           уже могли осесть в 30-дневном кеше. *@
+                        var slideFile = Path.Combine(Env.WebRootPath, HeroSlides.All[n].ImagePath.TrimStart('/'));
+                        var slideSrc = File.Exists(slideFile) ? HeroSlides.All[n].ImagePath + "?v=3" : "/img/placeholder.svg";
+                        <figure class="photo-slide">
+                            <img src="@slideSrc" alt="@L[HeroSlides.All[n].AltKey]"
+                                 width="1500" height="1200"
+                                 fetchpriority="@(n == 0 ? "high" : null)"
+                                 loading="@(n == 0 ? null : "lazy")" decoding="async" />
+                        </figure>
+                    }
+                </div>
+                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+            </div>
+        </div>
+
+        @* Кнопки и цена закрывают всю витрину — идут после карты и фото и на мобиле,
+           и на десктопе (там — во всю ширину по центру; решение владельца 24.08.2026).
+           Порядок «посмотрел всё → записался»; ранний CTA всё время дублирует
+           .header-apply / .nav-apply в шапке. Тот же data-speed, что у .hero-copy.
+           Два пути: готовые — к форме, сомневающиеся — к программе дня. *@
+        <div class="hero-cta" data-speed="0.07">
             <div class="hero-actions">
                 <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
                 <a class="btn-ghost" href="#itinerary">@L["HeroCta2"]</a>
@@ -42,11 +96,6 @@
                 <span class="hero-note">@L["HeroNote"]</span>
                 <span class="hero-trust">@L["HeroTrust"]</span>
             </p>
-        </div>
-
-        <div class="hero-map" data-speed="0.16">
-            <KolaMap />
-            <p class="map-hint">@L["MapHint"]</p>
         </div>
     </div>
 </section>
@@ -78,14 +127,9 @@
                 </li>
             }
         </ol>
-        @* Единственный призыв в середине лендинга (21.08.2026): раньше такой же блок
-           стоял ещё после мест, после «что включено» и после других маршрутов —
-           четыре одинаковые кнопки подряд переставали читаться. Вход в форму и так
-           всегда на виду: кнопка в шапке, виджет связи в углу и полоска на телефоне. *@
-        <div class="section-cta">
-            <a class="btn" href="#apply">@L["MidCta"]</a>
-            <span>@L["MidCtaNote"]</span>
-        </div>
+        @* Призывов в середине лендинга больше нет (последний, после программы дня,
+           убран владельцем 24.08.2026): вход в форму и так всегда на виду — CTA под
+           витриной hero, кнопка в шапке и виджет связи в углу. *@
         <p class="itinerary-note">@L["ItineraryNote"]</p>
     </div>
 </section>

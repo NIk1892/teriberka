@@ -50,7 +50,8 @@ public sealed class SeoUrls
             .AppendLine("User-agent: *")
             .AppendLine("Disallow: /set-culture")
             .AppendLine("Disallow: /set-theme")
-            .AppendLine("Disallow: /not-found");
+            .AppendLine("Disallow: /not-found")
+            .AppendLine("Disallow: /chat");
 
         if (_siteUrl is not null)
             sb.AppendLine().AppendLine($"Sitemap: {_siteUrl}/sitemap.xml");

@@ -5,14 +5,14 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>Кольский Север</value></data>
+  <data name="Brand" xml:space="preserve"><value>ТериберкаКрай</value></data>
   <data name="PageTitle" xml:space="preserve"><value>Экскурсия в Териберку из Мурманска — Кольский Север</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>Выезд из Мурманска, Апатитов и Кировска</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Териберка за один день.</value></data>
   <data name="HeroText" xml:space="preserve"><value>Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей — главные места Териберки в одной поездке.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Узнать свободные даты</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Записаться</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Полный день · группа до 8 человек</value></data>
 
@@ -139,6 +139,10 @@
   <data name="NavGuides" xml:space="preserve"><value>Гиды</value></data>
   <data name="NavReviews" xml:space="preserve"><value>Отзывы</value></data>
   <data name="NavApply" xml:space="preserve"><value>Записаться</value></data>
+  <data name="NavGallery" xml:space="preserve"><value>Галерея</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>Галерея</value></data>
+  <data name="SoonText" xml:space="preserve"><value>Раздел пока в разработке. Скоро выложим сюда фотографии из поездок — а пока снимки мест есть на страницах направлений.</value></data>
+  <data name="SoonBack" xml:space="preserve"><value>Вернуться на главную</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>Контакты</value></data>
   <data name="BotLink" xml:space="preserve"><value>Наш Telegram-бот</value></data>
   <data name="MenuLabel" xml:space="preserve"><value>Меню</value></data>
@@ -177,6 +181,22 @@
   <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Связаться с нами</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
+  <data name="ContactPhone" xml:space="preserve"><value>Позвонить</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Чат с гидом</value></data>
+  <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем за несколько минут</value></data>
+  <data name="ChatOffline" xml:space="preserve"><value>Сейчас офлайн — ответим утром</value></data>
+  <data name="ChatClose" xml:space="preserve"><value>Закрыть чат</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — гид ответит здесь же.</value></data>
+  <data name="ChatYou" xml:space="preserve"><value>Вы</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Гид</value></data>
+  <data name="ChatPlaceholder" xml:space="preserve"><value>Спросите о туре…</value></data>
+  <data name="ChatSend" xml:space="preserve"><value>Отправить</value></data>
+  <data name="ChatRefresh" xml:space="preserve"><value>Обновить переписку</value></data>
+  <data name="ChatErrorGeneric" xml:space="preserve"><value>Не удалось отправить сообщение. Попробуйте ещё раз.</value></data>
+  <data name="ChatErrorTooMany" xml:space="preserve"><value>Слишком много сообщений. Подождите минуту.</value></data>
+  <data name="ChatErrorCookies" xml:space="preserve"><value>Похоже, cookie отключены: сообщение мы получим, но ответ здесь не появится — напишите нам в Telegram.</value></data>
+  <data name="ChatConsentPrefix" xml:space="preserve"><value>Отправляя сообщение, вы соглашаетесь с обработкой данных — см.</value></data>
+  <data name="ChatNoPersonal" xml:space="preserve"><value>Не отправляйте здесь паспортные и платёжные данные.</value></data>
   <data name="ContactHint" xml:space="preserve"><value>Как удобнее написать?</value></data>
   <data name="ContactTelegram" xml:space="preserve"><value>Написать в Telegram</value></data>
   <data name="ContactMax" xml:space="preserve"><value>Написать в MAX</value></data>
@@ -253,7 +273,23 @@
   <data name="MapApatity" xml:space="preserve"><value>Апатиты</value></data>
   <data name="HeroTitleSub" xml:space="preserve"><value>От тундры до берега Северного Ледовитого океана</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>Программа дня</value></data>
+  <data name="HighlightsTitle" xml:space="preserve"><value>Что вас ждёт</value></data>
+  <data name="HighlightsSubtitle" xml:space="preserve"><value>Север, который хочется увидеть своими глазами — листайте или просто смотрите</value></data>
+  <data name="HeroSlide1Alt" xml:space="preserve"><value>Табличка «Край Земли» у избы над Териберской губой летом</value></data>
+  <data name="HeroSlide2Alt" xml:space="preserve"><value>Териберская губа, посёлок и маяк в закатном свете</value></data>
+  <data name="HeroSlide3Alt" xml:space="preserve"><value>Остовы деревянных судов на кладбище кораблей в Териберке</value></data>
+  <data name="HeroSlide4Alt" xml:space="preserve"><value>Скалистое ущелье с ручьём, выходящее к Баренцеву морю</value></data>
+  <data name="HeroSlide5Alt" xml:space="preserve"><value>Низкое зимнее солнце над заснеженными сопками тундры</value></data>
+  <data name="HeroSlide6Alt" xml:space="preserve"><value>Ветряные турбины в заснеженной тундре в синих сумерках</value></data>
+  <data name="HeroSlide7Alt" xml:space="preserve"><value>Ржавый корабль с граффити на заснеженном берегу Териберки</value></data>
+  <data name="HeroSlide11Alt" xml:space="preserve"><value>Зимний прибой у каменного пляжа Баренцева моря</value></data>
+  <data name="HeroSlide12Alt" xml:space="preserve"><value>Метель над заснеженной тундрой у Териберки</value></data>
+  <data name="HeroSlide13Alt" xml:space="preserve"><value>Зимняя бухта Баренцева моря среди заснеженных сопок</value></data>
+  <data name="HeroSlide8Alt" xml:space="preserve"><value>Морской ёж на ладони во время морской прогулки</value></data>
+  <data name="HeroSlide9Alt" xml:space="preserve"><value>Раковина трубача среди ламинарии на берегу</value></data>
+  <data name="HeroSlide10Alt" xml:space="preserve"><value>Свежие морские ежи, гребешки и морская звезда на ламинарии</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей. Трансфер и гид включены.</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>Кольский полуостров, северное сияние и кит над Баренцевым морем</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Почему удобно ехать с нами</value></data>
   <data name="Why1Title" xml:space="preserve"><value>Главные места за день</value></data>
   <data name="Why1Text" xml:space="preserve"><value>маршрут собран так, чтобы увидеть Териберку без самостоятельной подготовки</value></data>
@@ -266,6 +302,7 @@
   <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска, Апатитов или Кировска и обратно</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>Гид, остановки и обед из морепродуктов</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>Подберём программу по сезону и погоде</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>Позаботимся о мелочах: тёплая машина, горячий чай и советы, что взять с собой</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>Заявка без предоплаты и обязательств</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Не только Териберка</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Другие маршруты</value></data>
@@ -288,8 +325,6 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>Свежая треска, гребешки, уха — обед в Териберке перед обратной дорогой.</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>Возвращение в Мурманск</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>После насыщенного дня возвращаемся в город и привозим вас в согласованную точку.</value></data>
-  <data name="MidCta" xml:space="preserve"><value>Узнать свободные даты</value></data>
-  <data name="MidCtaNote" xml:space="preserve"><value>Уточним доступность маршрута и стоимость для вашей группы</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Териберка в разное время года</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>У каждого сезона свой Север — подскажем, какой подходит именно вам.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>Ноябрь — апрель</value></data>

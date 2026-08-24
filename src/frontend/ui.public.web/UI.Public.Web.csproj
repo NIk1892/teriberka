@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ui.shared\UI.Shared.csproj" />
     <ProjectReference Include="..\..\contracts\Applications.Contracts\Applications.Contracts.csproj" />
+    <ProjectReference Include="..\..\contracts\Chat.Contracts\Chat.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

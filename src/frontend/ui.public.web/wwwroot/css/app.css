@@ -389,20 +389,103 @@ a { color: var(--accent-ice); }
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 44px;
+    /* 28px — мобильный ритм столбика (44 разваливали hero на «острова»);
+       десктопная медиа ниже задаёт свой gap */
+    gap: 28px;
     align-items: center;
 }
 
 .hero-map .map-hint { margin-top: 10px; }
 
+.hero-visual {
+    display: grid;
+    gap: 16px;
+}
+
+/* Полоса «Что вас ждёт» под hero: широкая фото-карусель (механика галерей мест —
+   scroll-snap + carousel.js, автопрокрут добавляет data-autoplay). Рамка и
+   скругление — на треке, а не на обёртке: обёртка (.carousel-wrap) не должна
+   резать стрелки, вынесенные за край. Ловушка та же, что у виджета связи:
+   на .photo-strip нельзя вешать transform — сломается позиционирование стрелок. */
+.photo-strip { margin: 0; }
+
+.photo-strip-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: var(--bg-elev);
+}
+
+.photo-strip-track::-webkit-scrollbar { display: none; }
+
+.photo-slide {
+    margin: 0;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+.photo-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* на телефоне лента 21:9 была слишком узкой (~140px) — 3:2; файлы 5:4
+       кропаются object-fit'ом в любой из аспектов */
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+
+@media (min-width: 700px) {
+    /* широкая кинематографичная лента на планшете и десктопе */
+    .photo-slide img { aspect-ratio: 21 / 9; }
+}
+
+/* Тонировка: холодный градиент сверху и виньетка снизу «уводят» любой кадр
+   в полярную ночь — дневные фото перестают светиться чужеродным пятном.
+   z-index 1 — поверх трека, но под стрелками (.car-btn — z-index 2). */
+.photo-strip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: var(--radius);
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgb(7 14 26 / .28), rgb(7 14 26 / 0) 42%, rgb(7 14 26 / .42)),
+        rgb(64 190 175 / .07);
+}
+
+/* в «полярный день» кадрам темнеть почти не нужно — остаётся лёгкая виньетка */
+[data-theme="light"] .photo-strip::after {
+    background: linear-gradient(180deg, rgb(7 14 26 / .06), rgb(7 14 26 / 0) 42%, rgb(7 14 26 / .16));
+}
+
 @media (min-width: 960px) {
-    .hero-grid { grid-template-columns: 1fr 1fr; }
-    .hero-copy { text-align: left; }
+    /* DOM-порядок (он же мобильный): текст → карта → фото → кнопки. На десктопе
+       текст и карта встают в две колонки, а фото-полоса и кнопки с ценой идут
+       во всю ширину под ними — CTA закрывает всю витрину (владелец, 24.08.2026),
+       поэтому он по центру, как на мобиле, а не прижат к левой колонке. */
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "copy visual"
+            "highlights highlights"
+            "cta cta";
+        gap: 24px 44px;
+        align-items: start;
+    }
+    .hero-copy { grid-area: copy; text-align: left; }
+    .hero-visual { grid-area: visual; }
+    .hero-highlights { grid-area: highlights; margin-top: 16px; }
+    .hero-cta { grid-area: cta; margin-top: 8px; }
     .hero-copy h1 { margin-inline: 0; }
     .hero-copy .hero-text { margin-inline: 0; }
     .hero-copy .hero-facts { margin-inline: 0; }
-    .hero-copy .hero-actions,
-    .hero-copy .hero-meta { justify-content: flex-start; text-align: left; }
 }
 
 /* Микроанимации неба. Анимируются только opacity и transform — такие анимации
@@ -841,6 +924,16 @@ html.js-parallax .parallax-band .container {
     scroll-margin-top: 70px;
 }
 
+/* Полоса «Что вас ждёт» живёт внутри hero-грида (см. Home.razor): на мобиле
+   стоит между картой и кнопками, на десктопе — во всю ширину под колонками.
+   Заголовку секции внутри hero большой нижний отступ не нужен. */
+.hero-highlights .section-head {
+    margin-inline: auto; /* блок max-width 640 стоит по центру над полосой — иначе
+                            hero-центрированный текст «плавал» внутри левого блока */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .section-head {
     max-width: 640px;
     margin-bottom: 36px;
@@ -859,10 +952,9 @@ html.js-parallax .parallax-band .container {
 /* узкий экран: hero центрирован, поэтому заголовки секций тоже по центру — иначе они
    читаются «прижатыми влево»; и меньше воздуха между секциями (136px hero+section — много) */
 @media (max-width: 699px) {
-    .hero { padding-bottom: 40px; }
-    .section { padding-block: 48px; }
+    .hero { padding-bottom: 24px; }
+    .section { padding-block: 40px; }
     .section-head { margin-inline: auto; margin-bottom: 28px; text-align: center; }
-    .section-cta { align-items: center; text-align: center; }
     .itinerary-note,
     .season-note { text-align: center; }
 }
@@ -1029,24 +1121,6 @@ html.js-parallax .parallax-band .container {
     .itinerary-thumb { width: 56px; height: 56px; }
 }
 
-.section-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-top: 28px;
-}
-
-.section-cta span {
-    color: var(--text-muted);
-    font-size: .88rem;
-}
-
-/* на узких экранах кнопка секции — во всю ширину, как поле формы: крупнее цель, ровнее ритм */
-@media (max-width: 699px) {
-    .section-cta .btn { width: 100%; }
-}
-
 .itinerary-note {
     margin: 20px 0 0;
     color: var(--text-muted);
@@ -1120,6 +1194,8 @@ html.js-parallax .parallax-band .container {
     display: block;
     width: 100%;
     height: auto;
+    /* подписи морей лежат у краёв viewBox — не резать их по границе SVG */
+    overflow: visible;
 }
 
 .map-land {
@@ -1145,6 +1221,11 @@ html.js-parallax .parallax-band .container {
     letter-spacing: 3px;
     text-transform: uppercase;
     text-anchor: middle;
+}
+
+@media (max-width: 560px) {
+    /* на телефоне карта мелкая, а «Баренцево море» с разрядкой упиралось в край */
+    .map-sea { font-size: 13px; letter-spacing: 2px; }
 }
 
 .map-dist {
@@ -1177,7 +1258,7 @@ html.js-parallax .parallax-band .container {
 .map-geo {
     fill: var(--text-muted);
     opacity: .75;
-    font-size: 11px;
+    font-size: 14px; /* 11px на телефоне не читалось (владелец, 24.08.2026) */
     font-weight: 600;
     text-anchor: middle;
 }
@@ -2966,6 +3047,9 @@ html.js-fx .guide-card { animation: none; }
     from { opacity: 0; transform: translateX(8px); }
 }
 
+
+/* когда чат раскрыт, подсказка на кнопке лишняя — она зовёт туда, где уже находишься */
+body:has(.chat-panel.is-open) .contact-teaser { display: none; }
 .contact-widget[open] .contact-teaser {
     opacity: 0;
     visibility: hidden;
@@ -3165,6 +3249,242 @@ html.js-fx .guide-card { animation: none; }
     .contact-hint { display: none; }
 }
 
+
+
+/* ---------- заглушка раздела ---------- */
+
+/* Страница есть, содержимого пока нет: короткий центрированный экран вместо
+   пустоты. Когда раздел наполнится, блок можно удалить целиком. */
+.soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 520px;
+    padding-block: 40px;
+    text-align: center;
+}
+
+.soon-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--accent);
+}
+
+.soon h1 { margin: 0; }
+
+.soon-lead {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+/* ---------- панель чата ---------- */
+
+/* Открывается пунктом меню связи и занимает тот же угол, что и кнопка.
+   Класс is-open ставит сервер (по ?chat=open) или chat.js — так панель работает
+   и без JavaScript, и без перезагрузок вместе с ним. */
+.chat-panel {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + 56px + 12px + env(safe-area-inset-bottom, 0px));
+    z-index: 46; /* над кнопкой связи (45), под лайтбоксом (100) */
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: min(360px, calc(100vw - 32px));
+    max-height: min(70svh, 560px);
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+}
+
+.chat-panel.is-open { display: flex; }
+
+@media (prefers-reduced-motion: no-preference) {
+    .chat-panel.is-open { animation: contact-item-in .24s ease-out; }
+}
+
+.chat-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 10px;
+    align-items: center;
+}
+
+.chat-title {
+    font-weight: 700;
+    font-size: .98rem;
+}
+
+.chat-status {
+    grid-column: 1;
+    font-size: .76rem;
+    font-weight: 600;
+}
+
+.chat-status.is-online { color: var(--accent); }
+.chat-status.is-offline { color: var(--text-muted); }
+
+.chat-close {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.chat-close:hover { background: var(--bg-elev-2); color: var(--text); }
+
+.chat-log {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    /* прокрутка ленты не должна утягивать за собой страницу */
+    overscroll-behavior: contain;
+    max-height: min(46svh, 320px);
+    list-style: none;
+}
+
+.chat-empty {
+    color: var(--text-muted);
+    font-size: .88rem;
+}
+
+.chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 86%;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: .9rem;
+}
+
+/* реплики посетителя — справа и авророй, ответы гида — слева и нейтрально */
+.chat-msg.from-you {
+    align-self: flex-end;
+    background: color-mix(in srgb, var(--accent) 16%, var(--bg-elev-2));
+}
+
+.chat-msg.from-guide {
+    align-self: flex-start;
+    background: var(--bg-elev-2);
+}
+
+.chat-who {
+    color: var(--text-muted);
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+.chat-text { white-space: pre-wrap; word-break: break-word; }
+
+.chat-warn {
+    margin: 0;
+    color: var(--danger);
+    font-size: .82rem;
+}
+
+.chat-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.chat-form textarea {
+    flex: 1;
+    min-height: 44px;
+    max-height: 120px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: .92rem;
+    resize: none;
+}
+
+.chat-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.chat-send {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--aurora);
+    color: var(--on-accent);
+    cursor: pointer;
+}
+
+.chat-note {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .72rem;
+}
+
+.chat-note a { color: var(--text-muted); }
+
+/* honeypot: не display:none — такие поля боты пропускают */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+/* с поллингом ручное обновление не нужно */
+.chat-refresh {
+    color: var(--text-muted);
+    font-size: .78rem;
+}
+
+html.js-chat .chat-refresh { display: none; }
+
+@media (max-width: 480px) {
+    .chat-panel {
+        left: 8px;
+        right: 8px;
+        width: auto;
+        max-height: 74svh;
+    }
+}
 /* Липкая полоса заявки внизу экрана убрана 21.08.2026 вместе со sticky-cta.js:
    на узких экранах её роль играет кнопка .header-apply в шапке, а низ отдан
    плавающей кнопке связи — два фиксированных элемента внизу мешали друг другу. */
@@ -3412,7 +3732,6 @@ html.js-fx .guide-card { animation: none; }
 
 @media (min-width: 700px) {
     .itinerary-list { grid-template-columns: repeat(2, 1fr); }
-    .section-cta { flex-direction: row; align-items: center; }
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid .form-errors,
     .form-grid .form-submit { grid-column: 1 / -1; }
@@ -3446,7 +3765,7 @@ html.js-fx .guide-card { animation: none; }
 @media (min-width: 960px) {
     .places-grid { grid-template-columns: repeat(3, 1fr); }
     .places-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    .hero { padding-block: 72px 88px; }
+    .hero { padding-block: 72px 48px; }
     .section { padding-block: 80px; }
 }
 

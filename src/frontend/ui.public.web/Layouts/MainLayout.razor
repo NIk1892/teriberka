@@ -57,30 +57,34 @@
 @* Быстрая прокрутка без JavaScript: якорные ссылки + scroll-behavior: smooth.
    Кнопка «наверх» проявляется после первого экрана через CSS scroll-driven
    animation (в браузерах без поддержки просто видна всегда). *@
-<script src="/js/water.js" defer></script>
+@* v=2: вода перечитывает цвета при живой смене темы (theme-toggle.js) *@
+<script src="/js/water.js?v=2" defer></script>
 @* Инерционный параллакс полос .parallax-band (фоллбек без JS — CSS-ярусы в app.css) *@
 <script src="/js/parallax.js" defer></script>
 @* Вендоренный Lenis (инерционная прокрутка) + effects.js: слои data-speed в hero
    и пружинящие reveal-каскады. Порядок важен: effects.js ждёт глобал Lenis. *@
 <script src="/js/vendor/lenis.min.js" defer></script>
-@* v=2: якорные переходы (#apply) — смещение под шапку и доезд при загрузке с хэшем *@
-<script src="/js/effects.js?v=2" defer></script>
+@* v=4: из reveal-селекторов ушёл .section-cta (блок удалён с главной) *@
+<script src="/js/effects.js?v=4" defer></script>
 @* WebGL-«жидкое» искажение фото мест при наведении (desktop, pointer: fine) *@
 <script src="/js/photo-fx.js" defer></script>
-@* v=2: carousel.js обобщён с отзывов на любые карусели — сбрасываем кеш браузеров *@
-<script src="/js/carousel.js?v=2" defer></script>
+@* v=3: carousel.js научился автопрокруту (data-autoplay) — сбрасываем кеш браузеров *@
+<script src="/js/carousel.js?v=3" defer></script>
 @* сохранение прокрутки при переключении темы/языка (см. комментарий в файле) *@
 <script src="/js/restore-scroll.js" defer></script>
+@* смена темы без перезагрузки; порядок важен: клик-обработчик restore-scroll.js
+   должен зарегистрироваться раньше, чтобы theme-toggle.js подчистил его запись *@
+<script src="/js/theme-toggle.js" defer></script>
 @* клиентская валидация формы заявки: подсказки под полями (см. комментарий в файле) *@
 <script src="/js/form-ui.js" defer></script>
 @* полноэкранный просмотр фото на страницах мест (см. комментарий в файле) *@
 <script src="/js/lightbox.js" defer></script>
 @* кнопка связи: Esc и сворачивание после выбора канала; меню и без JS работает *@
 <script src="/js/contact-widget.js" defer></script>
+@* чат с гидом: открытие панели без перезагрузки и опрос новых ответов *@
+<script src="/js/chat.js" defer></script>
 
-@* На телефоне «Записаться» сидит в бургере, а форма — далеко внизу.
-   Полоска ведёт на неё; IntersectionObserver прячет её, когда форма уже на экране
-   (иначе закрыла бы кнопку отправки). Без JS не показывается. *@
+@* Кнопки быстрой прокрутки: якорные ссылки, без JavaScript. *@
 <nav class="scrollers">
     <a class="scroller scroller-top" href="#top" aria-label="@L["ScrollTop"]" title="@L["ScrollTop"]">↑</a>
     <a class="scroller" href="#page-bottom" aria-label="@L["ScrollBottom"]" title="@L["ScrollBottom"]">↓</a>
@@ -90,3 +94,4 @@
    Последняя в DOM сознательно: вспомогательный виджет — последний и в порядке
    табуляции. Рендерится только при заданных TG_BOT_URL / MAX_URL. *@
 <ContactWidget />
+<ChatPanel />

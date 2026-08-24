@@ -13,6 +13,12 @@ public static class ChatLimits
     /// <summary>Сколько сообщений посетитель может написать в одном диалоге за всё время.</summary>
     public const int MaxMessagesPerSession = 100;
 
+    /// <summary>
+    /// Сколько сообщений забирать за один опрос. Граница жёсткая: ListQueryHandler в сервисе
+    /// бросает исключение при Limit больше Constants.LimitSelectRecords (=30).
+    /// </summary>
+    public const int PageSize = 30;
+
     /// <summary>Окно защиты от флуда и допустимое число сообщений в нём.</summary>
     public const int BurstWindowMinutes = 10;
     public const int MaxMessagesPerWindow = 20;

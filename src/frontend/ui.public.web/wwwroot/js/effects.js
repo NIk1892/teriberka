@@ -93,8 +93,21 @@
     // среди соседей-ревилов, чтобы карточки выезжали одна за другой.
     var revealTargets = document.querySelectorAll(
         ".section-head, .place-card, .itinerary-list li, .season-card, " +
-        ".included-grid li, .why-grid li, .guide-card, .guide-note, .section-cta"
+        ".included-grid li, .why-grid li, .guide-card, .guide-note"
     );
+
+    // После смены языка страница перезагружается, а restore-scroll.js (он
+    // подключён ПОЗЖЕ и потребляет ключ после нас — здесь только подглядываем)
+    // вернёт прокрутку на место. Блокам, которые окажутся на экране, каскад не
+    // даём: повторное «выезжание» уже прочитанного дёргало страницу.
+    var restoredY = -1;
+    try {
+        var savedRaw = sessionStorage.getItem("kola-restore-scroll");
+        if (savedRaw) {
+            var saved = JSON.parse(savedRaw);
+            if (saved.path === location.pathname) restoredY = saved.y;
+        }
+    } catch (e) { /* нет доступа к sessionStorage — просто без пропуска */ }
 
     var ro = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (en) {
@@ -119,6 +132,10 @@
     }, { threshold: 0, rootMargin: "0px 0px 40px 0px" });
 
     Array.prototype.forEach.call(revealTargets, function (el) {
+        // элемент попадёт в восстановленный вьюпорт — оставить видимым без анимации
+        // (запас 120px — на сдвиги вёрстки от шрифтов/картинок после загрузки)
+        if (restoredY >= 0 &&
+            el.getBoundingClientRect().top + window.scrollY < restoredY + window.innerHeight + 120) return;
         el.classList.add("reveal");
         // каскад: задержка по номеру среди соседних ревил-элементов
         var i = 0, sib = el;

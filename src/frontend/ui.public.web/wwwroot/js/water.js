@@ -21,10 +21,12 @@
         var n = parseInt(m[1], 16);
         return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
     }
-    var glint = cssColor("--accent-ice", [0.30, 0.79, 0.94]);
-    var deepC = document.documentElement.dataset.theme === "light"
-        ? [0.55, 0.71, 0.85]
-        : [0.03, 0.07, 0.16];
+    function glintColor() { return cssColor("--accent-ice", [0.30, 0.79, 0.94]); }
+    function deepColor() {
+        return document.documentElement.dataset.theme === "light"
+            ? [0.55, 0.71, 0.85]
+            : [0.03, 0.07, 0.16];
+    }
 
     var VS = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
     var FS = [
@@ -78,8 +80,18 @@
     var uR = gl.getUniformLocation(prog, "r");
     var uT = gl.getUniformLocation(prog, "t");
     var uPx = gl.getUniformLocation(prog, "px");
-    gl.uniform3fv(gl.getUniformLocation(prog, "deep"), deepC);
-    gl.uniform3fv(gl.getUniformLocation(prog, "glint"), glint);
+    var uDeep = gl.getUniformLocation(prog, "deep");
+    var uGlint = gl.getUniformLocation(prog, "glint");
+
+    function syncColors() {
+        gl.uniform3fv(uDeep, deepColor());
+        gl.uniform3fv(uGlint, glintColor());
+    }
+    syncColors();
+    // theme-toggle.js меняет тему без перезагрузки — цвета в uniform'ах
+    // закешированы, поэтому перечитываем их при смене data-theme на <html>
+    new MutationObserver(syncColors)
+        .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);

@@ -1,12 +1,16 @@
 using System.Globalization;
+using System.Net;
 using System.Text;
 using System.Threading.RateLimiting;
 using FluentValidation;
+using Chat.Contracts;
 using Mediator;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
+using UI.Public.Web.Features.Chat;
 using UI.Public.Web.Features.Seo;
 using UI.Shared;
 using UI.Shared.Interceptors;
@@ -39,6 +43,9 @@ builder.Services.AddRazorComponents();
 
 // Абсолютные URL для canonical/OG/sitemap строятся от SITE_URL (см. SeoUrls).
 builder.Services.AddSingleton<SeoUrls>();
+
+// Часы работы чата: виджет честно говорит, ответят сейчас или утром.
+builder.Services.AddSingleton<ChatSchedule>();
 
 // Сжатие только для статики: text/html сознательно не сжимаем — в страницах
 // antiforgery-токен плюс отражённый query в ссылках set-culture/set-theme,
@@ -73,6 +80,27 @@ builder.Services.AddRateLimiter(options =>
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
     {
         var client = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        var path = context.Request.Path;
+
+        // У чата свои партиции. Иначе поллинг съедал бы общий лимит страницы, а
+        // отправка сообщения — квоту формы заявки (5 за 5 минут), и шестая реплика
+        // в диалоге упиралась бы в 429.
+        if (path.StartsWithSegments("/chat/poll"))
+            return RateLimitPartition.GetFixedWindowLimiter($"chatpoll:{client}", _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 40,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            });
+
+        if (path.StartsWithSegments("/chat/send"))
+            return RateLimitPartition.GetFixedWindowLimiter($"chatsend:{client}", _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            });
+
 
         return HttpMethods.IsPost(context.Request.Method)
             ? RateLimitPartition.GetFixedWindowLimiter($"post:{client}", _ => new FixedWindowRateLimiterOptions
@@ -227,6 +255,114 @@ app.MapGet("/sitemap.xml", (SeoUrls seo, HttpContext context) =>
 
     context.Response.Headers.CacheControl = "public, max-age=3600";
     return Results.Text(seo.SitemapXml, "application/xml", Encoding.UTF8);
+});
+
+// ---- чат с посетителем -------------------------------------------------------
+// Оба эндпоинта живут на самом сайте, а не на шлюзе: в chat-сервис ходит сервер UI,
+// он же владеет cookie с токеном диалога. Объявлены до MapRazorComponents — иначе
+// запрос уйдёт в Razor-роутер и вернётся страница 404.
+
+// Форма чата и JS шлют одно и то же тело (application/x-www-form-urlencoded) на один
+// адрес: так antiforgery работает штатно и не нужно двух путей кода. Ответ разный —
+// JSON для скрипта, редирект для страницы без JavaScript.
+app.MapPost("/chat/send", async (HttpContext context, IMediator mediator, IAntiforgery antiforgery) =>
+{
+    // UseAntiforgery проверяет только эндпоинты с form-binding, а форму мы читаем
+    // руками — значит и токен проверяем руками.
+    try
+    {
+        await antiforgery.ValidateRequestAsync(context);
+    }
+    catch (AntiforgeryValidationException)
+    {
+        return Results.BadRequest();
+    }
+
+    var form = await context.Request.ReadFormAsync();
+    var wantsJson = context.Request.Headers.Accept.ToString().Contains("application/json");
+    var back = ChatPaths.WithOpen(form["redirect"].ToString());
+
+    // honeypot: поле спрятано классом (inline style запрещён CSP). Ботам отвечаем
+    // «успехом», чтобы не подсказывать обход, но ничего не сохраняем.
+    if (!string.IsNullOrEmpty(form["hp"]))
+        return wantsJson ? Results.Json(new { ordinal = 0 }) : Results.LocalRedirect(back);
+
+    var text = form["text"].ToString().Trim();
+
+    if (text.Length is 0 or > ChatLimits.MaxTextLength)
+        return wantsJson
+            ? Results.Json(new { error = "text" }, statusCode: StatusCodes.Status400BadRequest)
+            : Results.LocalRedirect(ChatPaths.WithError(form["redirect"].ToString()));
+
+    var result = await mediator.Send(new ChatSendCommand
+    {
+        SessionToken = context.Request.Cookies[ChatCookie.Name],
+        Text = text,
+        Culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
+        Page = ChatPaths.Clean(form["redirect"].ToString())
+    });
+
+    if (!result.IsSuccess)
+    {
+        var error = result.StatusCode == HttpStatusCode.TooManyRequests ? "toomany" : "failed";
+
+        return wantsJson
+            ? Results.Json(new { error }, statusCode: (int)result.StatusCode)
+            : Results.LocalRedirect(ChatPaths.WithError(form["redirect"].ToString()));
+    }
+
+    // Токен диалога возвращает сервис (он же его и создал) — кладём в cookie ровно
+    // так же, как /set-culture и /set-theme: из Razor-компонента cookie не поставить.
+    if (result.Value is { Length: > 0 } token && token != context.Request.Cookies[ChatCookie.Name])
+        context.Response.Cookies.Append(ChatCookie.Name, token, ChatCookie.Options(context));
+
+    return wantsJson
+        ? Results.Json(new { ordinal = (int)(result.Hash ?? 0) })
+        : Results.LocalRedirect(back);
+});
+
+// Опрос новых сообщений. Ответ зависит от cookie, поэтому no-store и Vary: Cookie —
+// иначе ответ одного посетителя мог бы осесть в промежуточном кэше для другого.
+app.MapGet("/chat/poll", async (HttpContext context, IMediator mediator, ChatSchedule schedule, int? after) =>
+{
+    context.Response.Headers.CacheControl = "no-store";
+    context.Response.Headers.Vary = "Cookie";
+
+    var token = context.Request.Cookies[ChatCookie.Name];
+    var online = schedule.IsOnline();
+
+    if (string.IsNullOrEmpty(token))
+        return Results.Json(new { session = false, online, messages = Array.Empty<object>() });
+
+    IReadOnlyCollection<ChatMessageDto> messages;
+
+    try
+    {
+        messages = await mediator.Send(new ChatMessageListQuery
+        {
+            Token = token,
+            After = Math.Max(0, after ?? 0),
+            Limit = ChatLimits.PageSize
+        });
+    }
+    catch (Exception)
+    {
+        // chat недоступен — виджет просто повторит опрос позже
+        return Results.Json(new { session = true, online, messages = Array.Empty<object>() },
+            statusCode: StatusCodes.Status503ServiceUnavailable);
+    }
+
+    return Results.Json(new
+    {
+        session = true,
+        online,
+        messages = messages.Select(message => new
+        {
+            o = message.Ordinal,
+            d = (int)message.Direction,
+            t = message.Text
+        })
+    });
 });
 
 app.MapRazorComponents<App>();

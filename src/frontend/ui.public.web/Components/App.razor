@@ -12,7 +12,9 @@
        каждой страницы через HeadOutlet — глобальных дублей здесь быть не должно *@
     <base href="/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/css/app.css" />
+    @* v=2 — сброс часового кеша браузеров при правках стилей (fingerprinting нет,
+       версию поднимать руками при заметных изменениях, как у js-файлов) *@
+    <link rel="stylesheet" href="/css/app.css?v=12" />
     <HeadOutlet />
 </head>
 

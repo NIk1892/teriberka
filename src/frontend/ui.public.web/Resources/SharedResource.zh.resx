@@ -5,14 +5,14 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>科拉之北</value></data>
+  <data name="Brand" xml:space="preserve"><value>捷里别尔卡之境</value></data>
   <data name="PageTitle" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游——科拉之北</value></data>
   <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>从摩尔曼斯克、阿帕季特、基洛夫斯克出发</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>一天游遍捷里别尔卡。</value></data>
   <data name="HeroText" xml:space="preserve"><value>巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地——一次看遍捷里别尔卡的主要景点。</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>查询可选日期</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>预约</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>每人 12 000 卢布起</value></data>
   <data name="HeroNote" xml:space="preserve"><value>全天行程 · 8 人以内小团</value></data>
 
@@ -139,6 +139,10 @@
   <data name="NavGuides" xml:space="preserve"><value>向导</value></data>
   <data name="NavReviews" xml:space="preserve"><value>评价</value></data>
   <data name="NavApply" xml:space="preserve"><value>预约</value></data>
+  <data name="NavGallery" xml:space="preserve"><value>相册</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>相册</value></data>
+  <data name="SoonText" xml:space="preserve"><value>该栏目正在建设中。我们很快会上传旅途照片——目前可在各目的地页面查看景点图片。</value></data>
+  <data name="SoonBack" xml:space="preserve"><value>返回首页</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>联系方式</value></data>
   <data name="BotLink" xml:space="preserve"><value>我们的 Telegram 机器人</value></data>
   <data name="MenuLabel" xml:space="preserve"><value>菜单</value></data>
@@ -177,6 +181,22 @@
   <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
+  <data name="ContactPhone" xml:space="preserve"><value>致电我们</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>与向导对话</value></data>
+  <data name="ChatOnline" xml:space="preserve"><value>我们通常几分钟内回复</value></data>
+  <data name="ChatOffline" xml:space="preserve"><value>目前离线，我们早上回复</value></data>
+  <data name="ChatClose" xml:space="preserve"><value>关闭聊天</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>提出问题，向导会在这里回复。</value></data>
+  <data name="ChatYou" xml:space="preserve"><value>您</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>向导</value></data>
+  <data name="ChatPlaceholder" xml:space="preserve"><value>咨询行程…</value></data>
+  <data name="ChatSend" xml:space="preserve"><value>发送</value></data>
+  <data name="ChatRefresh" xml:space="preserve"><value>刷新对话</value></data>
+  <data name="ChatErrorGeneric" xml:space="preserve"><value>消息发送失败，请重试。</value></data>
+  <data name="ChatErrorTooMany" xml:space="preserve"><value>消息过多，请稍候一分钟。</value></data>
+  <data name="ChatErrorCookies" xml:space="preserve"><value>您似乎禁用了 Cookie：我们会收到消息，但回复不会显示在此——请通过 Telegram 联系我们。</value></data>
+  <data name="ChatConsentPrefix" xml:space="preserve"><value>发送消息即表示您同意我们处理相关数据，详见</value></data>
+  <data name="ChatNoPersonal" xml:space="preserve"><value>请勿在此发送护照或支付信息。</value></data>
   <data name="ContactHint" xml:space="preserve"><value>哪种方式更方便？</value></data>
   <data name="ContactTelegram" xml:space="preserve"><value>通过 Telegram 联系我们</value></data>
   <data name="ContactMax" xml:space="preserve"><value>通过 MAX 联系我们</value></data>
@@ -253,7 +273,23 @@
   <data name="MapApatity" xml:space="preserve"><value>阿帕季特</value></data>
   <data name="HeroTitleSub" xml:space="preserve"><value>从北极苔原到北冰洋海岸</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>行程安排</value></data>
+  <data name="HighlightsTitle" xml:space="preserve"><value>等待您的风景</value></data>
+  <data name="HighlightsSubtitle" xml:space="preserve"><value>值得亲眼一见的北方——滑动浏览或静静欣赏</value></data>
+  <data name="HeroSlide1Alt" xml:space="preserve"><value>夏日捷里别尔卡湾畔木屋旁的“天涯海角”路牌</value></data>
+  <data name="HeroSlide2Alt" xml:space="preserve"><value>夕阳下的捷里别尔卡湾、村庄与灯塔</value></data>
+  <data name="HeroSlide3Alt" xml:space="preserve"><value>捷里别尔卡船舶墓地的木船残骸</value></data>
+  <data name="HeroSlide4Alt" xml:space="preserve"><value>溪流穿过岩石峡谷流向巴伦支海</value></data>
+  <data name="HeroSlide5Alt" xml:space="preserve"><value>低垂的冬日太阳照耀积雪的苔原山丘</value></data>
+  <data name="HeroSlide6Alt" xml:space="preserve"><value>蓝色暮色中雪原上的风力发电机</value></data>
+  <data name="HeroSlide7Alt" xml:space="preserve"><value>捷里别尔卡雪岸上布满涂鸦的锈船</value></data>
+  <data name="HeroSlide11Alt" xml:space="preserve"><value>巴伦支海石滩上的冬季海浪</value></data>
+  <data name="HeroSlide12Alt" xml:space="preserve"><value>捷里别尔卡附近雪原上的暴风雪</value></data>
+  <data name="HeroSlide13Alt" xml:space="preserve"><value>积雪山丘间的巴伦支海冬日海湾</value></data>
+  <data name="HeroSlide8Alt" xml:space="preserve"><value>出海途中掌心里的海胆</value></data>
+  <data name="HeroSlide9Alt" xml:space="preserve"><value>海岸海带丛中的海螺</value></data>
+  <data name="HeroSlide10Alt" xml:space="preserve"><value>海带上的新鲜海胆、扇贝与海星</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游：巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地。包含接送与向导。</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>科拉半岛、北极光与巴伦支海上的鲸鱼</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>为什么跟我们出发更方便</value></data>
   <data name="Why1Title" xml:space="preserve"><value>一天看遍主要景点</value></data>
   <data name="Why1Text" xml:space="preserve"><value>无需自己做攻略，我们已安排好核心路线</value></data>
@@ -266,6 +302,7 @@
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克、阿帕季特或基洛夫斯克往返接送</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>向导、主要停靠点与海鲜午餐</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>根据季节和天气调整行程</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>细节都为您想好：温暖的车厢、热茶，以及出行装备建议</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>提交申请无需预付，也不强制预订</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>不止捷里别尔卡</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>其他路线</value></data>
@@ -288,8 +325,6 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>新鲜鳕鱼、扇贝和鱼汤——返程前在捷里别尔卡享用午餐。</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>返回摩尔曼斯克</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>全天游览结束后返回市区，并送至约定地点。</value></data>
-  <data name="MidCta" xml:space="preserve"><value>查询可选日期</value></data>
-  <data name="MidCtaNote" xml:space="preserve"><value>我们将确认路线开放情况和团队价格</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>不同季节的捷里别尔卡</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>每个季节都有不同的北方，我们帮您选择。</value></data>
   <data name="Season1Title" xml:space="preserve"><value>十一月—四月</value></data>

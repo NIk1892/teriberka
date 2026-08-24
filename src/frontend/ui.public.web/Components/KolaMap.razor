@@ -39,7 +39,12 @@
             L 20 484 Z"/>
 
         <!-- подписи географии -->
-        <text class="map-sea" x="400" y="62">@L["MapSeaNorth"]</text>
+        @* Надпись лежит в воде вдоль северо-восточного берега (наклон ~ под углом
+           побережья Териберка → Дальние Зеленцы): text-anchor у .map-sea — middle,
+           так что горизонтальная надпись с центром правее Териберки левым краем
+           заезжала на сушу. SVG-transform тут безопасен — ловушка с containing
+           block касается только HTML-оверлеев (.map-spot и родни). *@
+        <text class="map-sea" x="455" y="140" transform="rotate(20 455 140)">@L["MapSeaNorth"]</text>
         <text class="map-sea" x="420" y="500">@L["MapSeaSouth"]</text>
         <text class="map-peninsula" x="360" y="330">@L["MapPeninsula"]</text>
         <text class="map-geo" x="143" y="44">@L["MapRybachy"]</text>

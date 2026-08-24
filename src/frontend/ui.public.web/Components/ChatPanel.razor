@@ -1,0 +1,136 @@
+@using System.Globalization
+@using Chat.Contracts
+@using Domain
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Chat
+@inject IStringLocalizer<SharedResource> L
+@inject IMediator Mediator
+@inject NavigationManager Navigation
+@inject ChatSchedule Schedule
+
+@* Панель чата с гидом. Живёт рядом с кнопкой связи и открывается её пунктом.
+
+   Без JavaScript: пункт — обычная ссылка ?chat=open, панель рендерится сервером
+   вместе с историей, отправка идёт POST'ом на /chat/send и возвращается сюда же
+   (post-redirect-get). С JavaScript chat.js открывает её на месте и опрашивает
+   /chat/poll, не перезагружая страницу.
+
+   История подтягивается только когда панель открыта: иначе каждый рендер каждой
+   страницы ходил бы в chat-сервис. *@
+
+<section class="chat-panel @(IsOpen ? "is-open" : "")" id="chat"
+         aria-label="@L["ChatTitle"]" data-after="@LastOrdinal"
+         data-error="@L["ChatErrorGeneric"]" data-too-many="@L["ChatErrorTooMany"]">
+    <header class="chat-head">
+        <span class="chat-title">@L["ChatTitle"]</span>
+        <span class="chat-status @(Schedule.IsOnline() ? "is-online" : "is-offline")">
+            @(Schedule.IsOnline() ? L["ChatOnline"] : L["ChatOffline"])
+        </span>
+        @* Без JS закрытие — переход по адресу без ?chat; скрипт перехватывает клик. *@
+        <a class="chat-close" href="@ChatPaths.Clean(CurrentPath)"
+           title="@L["ChatClose"]" aria-label="@L["ChatClose"]">×</a>
+    </header>
+
+    @* тексты для chat.js: inline-скрипт запрещён CSP, поэтому строки едут data-атрибутами *@
+    <ol class="chat-log" role="log" aria-live="polite" aria-relevant="additions"
+        data-you="@L["ChatYou"]" data-guide="@L["ChatGuide"]">
+        @if (_history.Count == 0)
+        {
+            <li class="chat-empty">@L["ChatEmpty"]</li>
+        }
+        @foreach (var message in _history)
+        {
+            <li class="chat-msg @(message.Direction == ChatDirection.Admin ? "from-guide" : "from-you")">
+                <span class="chat-who">@(message.Direction == ChatDirection.Admin ? L["ChatGuide"] : L["ChatYou"])</span>
+                <span class="chat-text">@message.Text</span>
+            </li>
+        }
+    </ol>
+
+    @if (_failed)
+    {
+        <p class="chat-warn" role="alert">@L["ChatErrorGeneric"]</p>
+    }
+    else if (State == ChatPaths.Error)
+    {
+        <p class="chat-warn" role="alert">@L["ChatErrorGeneric"]</p>
+    }
+    else if (_cookiesOff)
+    {
+        <p class="chat-warn" role="alert">@L["ChatErrorCookies"]</p>
+    }
+
+    <form class="chat-form" method="post" action="/chat/send">
+        <AntiforgeryToken />
+        <input type="hidden" name="redirect" value="@CurrentPath" />
+        @* honeypot: спрятан классом, потому что inline style запрещён CSP *@
+        <input class="hp-field" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="sr-only" for="chat-text">@L["ChatPlaceholder"]</label>
+        <textarea id="chat-text" name="text" rows="2" maxlength="@ChatLimits.MaxTextLength" required
+                  placeholder="@L["ChatPlaceholder"]"></textarea>
+        <button class="chat-send" type="submit" title="@L["ChatSend"]" aria-label="@L["ChatSend"]">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z" />
+            </svg>
+        </button>
+    </form>
+
+    <p class="chat-note">
+        @L["ChatConsentPrefix"] <a href="/privacy" target="_blank" rel="noopener">@L["ConsentPolicyLink"]</a>.
+        @L["ChatNoPersonal"]
+    </p>
+
+    @* Без JS новые ответы забираются перезагрузкой; chat.js прячет эту ссылку. *@
+    <a class="chat-refresh" href="@ChatPaths.WithOpen(CurrentPath)">@L["ChatRefresh"]</a>
+</section>
+
+@code {
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    private IReadOnlyCollection<ChatMessageDto> _history = [];
+    private bool _failed;
+    private bool _cookiesOff;
+
+    /// <summary>Состояние из адреса: open — панель раскрыта, error — отправка не удалась.</summary>
+    private string? State => HttpContext?.Request.Query[ChatPaths.Parameter].ToString();
+
+    private bool IsOpen => State is ChatPaths.Open or ChatPaths.Error;
+
+    private string CurrentPath => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+
+    /// <summary>Курсор для поллинга: с какого номера просить новые сообщения.</summary>
+    private int LastOrdinal => _history.Count > 0 ? _history.Max(message => message.Ordinal) : 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!IsOpen)
+            return;
+
+        var token = HttpContext?.Request.Cookies[ChatCookie.Name];
+
+        if (string.IsNullOrEmpty(token))
+        {
+            // Панель открыта, но токена нет: либо диалога ещё не было, либо cookie
+            // отключены. Предупреждаем только после отправки — до неё это норма.
+            _cookiesOff = State == ChatPaths.Error;
+            return;
+        }
+
+        try
+        {
+            _history = await Mediator.Send(new ChatMessageListQuery
+            {
+                Token = token,
+                After = 0,
+                Limit = ChatLimits.PageSize
+            });
+        }
+        catch (Exception)
+        {
+            // chat недоступен — панель всё равно должна открыться и дать написать
+            _failed = true;
+        }
+    }
+}

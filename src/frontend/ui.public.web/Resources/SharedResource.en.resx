@@ -5,14 +5,14 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
-  <data name="Brand" xml:space="preserve"><value>Kola North</value></data>
+  <data name="Brand" xml:space="preserve"><value>TeriberkaKray</value></data>
   <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — Kola North</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
   <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk, Apatity and Kirovsk</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Teriberka in one day.</value></data>
   <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Check available dates</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Book now</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
 
@@ -139,6 +139,10 @@
   <data name="NavGuides" xml:space="preserve"><value>Guides</value></data>
   <data name="NavReviews" xml:space="preserve"><value>Reviews</value></data>
   <data name="NavApply" xml:space="preserve"><value>Book now</value></data>
+  <data name="NavGallery" xml:space="preserve"><value>Gallery</value></data>
+  <data name="GalleryTitle" xml:space="preserve"><value>Gallery</value></data>
+  <data name="SoonText" xml:space="preserve"><value>This section is still in the works. Photos from our trips are coming soon — meanwhile you'll find place photos on the destination pages.</value></data>
+  <data name="SoonBack" xml:space="preserve"><value>Back to the homepage</value></data>
   <data name="FooterContactsTitle" xml:space="preserve"><value>Contacts</value></data>
   <data name="BotLink" xml:space="preserve"><value>Our Telegram bot</value></data>
   <data name="MenuLabel" xml:space="preserve"><value>Menu</value></data>
@@ -177,6 +181,22 @@
   <data name="ScrollBottom" xml:space="preserve"><value>To the bottom</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Contact us</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Any questions?</value></data>
+  <data name="ContactPhone" xml:space="preserve"><value>Call us</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Chat with the guide</value></data>
+  <data name="ChatOnline" xml:space="preserve"><value>We usually reply within a few minutes</value></data>
+  <data name="ChatOffline" xml:space="preserve"><value>We're offline — we'll reply in the morning</value></data>
+  <data name="ChatClose" xml:space="preserve"><value>Close the chat</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Ask a question — the guide will answer right here.</value></data>
+  <data name="ChatYou" xml:space="preserve"><value>You</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Guide</value></data>
+  <data name="ChatPlaceholder" xml:space="preserve"><value>Ask about the tour…</value></data>
+  <data name="ChatSend" xml:space="preserve"><value>Send</value></data>
+  <data name="ChatRefresh" xml:space="preserve"><value>Refresh the conversation</value></data>
+  <data name="ChatErrorGeneric" xml:space="preserve"><value>Couldn't send the message. Please try again.</value></data>
+  <data name="ChatErrorTooMany" xml:space="preserve"><value>Too many messages. Please wait a minute.</value></data>
+  <data name="ChatErrorCookies" xml:space="preserve"><value>Cookies seem to be disabled: we'll get your message, but the reply won't show up here — write to us on Telegram.</value></data>
+  <data name="ChatConsentPrefix" xml:space="preserve"><value>By sending a message you agree to the processing of your data — see the</value></data>
+  <data name="ChatNoPersonal" xml:space="preserve"><value>Please don't send passport or payment details here.</value></data>
   <data name="ContactHint" xml:space="preserve"><value>Pick a channel</value></data>
   <data name="ContactTelegram" xml:space="preserve"><value>Message us on Telegram</value></data>
   <data name="ContactMax" xml:space="preserve"><value>Message us on MAX</value></data>
@@ -253,7 +273,23 @@
   <data name="MapApatity" xml:space="preserve"><value>Apatity</value></data>
   <data name="HeroTitleSub" xml:space="preserve"><value>From Arctic tundra to the shore of the Arctic Ocean</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>Day’s programme</value></data>
+  <data name="HighlightsTitle" xml:space="preserve"><value>What awaits you</value></data>
+  <data name="HighlightsSubtitle" xml:space="preserve"><value>The North you will want to see with your own eyes — swipe or just watch</value></data>
+  <data name="HeroSlide1Alt" xml:space="preserve"><value>“Edge of the Earth” sign by a log hut above Teriberka Bay in summer</value></data>
+  <data name="HeroSlide2Alt" xml:space="preserve"><value>Teriberka Bay, the village and the lighthouse in sunset light</value></data>
+  <data name="HeroSlide3Alt" xml:space="preserve"><value>Wooden shipwrecks at the ship graveyard in Teriberka</value></data>
+  <data name="HeroSlide4Alt" xml:space="preserve"><value>Rocky gorge with a stream running down to the Barents Sea</value></data>
+  <data name="HeroSlide5Alt" xml:space="preserve"><value>Low winter sun over snow-covered tundra hills</value></data>
+  <data name="HeroSlide6Alt" xml:space="preserve"><value>Wind turbines in snowy tundra at blue dusk</value></data>
+  <data name="HeroSlide7Alt" xml:space="preserve"><value>A rusty graffiti-covered ship on the snowy shore of Teriberka</value></data>
+  <data name="HeroSlide11Alt" xml:space="preserve"><value>Winter surf at the stone beach of the Barents Sea</value></data>
+  <data name="HeroSlide12Alt" xml:space="preserve"><value>A blizzard over the snowy tundra near Teriberka</value></data>
+  <data name="HeroSlide13Alt" xml:space="preserve"><value>A winter cove of the Barents Sea among snow-covered hills</value></data>
+  <data name="HeroSlide8Alt" xml:space="preserve"><value>A sea urchin in the palm of a hand during a boat trip</value></data>
+  <data name="HeroSlide9Alt" xml:space="preserve"><value>A whelk shell among kelp on the shore</value></data>
+  <data name="HeroSlide10Alt" xml:space="preserve"><value>Fresh sea urchins, scallops and a starfish on kelp</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>One-day Teriberka tour from Murmansk: the Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard. Transfer and guide included.</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>The Kola Peninsula, northern lights and a whale over the Barents Sea</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Why travel with us</value></data>
   <data name="Why1Title" xml:space="preserve"><value>Key sights in one day</value></data>
   <data name="Why1Text" xml:space="preserve"><value>a ready-made route with no planning required on your part</value></data>
@@ -266,6 +302,7 @@
   <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk, Apatity or Kirovsk</value></data>
   <data name="HeroFact2" xml:space="preserve"><value>Guide, route stops and a seafood lunch</value></data>
   <data name="HeroFact3" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>We take care of the details: a warm van, hot tea and advice on what to pack</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>No prepayment or obligation to enquire</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Beyond Teriberka</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Other routes</value></data>
@@ -288,8 +325,6 @@
   <data name="Itinerary5Text" xml:space="preserve"><value>Fresh cod, scallops and fish soup — lunch in Teriberka before the drive back.</value></data>
   <data name="Itinerary6Title" xml:space="preserve"><value>Return to Murmansk</value></data>
   <data name="Itinerary6Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
-  <data name="MidCta" xml:space="preserve"><value>Check available dates</value></data>
-  <data name="MidCtaNote" xml:space="preserve"><value>We will confirm route availability and the price for your group</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>November — April</value></data>

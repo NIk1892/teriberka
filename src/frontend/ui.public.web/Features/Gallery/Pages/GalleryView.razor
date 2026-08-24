@@ -1,0 +1,28 @@
+@page "/gallery"
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Layouts
+@layout MainLayout
+@inject IStringLocalizer<SharedResource> L
+
+@* Заглушка раздела: страница есть, содержимого пока нет. Noindex — пустой
+   раздел в выдаче только вредит; когда появятся фотографии, снять Noindex
+   и добавить путь в sitemap (SeoUrls). *@
+
+<PageTitle>@L["GalleryTitle"] · @L["Brand"]</PageTitle>
+<PageMeta Noindex />
+
+<section class="section">
+    <div class="container soon">
+        <span class="soon-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor"
+                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <circle cx="12" cy="12" r="3.2" />
+                <path d="M7.5 5 9 3h6l1.5 2" />
+            </svg>
+        </span>
+        <h1>@L["GalleryTitle"]</h1>
+        <p class="soon-lead">@L["SoonText"]</p>
+        <a class="btn" href="/">@L["SoonBack"]</a>
+    </div>
+</section>
