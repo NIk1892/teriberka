@@ -1,6 +1,5 @@
 @page "/"
 @using UI.Public.Web.Layouts
-@using UI.Public.Web.Features.Home
 @using UI.Public.Web.Features.Places
 @using UI.Public.Web.Features.Seo
 @using UI.Public.Web.Components
@@ -8,7 +7,6 @@
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
 @inject SeoUrls Seo
-@inject IWebHostEnvironment Env
 
 <PageTitle>@L["PageTitle"]</PageTitle>
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
@@ -36,63 +34,44 @@
         </div>
 
         <div class="hero-visual" data-speed="0.16">
-            @* Только карта (вернулись к этому 24.08.2026 после эксперимента с
-               фото-каруселью в hero: они тесни́ли друг друга; фото уехали в полосу
-               «Что вас ждёт» сразу под hero). *@
             <div class="hero-map">
                 <KolaMap />
                 <p class="map-hint">@L["MapHint"]</p>
             </div>
         </div>
 
-        @* Полоса «Что вас ждёт» — часть hero-грида (решение владельца 24.08.2026):
-           на мобиле она стоит МЕЖДУ картой и кнопками — вся витрина (оффер → карта →
-           фото) идёт до действия; на десктопе grid-area растягивает её во всю ширину
-           под колонками. Механика галерей мест: scroll-snap + carousel.js, автопрокрут
-           по data-autoplay, тонировка .photo-strip::after вписывает кадры в тему.
-           Подписи на кадрах были и убраны владельцем 24.08.2026 — текст спорил
-           с сюжетом; alt-тексты остались. Файлы 5:4 (1500×1200) кропаются CSS в ленту 21:9;
-           ?v=2 в src — аспект менялся при тех же именах (кеш картинок 30 дней).
-           Кредиты фото — в HeroSlides. *@
-        <div class="hero-highlights" id="highlights">
+        @* Карточки мест Териберки. id=places — якорь шапки. *@
+        <section class="hero-places" id="places">
             <div class="section-head">
-                <h2>@L["HighlightsTitle"]</h2>
-                <p>@L["HighlightsSubtitle"]</p>
+                <h2>@L["PlacesTitle"]</h2>
+                <p>@L["PlacesSubtitle"]</p>
             </div>
-            <div class="photo-strip carousel-wrap" data-autoplay="5000">
-                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-                <div class="photo-strip-track carousel-track">
-                    @for (var n = 0; n < HeroSlides.All.Length; n++)
-                    {
-                        @* Фото кладёт владелец (см. HeroSlides); пока файла нет — заглушка,
-                           а не битая картинка. ?v=3 — прежние файлы под теми же именами
-                           уже могли осесть в 30-дневном кеше. *@
-                        var slide = HeroSlides.All[n];
-                        var slideFile = Path.Combine(Env.WebRootPath, slide.ImagePath.TrimStart('/'));
-                        var slideSrc = File.Exists(slideFile) ? slide.ImagePath + "?v=4" : "/img/placeholder.svg";
-                        <figure class="photo-slide @(slide.Portrait ? "photo-slide-portrait" : null)">
-                            @if (slide.Portrait)
-                            {
-                                @* размытая копия кадра заливает поля по бокам вертикального фото *@
-                                <img class="photo-slide-bg" src="@slideSrc" alt="" aria-hidden="true"
-                                     width="1200" height="1500" loading="lazy" decoding="async" />
-                            }
-                            <img src="@slideSrc" alt="@L[slide.AltKey]"
-                                 width="@(slide.Portrait ? 1200 : 1500)" height="@(slide.Portrait ? 1500 : 1200)"
-                                 fetchpriority="@(n == 0 ? "high" : null)"
-                                 loading="@(n == 0 ? null : "lazy")" decoding="async" />
-                        </figure>
-                    }
-                </div>
-                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+            @* На ≤560px сетка становится каруселью по одной карточке во всю ширину
+               (владелец, 24.08.2026: «половинка» соседней карточки читалась как обрез);
+               стрелки — carousel.js, на широких экранах скрыты, там обычная сетка. *@
+            <div class="places-carousel carousel-wrap">
+            <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+            <div class="places-grid carousel-track">
+                @foreach (var idx in PlaceCatalog.Directions[0].PlaceIndexes)
+                {
+                    var place = PlaceCatalog.ByIndex(idx);
+                    <a class="place-card" href="/place/@place.Slug">
+                        <span class="place-photo">
+                            <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                        </span>
+                        <span class="place-body">
+                            <strong class="place-title">@L[$"Place{idx}Title"]</strong>
+                            <span class="place-text">@L[$"Place{idx}Text"]</span>
+                            <span class="place-more">@L["PlaceMore"]</span>
+                        </span>
+                    </a>
+                }
             </div>
-        </div>
+            <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+            </div>
+        </section>
 
-        @* Кнопки и цена закрывают всю витрину — идут после карты и фото и на мобиле,
-           и на десктопе (там — во всю ширину по центру; решение владельца 24.08.2026).
-           Порядок «посмотрел всё → записался»; ранний CTA всё время дублирует
-           .header-apply / .nav-apply в шапке. Тот же data-speed, что у .hero-copy.
-           Два пути: готовые — к форме, сомневающиеся — к программе дня. *@
+        @* Кнопки и цена закрывают витрину. На десктопе — во всю ширину по центру. *@
         <div class="hero-cta" data-speed="0.07">
             <div class="hero-actions">
                 <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
@@ -115,7 +94,7 @@
         </div>
         <ol class="itinerary-list">
             @* Миниатюры мест у шагов были и убраны владельцем 24.08.2026 — программа
-               дня остаётся текстовой, фото живут в полосе «Что вас ждёт» и карточках мест. *@
+               дня остаётся текстовой, фото живут в карточках мест. *@
             @foreach (var i in Enumerable.Range(1, 6))
             {
                 <li>
@@ -131,38 +110,6 @@
            убран владельцем 24.08.2026): вход в форму и так всегда на виду — CTA под
            витриной hero, кнопка в шапке и виджет связи в углу. *@
         <p class="itinerary-note">@L["ItineraryNote"]</p>
-    </div>
-</section>
-
-<section class="section" id="places">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["PlacesTitle"]</h2>
-            <p>@L["PlacesSubtitle"]</p>
-        </div>
-        @* На ≤560px сетка становится каруселью по одной карточке во всю ширину
-           (владелец, 24.08.2026: «половинка» соседней карточки читалась как обрез);
-           стрелки — carousel.js, на широких экранах скрыты, там обычная сетка. *@
-        <div class="places-carousel carousel-wrap">
-        <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-        <div class="places-grid carousel-track">
-            @foreach (var idx in PlaceCatalog.Directions[0].PlaceIndexes)
-            {
-                var place = PlaceCatalog.ByIndex(idx);
-                <a class="place-card" href="/place/@place.Slug">
-                    <span class="place-photo">
-                        <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
-                    </span>
-                    <span class="place-body">
-                        <strong class="place-title">@L[$"Place{idx}Title"]</strong>
-                        <span class="place-text">@L[$"Place{idx}Text"]</span>
-                        <span class="place-more">@L["PlaceMore"]</span>
-                    </span>
-                </a>
-            }
-        </div>
-        <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
-        </div>
     </div>
 </section>
 

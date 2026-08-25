@@ -411,102 +411,21 @@ a { color: var(--accent-ice); }
     gap: 16px;
 }
 
-/* Полоса «Что вас ждёт» под hero: широкая фото-карусель (механика галерей мест —
-   scroll-snap + carousel.js, автопрокрут добавляет data-autoplay). Рамка и
-   скругление — на треке, а не на обёртке: обёртка (.carousel-wrap) не должна
-   резать стрелки, вынесенные за край. Ловушка та же, что у виджета связи:
-   на .photo-strip нельзя вешать transform — сломается позиционирование стрелок. */
-.photo-strip { margin: 0; }
-
-.photo-strip-track {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    background: var(--bg-elev);
-}
-
-.photo-strip-track::-webkit-scrollbar { display: none; }
-
-.photo-slide {
-    margin: 0;
-    position: relative;
-    overflow: hidden;
-    scroll-snap-align: start;
-    /* на телефоне лента 21:9 была слишком узкой (~140px) — 3:2; файлы 5:4
-       кропаются object-fit'ом в любой из аспектов */
-    aspect-ratio: 3 / 2;
-}
-
-.photo-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Вертикальный кадр (HeroSlides.Portrait): сам снимок — целиком по центру
-   (contain), а поля по бокам заливает его же размытая копия. Blur статичный,
-   не анимируется — правило «не анимировать filter» не нарушено. */
-.photo-slide-portrait .photo-slide-bg {
-    position: absolute;
-    inset: 0;
-    filter: blur(24px) brightness(.72) saturate(1.1);
-    transform: scale(1.15); /* прячет светлые края размытия */
-}
-
-.photo-slide-portrait img:not(.photo-slide-bg) {
-    position: relative;
-    object-fit: contain;
-}
-
-@media (min-width: 700px) {
-    /* широкая кинематографичная лента на планшете и десктопе */
-    .photo-slide { aspect-ratio: 21 / 9; }
-}
-
-/* Тонировка: холодный градиент сверху и виньетка снизу «уводят» любой кадр
-   в полярную ночь — дневные фото перестают светиться чужеродным пятном.
-   z-index 1 — поверх трека, но под стрелками (.car-btn — z-index 2). */
-.photo-strip::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    border-radius: var(--radius);
-    pointer-events: none;
-    background:
-        linear-gradient(180deg, rgb(7 14 26 / .28), rgb(7 14 26 / 0) 42%, rgb(7 14 26 / .42)),
-        rgb(64 190 175 / .07);
-}
-
-/* в «полярный день» кадрам темнеть почти не нужно — остаётся лёгкая виньетка */
-[data-theme="light"] .photo-strip::after {
-    background: linear-gradient(180deg, rgb(7 14 26 / .06), rgb(7 14 26 / 0) 42%, rgb(7 14 26 / .16));
-}
-
 @media (min-width: 960px) {
-    /* DOM-порядок (он же мобильный): текст → карта → фото → кнопки. На десктопе
-       текст и карта встают в две колонки, а фото-полоса и кнопки с ценой идут
-       во всю ширину под ними — CTA закрывает всю витрину (владелец, 24.08.2026),
-       поэтому он по центру, как на мобиле, а не прижат к левой колонке. */
+    /* DOM-порядок (он же мобильный): текст → карта → места → кнопки.
+       На десктопе текст и карта в две колонки, остальные ряды — во всю ширину. */
     .hero-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "copy visual"
-            "highlights highlights"
+            "places places"
             "cta cta";
         gap: 24px 44px;
         align-items: start;
     }
     .hero-copy { grid-area: copy; text-align: left; }
     .hero-visual { grid-area: visual; }
-    .hero-highlights { grid-area: highlights; margin-top: 16px; }
+    .hero-places { grid-area: places; margin-top: 8px; }
     .hero-cta { grid-area: cta; margin-top: 8px; }
     .hero-copy h1 { margin-inline: 0; }
     .hero-copy .hero-text { margin-inline: 0; }
@@ -949,14 +868,18 @@ html.js-parallax .parallax-band .container {
     scroll-margin-top: 70px;
 }
 
-/* Полоса «Что вас ждёт» живёт внутри hero-грида (см. Home.razor): на мобиле
-   стоит между картой и кнопками, на десктопе — во всю ширину под колонками.
-   Заголовку секции внутри hero большой нижний отступ не нужен. */
-.hero-highlights .section-head {
-    margin-inline: auto; /* блок max-width 640 стоит по центру над полосой — иначе
-                            hero-центрированный текст «плавал» внутри левого блока */
+.hero-places { scroll-margin-top: 70px; }
+
+.hero-places .section-head {
+    max-width: none;
+    margin-inline: auto;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.hero-places .section-head p {
+    max-width: 640px;
+    margin-inline: auto;
 }
 
 .section-head {
@@ -1078,6 +1001,19 @@ html.js-parallax .parallax-band .container {
     background: color-mix(in srgb, var(--bg-elev) 48%, transparent);
 }
 
+/* Заголовок на всю ширину контейнера — иначе max-width 640px оставляет
+   блок слева, и над двумя колонками он читается прижатым. Подводка
+   остаётся узкой, но тоже по центру. */
+.itinerary .section-head {
+    max-width: none;
+    text-align: center;
+}
+
+.itinerary .section-head p {
+    max-width: 640px;
+    margin-inline: auto;
+}
+
 .itinerary-list {
     display: grid;
     grid-template-columns: 1fr;
@@ -1126,6 +1062,7 @@ html.js-parallax .parallax-band .container {
     margin: 20px 0 0;
     color: var(--text-muted);
     font-size: .88rem;
+    text-align: center;
 }
 
 .more-routes {

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
 using UI.Public.Web.Features.Chat;
+using UI.Public.Web.Features.Media;
 using UI.Public.Web.Features.Seo;
 using UI.Shared;
 using UI.Shared.Interceptors;
@@ -43,6 +44,11 @@ builder.Services.AddRazorComponents();
 
 // Абсолютные URL для canonical/OG/sitemap строятся от SITE_URL (см. SeoUrls).
 builder.Services.AddSingleton<SeoUrls>();
+
+// Содержимое хранилища фото (полоса на главной и галерея). Список обновляется
+// в фоне: рендер страницы читает готовый снимок и в хранилище не ходит.
+builder.Services.AddSingleton<MediaCatalog>();
+builder.Services.AddHostedService<MediaRefresher>();
 
 // Часы работы чата: виджет честно говорит, ответят сейчас или утром.
 builder.Services.AddSingleton<ChatSchedule>();

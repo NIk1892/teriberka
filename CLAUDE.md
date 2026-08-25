@@ -17,10 +17,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```powershell
 dotnet build Teriberka.sln                # сборка решения (~20 c, 0 ошибок; ~150 warning'ов — норма)
 docker compose up -d postgres             # только БД для локальной разработки
-docker compose up --build                 # весь стек в контейнерах (БД + gateway + users + chat + UI)
+docker compose up --build                 # весь стек: БД + gateway + users + chat + UI + minio + nginx
+docker compose up -d minio minio-init     # только хранилище фото (консоль на http://localhost:9001)
 ```
 
-Фото для сайта: оригиналы владельца (HEIC/JPG с телефона) лежат в `src/frontend/temp/` (в .gitignore), конвертирует [tools/convert-photos.py](tools/convert-photos.py) — `python tools/convert-photos.py src/frontend/temp src/frontend/temp/webp --width 1600` (нужны `pip install pillow pillow-heif`; `--aspect 5:4` — кроп под слайды полосы «Что вас ждёт», уже готовые файлы пропускает). Отобранные кадры руками копировать в `wwwroot/img/` под нужными именами.
+В контейнерах сайт открывается на **http://localhost** (порт 80 через nginx), а не на :7002 — порт `ui-public` наружу больше не публикуется. Перед первым запуском скопировать `.env.example` в `.env` и заполнить пароли: без `MINIO_ROOT_PASSWORD` и `MEDIA_SECRET_KEY` compose откажется стартовать. Это намеренно — иначе хранилище поднялось бы с дефолтными креденшелами.
+
+Фото для сайта: оригиналы владельца (HEIC/JPG с телефона) лежат в `src/frontend/temp/` (в .gitignore), конвертирует [tools/convert-photos.py](tools/convert-photos.py) — `python tools/convert-photos.py src/frontend/temp src/frontend/temp/webp --width 1600` (нужны `pip install pillow pillow-heif`; `--aspect 5:4` — кроп под слайды полосы «Что вас ждёт», уже готовые файлы пропускает). Готовые кадры заливаются в хранилище (см. «Фото главной»), локальные копии в `wwwroot/img/` остаются фоллбеком.
 
 Локальный запуск сервисов — **обязательно с явным окружением**: `dotnet run` печатает «Using launch settings…», но переменные из `environmentVariables` профиля не применяет, поэтому окружение остаётся Production и `appsettings.Development.json` не читается. Симптомы: у users и chat — `The ConnectionString property has not been initialized`, у шлюза — 500 на любом запросе (`JWT_KEY` = null).
 
@@ -64,10 +67,13 @@ dotnet ef migrations add <Name> `
 ### Путь запроса
 
 ```
-браузер --POST form--> UI (Blazor SSR) --Mediator--> ApiCommandHandler --HTTP--> gateway --> users --> Postgres
-браузер --чат--------> UI (Blazor SSR) --Mediator--> ApiCommandHandler --HTTP--> gateway --> chat  --> Postgres
-                                                                                              chat  --> Telegram (группа гидов)
+браузер --POST form--> nginx --> UI (Blazor SSR) --Mediator--> ApiCommandHandler --HTTP--> gateway --> users --> Postgres
+браузер --чат--------> nginx --> UI (Blazor SSR) --Mediator--> ApiCommandHandler --HTTP--> gateway --> chat  --> Postgres
+                                                                                                       chat  --> Telegram (группа гидов)
+браузер --фото-------> nginx --> MinIO
 ```
+
+Наружу смотрит только nginx; всё остальное — во внутренней сети compose. Фото по `/media/*` **не проходят через Kestrel** вообще: они не тратят rate limit сайта и не участвуют в `UseStaticFiles`.
 
 Заявку сайт создаёт через открытый маршрут `/api/public/application/create`. Чтение заявок наружу отдаётся только через `/api/admin/application/list`, закрытый на шлюзе политикой `Admin`. Чат ходит в отдельный сервис через `/api/public/chat/*` (оба маршрута публичные — см. «Чат с посетителем»).
 
@@ -192,6 +198,32 @@ app.MediatePostCommand<ApplicationCreateCommand>("application", "create");  // P
 - Язык ответа в личке — по `Message.From.LanguageCode`: `ru` → русский, `zh*` → китайский, остальное и пустой тег → английский. Язык служебных сообщений **в группе** — из `TG_ADMIN_LANG` (группа одноязычная). Тексты — switch в [BotTexts.cs](src/backend/chat/service/Bot/BotTexts.cs), UI-локализация (resx) тут не используется.
 - Ссылка на бота в шапке сайта рендерится только при заданном `TG_BOT_URL` (в Development стоит плейсхолдер `https://t.me/kola_north_bot` — заменить на реальный username бота).
 
+### Фото главной: хранилище и reverse proxy
+
+Кадры полосы «Что вас ждёт» лежат **не в репозитории, а в хранилище** — владелец заливает их через веб-консоль MinIO, без коммита и пересборки сайта. Ради этого S3 и заведён; остальная статика (css, js, SVG-слои, `og.jpg`) остаётся в `wwwroot` и версионируется вместе с кодом — иначе появилось бы состояние «новая разметка + старый CSS».
+
+- **Раскладка бакета** — один префикс `hero/`, имена файлов ровно те же, что в [HeroSlides](src/frontend/ui.public.web/Features/Home/HeroSlides.cs) (`hero-edge.webp` и т.д.). Имя обязано быть в нижнем регистре из `a-z0-9-` и заканчиваться на `.webp`: кириллица, пробелы и верхний регистр дают percent-encoding и «файл залит, а на сайте его нет». Непринятые файлы [MediaCatalog](src/frontend/ui.public.web/Features/Media/MediaCatalog.cs) пишет в лог поимённо — искать причину молча не придётся.
+- **Как заливать**: `ssh -L 9001:127.0.0.1:9001 user@server` → `http://localhost:9001` → бакет `media` → папка `hero` → Upload. Консоль наружу не публикуется никогда, только через туннель.
+- **`MediaCatalog`** держит снимок содержимого бакета в памяти, обновляет его `MediaRefresher` раз в `MEDIA_REFRESH_MINUTES` (он же — задержка «залил → видно на сайте»). Ходить в хранилище на рендере нельзя: главная отрисовывается на каждый запрос. Хранилище недоступно — живёт прошлый снимок, страница не падает.
+- **Порядок источников в Home.razor**: объект в хранилище → одноимённый файл в `wwwroot/img` (так работает локальный `dotnet run` без докера) → `placeholder.svg`. Локальные копии кадров сознательно оставлены как фоллбек.
+- **Версия в URL** (`?v=<время изменения объекта>`) проставляется автоматически: картинки кэшируются на 30 суток, и без неё перезалитое под тем же именем фото посетитель увидел бы только через месяц. nginx проксирует в MinIO **только путь**, поэтому лишний параметр до хранилища не доходит. Правило «новое фото — новое имя» из-за этого не нужно.
+- **Пустой `MEDIA_ENDPOINT` выключает хранилище целиком** — сайт работает на локальных файлах. Та же идиома, что у `TG_BOT_URL` и `MAX_URL`.
+- **Единственная копия фото — том `minio_volume`.** Он уже терялся при перестроении compose; оригиналы держать у себя локально, плюс регулярный `mc mirror --overwrite local/media <куда-то>`.
+
+**nginx — единственная точка входа** ([infra/nginx/templates/default.conf.template](infra/nginx/templates/default.conf.template)): `/media/*` уходит в MinIO, всё остальное — в `ui-public`. Отсюда главное свойство: фото отдаются **с того же домена**, поэтому CSP (`img-src 'self' data:`) трогать не нужно и второй сертификат не нужен. Грабли, каждая из которых уже была наступлена:
+
+- **`proxy_set_header X-Forwarded-*` обязателен.** nginx, в отличие от Caddy, не ставит эти заголовки сам, а `USE_FORWARDED_HEADERS` у UI включён. Забудешь — Kestrel увидит адрес контейнера nginx, один на всех, и rate limiter станет общим счётчиком: шестая заявка за 5 минут словит 429 у всех подряд.
+- **Конфиг — шаблон, его прогоняет envsubst** (штатный механизм образа). `NGINX_ENVSUBST_FILTER: "^(SITE_|MEDIA_)"` в compose **обязателен**: без фильтра envsubst подставит пустые значения в переменные самого nginx (`$uri`, `$binary_remote_addr`, `$proxy_add_x_forwarded_for`), и конфиг молча станет нерабочим.
+- **`resolver 127.0.0.11` обязателен**, потому что в `proxy_pass` медиа есть переменная `$obj`: из-за неё nginx резолвит имя upstream'а на каждом запросе, а не на старте, и без резолвера отвечает 502 «no resolver defined to resolve minio».
+- **Защита маршрута — сама регулярка** `~* ^/media/(?<obj>.+\.webp)$`: перечисление бакета (`?list-type=2`), `.svg`, `.html` и подписанные ссылки в этот `location` просто не попадают и получают 404. Плюс `limit_except GET HEAD`. Порт 9000 (S3 API) не публикуется вовсе.
+- **`?` в конце `proxy_pass`** отбрасывает query — до MinIO она не доходит.
+- **`Content-Type` переопределяется только парой `proxy_hide_header` + `add_header`**: `add_header` сам по себе не заменяет заголовок, а MinIO при заливке некоторыми клиентами ставит `application/octet-stream`, и браузер тогда предлагает скачать файл вместо показа. По той же причине прячется чужой `X-Content-Type-Options` — иначе он придёт дважды.
+- **`add_header` без `always`** не попадает в ответы 4xx/5xx; **`add_header` внутри `location` отменяет унаследованные** из `server` — перечислять все нужные в каждом блоке.
+- **`Cache-Control` 30 суток, но без `immutable`**: версия в query и так решает вопрос, а `immutable` спрятал бы правку даже по Ctrl+F5.
+- **`server_tokens off`** убирает версию, но полностью снять заголовок `Server` стоковый nginx не умеет (нужен модуль `headers_more`, которого в официальном образе нет) — снаружи видно `Server: nginx`.
+- **`limit_req` на `/media`** (30 r/s, burst 60): маршрут публичный, фото весят сотни килобайт, без лимита их можно выкачивать в цикле. Это и было причиной выбрать nginx вместо Caddy.
+- **TLS ещё не включён.** В конфиге лежит готовый закомментированный блок `server { listen 443 ssl; }` и работающий `location /.well-known/acme-challenge/`. Порядок: A-запись на сервер → `SITE_DOMAIN` = домен → `certbot certonly --webroot -w /var/www/certbot -d домен` (первый заход с `--staging`: у Let's Encrypt лимит 5 неудач в час) → раскомментировать 443-блок → добавить редирект и сервис продления. **HSTS вписывать только в 443-блок**: на `http://localhost` он заставил бы браузер запомнить localhost как https-only и сломал бы прочие локальные проекты. Том `letsencrypt` терять нельзя.
+
 ### Данные
 
 Сущности разложены по сервисам. В users — `Application` (заявки, то, ради чего сайт) и `User` (эндпоинты `/api/admin/user/*` есть, но потребителей у них пока нет). В chat — `ChatSession` и `ChatMessage` (см. «Чат с посетителем»).
@@ -215,12 +247,12 @@ app.MediatePostCommand<ApplicationCreateCommand>("application", "create");  // P
 - **Antiforgery** — включён (`UseAntiforgery`), токен в форму добавляет `EditForm`.
 - **Валидация телефона** по формату, а не только по длине: поле уходит оператору и в бота, без формата форма становится каналом для спам-ссылок. Имя необязательно и ограничено длиной.
 - **Лимит тела запроса** в UI — 64 КБ (загрузок файлов нет). Появится загрузка — поднять.
-- **`USE_FORWARDED_HEADERS`** (по умолчанию `false`) включает `X-Forwarded-For`/`Proto`. Включать только когда сервис реально стоит за доверенным прокси и недоступен напрямую: иначе клиент сам подставит себе IP и обойдёт rate limiting. Без этого флага за прокси все клиенты выглядят одним IP.
+- **`USE_FORWARDED_HEADERS`** у UI в compose включён (`true`) — сайт стоит за nginx. Флаг и отсутствие публичного порта у `ui-public` **связаны намертво**: код делает `KnownProxies.Clear()`, то есть доверяет `X-Forwarded-For` от кого угодно, и стоит открыть порт наружу — любой обойдёт rate limiting одним заголовком. Без флага было бы не лучше: Kestrel видел бы адрес контейнера nginx, один на всех, и шестая заявка за 5 минут ловила бы 429 у всех подряд. Проверяется так: исчерпать лимит `/chat/poll` (40/мин) с одного адреса и тут же сходить с другого — второй должен получить 200.
 - **users и chat не должны торчать в интернет** — они никого не проверяют и доверяют вызывающему; в `docker-compose.yml` их порты (5012 и 5013) открыты только для локальной отладки.
 
 Согласие на обработку ПД и политика конфиденциальности **есть, но как заглушки** (добавлены 18.08.2026): чекбокс `.consent` в форме проверяется только в браузере (`required` + form-ui.js), в контракт не входит и сервером не валидируется; страница `/privacy` — честный черновик с фейковыми реквизитами (см. «Контент-плейсхолдеры»). Перед запуском: настоящий текст политики и реквизиты, при желании — серверная проверка согласия (поле в контракте + валидатор).
 
-Чего ещё нет и о чём стоит помнить: капчи или honeypot (rate limiting не спасает от распределённого спама), TLS-сертификата и реверс-прокси, бэкапов БД. `EnableSensitiveDataLogging` в EF не включён — включать нельзя, иначе телефоны попадут в логи.
+Чего ещё нет и о чём стоит помнить: капчи или honeypot (rate limiting не спасает от распределённого спама), бэкапов БД и хранилища фото, TLS-сертификата (реверс-прокси уже есть — nginx; включение TLS описано в разделе про него). `EnableSensitiveDataLogging` в EF не включён — включать нельзя, иначе телефоны попадут в логи.
 
 ### Остатки, которые ещё ни к чему не подключены
 
@@ -235,12 +267,14 @@ app.MediatePostCommand<ApplicationCreateCommand>("application", "create");  // P
 
 | Сервис | Ключи |
 |---|---|
-| UI | `API_URL`, `API_TOKEN`, `CONTACT_PHONE` (пункт «Позвонить» в виджете; пусто → пункта нет), `CHAT_HOURS` / `CHAT_TZ` (часы работы чата; по умолчанию 09:00-21:00 и Europe/Moscow), `TG_BOT_URL` (ссылка в шапке и пункт виджета связи; пусто → нет ни того, ни другого), `MAX_URL` (пункт MAX в виджете связи; пусто → пункта нет), `SITE_URL` (база canonical/OG/sitemap; пусто → абсолютные SEO-ссылки отключены), `USE_FORWARDED_HEADERS` |
+| UI | `API_URL`, `API_TOKEN`, `CONTACT_PHONE` (пункт «Позвонить» в виджете; пусто → пункта нет), `CHAT_HOURS` / `CHAT_TZ` (часы работы чата; по умолчанию 09:00-21:00 и Europe/Moscow), `TG_BOT_URL` (ссылка в шапке и пункт виджета связи; пусто → нет ни того, ни другого), `MAX_URL` (пункт MAX в виджете связи; пусто → пункта нет), `SITE_URL` (база canonical/OG/sitemap; пусто → абсолютные SEO-ссылки отключены), `USE_FORWARDED_HEADERS`, `MEDIA_ENDPOINT` (адрес S3; пусто → фото берутся из wwwroot), `MEDIA_BUCKET`, `MEDIA_PUBLIC_PATH` (путь, по которому nginx отдаёт бакет), `MEDIA_ACCESS_KEY` / `MEDIA_SECRET_KEY` (учётка только на чтение), `MEDIA_REFRESH_MINUTES` |
 | gateway | `JWT_ISSUER`, `JWT_KEY`, `UI_APP_URL` (белый список CORS), `USE_FORWARDED_HEADERS` |
 | users | `DB_READ_CONNECTION_STRING`, `DB_WRITE_CONNECTION_STRING`, `HTTP_PORT` |
 | chat | `DB_READ_CONNECTION_STRING`, `DB_WRITE_CONNECTION_STRING` (схема `chat`), `HTTP_PORT`, `TG_BOT_TOKEN` (пусто → бот выключен), `TG_ADMIN_CHAT_ID` (группа гидов; пусто → сообщения сохраняются, но не уходят), `TG_ADMIN_LANG` (язык служебных сообщений в группе, по умолчанию `ru`), `CHAT_RETENTION_DAYS` (срок хранения переписки, по умолчанию 90; `0` и меньше выключают чистку), `SITE_URL` (куда ведёт кнопка бота) |
+| minio | `MINIO_ROOT_USER`, `MINIO_ROOT_PASSWORD` (обязательны — без них compose не стартует) |
+| nginx | `SITE_DOMAIN` (`localhost` в разработке, домен в проде), `MEDIA_BUCKET`, `MEDIA_MAX_AGE`, `NGINX_ENVSUBST_FILTER` (не менять) |
 | все | `OTLP_EXPORT_ENABLED`, `OTLP_RECEIVER_ENDPOINT_HTTP`, `OTLP_RECEIVER_ENDPOINT_GRPC`, `LOGGING_MIN_LEVEL` |
 
-Dev-значение `JWT_KEY` лежит в репозитории для локального запуска — в реальном развёртывании задаётся через окружение.
+Пароли хранилища живут в `.env` (он в `.gitignore`), шаблон — `.env.example`. Dev-значение `JWT_KEY` лежит в репозитории для локального запуска — в реальном развёртывании задаётся через окружение.
 
 Сборка: `Directory.Build.props` задаёт `net10.0` / `LangVersion 14` / nullable / implicit usings; `src/backend/Directory.Build.props` добавляет `Mediator.SourceGenerator` и `EFCore.Design` во все Web-SDK проекты бэкенда. Версии пакетов — только в `Directory.Packages.props`, там намеренно нет неиспользуемых зависимостей.

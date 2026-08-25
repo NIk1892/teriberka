@@ -1,25 +1,30 @@
+# Наружу смотрит только caddy (80/443). Порты остальных сервисов привязаны к
+# 127.0.0.1 и нужны исключительно для отладки с самой машины: users и chat никого
+# не авторизуют, а Postgres ходит с dev-паролем — публиковать их нельзя.
 services:
   postgres:
     image: postgres:17.6
     container_name: teriberka-postgres
+    restart: unless-stopped
     command: postgres -c 'max_connections=50' -p 5432 -c 'track_commit_timestamp=on'
     environment:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "platform"
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - db_volume:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
   api-gateway:
     image: teriberka-api-gateway
+    restart: unless-stopped
     build:
       context: .
       dockerfile: src/backend/gateway/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      UI_APP_URL: "http://localhost:7002,http://localhost:7100"
+      UI_APP_URL: "${SITE_URL:-http://localhost}"
       JWT_ISSUER: "http://localhost:5000"
       JWT_KEY: "TTlsGWhaANa47dV8uAFVQLVqaVxtV6cDbGzB8lbLvM0"
       OTLP_EXPORT_ENABLED: "false"
@@ -30,13 +35,14 @@ services:
       SwaggerEndpoints__users: "http://api-users:8080/swagger/v1/swagger.json"
       SwaggerEndpoints__chat: "http://api-chat:8080/swagger/v1/swagger.json"
     ports:
-      - "5000:8080"
+      - "127.0.0.1:5000:8080"
     depends_on:
       - api-users
       - api-chat
 
   api-users:
     image: teriberka-api-users
+    restart: unless-stopped
     build:
       context: .
       dockerfile: src/backend/users/service/Dockerfile
@@ -50,12 +56,13 @@ services:
     # Порт открыт только для локальной отладки: сервис не проверяет авторизацию и доверяет
     # вызывающему, поэтому в реальном развёртывании публиковать его наружу нельзя.
     ports:
-      - "5012:8080"
+      - "127.0.0.1:5012:8080"
     depends_on:
       - postgres
 
   api-chat:
     image: teriberka-api-chat
+    restart: unless-stopped
     build:
       context: .
       dockerfile: src/backend/chat/service/Dockerfile
@@ -70,25 +77,71 @@ services:
       # но в группу гидов ничего не уезжает.
       TG_BOT_TOKEN: "${TG_BOT_TOKEN:-}"
       # Приватная группа гидов, куда уходят сообщения посетителей. Как узнать id:
-      # добавить бота в группу и посмотреть строку «Бота добавили в чат …» в логе.
+      # добавить бота в группу и посмотреть строку про добавление в чат в логе.
       TG_ADMIN_CHAT_ID: "${TG_ADMIN_CHAT_ID:-}"
       # Язык служебных сообщений в группе (к языку посетителя отношения не имеет).
       TG_ADMIN_LANG: "ru"
       # Срок хранения переписки; по нему идёт жёсткое удаление персональных данных.
       CHAT_RETENTION_DAYS: "90"
       # Куда бот ведёт кнопкой «Открыть сайт».
-      SITE_URL: "http://localhost:7002"
+      SITE_URL: "${SITE_URL:-http://localhost}"
     expose:
       - "8080"
     # ВАЖНО: масштабировать этот сервис нельзя — long polling Telegram должен работать
     # ровно в одном экземпляре, иначе апдейты начнут теряться.
     ports:
-      - "5013:8080"
+      - "127.0.0.1:5013:8080"
     depends_on:
       - postgres
 
+  # Хранилище фото. S3 API (9000) наружу не публикуется вовсе — картинки отдаёт
+  # Caddy по пути /media/*, то есть с адреса самого сайта.
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: teriberka-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: "${MINIO_ROOT_USER:?set MINIO_ROOT_USER in .env}"
+      MINIO_ROOT_PASSWORD: "${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD in .env}"
+      # MINIO_DOMAIN намеренно не задан: обращаемся только path-style (/media/hero/...).
+      MINIO_BROWSER_REDIRECT_URL: "http://localhost:9001"
+    volumes:
+      - minio_volume:/data
+    expose:
+      - "9000"
+    # Консоль — только с самой машины. В интернет не публикуется никогда:
+    # снаружи заходить через `ssh -L 9001:127.0.0.1:9001 user@server`.
+    ports:
+      - "127.0.0.1:9001:9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # Разовая настройка бакета и политик. Скрипт идемпотентный, поэтому запускается
+  # при каждом up и просто ничего не делает, если всё уже создано.
+  minio-init:
+    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
+    container_name: teriberka-minio-init
+    restart: "no"
+    environment:
+      MINIO_ROOT_USER: "${MINIO_ROOT_USER:?}"
+      MINIO_ROOT_PASSWORD: "${MINIO_ROOT_PASSWORD:?}"
+      MEDIA_BUCKET: "${MEDIA_BUCKET:-media}"
+      MEDIA_ACCESS_KEY: "${MEDIA_ACCESS_KEY:?set MEDIA_ACCESS_KEY in .env}"
+      MEDIA_SECRET_KEY: "${MEDIA_SECRET_KEY:?set MEDIA_SECRET_KEY in .env}"
+    volumes:
+      - ./infra/minio:/init:ro
+    entrypoint: ["/bin/sh", "/init/init.sh"]
+    depends_on:
+      minio:
+        condition: service_healthy
+
   ui-public:
     image: teriberka-ui-public
+    restart: unless-stopped
     build:
       context: .
       dockerfile: src/frontend/ui.public.web/Dockerfile
@@ -103,11 +156,56 @@ services:
       MAX_URL: "${MAX_URL:-https://max.ru/kola_north}"
       # База для canonical/og:url/sitemap; в проде заменить на реальный домен.
       # Пустое значение просто отключает абсолютные SEO-ссылки (см. SeoUrls).
-      SITE_URL: "http://localhost:7002"
-    ports:
-      - "7002:8080"
+      SITE_URL: "${SITE_URL:-http://localhost}"
+      # Хранилище фото. Пустой MEDIA_ENDPOINT выключает работу с S3 — тогда
+      # полоса на главной берёт кадры из wwwroot/img, как раньше.
+      MEDIA_ENDPOINT: "http://minio:9000"
+      MEDIA_BUCKET: "${MEDIA_BUCKET:-media}"
+      MEDIA_PUBLIC_PATH: "/media"
+      MEDIA_ACCESS_KEY: "${MEDIA_ACCESS_KEY:?}"
+      MEDIA_SECRET_KEY: "${MEDIA_SECRET_KEY:?}"
+      # Через сколько минут залитое фото появляется на сайте.
+      MEDIA_REFRESH_MINUTES: "5"
+      # Сайт стоит за Caddy и напрямую недостижим, поэтому доверяем X-Forwarded-*.
+      # ВАЖНО: этот флаг и отсутствие публичного порта у ui-public связаны — открыв
+      # порт наружу, вы разрешите подделать X-Forwarded-For и обойти rate limiting.
+      USE_FORWARDED_HEADERS: "true"
+    expose:
+      - "8080"
     depends_on:
       - api-gateway
+      - minio
+
+  # Единственная точка входа: 80/443 наружу, внутри — сайт и медиа.
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: teriberka-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # Образ прогоняет /etc/nginx/templates/*.template через envsubst.
+      # ФИЛЬТР ОБЯЗАТЕЛЕН: без него envsubst подставит пустые значения и в
+      # переменные самого nginx ($uri, $binary_remote_addr, $proxy_add_x_forwarded_for),
+      # и конфиг молча станет нерабочим.
+      NGINX_ENVSUBST_FILTER: "^(SITE_|MEDIA_)"
+      SITE_DOMAIN: "${SITE_DOMAIN:-localhost}"
+      MEDIA_BUCKET: "${MEDIA_BUCKET:-media}"
+      MEDIA_MAX_AGE: "${MEDIA_MAX_AGE:-2592000}"
+    volumes:
+      - ./infra/nginx/templates:/etc/nginx/templates:ro
+      # Тома под будущий TLS: certbot кладёт файл проверки в первый,
+      # сертификаты — во второй. Терять letsencrypt нельзя: переиздание
+      # упрётся в лимит Let's Encrypt (5 неудач в час на домен).
+      - certbot_www:/var/www/certbot:ro
+      - letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - ui-public
+      - minio
 
 volumes:
   db_volume:
+  minio_volume:
+  certbot_www:
+  letsencrypt:

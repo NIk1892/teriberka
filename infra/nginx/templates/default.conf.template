@@ -1,0 +1,131 @@
+# Единственная точка входа сайта. Наружу смотрит только этот контейнер:
+#   /media/*  -> MinIO (фото главной; тот же origin, поэтому CSP сайта не трогаем)
+#   всё остальное -> ui-public (Blazor SSR), а он уже ходит в шлюз
+#
+# Файл — шаблон: официальный образ nginx прогоняет /etc/nginx/templates/*.template
+# через envsubst и кладёт результат в /etc/nginx/conf.d/. Подставляются ТОЛЬКО
+# переменные по фильтру NGINX_ENVSUBST_FILTER (см. docker-compose.yml) — иначе
+# envsubst съел бы и переменные самого nginx вроде $uri и $binary_remote_addr.
+#
+# Файл включается внутрь http{}, поэтому limit_req_zone здесь допустим.
+
+# Ограничение частоты для медиа: маршрут публичный, а фото весят сотни килобайт —
+# без лимита галерею можно выкачивать в цикле. 30 запросов в секунду с адреса
+# с запасом покрывают обычный просмотр (страница тянет 13 кадров разом).
+limit_req_zone $binary_remote_addr zone=media:10m rate=30r/s;
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${SITE_DOMAIN};
+
+    # Встроенный DNS docker. Нужен потому, что в proxy_pass медиа есть переменная
+    # ($obj) — из-за неё nginx резолвит имя upstream'а не на старте, а на каждом
+    # запросе, и без resolver отвечает 502 «no resolver defined to resolve minio».
+    # Побочная польза: пересоздание контейнера minio подхватывается за 30 секунд,
+    # а не требует перезагрузки nginx.
+    resolver 127.0.0.11 valid=30s ipv6=off;
+
+    # Убирает версию из заголовка Server (остаётся просто "nginx"). Полностью
+    # убрать его стоковый nginx не умеет — нужен модуль headers_more, которого
+    # в официальном образе нет. Kestrel свой Server-заголовок уже не шлёт
+    # (AddServerHeader = false), так что снаружи видно только это.
+    server_tokens off;
+
+    # Тело больше UI всё равно не примет (Kestrel ограничен 64 КБ), но отсечь
+    # заведомо мусорный запрос дешевле здесь.
+    client_max_body_size 128k;
+
+    # webp и mp4 уже сжаты кодеком — повторное сжатие только жжёт CPU
+    # (а для диапазонных запросов ещё и ломает Content-Length).
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 512;
+    gzip_types text/plain text/css application/javascript application/json
+               application/xml image/svg+xml;
+
+    # Проверка владения доменом при выпуске сертификата. Стоит заранее, чтобы
+    # получение TLS не требовало правки конфига и перезапуска.
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        default_type "text/plain";
+    }
+
+    # ---------- фото из хранилища ----------
+    # Регулярка — это и есть защита: наружу проходит ровно один сценарий, чтение
+    # готового .webp. Перечисление бакета (/media/?list-type=2), .svg, .html и
+    # любые подписанные ссылки в этот location не попадают и получают 404.
+    location ~* ^/media/(?<obj>.+\.webp)$ {
+        limit_except GET HEAD { deny all; }
+        limit_req zone=media burst=60 nodelay;
+
+        # "?" в конце отбрасывает query — до MinIO она не доходит.
+        # Версия ?v= из разметки нужна только браузеру, чтобы не показывать
+        # перезалитое фото из 30-дневного кеша.
+        proxy_pass http://minio:9000/${MEDIA_BUCKET}/$obj?;
+        proxy_http_version 1.1;
+        proxy_set_header Host minio:9000;
+        # Служебные заголовки MinIO наружу не отдаём.
+        proxy_hide_header Server;
+        proxy_hide_header x-amz-request-id;
+        proxy_hide_header x-amz-id-2;
+        proxy_hide_header x-minio-deployment-id;
+        # MinIO шлёт свой nosniff, а add_header ниже добавит ещё один — заголовок
+        # придёт дважды. Прячем чужой, ставим свой.
+        proxy_hide_header X-Content-Type-Options;
+        # Content-Type переопределяется только так: add_header его не заменяет,
+        # а MinIO при заливке некоторыми клиентами ставит application/octet-stream,
+        # и браузер тогда предлагает скачать файл вместо показа.
+        proxy_hide_header Content-Type;
+
+        # always — иначе заголовки не попадут в ответы 404/503.
+        # Имя файла + версия в query дают достаточную инвалидацию, поэтому
+        # immutable не ставим: он спрятал бы правку даже по Ctrl+F5.
+        add_header Content-Type "image/webp" always;
+        add_header Cache-Control "public, max-age=${MEDIA_MAX_AGE}" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        # Если в бакет всё же попадёт что-то исполняемое — оно ничего не сможет.
+        add_header Content-Security-Policy "default-src 'none'; sandbox" always;
+        add_header Referrer-Policy "no-referrer" always;
+    }
+
+    # ---------- всё остальное — сайт ----------
+    location / {
+        proxy_pass http://ui-public:8080;
+        proxy_http_version 1.1;
+
+        # ОБЯЗАТЕЛЬНО: nginx не ставит эти заголовки сам. Без них
+        # USE_FORWARDED_HEADERS у UI бесполезен — Kestrel увидит адрес контейнера
+        # nginx, один на всех посетителей, и rate limiter превратится в общий
+        # счётчик: шестая заявка за 5 минут словит 429 у всех подряд.
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# ---------- TLS ----------
+# Включается раскомментированием, когда домен смотрит на сервер, а сертификат
+# выписан (см. CLAUDE.md, раздел про reverse proxy). Порядок: сначала поднять
+# :80 выше, потом certbot certonly --webroot, потом раскомментировать этот блок
+# и добавить редирект http->https в сервер выше.
+#
+# server {
+#     listen 443 ssl;
+#     listen [::]:443 ssl;
+#     http2 on;
+#     server_name ${SITE_DOMAIN};
+#
+#     ssl_certificate     /etc/letsencrypt/live/${SITE_DOMAIN}/fullchain.pem;
+#     ssl_certificate_key /etc/letsencrypt/live/${SITE_DOMAIN}/privkey.pem;
+#     ssl_protocols TLSv1.2 TLSv1.3;
+#     ssl_session_cache shared:SSL:10m;
+#
+#     # HSTS живёт ТОЛЬКО здесь: на http://localhost он заставил бы браузер
+#     # запомнить localhost как https-only и сломал бы все прочие локальные
+#     # проекты на машине (лечится только через chrome://net-internals/#hsts).
+#     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+#
+#     # Дальше — те же два location, что и в блоке :80 выше.
+# }

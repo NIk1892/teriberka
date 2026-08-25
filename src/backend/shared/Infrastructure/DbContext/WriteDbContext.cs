@@ -35,6 +35,9 @@ public abstract class WriteDbContext : DbContext, IWriteDbContext
 
         await using (var cmd = connection.CreateCommand())
         {
+            // WITH SCHEMA public: search_path у сервисов — `users,public` / `chat,public`,
+            // и CREATE EXTENSION без схемы ставит citext в первую из них. Соседний сервис
+            // потом видит «расширение уже есть», а типа в своём search_path нет.
             cmd.CommandText = """
                 DO $$
                 BEGIN
@@ -44,9 +47,30 @@ public abstract class WriteDbContext : DbContext, IWriteDbContext
                 EXCEPTION WHEN duplicate_object THEN
                     NULL;
                 END $$;
-                CREATE EXTENSION IF NOT EXISTS citext;
-                CREATE EXTENSION IF NOT EXISTS pg_trgm;
-                CREATE EXTENSION IF NOT EXISTS btree_gin;
+                CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+                CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+                CREATE EXTENSION IF NOT EXISTS btree_gin WITH SCHEMA public;
+                DO $$
+                BEGIN
+                    IF EXISTS (
+                        SELECT 1 FROM pg_extension e
+                        JOIN pg_namespace n ON n.oid = e.extnamespace
+                        WHERE e.extname = 'citext' AND n.nspname <> 'public') THEN
+                        ALTER EXTENSION citext SET SCHEMA public;
+                    END IF;
+                    IF EXISTS (
+                        SELECT 1 FROM pg_extension e
+                        JOIN pg_namespace n ON n.oid = e.extnamespace
+                        WHERE e.extname = 'pg_trgm' AND n.nspname <> 'public') THEN
+                        ALTER EXTENSION pg_trgm SET SCHEMA public;
+                    END IF;
+                    IF EXISTS (
+                        SELECT 1 FROM pg_extension e
+                        JOIN pg_namespace n ON n.oid = e.extnamespace
+                        WHERE e.extname = 'btree_gin' AND n.nspname <> 'public') THEN
+                        ALTER EXTENSION btree_gin SET SCHEMA public;
+                    END IF;
+                END $$;
                 """;
             await cmd.ExecuteNonQueryAsync();
         }

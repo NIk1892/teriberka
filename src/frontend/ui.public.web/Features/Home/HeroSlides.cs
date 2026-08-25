@@ -8,12 +8,18 @@ namespace UI.Public.Web.Features.Home;
 /// <see cref="Slide.Portrait"/> — вертикальный кадр (файл 4:5, 1200×1500): в широкой ленте
 /// он показывается целиком (object-fit: contain), а поля по бокам заливает размытая копия
 /// того же кадра — иначе от 9:16-оригинала в полосе 21:9 оставалась узкая середина.
-/// Пока файла нет, Home.razor показывает заглушку placeholder.svg.
+/// Кадры лежат в хранилище (префикс hero/, имена — как здесь) и попадают на сайт
+/// без пересборки; если хранилище выключено или файла в нём нет, Home.razor берёт
+/// одноимённый файл из wwwroot/img, а когда нет и его — показывает placeholder.svg.
 /// Порядок — решение владельца 24.08.2026: зима → «обед из моря» → лето.
 /// </summary>
 public static class HeroSlides
 {
-    public sealed record Slide(string ImagePath, string AltKey, bool Portrait = false);
+    public sealed record Slide(string ImagePath, string AltKey, bool Portrait = false)
+    {
+        /// <summary>Имя файла без каталога — под ним же кадр лежит в хранилище, в префиксе hero/.</summary>
+        public string FileName => ImagePath[(ImagePath.LastIndexOf('/') + 1)..];
+    }
 
     public static readonly Slide[] All =
     [
