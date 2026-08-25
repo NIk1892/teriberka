@@ -37,6 +37,10 @@
             <a class="detail-photo lightbox-link" href="/img/places/@(_place.Slug).webp" target="_blank" rel="noopener">
                 <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" fetchpriority="high" />
             </a>
+            @if (_place.Photo is { } mainCredit)
+            {
+                <PhotoCreditLine Credit="mainCredit" />
+            }
 
             <div class="detail-text">
                 <p>@L[$"Place{i}Detail1"]</p>
@@ -66,6 +70,13 @@
                         }
                     </div>
                     <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+                </div>
+                @* подписи ко всем кадрам галереи — атрибуция CC обязательна для каждого файла *@
+                <div class="photo-credits">
+                    @for (var n = 0; n < gallery.Length; n++)
+                    {
+                        <PhotoCreditLine Credit="gallery[n]" Label="@L["PhotoCreditFrame", n + 1]" />
+                    }
                 </div>
             }
             else

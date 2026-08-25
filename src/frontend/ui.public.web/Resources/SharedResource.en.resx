@@ -12,7 +12,7 @@
   <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk, Apatity and Kirovsk</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Teriberka in one day.</value></data>
   <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Book now</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Leave a request</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
 
@@ -20,6 +20,12 @@
   <data name="PlacesSubtitle" xml:space="preserve"><value>The day's landmarks: from the ship graveyard and Dragon Eggs to the waterfall that falls into the ocean.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Photo:</value></data>
+  <data name="PhotoCreditModified" xml:space="preserve"><value>cropped</value></data>
+  <data name="PhotoCreditFrame" xml:space="preserve"><value>Frame {0}:</value></data>
+  <data name="PhotoCreditMain" xml:space="preserve"><value>Main photo:</value></data>
+  <data name="PhotoCreditsTitle" xml:space="preserve"><value>Photo credits</value></data>
+  <data name="PhotoCreditsLead" xml:space="preserve"><value>Some photos on this site come from Wikimedia Commons under Creative Commons licences. This page lists the authors, licences and links to the originals; the images were cropped and compressed for the site.</value></data>
+  <data name="FooterPhotoCreditsLink" xml:space="preserve"><value>Photo credits</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Photo soon</value></data>
 
   <data name="Place1Title" xml:space="preserve"><value>Dragon Eggs beach</value></data>
@@ -323,8 +329,8 @@
   <data name="Itinerary4Text" xml:space="preserve"><value>Walk across the tundra to the waterfall dropping from the cliffs towards the sea.</value></data>
   <data name="Itinerary5Title" xml:space="preserve"><value>Seafood lunch</value></data>
   <data name="Itinerary5Text" xml:space="preserve"><value>Fresh cod, scallops and fish soup — lunch in Teriberka before the drive back.</value></data>
-  <data name="Itinerary6Title" xml:space="preserve"><value>Return to Murmansk</value></data>
-  <data name="Itinerary6Text" xml:space="preserve"><value>After a full day, we return to the city and drop you at the agreed point.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Return to the city</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>After a full day we drive back and drop you at the agreed point in Murmansk, Apatity or Kirovsk.</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>November — April</value></data>

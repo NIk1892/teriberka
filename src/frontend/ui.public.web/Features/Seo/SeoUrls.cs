@@ -41,6 +41,7 @@ public sealed class SeoUrls
             yield return $"/place/{place.Slug}";
 
         yield return "/privacy";
+        yield return "/photo-credits";
     }
 
     private string BuildRobots()

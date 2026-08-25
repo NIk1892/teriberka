@@ -59,7 +59,7 @@
                 <h2>@L["HighlightsTitle"]</h2>
                 <p>@L["HighlightsSubtitle"]</p>
             </div>
-            <div class="photo-strip carousel-wrap" data-autoplay="6000">
+            <div class="photo-strip carousel-wrap" data-autoplay="5000">
                 <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
                 <div class="photo-strip-track carousel-track">
                     @for (var n = 0; n < HeroSlides.All.Length; n++)
@@ -67,11 +67,18 @@
                         @* Фото кладёт владелец (см. HeroSlides); пока файла нет — заглушка,
                            а не битая картинка. ?v=3 — прежние файлы под теми же именами
                            уже могли осесть в 30-дневном кеше. *@
-                        var slideFile = Path.Combine(Env.WebRootPath, HeroSlides.All[n].ImagePath.TrimStart('/'));
-                        var slideSrc = File.Exists(slideFile) ? HeroSlides.All[n].ImagePath + "?v=3" : "/img/placeholder.svg";
-                        <figure class="photo-slide">
-                            <img src="@slideSrc" alt="@L[HeroSlides.All[n].AltKey]"
-                                 width="1500" height="1200"
+                        var slide = HeroSlides.All[n];
+                        var slideFile = Path.Combine(Env.WebRootPath, slide.ImagePath.TrimStart('/'));
+                        var slideSrc = File.Exists(slideFile) ? slide.ImagePath + "?v=4" : "/img/placeholder.svg";
+                        <figure class="photo-slide @(slide.Portrait ? "photo-slide-portrait" : null)">
+                            @if (slide.Portrait)
+                            {
+                                @* размытая копия кадра заливает поля по бокам вертикального фото *@
+                                <img class="photo-slide-bg" src="@slideSrc" alt="" aria-hidden="true"
+                                     width="1200" height="1500" loading="lazy" decoding="async" />
+                            }
+                            <img src="@slideSrc" alt="@L[slide.AltKey]"
+                                 width="@(slide.Portrait ? 1200 : 1500)" height="@(slide.Portrait ? 1500 : 1200)"
                                  fetchpriority="@(n == 0 ? "high" : null)"
                                  loading="@(n == 0 ? null : "lazy")" decoding="async" />
                         </figure>
@@ -107,23 +114,16 @@
             <p>@L["ItinerarySubtitle"]</p>
         </div>
         <ol class="itinerary-list">
+            @* Миниатюры мест у шагов были и убраны владельцем 24.08.2026 — программа
+               дня остаётся текстовой, фото живут в полосе «Что вас ждёт» и карточках мест. *@
             @foreach (var i in Enumerable.Range(1, 6))
             {
-                var slug = StepPlaceSlug(i);
                 <li>
                     <span class="itinerary-num">0@(i)</span>
                     <div>
                         <strong>@L[$"Itinerary{i}Title"]</strong>
                         <p>@L[$"Itinerary{i}Text"]</p>
                     </div>
-                    @if (slug is not null)
-                    {
-                        @* миниатюра — ссылка на страницу места; класс не .place-photo,
-                           чтобы effects.js не повесил на неё view-transition-name карточки *@
-                        <a class="itinerary-thumb" href="/place/@slug" title="@L["PlaceMore"]">
-                            <img src="/img/places/@(slug).webp" alt="" loading="lazy" decoding="async" />
-                        </a>
-                    }
                 </li>
             }
         </ol>
@@ -140,7 +140,12 @@
             <h2>@L["PlacesTitle"]</h2>
             <p>@L["PlacesSubtitle"]</p>
         </div>
-        <div class="places-grid">
+        @* На ≤560px сетка становится каруселью по одной карточке во всю ширину
+           (владелец, 24.08.2026: «половинка» соседней карточки читалась как обрез);
+           стрелки — carousel.js, на широких экранах скрыты, там обычная сетка. *@
+        <div class="places-carousel carousel-wrap">
+        <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+        <div class="places-grid carousel-track">
             @foreach (var idx in PlaceCatalog.Directions[0].PlaceIndexes)
             {
                 var place = PlaceCatalog.ByIndex(idx);
@@ -155,6 +160,8 @@
                     </span>
                 </a>
             }
+        </div>
+        <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
         </div>
     </div>
 </section>
@@ -289,7 +296,9 @@
                     </div>
                 </div>
                 @* меньше трёх карточек — двухколоночная сетка (в трёх колонках пусто), иначе обычные три *@
-                <div class="places-grid @(dir.PlaceIndexes.Length < 3 ? "cols-2" : "")">
+                <div class="places-carousel carousel-wrap">
+                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                <div class="places-grid carousel-track @(dir.PlaceIndexes.Length < 3 ? "cols-2" : "")">
                     @foreach (var idx in dir.PlaceIndexes)
                     {
                         var place = PlaceCatalog.ByIndex(idx);
@@ -304,6 +313,8 @@
                             </span>
                         </a>
                     }
+                </div>
+                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
                 </div>
             </div>
         }
@@ -361,14 +372,6 @@
     };
 
     // Шаги программы дня, у которых есть своя страница места (миниатюра-ссылка в карточке шага).
-    private static string? StepPlaceSlug(int step) => step switch
-    {
-        2 => "ship-graveyard",
-        3 => "dragon-eggs",
-        4 => "batareysky-waterfall",
-        _ => null
-    };
-
     private IReadOnlyDictionary<string, object?> SiteLd => new Dictionary<string, object?>
     {
         ["@context"] = "https://schema.org",

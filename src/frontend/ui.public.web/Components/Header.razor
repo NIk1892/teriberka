@@ -79,11 +79,6 @@
                         <a class="@ActiveClass("zh")" href="@CultureLink("zh")" rel="nofollow" hreflang="zh">中文</a>
                     </nav>
 
-                    @if (!string.IsNullOrWhiteSpace(BotUrl))
-                    {
-                        @* дубль ссылки на бота: показывается только там, где иконка скрыта из шапки *@
-                        <a class="burger-bot" href="@BotUrl" rel="noopener">@L["BotLink"]</a>
-                    }
                 </nav>
             </details>
         </div>

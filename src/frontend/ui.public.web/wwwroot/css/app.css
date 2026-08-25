@@ -202,24 +202,34 @@ a { color: var(--accent-ice); }
     line-height: 1.4;
 }
 
-/* узкая шапка: компактные бренд и переключатели, ничего не переносится;
-   иконка бота уходит из шапки — её дубль появляется строкой в бургер-панели */
+/* узкая шапка: компактные бренд и переключатели, ничего не переносится.
+   Иконка бота остаётся в шапке (владелец, 24.08.2026 — раньше уезжала в бургер),
+   ради неё текст бренда прячется уже с 380px (см. ниже). */
 @media (max-width: 430px) {
     .site-header .container { padding-inline: 12px; gap: 8px; }
     .brand { font-size: .9rem; gap: 5px; }
     .brand-mark { width: 24px; height: 24px; }
     .theme-toggle { width: 32px; height: 32px; font-size: .95rem; }
-    .bot-link { display: none; }
+    .bot-link { width: 32px; height: 32px; }
     .nav-burger summary { width: 32px; height: 32px; }
     .lang-switch { padding: 2px; gap: 2px; }
     .lang-switch a { padding: 4px 6px; font-size: .74rem; }
     .header-controls { gap: 4px; }
-    .burger-bot { display: block; }
 }
 
-/* 320–350px: имя бренда не помещается рядом с переключателями — остаётся только знак,
-   иначе шапка шире экрана и у всей страницы появляется горизонтальная прокрутка */
-@media (max-width: 350px) {
+/* до 380px кнопка заявки и бренд компактнее (владелец, 24.08.2026: и полное
+   «Записаться», и имя бренда должны остаться в шапке) */
+@media (max-width: 380px) {
+    .header-apply { padding: 7px 8px; font-size: .78rem; }
+    .brand { font-size: .8rem; gap: 4px; }
+    .site-header .container { gap: 6px; }
+    .header-controls { gap: 3px; }
+}
+
+/* до 358px: с полным «Записаться» и четырьмя контролами имя бренда не помещается
+   (замер: на 360 край контролов 358px, на 350 — уже за экраном) — остаётся только
+   знак, иначе у всей страницы появляется горизонтальная прокрутка */
+@media (max-width: 358px) {
     .brand-name { display: none; }
 }
 
@@ -354,7 +364,6 @@ a { color: var(--accent-ice); }
 
 /* дубль ссылки на бота включается только на самых узких экранах,
    где иконка бота убрана из шапки ради места */
-.burger-bot { display: none; }
 
 @media (min-width: 900px) {
     .main-nav { display: flex; }
@@ -427,22 +436,38 @@ a { color: var(--accent-ice); }
 .photo-slide {
     margin: 0;
     position: relative;
+    overflow: hidden;
     scroll-snap-align: start;
+    /* на телефоне лента 21:9 была слишком узкой (~140px) — 3:2; файлы 5:4
+       кропаются object-fit'ом в любой из аспектов */
+    aspect-ratio: 3 / 2;
 }
 
 .photo-slide img {
     display: block;
     width: 100%;
-    height: auto;
-    /* на телефоне лента 21:9 была слишком узкой (~140px) — 3:2; файлы 5:4
-       кропаются object-fit'ом в любой из аспектов */
-    aspect-ratio: 3 / 2;
+    height: 100%;
     object-fit: cover;
+}
+
+/* Вертикальный кадр (HeroSlides.Portrait): сам снимок — целиком по центру
+   (contain), а поля по бокам заливает его же размытая копия. Blur статичный,
+   не анимируется — правило «не анимировать filter» не нарушено. */
+.photo-slide-portrait .photo-slide-bg {
+    position: absolute;
+    inset: 0;
+    filter: blur(24px) brightness(.72) saturate(1.1);
+    transform: scale(1.15); /* прячет светлые края размытия */
+}
+
+.photo-slide-portrait img:not(.photo-slide-bg) {
+    position: relative;
+    object-fit: contain;
 }
 
 @media (min-width: 700px) {
     /* широкая кинематографичная лента на планшете и десктопе */
-    .photo-slide img { aspect-ratio: 21 / 9; }
+    .photo-slide { aspect-ratio: 21 / 9; }
 }
 
 /* Тонировка: холодный градиент сверху и виньетка снизу «уводят» любой кадр
@@ -953,8 +978,10 @@ html.js-parallax .parallax-band .container {
    читаются «прижатыми влево»; и меньше воздуха между секциями (136px hero+section — много) */
 @media (max-width: 699px) {
     .hero { padding-bottom: 24px; }
-    .section { padding-block: 40px; }
-    .section-head { margin-inline: auto; margin-bottom: 28px; text-align: center; }
+    .section { padding-block: 32px; }
+    .section-head { margin-inline: auto; margin-bottom: 20px; text-align: center; }
+    /* примечание под программой — мелкий текст, полный паддинг секции под ним читался как дыра */
+    .itinerary { padding-bottom: 24px; }
     .itinerary-note,
     .season-note { text-align: center; }
 }
@@ -1091,34 +1118,8 @@ html.js-parallax .parallax-band .container {
 
 .itinerary-list li > div { flex: 1; }
 
-/* миниатюра места у шага программы — ссылка на страницу места; даёт картинку
-   там, где раньше был только текст, и связывает программу с блоком мест ниже */
-.itinerary-thumb {
-    flex: none;
-    align-self: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: transform .2s ease, border-color .2s ease;
-}
-
-.itinerary-thumb img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.itinerary-thumb:hover {
-    transform: scale(1.05);
-    border-color: var(--accent);
-}
-
 @media (max-width: 560px) {
     .itinerary-list li { gap: 14px; padding: 16px; }
-    .itinerary-thumb { width: 56px; height: 56px; }
 }
 
 .itinerary-note {
@@ -1506,6 +1507,8 @@ html.js-parallax .parallax-band .container {
     .map-city-kirovsk { display: none; }
     .place-label { font-size: .6rem; }
     .map-dist { font-size: .58rem; }
+    /* «~120 км» на мобиле ложилась под маркер Териберки — уводим её ниже по маршруту, к Мурманску */
+    .map-dist-1 { left: 24.5%; top: 22%; }
     .poi-label { display: none; }
     /* тесная точка юга: на мобиле остаётся кликабельная точка без подписи */
     .map-place-labyrinth .place-label { display: none; }
@@ -1693,23 +1696,25 @@ html.js-parallax .parallax-band .container {
 /* На узком экране карточки мест — горизонтальная лента на scroll-snap (без JavaScript):
    шесть карточек столбиком занимали ~6 экранов до формы. Край следующей карточки
    подсказывает свайп; лента выходит за отступы контейнера до краёв экрана. */
+/* стрелки карусели мест — только на телефоне (три класса — перебить .carousel-js .car-btn) */
+.places-carousel.carousel-wrap .car-btn { display: none; }
+
 @media (max-width: 560px) {
     .places-grid {
         grid-template-columns: none;
         grid-auto-flow: column;
-        grid-auto-columns: 82%;
-        gap: 14px;
-        margin-inline: -20px;
-        padding: 6px 20px 16px;
+        grid-auto-columns: 100%; /* одна карточка целиком; край соседней не показываем */
+        gap: 20px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: 20px;
         scrollbar-width: none;
     }
 
     .places-grid::-webkit-scrollbar { display: none; }
 
     .place-card { scroll-snap-align: start; }
+
+    .places-carousel.carousel-js .car-btn { display: flex; }
 }
 
 /* ---------- страница места ---------- */
@@ -1836,6 +1841,32 @@ html.js-parallax .parallax-band .container {
 @media (min-width: 700px) {
     .gallery-carousel { grid-auto-columns: calc((100% - 14px) / 2); }
 }
+
+/* атрибуция фото с Commons (PhotoCreditLine): мелкая приглушённая строка под фото,
+   ссылки на автора и лицензию — обязательное условие CC, см. PlaceCatalog.PhotoCredit */
+.photo-credit {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: .78rem;
+    line-height: 1.5;
+}
+
+.photo-credit a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    text-underline-offset: 2px;
+}
+
+.photo-credit a:hover { color: var(--text); }
+
+.photo-credit-label { font-weight: 600; margin-right: 4px; }
+
+.photo-credits { margin-top: 10px; }
+.photo-credits .photo-credit { margin-top: 2px; }
+
+.legal h2 a { color: inherit; text-decoration: none; }
+.legal h2 a:hover { color: var(--accent); }
 
 /* «интересный факт» — акцентная вставка после текста места */
 .detail-fact {
@@ -2929,6 +2960,30 @@ html.js-fx .guide-card { animation: none; }
     100%    { opacity: 0; transform: scale(1.28); }
 }
 
+/* Блик на кнопке заявки в шапке (владелец, 24.08.2026): раз в ~7 с по кнопке
+   пробегает диагональная световая полоса. Анимируется только transform
+   псевдоэлемента — композитор, без перерисовки; overflow: hidden прячет полосу
+   за скруглением. На .nav-burger рядом это не влияет: transform стоит на ::after
+   самой кнопки, а не на обёртке бургера. */
+.nav-apply,
+.header-apply { position: relative; overflow: hidden; }
+
+.nav-apply::after,
+.header-apply::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / .55) 50%, transparent 62%);
+    transform: translateX(-130%);
+    pointer-events: none;
+    animation: cta-shine 7s ease-in-out infinite;
+}
+
+@keyframes cta-shine {
+    0%, 78% { transform: translateX(-130%); }
+    100%    { transform: translateX(130%); }
+}
+
 /* ---------- кнопки быстрой прокрутки ---------- */
 
 /* Якорные ссылки: «↑» — к началу (#top), «↓» — к футеру (#page-bottom).
@@ -3779,6 +3834,8 @@ html.js-chat .chat-refresh { display: none; }
     .blizzard { display: none; }
     .scroll-progress { display: none; }
     .btn-pulse::after { animation: none; }
+    .nav-apply::after,
+    .header-apply::after { animation: none; }
     .btn-tg::before { animation: none; }
     .contact-fab-face::before,
     .contact-fab-face::after,

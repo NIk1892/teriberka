@@ -12,7 +12,7 @@
   <data name="HeroKicker" xml:space="preserve"><value>Выезд из Мурманска, Апатитов и Кировска</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Териберка за один день.</value></data>
   <data name="HeroText" xml:space="preserve"><value>Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей — главные места Териберки в одной поездке.</value></data>
-  <data name="HeroCta" xml:space="preserve"><value>Записаться</value></data>
+  <data name="HeroCta" xml:space="preserve"><value>Оставить заявку</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Полный день · группа до 8 человек</value></data>
 
@@ -20,6 +20,12 @@
   <data name="PlacesSubtitle" xml:space="preserve"><value>Главные точки дня: от кладбища кораблей и «Драконьих яиц» до водопада, который падает в океан.</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Фото:</value></data>
+  <data name="PhotoCreditModified" xml:space="preserve"><value>обрезано</value></data>
+  <data name="PhotoCreditFrame" xml:space="preserve"><value>Кадр {0}:</value></data>
+  <data name="PhotoCreditMain" xml:space="preserve"><value>Главное фото:</value></data>
+  <data name="PhotoCreditsTitle" xml:space="preserve"><value>Фотографии и авторы</value></data>
+  <data name="PhotoCreditsLead" xml:space="preserve"><value>Часть снимков на сайте — с Wikimedia Commons под лицензиями Creative Commons. Здесь собраны авторы, лицензии и ссылки на оригиналы; кадры обрезаны и сжаты для сайта.</value></data>
+  <data name="FooterPhotoCreditsLink" xml:space="preserve"><value>Фотографии и авторы</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
 
   <data name="Place1Title" xml:space="preserve"><value>Пляж «Драконьи яйца»</value></data>
@@ -323,8 +329,8 @@
   <data name="Itinerary4Text" xml:space="preserve"><value>Идём по тундре к водопаду, который срывается со скал прямо к морю.</value></data>
   <data name="Itinerary5Title" xml:space="preserve"><value>Обед из морепродуктов</value></data>
   <data name="Itinerary5Text" xml:space="preserve"><value>Свежая треска, гребешки, уха — обед в Териберке перед обратной дорогой.</value></data>
-  <data name="Itinerary6Title" xml:space="preserve"><value>Возвращение в Мурманск</value></data>
-  <data name="Itinerary6Text" xml:space="preserve"><value>После насыщенного дня возвращаемся в город и привозим вас в согласованную точку.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Возвращение в город</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>После насыщенного дня возвращаемся и привозим вас в согласованную точку Мурманска, Апатитов или Кировска.</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Териберка в разное время года</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>У каждого сезона свой Север — подскажем, какой подходит именно вам.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>Ноябрь — апрель</value></data>

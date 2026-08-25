@@ -1,0 +1,27 @@
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Places
+@inject IStringLocalizer<SharedResource> L
+
+@* Атрибуция снимка с Wikimedia Commons: автор (ссылка на файл-источник), лицензия
+   (ссылка на её текст) и пометка «обрезано» — CC 4.0 требует указывать изменения.
+   Лицензии CC требуют подпись, поэтому компонент нельзя убирать, пока фото чужое.
+   nofollow — чтобы не раздавать вес внешним страницам с каждого места. *@
+<p class="photo-credit">
+    @if (Label is not null)
+    {
+        <span class="photo-credit-label">@Label</span>
+    }
+    <span>@L["PhotoCreditPrefix"]</span>
+    <a href="@Credit.SourceUrl" rel="noopener nofollow" target="_blank">@Credit.Author</a>
+    <span aria-hidden="true">·</span>
+    <a href="@PhotoLicenses.Url(Credit.License)" rel="noopener nofollow" target="_blank">@Credit.License</a>
+    <span aria-hidden="true">·</span>
+    <span>@L["PhotoCreditModified"]</span>
+</p>
+
+@code {
+    [Parameter, EditorRequired] public PhotoCredit Credit { get; set; } = default!;
+
+    /// <summary>Короткая метка перед подписью (например, «Кадр 2») для списков галереи.</summary>
+    [Parameter] public string? Label { get; set; }
+}

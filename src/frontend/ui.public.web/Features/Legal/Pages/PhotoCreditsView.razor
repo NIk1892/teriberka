@@ -1,0 +1,44 @@
+@page "/photo-credits"
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Components
+@using UI.Public.Web.Features.Places
+@using UI.Public.Web.Layouts
+@layout MainLayout
+@inject IStringLocalizer<SharedResource> L
+
+@* Сводная атрибуция всех фото с Wikimedia Commons (карточки главной ведут на
+   страницы мест, где подписи стоят под фото; эта страница закрывает вопрос
+   целиком и линкуется из футера). Собирается из PlaceCatalog — новое место
+   с кредитами попадает сюда автоматически. *@
+
+<PageTitle>@L["PhotoCreditsTitle"] · @L["Brand"]</PageTitle>
+<PageMeta Title="@L["PhotoCreditsTitle"]" Description="@L["PhotoCreditsLead"]" Path="/photo-credits" />
+
+<section class="section">
+    <div class="container detail legal">
+        <h1>@L["PhotoCreditsTitle"]</h1>
+        <p class="detail-lead">@L["PhotoCreditsLead"]</p>
+
+        @foreach (var place in PlaceCatalog.All)
+        {
+            if (place.Photo is null && place.Gallery is not { Length: > 0 })
+            {
+                continue;
+            }
+            <h2><a href="/place/@place.Slug">@L[$"Place{place.Index}Title"]</a></h2>
+            @if (place.Photo is { } main)
+            {
+                <PhotoCreditLine Credit="main" Label="@L["PhotoCreditMain"]" />
+            }
+            @if (place.Gallery is { Length: > 0 } gallery)
+            {
+                for (var n = 0; n < gallery.Length; n++)
+                {
+                    <PhotoCreditLine Credit="gallery[n]" Label="@L["PhotoCreditFrame", n + 1]" />
+                }
+            }
+        }
+
+        <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
+    </div>
+</section>
