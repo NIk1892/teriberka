@@ -18,6 +18,7 @@
 
   <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>一天中的主要地点：从船舶墓地和“龙蛋”海滩，到坠入大洋的瀑布。</value></data>
+  <data name="PlacesGalleryLink" xml:space="preserve"><value>在相册中查看更多照片和视频</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>摄影：</value></data>
   <data name="PhotoCreditModified" xml:space="preserve"><value>已裁剪</value></data>
@@ -114,6 +115,8 @@
   <data name="FieldNameHint" xml:space="preserve"><value>例如：安娜</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>电话</value></data>
   <data name="FieldRoute" xml:space="preserve"><value>行程路线</value></data>
+  <data name="RouteCustomTitle" xml:space="preserve"><value>定制路线</value></data>
+  <data name="RouteCustomText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣安排行程——从一日游到为期一周的科拉半岛探险。</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>谢尔盖——科拉半岛持证向导</value></data>
   <data name="GuideText" xml:space="preserve"><value>他常年带团前往捷里别尔卡、希比尼山和捷尔斯基海岸：知道何时到岸边能遇见鲸鱼、去哪里追寻极光、以及如何穿衣让北极大风天依然舒适。行程中他掌握舒适的节奏，并负责团队的安全。</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>定制行程</value></data>
@@ -156,7 +159,7 @@
 
   <data name="PlaceMore" xml:space="preserve"><value>了解详情 →</value></data>
   <data name="BackToHome" xml:space="preserve"><value>← 返回首页</value></data>
-  <data name="GalleryTitle" xml:space="preserve"><value>照片</value></data>
+  <data name="PlacePhotosTitle" xml:space="preserve"><value>照片</value></data>
   <data name="PlaceCtaTitle" xml:space="preserve"><value>想亲眼看看吗？</value></data>
   <data name="PlaceCtaText" xml:space="preserve"><value>提交申请——我们会给您回电，确定日期并解答问题。</value></data>
   <data name="NotFoundTitle" xml:space="preserve"><value>页面未找到</value></data>

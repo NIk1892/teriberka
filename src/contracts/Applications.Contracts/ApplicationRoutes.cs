@@ -11,8 +11,14 @@ public static class ApplicationRoutes
     public const string Lovozero = "lovozero";
     public const string Tersky = "tersky";
 
+    /// <summary>
+    /// Индивидуальный маршрут: программа собирается под запрос, готового описания
+    /// направления у него нет — в форме подписан своими ключами RouteCustom*.
+    /// </summary>
+    public const string Custom = "custom";
+
     /// <summary>Порядок = порядок пунктов в форме; первый — значение по умолчанию.</summary>
-    public static readonly string[] All = [Teriberka, Lovozero, Tersky];
+    public static readonly string[] All = [Teriberka, Lovozero, Tersky, Custom];
 
     public static bool IsKnown(string? code) => code is not null && All.Contains(code);
 }

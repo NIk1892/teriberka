@@ -29,12 +29,6 @@
 }
 else
 {
-    @* Три кадра дня — декоративно, без ссылок: иначе уводили бы с формы. *@
-    <div class="apply-photos" aria-hidden="true">
-        <img src="/img/places/dragon-eggs.webp" alt="" loading="lazy" decoding="async" />
-        <img src="/img/places/ship-graveyard.webp" alt="" loading="lazy" decoding="async" />
-        <img src="/img/places/batareysky-waterfall.webp" alt="" loading="lazy" decoding="async" />
-    </div>
     <span class="apply-kicker">@L[Custom ? "FormCustomKicker" : "FormKicker"]</span>
     <h2>@L[Custom ? "FormCustomTitle" : "FormTitle"]</h2>
     <p class="apply-lead">@L[Custom ? "FormCustomText" : "FormText"]</p>
@@ -70,18 +64,33 @@ else
                        aria-invalid="@HasError("Phone")" />
             @FieldHint("Phone")
         </label>
-        @* Направление: коды из ApplicationRoutes, названия — те же короткие
-           подписи, что у маркеров карты (MapSpot1..3). По умолчанию Териберка —
-           основной маршрут, за ним приходит большинство. *@
-        <label class="field @FieldClass("Route")" data-field="Route">
-            <span class="field-label">@L["FieldRoute"]</span>
-            <InputSelect @bind-Value="Model.Route" aria-invalid="@HasError("Route")">
-                <option value="@ApplicationRoutes.Teriberka">@L["MapSpot1"]</option>
-                <option value="@ApplicationRoutes.Lovozero">@L["MapSpot2"]</option>
-                <option value="@ApplicationRoutes.Tersky">@L["MapSpot3"]</option>
-            </InputSelect>
+        @* Направление — карточки-радиокнопки, а не выпадающий список (владелец,
+           25.08.2026): у каждого маршрута видно описание, а не одно название.
+           Радио, а не select с подсказкой: подменять текст под выбранный пункт
+           без JavaScript нельзя, а здесь все описания видны сразу. Названия и
+           тексты — общие с картой и блоком направлений (MapSpot{i} / Dir{i}Text),
+           поэтому переименование маршрута не трогает форму. Инпуты обычные, не
+           InputRadio: static SSR биндит их по атрибуту name, как чекбокс согласия. *@
+        <fieldset class="field field-routes @FieldClass("Route")" data-field="Route">
+            <legend class="field-label">@L["FieldRoute"]</legend>
+            <div class="route-options">
+                @foreach (var route in RouteOptions)
+                {
+                    <label class="route-option">
+                        @* Имя поля — с префиксом модели ("Model.Route"): именно так
+                           биндер формы ждёт свойства @Model, и так же называет поля
+                           сам InputText. Без префикса выбор молча не доезжает. *@
+                        <input type="radio" name="@RouteFieldName" value="@route.Code"
+                               checked="@(Model.Route == route.Code)" />
+                        <span class="route-option-box">
+                            <strong class="route-option-title">@L[route.TitleKey]</strong>
+                            <span class="route-option-text">@L[route.TextKey]</span>
+                        </span>
+                    </label>
+                }
+            </div>
             @FieldHint("Route")
-        </label>
+        </fieldset>
         @* Согласие пока только на клиенте: в контракт не входит,
            сервер его не проверяет — плейсхолдер до настоящей политики ПД. *@
         <label class="consent @ConsentClass()" data-field="Consent">
@@ -90,10 +99,13 @@ else
             @FieldHint("Consent")
         </label>
         <div class="form-submit">
-            <button class="btn btn-pulse" type="submit">@L["Submit"]</button>
-            @* Что будет дальше — сразу под кнопкой: снимает главный вопрос
-               «когда со мной свяжутся» до того, как человек нажмёт. *@
-            <span class="form-submit-note">@L["FormCallbackNote"]</span>
+            @* Кнопка со сноской — такая же колонка, как у бота справа: обе
+               подписи держатся за свою кнопку, а не плывут по всей форме. *@
+            <span class="form-submit-main">
+                <button class="btn btn-pulse" type="submit">@L["Submit"]</button>
+                @* Что будет дальше: снимает вопрос «когда со мной свяжутся». *@
+                <span class="form-submit-note">@L["FormCallbackNote"]</span>
+            </span>
             @* Альтернатива форме — тот же Telegram-бот, что в шапке; рендерится только при заданном TG_BOT_URL. *@
             @if (!string.IsNullOrWhiteSpace(BotUrl))
             {
@@ -128,7 +140,26 @@ else
 
     private string? BotUrl => Configuration["TG_BOT_URL"];
 
-    protected override void OnInitialized() => Model ??= new ApplicationCreateCommand();
+    /// <summary>Имя поля маршрута в POST — с тем же префиксом, что у InputText.</summary>
+    private const string RouteFieldName = $"{nameof(Model)}.{nameof(ApplicationCreateCommand.Route)}";
+
+    /// <summary>Пункты выбора маршрута: код + ключи названия и описания.</summary>
+    private static readonly (string Code, string TitleKey, string TextKey)[] RouteOptions =
+    [
+        (ApplicationRoutes.Teriberka, "MapSpot1", "Dir1Text"),
+        (ApplicationRoutes.Lovozero,  "MapSpot2", "Dir2Text"),
+        (ApplicationRoutes.Tersky,    "MapSpot3", "Dir3Text"),
+        (ApplicationRoutes.Custom,    "RouteCustomTitle", "RouteCustomText"),
+    ];
+
+    // Model приходит из формы только на POST; на GET создаём свою — и в ветке
+    // индивидуального тура сразу отмечаем нужный маршрут, чтобы пришедший
+    // по ссылке /?tour=custom#apply не выбирал его руками.
+    protected override void OnInitialized() =>
+        Model ??= new ApplicationCreateCommand
+        {
+            Route = Custom ? ApplicationRoutes.Custom : ApplicationRoutes.Teriberka
+        };
 
     private async Task SubmitAsync()
     {

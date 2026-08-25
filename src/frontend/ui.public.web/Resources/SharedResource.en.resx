@@ -18,6 +18,7 @@
 
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>The day's landmarks: from the ship graveyard and Dragon Eggs to the waterfall that falls into the ocean.</value></data>
+  <data name="PlacesGalleryLink" xml:space="preserve"><value>See more photos and videos in the gallery</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Photo:</value></data>
   <data name="PhotoCreditModified" xml:space="preserve"><value>cropped</value></data>
@@ -114,6 +115,8 @@
   <data name="FieldNameHint" xml:space="preserve"><value>For example: Anna</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Phone</value></data>
   <data name="FieldRoute" xml:space="preserve"><value>Route</value></data>
+  <data name="RouteCustomTitle" xml:space="preserve"><value>Custom route</value></data>
+  <data name="RouteCustomText" xml:space="preserve"><value>We will build the programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula.</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>Sergey — certified Kola Peninsula guide</value></data>
   <data name="GuideText" xml:space="preserve"><value>He leads groups to Teriberka, the Khibiny mountains and the Tersky coast all year round: he knows when to reach the shore to catch the whales, where to hunt the aurora and how to dress so a day in the Arctic wind stays a pleasure. On the route he keeps a comfortable pace and looks after the group's safety.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Custom tour</value></data>
@@ -124,7 +127,7 @@
   <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Leave a request and we will discuss the details by phone.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Leave a request</value></data>
   <data name="Submit" xml:space="preserve"><value>Send request</value></data>
-  <data name="FormCallbackNote" xml:space="preserve"><value>During working hours we reply within half an hour</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>During working hours we will get back to you within half an hour</value></data>
   <data name="FormOr" xml:space="preserve"><value>or</value></data>
   <data name="FormTelegram" xml:space="preserve"><value>Book via the bot</value></data>
   <data name="FormTelegramNote" xml:space="preserve"><value>Through the bot you can find out the approximate trip price</value></data>
@@ -156,7 +159,7 @@
 
   <data name="PlaceMore" xml:space="preserve"><value>Read more →</value></data>
   <data name="BackToHome" xml:space="preserve"><value>← Back to home</value></data>
-  <data name="GalleryTitle" xml:space="preserve"><value>Photos</value></data>
+  <data name="PlacePhotosTitle" xml:space="preserve"><value>Photos</value></data>
   <data name="PlaceCtaTitle" xml:space="preserve"><value>Want to see it with your own eyes?</value></data>
   <data name="PlaceCtaText" xml:space="preserve"><value>Leave a request — we will call you back, pick a date and answer your questions.</value></data>
   <data name="NotFoundTitle" xml:space="preserve"><value>Page not found</value></data>

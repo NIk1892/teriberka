@@ -18,6 +18,7 @@
 
   <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
   <data name="PlacesSubtitle" xml:space="preserve"><value>Главные точки дня: от кладбища кораблей и «Драконьих яиц» до водопада, который падает в океан.</value></data>
+  <data name="PlacesGalleryLink" xml:space="preserve"><value>Смотрите больше фото и видео в галерее</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Фото:</value></data>
   <data name="PhotoCreditModified" xml:space="preserve"><value>обрезано</value></data>
@@ -114,6 +115,8 @@
   <data name="FieldNameHint" xml:space="preserve"><value>Например: Анна</value></data>
   <data name="FieldPhone" xml:space="preserve"><value>Телефон</value></data>
   <data name="FieldRoute" xml:space="preserve"><value>Маршрут</value></data>
+  <data name="RouteCustomTitle" xml:space="preserve"><value>Индивидуальный маршрут</value></data>
+  <data name="RouteCustomText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому.</value></data>
   <data name="GuideTitle" xml:space="preserve"><value>Серёга Северный — аттестованный гид по Кольскому полуострову</value></data>
   <data name="GuideText" xml:space="preserve"><value>Круглый год водит группы в Териберку, Хибины и на Терский берег: знает, когда выйти к океану, чтобы застать китов, где ловить северное сияние и как одеться, чтобы день на арктическом ветру прошёл в удовольствие. На маршруте держит комфортный темп и отвечает за безопасность группы.</value></data>
   <data name="FormCustomKicker" xml:space="preserve"><value>Индивидуальный тур</value></data>
@@ -124,7 +127,7 @@
   <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Оставьте заявку, а детали обсудим по телефону.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Оставить заявку</value></data>
   <data name="Submit" xml:space="preserve"><value>Отправить заявку</value></data>
-  <data name="FormCallbackNote" xml:space="preserve"><value>В рабочее время свяжемся в течение получаса</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>В рабочее время мы свяжемся с вами в течение получаса</value></data>
   <data name="FormOr" xml:space="preserve"><value>или</value></data>
   <data name="FormTelegram" xml:space="preserve"><value>Забронировать через бота</value></data>
   <data name="FormTelegramNote" xml:space="preserve"><value>Через бот вы сможете узнать приблизительную стоимость поездки</value></data>
@@ -156,7 +159,7 @@
 
   <data name="PlaceMore" xml:space="preserve"><value>Подробнее →</value></data>
   <data name="BackToHome" xml:space="preserve"><value>← На главную</value></data>
-  <data name="GalleryTitle" xml:space="preserve"><value>Фотографии</value></data>
+  <data name="PlacePhotosTitle" xml:space="preserve"><value>Фотографии</value></data>
   <data name="PlaceCtaTitle" xml:space="preserve"><value>Хотите увидеть это своими глазами?</value></data>
   <data name="PlaceCtaText" xml:space="preserve"><value>Оставьте заявку — мы перезвоним, подберём дату и ответим на вопросы.</value></data>
   <data name="NotFoundTitle" xml:space="preserve"><value>Страница не найдена</value></data>

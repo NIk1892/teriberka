@@ -382,7 +382,9 @@ a { color: var(--accent-ice); }
 .hero {
     position: relative;
     overflow: hidden;
-    padding-block: 56px 72px;
+    /* снизу отступ меньше верхнего: hero заканчивается карточками мест, и вместе
+       с padding следующей секции 72px читались дырой (владелец, 25.08.2026) */
+    padding-block: 56px 32px;
     text-align: center;
     background:
         radial-gradient(1100px 500px at 20% -10%, rgba(60, 232, 164, .16), transparent 60%),
@@ -412,21 +414,20 @@ a { color: var(--accent-ice); }
 }
 
 @media (min-width: 960px) {
-    /* DOM-порядок (он же мобильный): текст → карта → места → кнопки.
-       На десктопе текст и карта в две колонки, остальные ряды — во всю ширину. */
+    /* DOM-порядок (он же мобильный): текст → карта → места. Кнопки с ценой уехали
+       из hero под программу дня (25.08.2026), поэтому ряда cta здесь больше нет.
+       На десктопе текст и карта в две колонки, карточки мест — во всю ширину. */
     .hero-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "copy visual"
-            "places places"
-            "cta cta";
+            "places places";
         gap: 24px 44px;
         align-items: start;
     }
     .hero-copy { grid-area: copy; text-align: left; }
     .hero-visual { grid-area: visual; }
     .hero-places { grid-area: places; margin-top: 8px; }
-    .hero-cta { grid-area: cta; margin-top: 8px; }
     .hero-copy h1 { margin-inline: 0; }
     .hero-copy .hero-text { margin-inline: 0; }
     .hero-copy .hero-facts { margin-inline: 0; }
@@ -524,8 +525,8 @@ a { color: var(--accent-ice); }
     font-size: 1rem;
 }
 
-/* Кнопки в ряд: главная — к форме, второстепенная «призрачная» — к программе дня.
-   На узких экранах переносятся и центрируются, на десктопе прижаты влево. */
+/* Ряд действий блока .tour-cta под программой дня. Кнопка одна — к форме внизу;
+   flex оставлен, он центрирует её и переносит на узких экранах. */
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
@@ -564,7 +565,16 @@ a { color: var(--accent-ice); }
     transform: translateY(-1px);
 }
 
-/* мета-строка под кнопками: цена крупно, формат и «без предоплаты» — в одну строку */
+/* Блок «Оставить заявку» + цена под программой дня. Классы .hero-* остались от hero,
+   где блок жил до 25.08.2026, — оформление то же, поменялось только место. Тонкая
+   линия сверху отделяет действие от текста программы. */
+.tour-cta {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+}
+
+/* мета-строка под кнопкой: цена крупно, формат и «без предоплаты» — в одну строку */
 .hero-meta {
     display: flex;
     flex-wrap: wrap;
@@ -882,6 +892,28 @@ html.js-parallax .parallax-band .container {
     margin-inline: auto;
 }
 
+/* Примечание про галерею в шапке блока мест: скобки и приглушённый кегль
+   (владелец, 25.08.2026) — это сноска, а не призыв, главное здесь сами места.
+   Стрелка убрана по той же причине: она делала строку похожей на кнопку. */
+.places-more {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: .85rem;
+    text-align: center;
+}
+
+.places-more a {
+    color: var(--accent-ice);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-ice) 35%, transparent);
+    transition: color .15s ease, border-color .15s ease;
+}
+
+.places-more a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
 .section-head {
     max-width: 640px;
     margin-bottom: 36px;
@@ -902,9 +934,9 @@ html.js-parallax .parallax-band .container {
 @media (max-width: 699px) {
     .hero { padding-bottom: 24px; }
     .section { padding-block: 32px; }
-    .section-head { margin-inline: auto; margin-bottom: 20px; text-align: center; }
-    /* примечание под программой — мелкий текст, полный паддинг секции под ним читался как дыра */
+    /* под программой дня — кнопка с ценой, полный паддинг секции под ней избыточен */
     .itinerary { padding-bottom: 24px; }
+    .section-head { margin-inline: auto; margin-bottom: 20px; text-align: center; }
     .itinerary-note,
     .season-note { text-align: center; }
 }
@@ -1223,17 +1255,19 @@ html.js-parallax .parallax-band .container {
     /* scale в keyframes — относительно собственного низа кита, а не угла viewBox */
     transform-box: fill-box;
     transform-origin: 50% 100%;
-    animation: whale-surface 18s ease-in-out infinite;
+    animation: whale-surface 45s ease-in-out infinite;
     animation-delay: -4s;
 }
 
 /* кит живёт над маркером Териберки (svg ≈ 205,108): всплывает, чуть дрейфует и уходит
-   под воду — одно место, цикл 18 с (маршрут вдоль берега из четырёх точек убран владельцем) */
+   под воду — одно место, цикл 45 с (маршрут вдоль берега из четырёх точек убран владельцем).
+   Само всплытие занимает те же ~9 с, что и раньше, — удлинена только пауза под водой
+   (владелец, 25.08.2026: при цикле 18 с кит мозолил глаза). Проценты пересчитаны от 45 с. */
 @keyframes whale-surface {
     0%        { opacity: 0;   transform: translate(-268px, -8px) scale(1.3); }
-    9%        { opacity: .75; transform: translate(-268px, -15px) scale(1.3); }
-    40%       { opacity: .75; transform: translate(-272px, -15px) scale(1.3); }
-    50%, 100% { opacity: 0;   transform: translate(-273px, -8px) scale(1.3); }
+    3.6%      { opacity: .75; transform: translate(-268px, -15px) scale(1.3); }
+    16%       { opacity: .75; transform: translate(-272px, -15px) scale(1.3); }
+    20%, 100% { opacity: 0;   transform: translate(-273px, -8px) scale(1.3); }
 }
 
 /* на узком экране HTML-маркер Териберки в масштабе SVG крупнее и задевает кита —
@@ -1432,7 +1466,11 @@ html.js-parallax .parallax-band .container {
 
 .map-place-pass      { left: 34.7%; top: 40.6%; translate: -100% -50%; flex-direction: row-reverse; }
 .map-place-umba      { left: 30.2%; top: 82.8%; translate: -100% -50%; flex-direction: row-reverse; }
-.map-place-labyrinth { left: 19%; top: 78%; translate: -100% -50%; flex-direction: row-reverse; }
+/* «Каменный лабиринт» — единственная подпись справа от точки: слева она вылезала
+   за левый край карты на полсотни пикселей и висела в пустоте (владелец, 25.08.2026).
+   translate по x — половина точки, чтобы сама точка осталась на своём месте;
+   маркер приподнят с 78% до 75%, иначе подпись задевала «Умбу» снизу. */
+.map-place-labyrinth { left: 19%; top: 75%; translate: -5.5px -50%; }
 /* точка на полуострове Рыбачий (svg ≈ 150,78); подпись слева, как у остальных */
 .map-place-rybachy   { left: 24.1%; top: 9.8%; translate: -100% -50%; flex-direction: row-reverse; }
 
@@ -2181,8 +2219,11 @@ html.lightbox-open { overflow: hidden; }
 .apply-form,
 .sent-card { scroll-margin-top: 80px; }
 
+/* Карточка шире, чем была (720px), — узкая колонка под трёхколоночной лентой мест
+   смотрелась случайной. Во всю ширину контейнера (1080px) не растягиваем: строка
+   подводки уехала бы за 100 символов, а поля стали бы неоправданно длинными. */
 .apply-card {
-    max-width: 720px;
+    max-width: 900px;
     margin-inline: auto;
     padding: 28px 22px;
     overflow: hidden;
@@ -2192,20 +2233,6 @@ html.lightbox-open { overflow: hidden; }
         radial-gradient(600px 300px at 90% -20%, rgba(76, 201, 240, .10), transparent 60%),
         var(--bg-elev);
     box-shadow: var(--shadow);
-}
-
-/* кадры дня в шапке карточки формы — желание в момент решения, без ссылок */
-.apply-photos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin: -28px -22px 22px;
-}
-
-.apply-photos img {
-    width: 100%;
-    height: 92px;
-    object-fit: cover;
 }
 
 .apply-card > h2 { font-size: 1.6rem; }
@@ -2221,6 +2248,8 @@ html.lightbox-open { overflow: hidden; }
 }
 
 .apply-lead {
+    /* проза держится в комфортной длине строки, даже когда карточка широкая */
+    max-width: 62ch;
     margin: 0 0 16px;
     color: var(--text-muted);
 }
@@ -2374,6 +2403,91 @@ html.lightbox-open { overflow: hidden; }
     font-size: .92rem;
 }
 
+/* Выбор маршрута карточками. Радиокнопка спрятана (но остаётся в потоке фокуса),
+   видимая карточка — соседний .route-option-box, поэтому подсветка выбранного
+   делается селектором input:checked + box и обходится без :has(). */
+.field-routes {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.field-routes .field-label { padding: 0; }
+
+.route-options {
+    display: grid;
+    gap: 10px;
+}
+
+.route-option {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.route-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.route-option-box {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+    row-gap: 2px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elev-2);
+    transition: border-color .15s ease, background .15s ease;
+}
+
+/* кружок радиокнопки — свой, как у чекбокса согласия */
+.route-option-box::before {
+    content: "";
+    grid-row: 1 / 3;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg);
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.route-option-title {
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.route-option-text {
+    color: var(--text-muted);
+    font-size: .85rem;
+    line-height: 1.4;
+}
+
+.route-option:hover .route-option-box { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+
+.route-option input:checked + .route-option-box {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg-elev-2));
+}
+
+.route-option input:checked + .route-option-box::before {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 4px var(--accent);
+}
+
+.route-option input:focus-visible + .route-option-box {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
 /* согласие на обработку ПД: проверяется только браузером (required + form-ui.js) */
 .consent {
     grid-column: 1 / -1;
@@ -2461,10 +2575,16 @@ html.lightbox-open { overflow: hidden; }
 
 .form-submit .btn { width: 100%; }
 
+/* кнопка отправки со своей сноской — колонка-близнец .form-submit-alt */
+.form-submit-main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
 /* что происходит после отправки — сразу под кнопкой, до альтернативы «или» */
 .form-submit-note {
-    width: 100%;
-    margin-top: -4px;
     color: var(--accent);
     font-size: .84rem;
     font-weight: 600;
@@ -2797,8 +2917,7 @@ html.js-fx .guide-card { animation: none; }
 
 /* ---------- гид у формы ---------- */
 
-/* блок доверия перед формой: настоящее фото в аврора-кольце + пара предложений.
-   Верхний отступ секции ужат: перед блоком и так лежит нижний отступ FAQ */
+/* Верхний отступ секции ужат: перед формой и так лежит нижний отступ FAQ. */
 .section.apply { padding-top: 36px; }
 
 @media (min-width: 960px) {
@@ -3729,13 +3848,21 @@ html.js-chat .chat-refresh { display: none; }
     .form-grid .form-submit { grid-column: 1 / -1; }
     .form-submit .btn,
     .form-submit .btn-tg { width: auto; }
+    .form-submit-main,
     .form-submit-alt {
         width: auto;
         max-width: 280px;
     }
-    /* ряд выравнивается по верху: иначе сноска утягивала бы кнопку бота вверх
-       относительно главной. «или» центрируем по высоте кнопки (min-height у .btn). */
-    .form-submit { align-items: flex-start; }
+    .route-options { grid-template-columns: repeat(2, 1fr); }
+    /* Ряд выравнивается по верху: иначе сноска утягивала бы кнопку бота вверх
+       относительно главной. «или» центрируем по высоте кнопки (min-height у .btn).
+       justify-content: обе колонки по 280px и «или» между ними занимают заметно
+       меньше ширины карточки — прижатые влево они оставляли дыру справа
+       (владелец, 25.08.2026). На мобиле правило безразлично: там дети во всю ширину. */
+    .form-submit {
+        align-items: flex-start;
+        justify-content: center;
+    }
     .form-submit-or {
         flex: none;
         display: flex;
@@ -3745,8 +3872,6 @@ html.js-chat .chat-refresh { display: none; }
     }
     .form-submit .btn { min-width: 240px; }
     .apply-card { padding: 36px 40px; }
-    .apply-photos { margin: -36px -40px 24px; }
-    .apply-photos img { height: 110px; }
 }
 
 @media (min-width: 800px) {
@@ -3757,7 +3882,7 @@ html.js-chat .chat-refresh { display: none; }
 @media (min-width: 960px) {
     .places-grid { grid-template-columns: repeat(3, 1fr); }
     .places-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    .hero { padding-block: 72px 48px; }
+    .hero { padding-block: 72px 32px; }
     .section { padding-block: 80px; }
 }
 

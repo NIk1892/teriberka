@@ -11,7 +11,8 @@
 <PageTitle>@L["PageTitle"]</PageTitle>
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
 
-@* Воронка главной: сначала один день в Териберке до формы, другие маршруты — после заявки. *@
+@* Воронка главной: витрина и день в Териберке → кнопка заявки → другие маршруты
+   Кольского → аргументы и FAQ → форма в конце (владелец, 25.08.2026). *@
 
 @* data-speed — параллакс-слои effects.js: положительное значение = слой отстаёт
    от прокрутки (читается дальше). Карта отстаёт сильнее текста — глубина как
@@ -45,6 +46,14 @@
             <div class="section-head">
                 <h2>@L["PlacesTitle"]</h2>
                 <p>@L["PlacesSubtitle"]</p>
+                @* Карточек шесть, а кадров у владельца больше — отсюда путь в «Галерею»
+                   (она же в шапке). Ссылка стоит в шапке блока, а не под карточками
+                   (владелец, 25.08.2026): под лентой её замечали уже после того, как
+                   пролистали всё. В скобках и мелким — это примечание к блоку, а не
+                   его призыв: главное здесь сами места (владелец, 25.08.2026).
+                   Скобки — в разметке, а не в ключе: пунктуация одна на все языки.
+                   Раздел пока заглушка «скоро». *@
+                <p class="places-more">(<a href="/gallery">@L["PlacesGalleryLink"]</a>)</p>
             </div>
             @* На ≤560px сетка становится каруселью по одной карточке во всю ширину
                (владелец, 24.08.2026: «половинка» соседней карточки читалась как обрез);
@@ -70,19 +79,6 @@
             <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
             </div>
         </section>
-
-        @* Кнопки и цена закрывают витрину. На десктопе — во всю ширину по центру. *@
-        <div class="hero-cta" data-speed="0.07">
-            <div class="hero-actions">
-                <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
-                <a class="btn-ghost" href="#itinerary">@L["HeroCta2"]</a>
-            </div>
-            <p class="hero-meta">
-                <strong class="hero-price">@L["HeroPrice"]</strong>
-                <span class="hero-note">@L["HeroNote"]</span>
-                <span class="hero-trust">@L["HeroTrust"]</span>
-            </p>
-        </div>
     </div>
 </section>
 
@@ -106,12 +102,72 @@
                 </li>
             }
         </ol>
-        @* Призывов в середине лендинга больше нет (последний, после программы дня,
-           убран владельцем 24.08.2026): вход в форму и так всегда на виду — CTA под
-           витриной hero, кнопка в шапке и виджет связи в углу. *@
         <p class="itinerary-note">@L["ItineraryNote"]</p>
+
+        @* Кнопка с ценой под программой дня (владелец, 25.08.2026): форма стоит
+           в конце страницы, сюда возвращается только призыв. Ghost-кнопки
+           «Программа дня» рядом нет — она вела бы в блок, который прямо над ней
+           (ключ HeroCta2 в resx остался). До этого места кнопку заявки держит
+           шапка: .nav-apply на десктопе и .header-apply на мобиле. *@
+        <div class="tour-cta">
+            <div class="hero-actions">
+                <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
+            </div>
+            <p class="hero-meta">
+                <strong class="hero-price">@L["HeroPrice"]</strong>
+                <span class="hero-note">@L["HeroNote"]</span>
+                <span class="hero-trust">@L["HeroTrust"]</span>
+            </p>
+        </div>
     </div>
 </section>
+
+<section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
+    <div class="container">
+        <div class="route-picker-head">
+            <span>@L["OtherRoutesKicker"]</span>
+            <h2 id="other-routes-title">@L["OtherRoutesTitle"]</h2>
+            <p>@L["OtherRoutesText"]</p>
+        </div>
+
+        @foreach (var dir in PlaceCatalog.Directions.Skip(1))
+        {
+            <div class="direction-block" id="dir-@dir.Key">
+                <div class="direction-head">
+                    <span class="direction-num" aria-hidden="true">0@(dir.Index)</span>
+                    <div>
+                        <span class="alt-route-type">@L[$"OtherRoute{dir.Index}Type"]</span>
+                        <h3>@L[$"Dir{dir.Index}Title"]</h3>
+                        <p>@L[$"Dir{dir.Index}Text"]</p>
+                    </div>
+                </div>
+                @* меньше трёх карточек — двухколоночная сетка (в трёх колонках пусто), иначе обычные три *@
+                <div class="places-carousel carousel-wrap">
+                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                <div class="places-grid carousel-track @(dir.PlaceIndexes.Length < 3 ? "cols-2" : "")">
+                    @foreach (var idx in dir.PlaceIndexes)
+                    {
+                        var place = PlaceCatalog.ByIndex(idx);
+                        <a class="place-card" href="/place/@place.Slug">
+                            <span class="place-photo">
+                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                            </span>
+                            <span class="place-body">
+                                <strong class="place-title">@L[$"Place{idx}Title"]</strong>
+                                <span class="place-text">@L[$"Place{idx}Text"]</span>
+                                <span class="place-more">@L["PlaceMore"]</span>
+                            </span>
+                        </a>
+                    }
+                </div>
+                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
 
 <section class="section why" id="why">
     <div class="container">
@@ -199,8 +255,12 @@
     </div>
 </section>
 
-@* id="apply" перенесён внутрь, на саму форму (ApplicationForm.razor): якорь
-   должен приводить к первому полю, а не к началу карточки. *@
+@* Форма — в конце страницы, после того как сняты возражения (что включено,
+   сезоны, FAQ). Под программой дня стоит только кнопка-якорь: пробовали ставить
+   сюда саму форму (25.08.2026), владелец вернул кнопку. Форма на странице ровно
+   одна — у static SSR FormName уникален, двух ApplicationForm быть не может.
+   id="apply" — внутри, на самой форме (ApplicationForm.razor): якорь должен
+   приводить к первому полю, а не к началу карточки. *@
 <section class="section apply">
     <div class="container">
         @* Блок гида временно убран (21.08.2026): его фото теперь работает лицом
@@ -220,52 +280,6 @@
         <div class="apply-card">
             <ApplicationForm Sent="Sent" Custom="CustomTour" />
         </div>
-    </div>
-</section>
-
-<section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
-    <div class="container">
-        <div class="route-picker-head">
-            <span>@L["OtherRoutesKicker"]</span>
-            <h2 id="other-routes-title">@L["OtherRoutesTitle"]</h2>
-            <p>@L["OtherRoutesText"]</p>
-        </div>
-
-        @foreach (var dir in PlaceCatalog.Directions.Skip(1))
-        {
-            <div class="direction-block" id="dir-@dir.Key">
-                <div class="direction-head">
-                    <span class="direction-num" aria-hidden="true">0@(dir.Index)</span>
-                    <div>
-                        <span class="alt-route-type">@L[$"OtherRoute{dir.Index}Type"]</span>
-                        <h3>@L[$"Dir{dir.Index}Title"]</h3>
-                        <p>@L[$"Dir{dir.Index}Text"]</p>
-                    </div>
-                </div>
-                @* меньше трёх карточек — двухколоночная сетка (в трёх колонках пусто), иначе обычные три *@
-                <div class="places-carousel carousel-wrap">
-                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-                <div class="places-grid carousel-track @(dir.PlaceIndexes.Length < 3 ? "cols-2" : "")">
-                    @foreach (var idx in dir.PlaceIndexes)
-                    {
-                        var place = PlaceCatalog.ByIndex(idx);
-                        <a class="place-card" href="/place/@place.Slug">
-                            <span class="place-photo">
-                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
-                            </span>
-                            <span class="place-body">
-                                <strong class="place-title">@L[$"Place{idx}Title"]</strong>
-                                <span class="place-text">@L[$"Place{idx}Text"]</span>
-                                <span class="place-more">@L["PlaceMore"]</span>
-                            </span>
-                        </a>
-                    }
-                </div>
-                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
-                </div>
-            </div>
-        }
-
     </div>
 </section>
 
