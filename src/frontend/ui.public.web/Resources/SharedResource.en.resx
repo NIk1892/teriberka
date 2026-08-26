@@ -147,7 +147,7 @@
   <data name="FooterSlogan" xml:space="preserve"><value>Tours across the Kola Peninsula: Teriberka, mountain tundras and the Tersky Coast. Small groups, the real North, no rush.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Sections</value></data>
   <data name="NavItinerary" xml:space="preserve"><value>Day programme</value></data>
-  <data name="NavPlaces" xml:space="preserve"><value>Places</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>Teriberka</value></data>
   <data name="NavMoreRoutes" xml:space="preserve"><value>Other routes</value></data>
   <data name="NavSeasons" xml:space="preserve"><value>Seasons</value></data>
   <data name="NavPractical" xml:space="preserve"><value>Questions</value></data>
@@ -312,6 +312,8 @@
   <data name="Why2Text" xml:space="preserve"><value>no car to find, no daylight hours to count, no guessing when the tide bares the Dragon Eggs. You name the date, the rest is our job</value></data>
   <data name="Why3Title" xml:space="preserve"><value>You decide, not a deposit</value></data>
   <data name="Why3Text" xml:space="preserve"><value>a request commits you to nothing: we call first, settle the date, the weather and the price, and only then you say yes</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>Your guide is the driver</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>the road to Teriberka is his job all year round: through polar night, blizzards and white nights alike. He drives himself, knows where the highway is deceptive and where it pays to wait out the weather, and will not take you anywhere unsafe that day</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous photos</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next photos</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk, Apatity or Kirovsk</value></data>
@@ -371,6 +373,11 @@
   <data name="FormPoint4" xml:space="preserve"><value>Fit the trip around your flight or train</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>I agree to the processing of my personal data and accept the</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>privacy policy</value></data>
+  <data name="PhoneCountryLabel" xml:space="preserve"><value>Country code</value></data>
+  <data name="CookieTextBefore" xml:space="preserve"><value>We use </value></data>
+  <data name="CookieLink" xml:space="preserve"><value>Cookies</value></data>
+  <data name="CookieTextAfter" xml:space="preserve"><value> for analytics and to keep the site working properly.</value></data>
+  <data name="CookieAccept" xml:space="preserve"><value>Got it</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · Taxpayer ID (INN) 511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>Privacy policy</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Privacy policy</value></data>

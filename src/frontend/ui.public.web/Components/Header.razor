@@ -14,12 +14,17 @@
         </a>
 
         @* Быстрые переходы к разделам главной (ссылки с "/" работают и со страниц мест).
-           На десктопе — строка ссылок, на узких экранах вместо неё бургер ниже. *@
+           На десктопе — строка ссылок, на узких экранах вместо неё бургер ниже; состав
+           пунктов у них одинаковый, чтобы меню не зависело от ширины экрана.
+           Ссылка «Галерея» убрана 26.08.2026: /gallery — заглушка «скоро» (noindex,
+           не в sitemap), вести туда не с чего — по той же причине владелец убрал
+           примечание .places-more из блока мест. Страница и ключ NavGallery целы,
+           ссылка возвращается одной строкой, когда в разделе появятся фотографии. *@
         <nav class="main-nav" aria-label="@L["MenuLabel"]">
             <a href="/#itinerary">@L["NavItinerary"]</a>
             <a href="/#places">@L["NavPlaces"]</a>
+            <a href="/#more-routes">@L["NavMoreRoutes"]</a>
             <a href="/#practical">@L["NavPractical"]</a>
-            <a href="/gallery">@L["NavGallery"]</a>
             <a class="nav-apply" href="/#apply">@L["NavApply"]</a>
         </nav>
 
@@ -68,7 +73,6 @@
                     <a href="/#places">@L["NavPlaces"]</a>
                     <a href="/#more-routes">@L["NavMoreRoutes"]</a>
                     <a href="/#practical">@L["NavPractical"]</a>
-                    <a href="/gallery">@L["NavGallery"]</a>
 
                     @* Язык переехал сюда из шапки: на телефоне место занимает кнопка
                        заявки, а язык меняют раз за визит — ему хватает бургера.

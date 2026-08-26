@@ -1,0 +1,195 @@
+@* Спрайт флагов для селектора кода страны в поле телефона (PhoneCountries).
+   Инлайн, а не отдельный файл: <use href="файл.svg#id"> браузеры не грузят
+   с внешнего адреса, а CSP запрещает и inline-стили, и посторонние источники.
+   Emoji-флаги (🇷🇺) не годятся вовсе — Windows их не рисует.
+
+   Рисунок упрощён до опознаваемого силуэта: гербы Испании, Португалии и Мексики
+   заменены кружком, звёзды и кресты сохранены — в иконке 20×14 деталей не видно.
+   Пропорция у всех 3:2 (viewBox 60×40), id = flag-{iso}: новая страна в каталоге
+   требует symbol с тем же iso здесь.
+
+   Сам спрайт невидим (класс .flag-sprite в app.css) — это только определения. *@
+<svg class="flag-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        @* пятиконечная звезда единичного радиуса: масштабируется через <use transform> *@
+        <path id="flag-star" d="M0,-1 L0.2245,-0.309 L0.9511,-0.309 L0.3633,0.118 L0.5878,0.809 L0,0.382 L-0.5878,0.809 L-0.3633,0.118 L-0.9511,-0.309 L-0.2245,-0.309 Z" />
+    </defs>
+
+    <symbol id="flag-ru" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect y="13.33" width="60" height="13.34" fill="#0039A6" />
+        <rect y="26.67" width="60" height="13.33" fill="#D52B1E" />
+    </symbol>
+
+    <symbol id="flag-cn" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#DE2910" />
+        <use href="#flag-star" fill="#FFDE00" transform="translate(11 11) scale(6)" />
+        <use href="#flag-star" fill="#FFDE00" transform="translate(22 4) scale(2)" />
+        <use href="#flag-star" fill="#FFDE00" transform="translate(27 9) scale(2)" />
+        <use href="#flag-star" fill="#FFDE00" transform="translate(27 15) scale(2)" />
+        <use href="#flag-star" fill="#FFDE00" transform="translate(22 20) scale(2)" />
+    </symbol>
+
+    <symbol id="flag-no" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#BA0C2F" />
+        <rect x="14" width="8" height="40" fill="#fff" />
+        <rect y="16" width="60" height="8" fill="#fff" />
+        <rect x="16.5" width="3" height="40" fill="#00205B" />
+        <rect y="18.5" width="60" height="3" fill="#00205B" />
+    </symbol>
+
+    <symbol id="flag-fi" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect x="15" width="8" height="40" fill="#003580" />
+        <rect y="16" width="60" height="8" fill="#003580" />
+    </symbol>
+
+    <symbol id="flag-gb" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#012169" />
+        <path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8" />
+        <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="3.5" />
+        <rect x="24" width="12" height="40" fill="#fff" />
+        <rect y="14" width="60" height="12" fill="#fff" />
+        <rect x="26.5" width="7" height="40" fill="#C8102E" />
+        <rect y="16.5" width="60" height="7" fill="#C8102E" />
+    </symbol>
+
+    <symbol id="flag-fr" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="20" height="40" fill="#002395" />
+        <rect x="40" width="20" height="40" fill="#ED2939" />
+    </symbol>
+
+    <symbol id="flag-de" viewBox="0 0 60 40">
+        <rect width="60" height="13.33" fill="#000" />
+        <rect y="13.33" width="60" height="13.34" fill="#DD0000" />
+        <rect y="26.67" width="60" height="13.33" fill="#FFCE00" />
+    </symbol>
+
+    <symbol id="flag-it" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="20" height="40" fill="#009246" />
+        <rect x="40" width="20" height="40" fill="#CE2B37" />
+    </symbol>
+
+    <symbol id="flag-es" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#AA151B" />
+        <rect y="10" width="60" height="20" fill="#F1BF00" />
+    </symbol>
+
+    <symbol id="flag-nl" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="60" height="13.33" fill="#AE1C28" />
+        <rect y="26.67" width="60" height="13.33" fill="#21468B" />
+    </symbol>
+
+    <symbol id="flag-se" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#006AA7" />
+        <rect x="15" width="8" height="40" fill="#FECC00" />
+        <rect y="16" width="60" height="8" fill="#FECC00" />
+    </symbol>
+
+    <symbol id="flag-dk" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#C8102E" />
+        <rect x="15" width="8" height="40" fill="#fff" />
+        <rect y="16" width="60" height="8" fill="#fff" />
+    </symbol>
+
+    <symbol id="flag-pl" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect y="20" width="60" height="20" fill="#DC143C" />
+    </symbol>
+
+    <symbol id="flag-at" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#ED2939" />
+        <rect y="13.33" width="60" height="13.34" fill="#fff" />
+    </symbol>
+
+    <symbol id="flag-ch" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#DA291C" />
+        <rect x="26" y="9" width="8" height="22" fill="#fff" />
+        <rect x="19" y="16" width="22" height="8" fill="#fff" />
+    </symbol>
+
+    <symbol id="flag-be" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#FAE042" />
+        <rect width="20" height="40" fill="#000" />
+        <rect x="40" width="20" height="40" fill="#ED2939" />
+    </symbol>
+
+    <symbol id="flag-pt" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#FF0000" />
+        <rect width="24" height="40" fill="#006600" />
+        <circle cx="24" cy="20" r="6.5" fill="#FFD100" />
+        <circle cx="24" cy="20" r="3.5" fill="#FF0000" />
+    </symbol>
+
+    <symbol id="flag-cz" viewBox="0 0 60 40">
+        <rect width="60" height="20" fill="#fff" />
+        <rect y="20" width="60" height="20" fill="#D7141A" />
+        <path d="M0,0 L26,20 L0,40 Z" fill="#11457E" />
+    </symbol>
+
+    <symbol id="flag-gr" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#0D5EAF" />
+        <rect y="4.44" width="60" height="4.44" fill="#fff" />
+        <rect y="13.33" width="60" height="4.45" fill="#fff" />
+        <rect y="22.22" width="60" height="4.45" fill="#fff" />
+        <rect y="31.11" width="60" height="4.45" fill="#fff" />
+        <rect width="22.2" height="22.2" fill="#0D5EAF" />
+        <rect x="8.9" width="4.4" height="22.2" fill="#fff" />
+        <rect y="8.9" width="22.2" height="4.4" fill="#fff" />
+    </symbol>
+
+    <symbol id="flag-by" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#C8313E" />
+        <rect y="26.67" width="60" height="13.33" fill="#4AA657" />
+        <rect width="8" height="40" fill="#fff" />
+        <path d="M2,4 L6,8 L2,12 Z M2,16 L6,20 L2,24 Z M2,28 L6,32 L2,36 Z" fill="#C8313E" />
+    </symbol>
+
+    <symbol id="flag-kz" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#00AFCA" />
+        <circle cx="32" cy="18" r="7" fill="#FEC50C" />
+        <rect x="3" y="6" width="3" height="28" fill="#FEC50C" />
+    </symbol>
+
+    <symbol id="flag-br" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#009B3A" />
+        <path d="M30,4 L56,20 L30,36 L4,20 Z" fill="#FEDF00" />
+        <circle cx="30" cy="20" r="8" fill="#002776" />
+    </symbol>
+
+    <symbol id="flag-ar" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="60" height="13.33" fill="#74ACDF" />
+        <rect y="26.67" width="60" height="13.33" fill="#74ACDF" />
+        <circle cx="30" cy="20" r="4" fill="#F6B40E" />
+    </symbol>
+
+    <symbol id="flag-mx" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="20" height="40" fill="#006847" />
+        <rect x="40" width="20" height="40" fill="#CE1126" />
+        <circle cx="30" cy="20" r="4" fill="#8C6239" />
+    </symbol>
+
+    <symbol id="flag-cl" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect y="20" width="60" height="20" fill="#D52B1E" />
+        <rect width="20" height="20" fill="#0039A6" />
+        <use href="#flag-star" fill="#fff" transform="translate(10 10) scale(5.5)" />
+    </symbol>
+
+    <symbol id="flag-co" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#FCD116" />
+        <rect y="20" width="60" height="10" fill="#003893" />
+        <rect y="30" width="60" height="10" fill="#CE1126" />
+    </symbol>
+
+    <symbol id="flag-pe" viewBox="0 0 60 40">
+        <rect width="60" height="40" fill="#fff" />
+        <rect width="20" height="40" fill="#D91023" />
+        <rect x="40" width="20" height="40" fill="#D91023" />
+    </symbol>
+</svg>

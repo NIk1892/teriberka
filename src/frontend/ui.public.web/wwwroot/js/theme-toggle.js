@@ -21,8 +21,13 @@
             document.documentElement.dataset.theme = next;
             var meta = document.querySelector('meta[name="theme-color"]');
             if (meta) meta.setAttribute("content", COLORS[next]);
-            // ссылка готова к следующему клику (и как фоллбек, если fetch не дойдёт)
-            link.href = link.href.replace(/theme=\w+/, "theme=" + (next === "light" ? "dark" : "light"));
+            // Ссылка готова к следующему клику (и как фоллбек, если fetch не дойдёт).
+            // Именно setAttribute с относительным путём: присвоение link.href пишет
+            // в атрибут абсолютный URL, и селектор a[href^="/set-theme"] (он сравнивает
+            // атрибут, а не свойство) перестаёт его находить — второй клик уходил
+            // в полную навигацию и сбрасывал прокрутку наверх.
+            var href = link.getAttribute("href") || "";
+            link.setAttribute("href", href.replace(/theme=\w+/, "theme=" + (next === "light" ? "dark" : "light")));
             link.textContent = next === "light" ? "☾" : "☀";
         }
 

@@ -365,14 +365,19 @@ a { color: var(--accent-ice); }
 /* дубль ссылки на бота включается только на самых узких экранах,
    где иконка бота убрана из шапки ради места */
 
-@media (min-width: 900px) {
+/* Порог строки меню — 1040px, а не 900 (26.08.2026): после переименования
+   «Места» → «Териберка» и возврата «Других маршрутов» строке нужно ~965px
+   вместе с брендом и контролами, и на 900–1000px шапка вылезала за экран,
+   давая горизонтальную прокрутку всей странице. Меняешь состав пунктов —
+   перемеряй ширину шапки и правь этот порог (проверять scrollWidth). */
+@media (min-width: 1040px) {
     .main-nav { display: flex; }
     .nav-burger { display: none; }
 }
 
 /* Узкие экраны: заявка выходит в шапку, а переключатель языка уступает ей место
    и уезжает в бургер — язык меняют раз за визит, заявка нужна всё время. */
-@media (max-width: 899px) {
+@media (max-width: 1039px) {
     .header-apply { display: inline-flex; }
     .header-controls > .lang-switch { display: none; }
 }
@@ -864,6 +869,84 @@ html.js-parallax .parallax-band .container {
 }
 
 /* при reduced-motion слои стоят в базовой композиции (JS тоже не запускается) */
+/* ---------- уведомление о cookie ---------- */
+
+/* Угол справа внизу занят кнопкой связи и кнопками прокрутки, поэтому плашка
+   встаёт над ними (тот же расчёт через --fab-size, что у панели чата), а на
+   десктопе уходит в свободный левый угол. z-index 44 — под кнопкой связи (45)
+   и панелью чата (46): диалог с гидом важнее служебного уведомления. */
+.cookie-notice {
+    position: fixed;
+    z-index: 44;
+    left: 12px;
+    right: 12px;
+    bottom: calc(16px + var(--fab-size) + 12px + env(safe-area-inset-bottom, 0px));
+    /* по центру экрана, а не прижата к краю (владелец, 26.08.2026): именно
+       auto-поля при заданных left/right — transform занят анимацией появления */
+    margin-inline: auto;
+    max-width: 560px;
+    display: flex;
+    /* текст и кнопка всегда в одной строке: на телефоне кнопка, уехавшая под
+       текст, делала плашку вдвое выше (владелец, 26.08.2026) */
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 12px 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+    animation: cookie-in .4s ease both .6s; /* появляется, когда страница уже прочитана */
+}
+
+@keyframes cookie-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* уход после «Хорошо» (cookie-notice.js), дальше плашка удаляется из DOM */
+.cookie-notice.is-gone {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.cookie-text {
+    flex: 1 1 auto;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .84rem;
+    line-height: 1.4;
+}
+
+.cookie-text a { color: var(--accent); }
+
+.cookie-accept {
+    flex: none;
+    /* .btn держит min-height: 52px — для служебной плашки это лишние 12px
+       высоты; 40px остаются комфортной целью для пальца */
+    min-height: 40px;
+    padding: 8px 18px;
+    font-size: .88rem;
+}
+
+@media (min-width: 900px) {
+    /* Места хватает — плашка опускается к самому низу, а текст умещается
+       в одну строку (владелец, 26.08.2026): для этого ширина больше, а текст
+       занимает ровно себя, чтобы вместе с кнопкой встать по центру.
+       Ширину сверху режет зона кнопки связи: отступ, равный её габариту,
+       вычитается с обеих сторон — иначе на узких десктопах плашка наезжала
+       бы на кнопку, а несимметричный отступ сбил бы центрирование. */
+    .cookie-notice {
+        bottom: 16px;
+        max-width: min(780px, calc(100vw - 2 * (16px + var(--fab-size) + 24px)));
+        padding: 12px 14px 12px 18px;
+    }
+
+    .cookie-text { flex: 0 1 auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .parallax-band::before,
     .parallax-band::after,
@@ -1139,12 +1222,81 @@ html.js-route .itinerary-route::after { transform: scaleY(var(--route-p, 0)); }
     display: block;
     width: 100%;
     height: auto;
+    /* конусы света фар нарисованы за пределами viewBox (спереди по ходу) —
+       без overflow: visible они просто обрезаются */
+    overflow: visible;
     transition: rotate .4s ease;
 }
 
 .route-van.rev svg { rotate: 180deg; }
 
+/* фары: тёплые точки у переднего края; свечение — статичный drop-shadow
+   (не анимируется — правило «не анимировать filter» не задето) */
+.route-lamp {
+    fill: #ffe9a8;
+    filter: drop-shadow(0 0 2px rgba(255, 233, 168, .8));
+}
+
+/* конус света на дорогу: сам градиент гасит луч к концу, blur статичный —
+   смягчает резкие боковые кромки трапеций. В светлой теме «день» — свет фар
+   приглушён, но не выключен: полярный день не отменяет ходовые огни */
+.route-beam {
+    opacity: .8;
+    filter: blur(.8px);
+}
+
+[data-theme="light"] .route-beam { opacity: .35; }
+
 .route-van.on { opacity: 1; }
+
+/* выхлоп: клубы дыма позади машинки. Обёртка повторяет разворот кузова (.rev),
+   поэтому «позади» остаётся позади и при движении вверх; видно только на ходу
+   (класс .moving ставит route-progress.js). Анимируются только transform/opacity. */
+.route-van-smoke {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .35s ease;
+    transition-delay: .15s; /* короткие остановки не гасят дым рывком */
+    rotate: 0deg;
+}
+
+.route-van.moving .route-van-smoke { opacity: 1; transition-delay: 0s; }
+
+.route-van.rev .route-van-smoke { rotate: 180deg; }
+
+.route-puff {
+    position: absolute;
+    top: -4px;                     /* у заднего бампера (зад по ходу — верх) */
+    left: calc(50% - 11px);        /* труба чуть левее оси, а не по центру */
+    width: 19px;
+    height: 19px;
+    /* мягкий клуб без резкого края: плотный центр, прозрачная кромка.
+       Плотный кружок читался «пузырьками», а не дымом. */
+    background: radial-gradient(circle,
+        color-mix(in srgb, var(--text-muted) 95%, transparent) 0%,
+        color-mix(in srgb, var(--text-muted) 45%, transparent) 45%,
+        transparent 72%);
+    opacity: 0;
+    /* снос и конечный размер у каждого клуба свои, но сторона одна — «ветер»
+       дует в одну сторону, клубы в разные стороны выглядели искусственно */
+    --puff-x: -7px;
+    --puff-s: 1.6;
+    animation: route-puff 1.4s cubic-bezier(.2, .6, .35, 1) infinite;
+}
+
+.route-puff:nth-child(2) { --puff-x: -3px;  --puff-s: 2.2;  animation-delay: .35s; }
+.route-puff:nth-child(3) { --puff-x: -14px; --puff-s: 1.7;  animation-delay: .7s; }
+.route-puff:nth-child(4) { --puff-x: -6px;  --puff-s: 2;    animation-delay: 1.05s; }
+
+/* клуб «выхлопывается»: резко появляется маленьким и плотным у трубы,
+   быстро расширяется, отстаёт от машины и медленно рассеивается */
+@keyframes route-puff {
+    0%   { opacity: 0;   transform: translate(0, 2px) scale(.3); }
+    12%  { opacity: .75; transform: translate(calc(var(--puff-x) * .2), -5px) scale(.6); }
+    55%  { opacity: .38; transform: translate(calc(var(--puff-x) * .7), -19px) scale(1.25); }
+    100% { opacity: 0;   transform: translate(var(--puff-x), -34px) scale(var(--puff-s)); }
+}
 
 .route-stop {
     position: relative;
@@ -1325,7 +1477,8 @@ html.js-route .route-stop-photo img { transform: scale(var(--stop-zoom, 1)); }
 }
 
 @media (min-width: 800px) {
-    .why-grid { grid-template-columns: repeat(3, 1fr); }
+    /* 2×2: пунктов четыре, при трёх колонках справа оставалась пустая ячейка */
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ---------- карта направлений ---------- */
@@ -1524,8 +1677,8 @@ html.js-route .route-stop-photo img { transform: scale(var(--stop-zoom, 1)); }
 
 .map-dot {
     position: relative;
-    width: 16px;
-    height: 16px;
+    width: 19px;
+    height: 19px;
     flex: none;
     border-radius: 50%;
     background: var(--aurora);
@@ -2536,6 +2689,131 @@ html.lightbox-open { overflow: hidden; }
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
+/* ---- международный ввод телефона ---- */
+
+/* спрайт флагов: только определения <symbol>, сам он невидим */
+.flag-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.flag {
+    flex: none;
+    width: 22px;
+    height: 15px;
+    border-radius: 2px;
+    /* тонкая обводка: белые полосы флагов иначе сливаются со светлой темой */
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-muted) 45%, transparent);
+}
+
+.phone-input {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+/* Селектор страны — прогрессивное улучшение: без JavaScript кнопки списка ничего
+   не делают, поэтому показывается он только под html.js-phone (класс вешает
+   phone-intl.js), а поле номера остаётся обычным. */
+.phone-cc { display: none; }
+
+html.js-phone .phone-cc { position: relative; display: block; }
+
+.phone-cc > summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    min-height: 50px;
+    padding: 0 10px 0 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font-size: .95rem;
+    white-space: nowrap;
+    cursor: pointer;
+    list-style: none;
+}
+
+.phone-cc > summary::-webkit-details-marker { display: none; }
+
+.phone-cc[open] > summary { border-color: var(--accent); }
+
+/* невидимый оверлей на весь экран — клик мимо списка сворачивает details.
+   Из-за него на .phone-cc и .phone-input нельзя вешать transform/filter. */
+.phone-cc[open] > summary::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    cursor: default;
+}
+
+[data-theme="light"] .phone-cc > summary { background: var(--bg-elev-2); }
+
+.phone-cc-current { font-variant-numeric: tabular-nums; }
+
+.phone-cc-caret {
+    width: 10px;
+    height: 7px;
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.phone-cc-list {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 6px);
+    left: 0;
+    /* на узком экране список не должен вылезать за край страницы */
+    width: min(300px, calc(100vw - 56px));
+    max-height: 264px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow);
+}
+
+.phone-cc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--text);
+    font: inherit;
+    font-size: .94rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.phone-cc-item:hover,
+.phone-cc-item:focus-visible { background: var(--bg-elev-2); }
+
+.phone-cc-item.is-current { color: var(--accent); }
+
+.phone-cc-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.phone-cc-code {
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
 /* ошибки валидации: мягкая подсветка поля в --danger и подсказка с маркером под ним.
    Системные пузыри браузера не показываются — form-ui.js ставит novalidate. */
 .field-invalid input {
@@ -2568,8 +2846,8 @@ html.lightbox-open { overflow: hidden; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    width: 19px;
+    height: 19px;
     margin-top: 1px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--danger) 18%, transparent);
@@ -4157,6 +4435,8 @@ html.js-chat .chat-refresh { display: none; }
     .scroller { transition: none; }
     .scroller:hover { transform: none; }
     .itinerary-route::after { animation: none; }
+    .cookie-notice { animation: none; }
+    .cookie-notice.is-gone { transition: none; }
     .shore-band .wave { animation: none; }
     .orca-pod { display: none; }
 }

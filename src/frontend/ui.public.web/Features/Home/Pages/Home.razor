@@ -67,7 +67,9 @@
                     var place = PlaceCatalog.ByIndex(idx);
                     <a class="place-card" href="/place/@place.Slug">
                         <span class="place-photo">
-                            <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                            @* ?v=2 — главные фото пяти мест Териберки заменены на свои кадры под теми же
+                                   именами, а картинки кэшируются на 30 дней *@
+                                <img src="/img/places/@(place.Slug).webp?v=2" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                         </span>
                         <span class="place-body">
                             <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -224,7 +226,9 @@
                         var place = PlaceCatalog.ByIndex(idx);
                         <a class="place-card" href="/place/@place.Slug">
                             <span class="place-photo">
-                                <img src="/img/places/@(place.Slug).webp" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                                @* ?v=2 — главные фото пяти мест Териберки заменены на свои кадры под теми же
+                                   именами, а картинки кэшируются на 30 дней *@
+                                <img src="/img/places/@(place.Slug).webp?v=2" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                             </span>
                             <span class="place-body">
                                 <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -297,8 +301,11 @@
         <div class="section-head">
             <h2>@L["WhyTitle"]</h2>
         </div>
+        @* Четвёртый довод — про гида за рулём (владелец, 26.08.2026); на десктопе
+           пункты идут 2×2, чтобы справа не оставалась дыра, как было бы при
+           трёх колонках. Дублей с «что включено» по-прежнему нет. *@
         <ul class="why-grid">
-            @foreach (var i in Enumerable.Range(1, 3))
+            @foreach (var i in Enumerable.Range(1, 4))
             {
                 <li>
                     <strong>@L[$"Why{i}Title"]</strong>

@@ -34,8 +34,9 @@
 
             @* Лайтбокс: клик открывает фото на весь экран (js/lightbox.js);
                без JavaScript ссылка честно открывает файл в новой вкладке. *@
-            <a class="detail-photo lightbox-link" href="/img/places/@(_place.Slug).webp" target="_blank" rel="noopener">
-                <img src="/img/places/@(_place.Slug).webp" alt="@L[$"Place{i}Title"]" fetchpriority="high" />
+            @* ?v=2 — см. комментарий на главной: файлы мест перезаписаны своими кадрами *@
+            <a class="detail-photo lightbox-link" href="/img/places/@(_place.Slug).webp?v=2" target="_blank" rel="noopener">
+                <img src="/img/places/@(_place.Slug).webp?v=2" alt="@L[$"Place{i}Title"]" fetchpriority="high" />
             </a>
             @if (_place.Photo is { } mainCredit)
             {

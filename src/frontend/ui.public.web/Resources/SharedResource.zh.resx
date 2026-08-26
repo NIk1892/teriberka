@@ -147,7 +147,7 @@
   <data name="FooterSlogan" xml:space="preserve"><value>科拉半岛旅行团：捷里别尔卡、山地苔原与捷尔斯基海岸。小团出行，真实的北方，从容不迫。</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>栏目</value></data>
   <data name="NavItinerary" xml:space="preserve"><value>一日行程</value></data>
-  <data name="NavPlaces" xml:space="preserve"><value>景点</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>捷里别尔卡</value></data>
   <data name="NavMoreRoutes" xml:space="preserve"><value>其他路线</value></data>
   <data name="NavSeasons" xml:space="preserve"><value>季节</value></data>
   <data name="NavPractical" xml:space="preserve"><value>常见问题</value></data>
@@ -312,6 +312,8 @@
   <data name="Why2Text" xml:space="preserve"><value>不用找车、不用计算日照时间，也不用猜测退潮何时露出“龙蛋”海滩。您定好日期，其余交给我们</value></data>
   <data name="Why3Title" xml:space="preserve"><value>由您决定，而不是定金</value></data>
   <data name="Why3Text" xml:space="preserve"><value>提交申请不承担任何义务：我们先通电话，商定日期、天气和价格，之后再由您点头</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>开车的是向导本人</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>这条通往捷里别尔卡的路，他常年在跑：极夜、暴风雪、极昼都走过。他亲自驾车，清楚哪段路看着好走其实凶险、哪种天气该先等一等，绝不会在当天不安全的路段冒险</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>上一张照片</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一张照片</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克、阿帕季特或基洛夫斯克往返接送</value></data>
@@ -371,6 +373,11 @@
   <data name="FormPoint4" xml:space="preserve"><value>让行程与您的航班或火车时间相衔接</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>我同意处理我的个人数据，并接受</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>隐私政策</value></data>
+  <data name="PhoneCountryLabel" xml:space="preserve"><value>国家代码</value></data>
+  <data name="CookieTextBefore" xml:space="preserve"><value>我们使用 </value></data>
+  <data name="CookieLink" xml:space="preserve"><value>Cookies</value></data>
+  <data name="CookieTextAfter" xml:space="preserve"><value> 进行分析并保证网站正常运行。</value></data>
+  <data name="CookieAccept" xml:space="preserve"><value>知道了</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · 纳税人识别号（INN）511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>隐私政策</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>隐私政策</value></data>

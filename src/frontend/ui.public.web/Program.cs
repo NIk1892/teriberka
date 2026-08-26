@@ -243,6 +243,23 @@ app.MapGet("/set-theme", (string theme, string? redirect, HttpContext context) =
     return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
 });
 
+// Согласие с уведомлением о cookie: та же схема, что у темы и языка — cookie
+// ставит сервер, ссылка возвращает на ту же страницу. Год жизни: дольше держать
+// технический флажок незачем, а чаще раза в год спрашивать — навязчиво.
+app.MapGet("/accept-cookies", (string? redirect, HttpContext context) =>
+{
+    context.Response.Cookies.Append("cookie_notice", "1", new CookieOptions
+    {
+        Expires = DateTimeOffset.UtcNow.AddYears(1),
+        IsEssential = true,
+        SameSite = SameSiteMode.Lax,
+        HttpOnly = true,
+        Secure = context.Request.IsHttps
+    });
+
+    return Results.LocalRedirect(redirect is ['/', ..] ? redirect : "/");
+});
+
 // robots.txt и sitemap.xml — endpoints, а не файлы в wwwroot: robots нужна
 // динамическая строка Sitemap (только при заданном SITE_URL), а sitemap
 // собирается из PlaceCatalog. Должны быть объявлены до MapRazorComponents,

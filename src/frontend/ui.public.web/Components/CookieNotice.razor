@@ -1,0 +1,39 @@
+@using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
+@inject NavigationManager Navigation
+
+@* Уведомление о cookie. Решение принимается на сервере: пока нет cookie
+   cookie_notice, плашка рендерится, после согласия — нет вовсе, поэтому без
+   JavaScript она не «моргает» и не показывается повторно.
+
+   Кнопка — ссылка на /accept-cookies (тот же приём, что у /set-theme и
+   /set-culture: cookie ставит только сервер, из Razor-компонента её не задать).
+   С работающим JavaScript cookie-notice.js отменяет переход, прячет плашку на
+   месте и дёргает тот же endpoint фоновым fetch — без перезагрузки страницы.
+
+   Согласия на аналитику здесь нет и быть не может: счётчиков на сайте нет,
+   а свои cookie (язык, тема, диалог чата) — технические. Появится метрика —
+   плашке понадобятся отдельные кнопки «принять/отклонить» и хранение выбора. *@
+@if (!Accepted)
+{
+    <div class="cookie-notice" role="region" aria-label="@L["CookieAccept"]">
+        @* Фраза собирается из кусков, а не из одного ключа с разметкой: ссылка на
+           политику висит на самом слове «Cookies», а его место в предложении у трёх
+           языков разное (тот же приём, что у согласия в форме и .final-cta-lead).
+           Пробелы вокруг ссылки — внутри значений ключей (xml:space="preserve"). *@
+        <p class="cookie-text">@L["CookieTextBefore"]<a href="/privacy">@L["CookieLink"]</a>@L["CookieTextAfter"]</p>
+        <a class="btn cookie-accept" href="@AcceptLink()" rel="nofollow">@L["CookieAccept"]</a>
+    </div>
+}
+
+@code {
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    private bool Accepted => HttpContext?.Request.Cookies["cookie_notice"] == "1";
+
+    private string CurrentPath => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+
+    private string AcceptLink() =>
+        $"/accept-cookies?redirect={Uri.EscapeDataString(CurrentPath)}";
+}

@@ -51,6 +51,7 @@ public sealed class SeoUrls
             .AppendLine("User-agent: *")
             .AppendLine("Disallow: /set-culture")
             .AppendLine("Disallow: /set-theme")
+            .AppendLine("Disallow: /accept-cookies")
             .AppendLine("Disallow: /not-found")
             .AppendLine("Disallow: /chat");
 

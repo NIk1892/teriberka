@@ -26,33 +26,39 @@ public static class PlaceCatalog
 {
     public static readonly PlaceInfo[] All =
     [
+        // Главные фото шести мест Териберки — собственные кадры владельца
+        // (26.08.2026, оригиналы в src/frontend/temp): Photo не указан, потому что
+        // атрибуция нужна только для чужих снимков с Commons. Галереи пока остались
+        // с Commons — там подписи обязательны, снимать их нельзя.
         new(1, "dragon-eggs",
-            new("PSerov", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:PS_A2825.jpg"),
+            Gallery:
             [
                 new("Konstant", "CC BY-SA 3.0", "https://commons.wikimedia.org/wiki/File:Murmansk_Oblast,_Russia,_184630_-_panoramio_(6).jpg"),
                 new("Konstant", "CC BY-SA 3.0", "https://commons.wikimedia.org/wiki/File:Murmansk_Oblast,_Russia,_184630_-_panoramio_(7).jpg"),
                 new("Vsatinet", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Stone_beach_on_the_way_to_Batareyskiy_waterfall.jpg"),
             ]),
         new(2, "ship-graveyard",
-            new("Mihail Siergiejevicz", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Кладбище_кораблей_Териберки.jpg"),
+            Gallery:
             [
                 new("Юрочкин Роман", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Пос.Териберка_кладбище_кораблей2.JPG"),
                 new("Юрочкин Роман", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Пос.Териберка_кладбище_кораблей1.JPG"),
                 new("Юрочкин Роман", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Пос.Териберка_кладбище_кораблей4.JPG"),
             ]),
         new(3, "batareysky-waterfall",
-            new("Vsatinet", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Водопад_у_Малого_Батарейского_оз.jpg"),
+            Gallery:
             [
                 new("Vsatinet", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Водопад_у_Малого_Батарейского.jpg"),
                 new("Savvdm", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Батарейский_водопад,_Териберка.jpg"),
                 new("Insider", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Батарейский_водопад.jpg"),
             ]),
         new(4, "barents-sea",
-            new("Ted.ns", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Баренцево_море_в_Териберке.jpg"),
+            Gallery:
             [
                 new("Дмитрий Алтунин", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Баренцево_море_в_районе_Териберки.jpg"),
                 new("Vsatinet", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Stone_beach_near_Teriberka.jpg"),
             ]),
+        // Северное сияние — единственное место, где главное фото пока чужое:
+        // своего кадра с авророй у владельца нет (26.08.2026).
         new(5, "northern-lights",
             new("Taksla", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Кандалакшский_залив,_северное_сияние.jpg"),
             [
@@ -61,7 +67,7 @@ public static class PlaceCatalog
                 new("Ted.ns", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Полярное_сияние_над_заброшенным_зданием_метеостанцией.jpg"),
             ]),
         new(6, "arctic-tundra",
-            new("Artem Abdukakharov", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Arctic_tundra_in_fall_colors_Kola_Peninsula_Murmansk_Russia.jpg"),
+            Gallery:
             [
                 new("Artem Abdukakharov", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Autumn_tundra_mosaic_Kola_Peninsula_Murmansk_Russia.jpg"),
                 new("Ninara", "CC BY 2.0", "https://commons.wikimedia.org/wiki/File:Kola_Peninsula_(21681590148).jpg"),

@@ -147,7 +147,7 @@
   <data name="FooterSlogan" xml:space="preserve"><value>Туры по Кольскому полуострову: Териберка, горные тундры и Терский берег. Маленькие группы, живой Север и никакой суеты.</value></data>
   <data name="FooterNavTitle" xml:space="preserve"><value>Разделы</value></data>
   <data name="NavItinerary" xml:space="preserve"><value>Программа дня</value></data>
-  <data name="NavPlaces" xml:space="preserve"><value>Места</value></data>
+  <data name="NavPlaces" xml:space="preserve"><value>Териберка</value></data>
   <data name="NavMoreRoutes" xml:space="preserve"><value>Другие маршруты</value></data>
   <data name="NavSeasons" xml:space="preserve"><value>Сезоны</value></data>
   <data name="NavPractical" xml:space="preserve"><value>Вопросы</value></data>
@@ -312,6 +312,8 @@
   <data name="Why2Text" xml:space="preserve"><value>не искать машину до посёлка, не считать часы светового дня, не гадать, обнажит ли отлив «Драконьи яйца». Вы называете дату — остальное наша работа</value></data>
   <data name="Why3Title" xml:space="preserve"><value>Решаете вы, а не предоплата</value></data>
   <data name="Why3Text" xml:space="preserve"><value>заявка ни к чему не обязывает: сначала созвонимся, обсудим дату, погоду и цену — и только потом вы скажете «да»</value></data>
+  <data name="Why4Title" xml:space="preserve"><value>За рулём — гид, а не случайный водитель</value></data>
+  <data name="Why4Text" xml:space="preserve"><value>дорога на Териберку — его работа круглый год: и в полярную ночь, и в метель, и в белые ночи. Он ведёт машину сам, знает, где трасса обманчива, а где стоит переждать, и не поедет туда, где сегодня небезопасно</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие фото</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Следующие фото</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска, Апатитов или Кировска и обратно</value></data>
@@ -371,6 +373,11 @@
   <data name="FormPoint4" xml:space="preserve"><value>Состыкуем поездку с вашим рейсом или поездом</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>Соглашаюсь на обработку персональных данных и принимаю</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>политику конфиденциальности</value></data>
+  <data name="PhoneCountryLabel" xml:space="preserve"><value>Код страны</value></data>
+  <data name="CookieTextBefore" xml:space="preserve"><value>Мы используем файлы </value></data>
+  <data name="CookieLink" xml:space="preserve"><value>Cookies</value></data>
+  <data name="CookieTextAfter" xml:space="preserve"><value> для аналитики и правильной работы сайта.</value></data>
+  <data name="CookieAccept" xml:space="preserve"><value>Хорошо</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>Диденко Сергей Денисович · ИНН 511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>Политика конфиденциальности</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Политика конфиденциальности</value></data>

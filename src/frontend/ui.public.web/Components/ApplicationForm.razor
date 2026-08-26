@@ -1,4 +1,5 @@
 @using global::Applications.Contracts
+@using UI.Public.Web.Features.Contacts
 @using FluentValidation
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.Extensions.Localization
@@ -41,6 +42,10 @@ else
         <li>@L["FormPoint4"]</li>
     </ul>
 
+    @* Определения флагов для селектора кода страны: невидимый спрайт, из которого
+       <use> в поле телефона берёт нужный флаг. *@
+    <FlagSprite />
+
     @if (!string.IsNullOrEmpty(_generalError))
     {
         <p class="form-errors" role="alert">@_generalError</p>
@@ -59,14 +64,51 @@ else
                        aria-invalid="@HasError("Title")" />
             @FieldHint("Title")
         </label>
-        <label class="field @FieldClass("Phone")" data-field="Phone">
-            <span class="field-label">@L["FieldPhone"]<span class="field-required" aria-hidden="true">*</span></span>
-            <InputText type="tel" @bind-Value="Model.Phone" maxlength="32" required
-                       inputmode="tel" autocomplete="tel"
-                       placeholder="+7 900 000-00-00"
-                       aria-invalid="@HasError("Phone")" />
+        @* Телефон — международный: слева выпадающий список стран с флагом и кодом
+           (каталог PhoneCountries, флаги — FlagSprite выше), справа сам номер.
+           Селектор — прогрессивное улучшение: работает он только с JavaScript
+           (phone-intl.js вешает js-phone на <html> и им же скрывается без него),
+           поэтому без скриптов остаётся прежнее поле, куда номер вводится с кодом
+           руками. Само значение по-прежнему одно текстовое поле Model.Phone —
+           контракт и валидатор не меняются.
+
+           Здесь div, а не label, как у остальных полей: внутри есть свои
+           интерактивные элементы (details и кнопки стран), а клик по ним внутри
+           label уводил бы фокус в поле номера и мешал открывать список. *@
+        <div class="field @FieldClass("Phone")" data-field="Phone">
+            <label class="field-label" for="apply-phone">@L["FieldPhone"]<span class="field-required" aria-hidden="true">*</span></label>
+            <div class="phone-input">
+                <details class="phone-cc">
+                    @* Закрытие кликом вне — fixed-оверлей в summary::before, как у бургера
+                       и маркеров карты. Отсюда то же ограничение: на .phone-cc нельзя
+                       вешать transform/filter — оверлей станет локальным и перестанет ловить клик. *@
+                    <summary aria-label="@L["PhoneCountryLabel"]" title="@L["PhoneCountryLabel"]">
+                        <svg class="flag" viewBox="0 0 60 40" aria-hidden="true"><use href="#flag-@PhoneCountries.Default.Iso" /></svg>
+                        <span class="phone-cc-current">+@PhoneCountries.Default.Code</span>
+                        <svg class="phone-cc-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" /></svg>
+                    </summary>
+                    <div class="phone-cc-list">
+                        @foreach (var country in PhoneCountries.All)
+                        {
+                            @* data-* — единственный источник данных для phone-intl.js:
+                               список стран живёт в C#, скрипт читает его из разметки. *@
+                            <button type="button" class="phone-cc-item" data-iso="@country.Iso"
+                                    data-code="@country.Code" data-trunk="@country.Trunk"
+                                    data-len="@country.Length" data-groups="@country.Groups">
+                                <svg class="flag" viewBox="0 0 60 40" aria-hidden="true"><use href="#flag-@country.Iso" /></svg>
+                                <span class="phone-cc-name">@country.Name</span>
+                                <span class="phone-cc-code">+@country.Code</span>
+                            </button>
+                        }
+                    </div>
+                </details>
+                <InputText id="apply-phone" type="tel" @bind-Value="Model.Phone" maxlength="32" required
+                           inputmode="tel" autocomplete="tel"
+                           placeholder="+7 900 000-00-00"
+                           aria-invalid="@HasError("Phone")" />
+            </div>
             @FieldHint("Phone")
-        </label>
+        </div>
         @* Направление — карточки-радиокнопки, а не выпадающий список (владелец,
            25.08.2026): у каждого маршрута видно описание, а не одно название.
            Радио, а не select с подсказкой: подменять текст под выбранный пункт
