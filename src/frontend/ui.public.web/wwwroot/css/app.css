@@ -2165,10 +2165,14 @@ html.lightbox-open { overflow: hidden; }
     font-size: .92rem;
 }
 
+/* Лента вопросов уже контейнера — длинные ответы читаются в комфортной строке,
+   но margin-inline: auto обязателен: без него лента прижималась влево под
+   центрированным заголовком секции (владелец, 26.08.2026). */
 .faq-list {
     display: grid;
     gap: 12px;
     max-width: 860px;
+    margin-inline: auto;
 }
 
 .faq-list details {
