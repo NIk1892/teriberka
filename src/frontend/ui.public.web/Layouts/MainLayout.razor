@@ -91,9 +91,15 @@
 <script src="/js/chat.js" defer></script>
 
 @* Кнопки быстрой прокрутки: якорные ссылки, без JavaScript. *@
+@* Стрелки — инлайн-SVG, а не символы ↑↓: глиф шрифта рисуется тонким и над
+   светлой водой морской зоны терялся (владелец, 26.08.2026). *@
 <nav class="scrollers">
-    <a class="scroller scroller-top" href="#top" aria-label="@L["ScrollTop"]" title="@L["ScrollTop"]">↑</a>
-    <a class="scroller" href="#page-bottom" aria-label="@L["ScrollBottom"]" title="@L["ScrollBottom"]">↓</a>
+    <a class="scroller scroller-top" href="#top" aria-label="@L["ScrollTop"]" title="@L["ScrollTop"]">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" /></svg>
+    </a>
+    <a class="scroller" href="#page-bottom" aria-label="@L["ScrollBottom"]" title="@L["ScrollBottom"]">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13M18 12l-6 6-6-6" /></svg>
+    </a>
 </nav>
 
 @* Кнопка связи занимает сам угол, кнопки прокрутки стоят столбиком над ней.

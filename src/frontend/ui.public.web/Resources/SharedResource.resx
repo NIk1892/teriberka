@@ -126,6 +126,12 @@
   <data name="CustomTourTitle" xml:space="preserve"><value>Нужен индивидуальный тур?</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>Соберём программу под ваши даты, компанию и интересы — от одного дня до недельной экспедиции по Кольскому. Оставьте заявку, а детали обсудим по телефону.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Оставить заявку</value></data>
+  <data name="FinalCtaTitle" xml:space="preserve"><value>Готовы поехать?</value></data>
+  <data name="FinalCtaLead" xml:space="preserve"><value>Заполните форму выше</value></data>
+  <data name="FinalCtaBotPrefix" xml:space="preserve"><value>, напишите </value></data>
+  <data name="FinalCtaBot" xml:space="preserve"><value>нашему боту в Telegram</value></data>
+  <data name="FinalCtaOr" xml:space="preserve"><value> или задайте вопрос </value></data>
+  <data name="FinalCtaHere" xml:space="preserve"><value>прямо отсюда</value></data>
   <data name="Submit" xml:space="preserve"><value>Отправить заявку</value></data>
   <data name="FormCallbackNote" xml:space="preserve"><value>В рабочее время мы свяжемся с вами в течение получаса</value></data>
   <data name="FormOr" xml:space="preserve"><value>или</value></data>
@@ -190,7 +196,7 @@
   <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Связаться с нами</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
-  <data name="ContactPhone" xml:space="preserve"><value>Позвонить</value></data>
+  <data name="ContactPhone" xml:space="preserve"><value>Позвоните нам</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>Чат с гидом</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем за несколько минут</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>Сейчас офлайн — ответим утром</value></data>
@@ -206,10 +212,10 @@
   <data name="ChatErrorCookies" xml:space="preserve"><value>Похоже, cookie отключены: сообщение мы получим, но ответ здесь не появится — напишите нам в Telegram.</value></data>
   <data name="ChatConsentPrefix" xml:space="preserve"><value>Отправляя сообщение, вы соглашаетесь с обработкой данных — см.</value></data>
   <data name="ChatNoPersonal" xml:space="preserve"><value>Не отправляйте здесь паспортные и платёжные данные.</value></data>
-  <data name="ContactHint" xml:space="preserve"><value>Как удобнее написать?</value></data>
-  <data name="ContactTelegram" xml:space="preserve"><value>Написать в Telegram</value></data>
-  <data name="ContactMax" xml:space="preserve"><value>Написать в MAX</value></data>
-  <data name="ContactChat" xml:space="preserve"><value>Чат на сайте</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>Как удобнее связаться?</value></data>
+  <data name="ContactTelegram" xml:space="preserve"><value>Напишите нам в Telegram</value></data>
+  <data name="ContactMax" xml:space="preserve"><value>Напишите нам в MAX</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>Напишите нам в чат</value></data>
   <data name="MapTitle" xml:space="preserve"><value>Куда мы вас отвезём</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>Три направления по Кольскому полуострову — все туры стартуют из Мурманска</value></data>
   <data name="MapHint" xml:space="preserve"><value>Нажмите на точку на карте, чтобы узнать о направлении</value></data>
@@ -365,13 +371,13 @@
   <data name="FormPoint4" xml:space="preserve"><value>Состыкуем поездку с вашим рейсом или поездом</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>Соглашаюсь на обработку персональных данных и принимаю</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>политику конфиденциальности</value></data>
-  <data name="FooterLegal" xml:space="preserve"><value>ИП Иванов Иван Иванович · ИНН 000000000000 · ОГРНИП 000000000000000</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>Диденко Сергей Денисович · ИНН 511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>Политика конфиденциальности</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Политика конфиденциальности</value></data>
   <data name="PrivacyLead" xml:space="preserve"><value>Эта страница описывает, какие данные мы получаем из формы заявки и что с ними делаем.</value></data>
-  <data name="PrivacyDraftNote" xml:space="preserve"><value>Это черновик-заглушка: перед запуском сайта текст политики и реквизиты оператора будут заменены на настоящие.</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>Реквизиты оператора здесь настоящие, а сам текст политики — черновик: перед запуском сайта он будет заменён на полноценный.</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>Какие данные мы собираем</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>Имя, телефон, число участников, желаемую дату и необязательный комментарий — только то, что вы сами указываете в форме заявки. Файлы cookie используются лишь для запоминания темы и языка сайта.</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Имя (необязательно), телефон и выбранный маршрут — только то, что вы сами указываете в форме заявки, плюс сообщения, которые вы пишете в чат на сайте. Файлы cookie используются лишь для запоминания темы и языка сайта и диалога в чате.</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>Зачем они нужны</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>Только чтобы связаться с вами по заявке: подтвердить дату, рассчитать стоимость и ответить на вопросы. Рассылок и рекламы нет.</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>Кто имеет доступ</value></data>

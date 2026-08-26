@@ -126,6 +126,12 @@
   <data name="CustomTourTitle" xml:space="preserve"><value>Need a custom tour?</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>We will build a programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula. Leave a request and we will discuss the details by phone.</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>Leave a request</value></data>
+  <data name="FinalCtaTitle" xml:space="preserve"><value>Ready to go?</value></data>
+  <data name="FinalCtaLead" xml:space="preserve"><value>Fill in the form above</value></data>
+  <data name="FinalCtaBotPrefix" xml:space="preserve"><value>, message </value></data>
+  <data name="FinalCtaBot" xml:space="preserve"><value>our Telegram bot</value></data>
+  <data name="FinalCtaOr" xml:space="preserve"><value> or ask a question </value></data>
+  <data name="FinalCtaHere" xml:space="preserve"><value>right here</value></data>
   <data name="Submit" xml:space="preserve"><value>Send request</value></data>
   <data name="FormCallbackNote" xml:space="preserve"><value>During working hours we will get back to you within half an hour</value></data>
   <data name="FormOr" xml:space="preserve"><value>or</value></data>
@@ -206,10 +212,10 @@
   <data name="ChatErrorCookies" xml:space="preserve"><value>Cookies seem to be disabled: we'll get your message, but the reply won't show up here — write to us on Telegram.</value></data>
   <data name="ChatConsentPrefix" xml:space="preserve"><value>By sending a message you agree to the processing of your data — see the</value></data>
   <data name="ChatNoPersonal" xml:space="preserve"><value>Please don't send passport or payment details here.</value></data>
-  <data name="ContactHint" xml:space="preserve"><value>Pick a channel</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>How would you like to reach us?</value></data>
   <data name="ContactTelegram" xml:space="preserve"><value>Message us on Telegram</value></data>
   <data name="ContactMax" xml:space="preserve"><value>Message us on MAX</value></data>
-  <data name="ContactChat" xml:space="preserve"><value>Chat on the site</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>Message us in the chat</value></data>
   <data name="MapTitle" xml:space="preserve"><value>Where we will take you</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>Three destinations across the Kola Peninsula — every tour starts in Murmansk</value></data>
   <data name="MapHint" xml:space="preserve"><value>Tap a dot on the map to learn about the destination</value></data>
@@ -365,13 +371,13 @@
   <data name="FormPoint4" xml:space="preserve"><value>Fit the trip around your flight or train</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>I agree to the processing of my personal data and accept the</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>privacy policy</value></data>
-  <data name="FooterLegal" xml:space="preserve"><value>Sole proprietor Ivan Ivanov · Taxpayer ID (INN) 000000000000 · OGRNIP 000000000000000</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · Taxpayer ID (INN) 511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>Privacy policy</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Privacy policy</value></data>
   <data name="PrivacyLead" xml:space="preserve"><value>This page explains what data we receive from the booking form and what we do with it.</value></data>
-  <data name="PrivacyDraftNote" xml:space="preserve"><value>This is a placeholder draft: the policy text and the operator's legal details will be replaced with real ones before launch.</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>The operator's details here are real, but the policy text itself is a draft: it will be replaced with a full version before launch.</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>What data we collect</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>Your name, phone number, group size, preferred date and an optional comment — only what you enter in the form yourself. Cookies are used solely to remember the site theme and language.</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Your name (optional), phone number and the chosen route — only what you enter in the request form yourself, plus the messages you write in the chat on this site. Cookies are used only to remember the theme, the language and your chat conversation.</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>Why we need it</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>Only to contact you about your request: confirm the date, calculate the price and answer questions. No newsletters, no advertising.</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>Who has access</value></data>

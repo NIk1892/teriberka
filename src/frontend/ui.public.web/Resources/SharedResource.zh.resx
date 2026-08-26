@@ -126,6 +126,12 @@
   <data name="CustomTourTitle" xml:space="preserve"><value>需要定制行程？</value></data>
   <data name="CustomTourText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣定制行程——从一日游到科拉半岛为期一周的远征。提交申请，细节我们电话商谈。</value></data>
   <data name="CustomTourCta" xml:space="preserve"><value>提交申请</value></data>
+  <data name="FinalCtaTitle" xml:space="preserve"><value>准备好出发了吗？</value></data>
+  <data name="FinalCtaLead" xml:space="preserve"><value>请填写上方表单</value></data>
+  <data name="FinalCtaBotPrefix" xml:space="preserve"><value>、给</value></data>
+  <data name="FinalCtaBot" xml:space="preserve"><value>我们的 Telegram 机器人</value></data>
+  <data name="FinalCtaOr" xml:space="preserve"><value>留言，或者</value></data>
+  <data name="FinalCtaHere" xml:space="preserve"><value>直接在这里提问</value></data>
   <data name="Submit" xml:space="preserve"><value>提交申请</value></data>
   <data name="FormCallbackNote" xml:space="preserve"><value>工作时间内，我们将在半小时内与您联系</value></data>
   <data name="FormOr" xml:space="preserve"><value>或</value></data>
@@ -190,7 +196,7 @@
   <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
-  <data name="ContactPhone" xml:space="preserve"><value>致电我们</value></data>
+  <data name="ContactPhone" xml:space="preserve"><value>给我们打电话</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>与向导对话</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>我们通常几分钟内回复</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>目前离线，我们早上回复</value></data>
@@ -206,10 +212,10 @@
   <data name="ChatErrorCookies" xml:space="preserve"><value>您似乎禁用了 Cookie：我们会收到消息，但回复不会显示在此——请通过 Telegram 联系我们。</value></data>
   <data name="ChatConsentPrefix" xml:space="preserve"><value>发送消息即表示您同意我们处理相关数据，详见</value></data>
   <data name="ChatNoPersonal" xml:space="preserve"><value>请勿在此发送护照或支付信息。</value></data>
-  <data name="ContactHint" xml:space="preserve"><value>哪种方式更方便？</value></data>
-  <data name="ContactTelegram" xml:space="preserve"><value>通过 Telegram 联系我们</value></data>
-  <data name="ContactMax" xml:space="preserve"><value>通过 MAX 联系我们</value></data>
-  <data name="ContactChat" xml:space="preserve"><value>网站在线聊天</value></data>
+  <data name="ContactHint" xml:space="preserve"><value>您想怎样联系我们？</value></data>
+  <data name="ContactTelegram" xml:space="preserve"><value>在 Telegram 上联系我们</value></data>
+  <data name="ContactMax" xml:space="preserve"><value>在 MAX 上联系我们</value></data>
+  <data name="ContactChat" xml:space="preserve"><value>在网站聊天中联系我们</value></data>
   <data name="MapTitle" xml:space="preserve"><value>我们带您去哪里</value></data>
   <data name="MapSubtitle" xml:space="preserve"><value>科拉半岛的三个方向——所有行程从摩尔曼斯克出发</value></data>
   <data name="MapHint" xml:space="preserve"><value>点击地图上的圆点，了解各个方向</value></data>
@@ -365,13 +371,13 @@
   <data name="FormPoint4" xml:space="preserve"><value>让行程与您的航班或火车时间相衔接</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>我同意处理我的个人数据，并接受</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>隐私政策</value></data>
-  <data name="FooterLegal" xml:space="preserve"><value>个体经营者 Ivan Ivanov · 纳税人识别号（INN）000000000000 · OGRNIP 000000000000000</value></data>
+  <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · 纳税人识别号（INN）511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>隐私政策</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>隐私政策</value></data>
   <data name="PrivacyLead" xml:space="preserve"><value>本页说明我们从预订表单收到哪些数据，以及如何处理这些数据。</value></data>
-  <data name="PrivacyDraftNote" xml:space="preserve"><value>这是占位草稿：网站上线前，政策文本和经营者的法律信息将替换为真实内容。</value></data>
+  <data name="PrivacyDraftNote" xml:space="preserve"><value>此处的经营者信息为真实信息，但政策文本仍是草稿：网站正式上线前将替换为完整版本。</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>我们收集哪些数据</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>姓名、电话、人数、期望日期和可选留言——仅限您在表单中自行填写的内容。Cookie 仅用于记住网站的主题和语言。</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>姓名（可选）、电话号码和所选路线——仅限您在申请表中自行填写的内容，以及您在本站聊天中发送的消息。Cookie 仅用于记住主题、语言和您的聊天会话。</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>用途</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>仅用于就您的申请与您联系：确认日期、计算价格并解答问题。没有邮件推送，也没有广告。</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>谁可以访问</value></data>

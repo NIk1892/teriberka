@@ -2,17 +2,20 @@
 @using UI.Public.Web.Layouts
 @using UI.Public.Web.Features.Places
 @using UI.Public.Web.Features.Seo
+@using UI.Public.Web.Features.Chat
 @using UI.Public.Web.Components
 @using Microsoft.Extensions.Localization
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
 @inject SeoUrls Seo
+@inject IConfiguration Configuration
 
 <PageTitle>@L["PageTitle"]</PageTitle>
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
 
-@* Воронка главной: витрина и день в Териберке → кнопка заявки → другие маршруты
-   Кольского → форма → аргументы, сезоны и FAQ для сомневающихся (владелец, 25.08.2026). *@
+@* Воронка главной: витрина и день в Териберке → кнопка заявки с ценой → что
+   входит в цену → другие маршруты Кольского → форма → «почему с нами» и FAQ
+   для сомневающихся (владелец, 25.08.2026). *@
 
 @* data-speed — параллакс-слои effects.js: положительное значение = слой отстаёт
    от прокрутки (читается дальше). Карта отстаёт сильнее текста — глубина как
@@ -160,6 +163,37 @@
     </div>
 </section>
 
+@* «Что включено» стоит сразу за строкой цены под маршрутом (владелец, 25.08.2026):
+   это состав оффера — ответ на «что я получу за эти деньги», а не работа с
+   сомнениями. Отработка возражений («почему с нами», FAQ) идёт после формы. *@
+<section class="section" id="included">
+    <div class="container">
+        <div class="section-head">
+            <h2>@L["IncludedTitle"]</h2>
+            <p>@L["IncludedSubtitle"]</p>
+        </div>
+        <ul class="included-grid">
+            @foreach (var i in Enumerable.Range(1, 6))
+            {
+                <li>@L[$"Included{i}"]</li>
+            }
+        </ul>
+    </div>
+</section>
+
+@* Полоса закрывает териберскую часть страницы и открывает остальной Кольский
+   (владелец, 25.08.2026): текст про Баренцево море — финальный аккорд Териберки,
+   а между «почему с нами» и FAQ она просто резала пополам блок работы с сомнениями.
+   Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды
+   сопок и текст едут с разной скоростью через CSS scroll-driven animations),
+   фоллбек — цельный fixed-пейзаж. Без JavaScript, см. «параллакс-полосы» в app.css. *@
+<div class="parallax-band">
+    <div class="parallax-mist" aria-hidden="true"></div>
+    <div class="container">
+        <p>@L["Band1Text"]</p>
+    </div>
+</div>
+
 <section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
     <div class="container">
         <div class="route-picker-head">
@@ -258,21 +292,6 @@
     </div>
 </section>
 
-<section class="section" id="included">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["IncludedTitle"]</h2>
-            <p>@L["IncludedSubtitle"]</p>
-        </div>
-        <ul class="included-grid">
-            @foreach (var i in Enumerable.Range(1, 6))
-            {
-                <li>@L[$"Included{i}"]</li>
-            }
-        </ul>
-    </div>
-</section>
-
 <section class="section why" id="why">
     <div class="container">
         <div class="section-head">
@@ -289,16 +308,6 @@
         </ul>
     </div>
 </section>
-
-@* Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды сопок
-   и текст едут с разной скоростью через CSS scroll-driven animations), фоллбек — цельный
-   fixed-пейзаж. Всё без JavaScript, см. блок «параллакс-полосы» в app.css. *@
-<div class="parallax-band">
-    <div class="parallax-mist" aria-hidden="true"></div>
-    <div class="container">
-        <p>@L["Band1Text"]</p>
-    </div>
-</div>
 
 @* Блок «Териберка в разное время года» убран владельцем 25.08.2026 вместе со
    второй параллакс-полосой (Band2Text): без сезонов две полосы шли бы подряд.
@@ -328,6 +337,28 @@
    страницы дублировал его. Ветка Custom (?tour=custom) жива — меняет кикер,
    заголовок и подводку над формой, — но ссылок на неё со страницы больше нет;
    стили .custom-tour и ключи CustomTour* сохранены. *@
+
+@* Финальный призыв после FAQ (владелец, 25.08.2026): дочитавшему хвост страницы
+   было некуда нажать — за FAQ сразу начиналась морская зона с футером. Якорь #apply
+   скроллит вверх, к форме: это осознанно, форма на странице одна. Оформление —
+   от убранного блока «Индивидуальный тур» (.custom-tour), кикера у него нет. *@
+<section class="custom-tour" id="final-cta">
+    <div class="container">
+        <h2>@L["FinalCtaTitle"]</h2>
+        @* Фраза собирается из кусков, а не из одного ключа с разметкой: внутри две
+           ссылки — на бота и на чат, — а порядок слов в трёх языках разный, поэтому
+           каждый язык даёт свои связки (тот же приём, что у согласия в форме).
+           «Прямо отсюда» — ссылка в чат: класс contact-chat тот же, что у пункта
+           виджета связи, поэтому chat.js открывает панель на месте, а без JavaScript
+           страница перезагрузится с ?chat=open (блок живёт только на главной —
+           отсюда путь "/"). Ссылка на бота рендерится только при заданном TG_BOT_URL. *@
+        <p class="final-cta-lead">
+            @L["FinalCtaLead"]@if (!string.IsNullOrWhiteSpace(BotUrl))
+            {<text>@L["FinalCtaBotPrefix"]</text><a href="@BotUrl" target="_blank" rel="noopener">@L["FinalCtaBot"]</a>}@L["FinalCtaOr"]<a class="contact-chat" href="@ChatPaths.WithOpen("/")">@L["FinalCtaHere"]</a>.
+        </p>
+        <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
+    </div>
+</section>
 
 @* Разметка schema.org: FAQ из блока «Практично» и минимальный WebSite.
    Контакты и логотип сознательно не указываем: в футере плейсхолдеры,
@@ -360,6 +391,10 @@
     public string? Tour { get; set; }
 
     private bool CustomTour => string.Equals(Tour, "custom", StringComparison.OrdinalIgnoreCase);
+
+    // Ссылка на Telegram-бота в финальном призыве: пусто — пункт не рендерится,
+    // как в шапке и виджете связи.
+    private string? BotUrl => Configuration["TG_BOT_URL"];
 
     // JSON-LD собирается словарями: ключи "@context"/"@type" невозможны в анонимных
     // типах, а .Value обязателен — LocalizedString сам в строку не сериализуется.

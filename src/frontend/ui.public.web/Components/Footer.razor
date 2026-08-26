@@ -1,8 +1,10 @@
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> L
+@inject IConfiguration Configuration
 
-@* Контакты — плейсхолдеры до появления настоящих: заменить телефон и ссылки
-   на реальные перед развёртыванием. *@
+@* Контакты берутся из тех же ключей, что и виджет связи (CONTACT_PHONE, TG_BOT_URL,
+   MAX_URL): один источник правды, и пустой ключ прячет строку, а не даёт битую
+   ссылку. WhatsApp убран владельцем 26.08.2026, вместо него MAX. *@
 <footer class="site-footer" id="page-bottom">
     <div class="container footer-grid">
         <div class="footer-brand">
@@ -25,17 +27,39 @@
 
         <div class="footer-col">
             <h3>@L["FooterContactsTitle"]</h3>
-            <a href="tel:+79215550123">+7 (921) 555-01-23</a>
-            <a href="https://t.me/teriberka_tour" rel="noopener">Telegram</a>
-            <a href="https://wa.me/79215550123" rel="noopener">WhatsApp</a>
+            @if (!string.IsNullOrWhiteSpace(Phone))
+            {
+                <a href="tel:@PhoneHref">@Phone</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(BotUrl))
+            {
+                <a href="@BotUrl" target="_blank" rel="noopener">Telegram</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(MaxUrl))
+            {
+                <a href="@MaxUrl" target="_blank" rel="noopener">MAX</a>
+            }
             <span class="footer-daily">@L["FooterDaily"]</span>
         </div>
     </div>
 
-    @* Реквизиты — фейковые нули-заглушки: заменить на настоящие перед запуском. *@
+    @* Реквизиты настоящие (владелец, 26.08.2026): ФИО и ИНН. ОГРНИП не указан —
+       владелец не сообщал его; если он ИП, строку нужно дополнить. Телефон,
+       Telegram и WhatsApp выше — всё ещё заглушки. *@
     <div class="container footer-bottom">
         <span>© @DateTime.Now.Year @L["Brand"] · @L["FooterLegal"]</span>
         <a href="/privacy">@L["FooterPrivacyLink"]</a>
         <a href="/photo-credits">@L["FooterPhotoCreditsLink"]</a>
     </div>
 </footer>
+
+@code {
+    private string? Phone => Configuration["CONTACT_PHONE"];
+
+    private string? BotUrl => Configuration["TG_BOT_URL"];
+
+    private string? MaxUrl => Configuration["MAX_URL"];
+
+    // tel: понимает только цифры и плюс — из «+7 911 303-13-43» оставляем их
+    private string PhoneHref => "+" + new string((Phone ?? string.Empty).Where(char.IsDigit).ToArray());
+}

@@ -730,11 +730,11 @@ a { color: var(--accent-ice); }
 
 .parallax-band.band-2 { background-position: center 80%; }
 
-/* светлая тема: дневное небо вместо ночного, тёмный текст */
+/* светлая тема: дневное небо вместо ночного, тёмный текст. Белёсая заливка
+   поверх неба убрана, а гряды и море в -light.svg сделаны глубже (25.08.2026):
+   днём сцена была настолько бледной, что читалась пустым местом. */
 [data-theme="light"] .parallax-band {
-    background-image:
-        linear-gradient(rgba(242, 246, 252, .2), rgba(242, 246, 252, .2)),
-        url("/img/parallax-sky-light.svg");
+    background-image: url("/img/parallax-sky-light.svg");
 }
 
 [data-theme="light"] .parallax-band p {
@@ -808,7 +808,8 @@ a { color: var(--accent-ice); }
     --parallax-shift: 68px;
 }
 
-[data-theme="light"] .parallax-mist { opacity: .55; }
+/* днём туман сильно белит гряды — на светлой теме он слабее ночного, а не крепче */
+[data-theme="light"] .parallax-mist { opacity: .32; }
 
 .parallax-mist::before {
     content: "";
@@ -3180,6 +3181,20 @@ html.js-fx .guide-card { animation: none; }
     color: var(--text-muted);
 }
 
+/* фраза с путями к нам: ссылки на бота и на чат внутри обычного текста —
+   подчёркнуты пунктиром, чтобы не спорить с кнопкой призыва рядом */
+.final-cta-lead a {
+    color: var(--accent-ice);
+    text-decoration: none;
+    border-bottom: 1px dashed color-mix(in srgb, var(--accent-ice) 45%, transparent);
+    transition: color .15s ease, border-color .15s ease;
+}
+
+.final-cta-lead a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
 /* ---------- пульс CTA ---------- */
 
 .btn { position: relative; }
@@ -3234,36 +3249,52 @@ html.js-fx .guide-card { animation: none; }
 .scrollers {
     position: fixed;
     right: 16px;
-    /* сам угол занят кнопкой связи (56px) — встаём столбиком над ней */
-    bottom: calc(16px + 56px + 12px);
+    /* сам угол занят кнопкой связи — встаём столбиком над ней; её размер
+       живёт в --fab-size (на десктопе кнопка крупнее, см. .contact-fab) */
+    bottom: calc(16px + var(--fab-size) + 12px);
     z-index: 40;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+/* Кнопки прокрутки висят над водой морской зоны, где фон светлый в обеих темах:
+   поэтому кольцо и стрелка — акцентного цвета, подложка почти непрозрачная,
+   а к тени добавлено аврора-свечение (владелец, 26.08.2026: были незаметны). */
 .scroller {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--border);
+    width: 46px;
+    height: 46px;
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
     border-radius: 50%;
-    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+    background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
     backdrop-filter: blur(8px);
-    color: var(--text-muted);
-    font-size: 1.15rem;
-    font-weight: 700;
+    color: var(--accent);
     text-decoration: none;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow), 0 6px 18px color-mix(in srgb, var(--accent) 22%, transparent);
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+.scroller svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .scroller:hover {
     color: var(--on-accent);
     background: var(--aurora);
     border-color: transparent;
+    transform: translateY(-2px);
 }
+
+.scroller:active { transform: translateY(0); }
 
 /* Кнопка «наверх» появляется после первого экрана — CSS scroll-driven animation.
    Браузеры без поддержки просто показывают её всегда. */
@@ -3298,11 +3329,21 @@ html.js-fx .guide-card { animation: none; }
     z-index: 45;
 }
 
+/* Размер кнопки — токеном: его читают ещё .scrollers и панель чата, которые
+   встают над ней. На десктопе кнопка крупнее: там она единственный «живой»
+   элемент в углу, и мелкий кругляш терялся (владелец, 25.08.2026). */
+:root { --fab-size: 56px; }
+
+@media (min-width: 900px) {
+    :root { --fab-size: 72px; }
+    .contact-fab-close { width: 26px; height: 26px; }
+}
+
 .contact-fab {
     position: relative;
     display: flex;
-    width: 56px;
-    height: 56px;
+    width: var(--fab-size);
+    height: var(--fab-size);
     cursor: pointer;
     list-style: none;
 }
@@ -3390,8 +3431,9 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
 .contact-fab-photo {
     grid-area: 1 / 1;
     display: block;
-    width: 50px;
-    height: 50px;
+    /* минус аврора-кольцо: padding 4px у .contact-fab-face с двух сторон */
+    width: calc(var(--fab-size) - 8px);
+    height: calc(var(--fab-size) - 8px);
     border-radius: 50%;
     object-fit: cover;
     transition: opacity .18s ease;
@@ -3590,7 +3632,7 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
 .chat-panel {
     position: fixed;
     right: 16px;
-    bottom: calc(16px + 56px + 12px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(16px + var(--fab-size) + 12px + env(safe-area-inset-bottom, 0px));
     z-index: 46; /* над кнопкой связи (45), под лайтбоксом (100) */
     display: none;
     flex-direction: column;
@@ -4108,6 +4150,8 @@ html.js-chat .chat-refresh { display: none; }
     .map-whale { animation: none; opacity: 0; }
     .place-card, .review-card, .guide-card, .alt-route, .route-stop, .season-card,
     .included-grid li, .why-grid li { animation: none; }
+    .scroller { transition: none; }
+    .scroller:hover { transform: none; }
     .itinerary-route::after { animation: none; }
     .shore-band .wave { animation: none; }
     .orca-pod { display: none; }
