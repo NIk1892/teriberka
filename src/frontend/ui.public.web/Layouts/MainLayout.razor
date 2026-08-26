@@ -61,11 +61,15 @@
 <script src="/js/water.js?v=2" defer></script>
 @* Инерционный параллакс полос .parallax-band (фоллбек без JS — CSS-ярусы в app.css) *@
 <script src="/js/parallax.js" defer></script>
+@* Маршрут дня: линия-прогресс рисуется прокруткой, точки загораются по ходу
+   (фоллбек без JS — CSS scroll-driven, при reduced-motion — статичный пунктир) *@
+@* v=5: фото остановок плавно наезжают по мере приближения машинки *@
+<script src="/js/route-progress.js?v=5" defer></script>
 @* Вендоренный Lenis (инерционная прокрутка) + effects.js: слои data-speed в hero
    и пружинящие reveal-каскады. Порядок важен: effects.js ждёт глобал Lenis. *@
 <script src="/js/vendor/lenis.min.js" defer></script>
 @* v=5: карточки внутри прокручиваемой карусели без reveal-каскада (листались «снизу») *@
-<script src="/js/effects.js?v=5" defer></script>
+<script src="/js/effects.js?v=6" defer></script>
 @* WebGL-«жидкое» искажение фото мест при наведении (desktop, pointer: fine) *@
 <script src="/js/photo-fx.js" defer></script>
 @* v=3: carousel.js научился автопрокруту (data-autoplay) — сбрасываем кеш браузеров *@
@@ -74,9 +78,11 @@
 <script src="/js/restore-scroll.js" defer></script>
 @* смена темы без перезагрузки; порядок важен: клик-обработчик restore-scroll.js
    должен зарегистрироваться раньше, чтобы theme-toggle.js подчистил его запись *@
-<script src="/js/theme-toggle.js" defer></script>
+@* v=2: страховка позиции прокрутки при смене темы *@
+<script src="/js/theme-toggle.js?v=2" defer></script>
 @* клиентская валидация формы заявки: подсказки под полями (см. комментарий в файле) *@
-<script src="/js/form-ui.js" defer></script>
+@* v=2: маска телефона (в поле только цифры) и проверка длины номера *@
+<script src="/js/form-ui.js?v=3" defer></script>
 @* полноэкранный просмотр фото на страницах мест (см. комментарий в файле) *@
 <script src="/js/lightbox.js" defer></script>
 @* кнопка связи: Esc и сворачивание после выбора канала; меню и без JS работает *@

@@ -873,8 +873,10 @@ html.js-parallax .parallax-band .container {
 
 /* ---------- секции ---------- */
 
+/* Вертикальный ритм страницы. 64/80px давали между блоками 128-160px пустоты —
+   владелец дважды просил ужать (25.08.2026); теперь между секциями ~96px. */
 .section {
-    padding-block: 64px;
+    padding-block: 44px;
     scroll-margin-top: 70px;
 }
 
@@ -914,9 +916,14 @@ html.js-parallax .parallax-band .container {
     border-color: var(--accent);
 }
 
+/* Заголовки секций по центру: вся страница центрированная — hero, места, программа
+   дня и форма уже были такими, а «что включено», «почему с нами», сезоны и FAQ
+   оставались прижатыми влево и выпадали из ритма (владелец, 25.08.2026). */
 .section-head {
     max-width: 640px;
+    margin-inline: auto;
     margin-bottom: 36px;
+    text-align: center;
 }
 
 .section-head h2 {
@@ -929,14 +936,14 @@ html.js-parallax .parallax-band .container {
     color: var(--text-muted);
 }
 
-/* узкий экран: hero центрирован, поэтому заголовки секций тоже по центру — иначе они
-   читаются «прижатыми влево»; и меньше воздуха между секциями (136px hero+section — много) */
+/* узкий экран: заголовки секций ближе к содержимому — воздуха и так мало
+
 @media (max-width: 699px) {
     .hero { padding-bottom: 24px; }
     .section { padding-block: 32px; }
     /* под программой дня — кнопка с ценой, полный паддинг секции под ней избыточен */
     .itinerary { padding-bottom: 24px; }
-    .section-head { margin-inline: auto; margin-bottom: 20px; text-align: center; }
+    .section-head { margin-bottom: 20px; }
     .itinerary-note,
     .season-note { text-align: center; }
 }
@@ -951,7 +958,9 @@ html.js-parallax .parallax-band .container {
 
 .route-picker-head {
     max-width: 680px;
+    margin-inline: auto;
     margin-bottom: 24px;
+    text-align: center;
 }
 
 .route-picker-head > span {
@@ -1046,48 +1055,218 @@ html.js-parallax .parallax-band .container {
     margin-inline: auto;
 }
 
-.itinerary-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
+/* Маршрут дня: вертикальная пунктирная нить (та же идея, что маршруты на карте
+   Кольского), на ней точки-номера, у каждой остановки карточка с фото и описанием.
+   Мобильный вид — нить слева, карточки справа; от 900px нить по центру и карточки
+   шахматкой. Фото пока заглушки — см. комментарий в Home.razor. */
+.itinerary-route {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.itinerary-list li {
-    display: flex;
-    gap: 18px;
-    padding: 20px;
+/* нить: repeating-gradient, потому что border-style dashed не даёт управлять шагом */
+.itinerary-route::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 40px;
+    left: 23px;
+    width: 2px;
+    background: repeating-linear-gradient(180deg,
+        color-mix(in srgb, var(--accent) 55%, transparent) 0 8px,
+        transparent 8px 16px);
+}
+
+/* Линия-прогресс поверх пунктира: «рисуется» по мере прокрутки. Ярус 1 (без JS
+   и без scroll-driven) — скрыта, остаётся пунктир; ярус 2 — @supports ниже рисует
+   её чистым CSS от прокрутки; ярус 3 — route-progress.js пишет --route-p с
+   инерцией, загорается точками и ведёт светящийся кончик .route-dot. */
+.itinerary-route::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 40px;
+    left: 23px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-ice) 55%, #8b7cf6);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 45%, transparent);
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+html.js-route .itinerary-route::after { transform: scaleY(var(--route-p, 0)); }
+
+/* ярус 2: линию рисует сама прокрутка, без JS (маркеры при этом не загораются) */
+@supports (animation-timeline: view()) {
+    html:not(.js-route) .itinerary-route::after {
+        animation: route-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 25% exit 75%;
+    }
+}
+
+@keyframes route-draw {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+
+/* серый микроавтобус на кончике линии; создаёт route-progress.js, без JS его
+   нет в DOM. Ниже маркеров (у них z-index: 1) — проезжает «под» точками.
+   Цвет — токен текста: «серый» в обеих темах. */
+.route-van {
+    position: absolute;
+    z-index: 0;
+    top: 14px;
+    left: 23px;
+    /* глиф нарисован сразу «капотом вниз» (вид сверху), поэтому rotate не нужен */
+    width: 21px;
+    color: var(--text-muted);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35));
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(var(--route-py, 0px));
+    transition: opacity .3s ease;
+}
+
+/* разворот при прокрутке вверх — на svg отдельным свойством rotate: transform
+   обёртки каждый кадр пишет позицию, transition на нём тормозил бы движение */
+.route-van svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: rotate .4s ease;
+}
+
+.route-van.rev svg { rotate: 180deg; }
+
+.route-van.on { opacity: 1; }
+
+.route-stop {
+    position: relative;
+    padding-left: 58px;
+}
+
+.route-stop-marker {
+    position: absolute;
+    z-index: 1;
+    top: 14px;
+    left: 23px;
+    translate: -50% 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg-elev);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+    color: var(--accent);
+    font-size: .95rem;
+    font-weight: 800;
+    /* transition для .lit: transform не трогаем — translate позиционирования
+       живёт отдельным свойством и со scale keyframes не конфликтует */
+    transition: color .25s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+/* точка «загорается», когда линия-прогресс до неё доходит (route-progress.js) */
+.route-stop-marker.lit {
+    border-color: transparent;
+    background: var(--aurora);
+    box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent),
+        0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+    /* тёмный номер на яркой аврора-заливке — фикс, не токен: заливка ярка в обеих темах */
+    color: #0a1428;
+    animation: marker-pop .45s ease;
+}
+
+@keyframes marker-pop {
+    50% { transform: scale(1.16); }
+}
+
+.route-stop-card {
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-elev);
 }
 
-.itinerary-num {
-    flex: none;
-    font-size: 1.35rem;
-    font-weight: 800;
-    line-height: 1.2;
-    color: var(--accent);
+.route-stop-photo {
+    position: relative;
+    display: block;
+    /* 16/10, а не киношные 16/7: половина кадров вертикальные, слишком широкая
+       лента оставляла бы от них узкую полосу */
+    aspect-ratio: 16 / 10;
+    overflow: hidden; /* зум --stop-zoom не должен вылезать из рамки кадра */
+    background: var(--bg-elev-2);
 }
 
-.itinerary-list strong {
+/* фото «наезжает», пока машинка подъезжает к остановке: --stop-zoom пишет
+   route-progress.js каждый кадр (значение уже сглажено инерцией линии),
+   поэтому transition не нужен; только с JS — без него масштаб остаётся 1 */
+html.js-route .route-stop-photo img { transform: scale(var(--stop-zoom, 1)); }
+
+.route-stop-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* карусель фото остановки: механика галерей мест (scroll-snap, стрелки
+   carousel.js), кадры по одному во всю ширину карточки */
+.route-photo-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.route-photo-track::-webkit-scrollbar { display: none; }
+
+.route-photo-track .route-stop-photo { scroll-snap-align: start; }
+
+/* стрелки внутри карточки: у карточки overflow hidden, вынос за край
+   (стандартные -10px) обрезался бы — прижимаем внутрь и делаем компактнее */
+.route-photo-carousel .car-btn { width: 36px; height: 36px; font-size: 1rem; }
+.route-photo-carousel .car-prev { left: 10px; }
+.route-photo-carousel .car-next { right: 10px; }
+
+.route-stop-body { padding: 16px 20px 18px; }
+
+.route-stop-body strong {
     display: block;
     margin-bottom: 5px;
     font-size: 1.04rem;
 }
 
-.itinerary-list p {
+.route-stop-body p {
     margin: 0;
     color: var(--text-muted);
     font-size: .94rem;
 }
 
-.itinerary-list li > div { flex: 1; }
-
-@media (max-width: 560px) {
-    .itinerary-list li { gap: 14px; padding: 16px; }
+/* от 900px нить по центру, остановки шахматкой; маркер прижат к нити со стороны
+   своей карточки. Ширина карточки = 50% минус зазор до нити (48px). */
+@media (min-width: 900px) {
+    .itinerary-route { gap: 30px; }
+    .itinerary-route::before { left: 50%; translate: -50% 0; }
+    .itinerary-route::after { left: 50%; translate: -50% 0; }
+    .route-van { left: 50%; }
+    .route-stop { width: calc(50% - 48px); padding-left: 0; }
+    .route-stop:nth-child(even) { align-self: flex-end; }
+    /* перехлёст шахматки: каждая следующая остановка поднимается к предыдущей.
+       Стороны строго чередуются, поэтому перехлёст безопасен, пока он меньше
+       высоты карточки; 120px оставляет запас и на узких десктопах (~900px). */
+    .route-stop:not(:first-child) { margin-top: -120px; }
+    .route-stop-marker { top: 18px; left: auto; right: -48px; translate: 50% 0; }
+    .route-stop:nth-child(even) .route-stop-marker { right: auto; left: -48px; translate: -50% 0; }
 }
 
 .itinerary-note {
@@ -1098,7 +1277,7 @@ html.js-parallax .parallax-band .container {
 }
 
 .more-routes {
-    padding-block: 64px;
+    padding-block: 48px;
     scroll-margin-top: 70px;
 }
 
@@ -1116,8 +1295,6 @@ html.js-parallax .parallax-band .container {
 }
 
 /* ---------- почему Кольский ---------- */
-
-.why { padding-top: 56px; }
 
 .why-grid {
     display: grid;
@@ -2235,7 +2412,17 @@ html.lightbox-open { overflow: hidden; }
     box-shadow: var(--shadow);
 }
 
-.apply-card > h2 { font-size: 1.6rem; }
+/* шапка секции формы: по центру, как у программы дня и блока мест, — карточка
+   под ней тоже центрирована, а прижатый влево заголовок читался бы оторванным */
+.apply-head {
+    max-width: none;
+    text-align: center;
+}
+
+.apply-head p {
+    max-width: 640px;
+    margin-inline: auto;
+}
 
 .apply-kicker {
     display: inline-block;
@@ -2245,13 +2432,6 @@ html.lightbox-open { overflow: hidden; }
     font-weight: 800;
     letter-spacing: .08em;
     text-transform: uppercase;
-}
-
-.apply-lead {
-    /* проза держится в комфортной длине строки, даже когда карточка широкая */
-    max-width: 62ch;
-    margin: 0 0 16px;
-    color: var(--text-muted);
 }
 
 .apply-points {
@@ -2275,6 +2455,15 @@ html.lightbox-open { overflow: hidden; }
     left: 0;
     color: var(--accent);
     font-weight: 800;
+}
+
+/* на десктопе — 2×2: одной колонкой пункты занимали левую половину карточки,
+   а справа оставалась пустота (владелец, 25.08.2026) */
+@media (min-width: 700px) {
+    .apply-points {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 24px;
+    }
 }
 
 .form-grid {
@@ -2870,17 +3059,17 @@ html.js-fx .reveal.appear {
 
 /* лёгкий поворот на старте — только карточкам (не заголовкам), направление
    чередуется у соседей: каскад читается «россыпью», а не строем */
-html.js-fx :is(.place-card, .season-card, .guide-card, .itinerary-list li, .included-grid li, .why-grid li) {
+html.js-fx :is(.place-card, .season-card, .guide-card, .route-stop, .included-grid li, .why-grid li) {
     --reveal-rot: 1.6deg;
 }
 
-html.js-fx :is(.place-card, .season-card, .guide-card, .itinerary-list li, .included-grid li, .why-grid li):nth-child(even) {
+html.js-fx :is(.place-card, .season-card, .guide-card, .route-stop, .included-grid li, .why-grid li):nth-child(even) {
     --reveal-rot: -1.6deg;
 }
 
 /* при JS-каскаде CSS-подъём card-rise уступает место, чтобы не двоить анимацию */
 html.js-fx .place-card,
-html.js-fx .itinerary-list li,
+html.js-fx .route-stop,
 html.js-fx .season-card,
 html.js-fx .included-grid li,
 html.js-fx .why-grid li,
@@ -2900,7 +3089,7 @@ html.js-fx .guide-card { animation: none; }
     .place-card,
     .review-card,
     .guide-card,
-    .itinerary-list li,
+    .route-stop,
     .season-card,
     .included-grid li,
     .why-grid li {
@@ -2917,12 +3106,10 @@ html.js-fx .guide-card { animation: none; }
 
 /* ---------- гид у формы ---------- */
 
-/* Верхний отступ секции ужат: перед формой и так лежит нижний отступ FAQ. */
+/* Верхний отступ секции ужат: перед формой лежит блок «Другие маршруты» со своим
+   нижним отступом и разделительной линией (.route-picker), полный паддинг поверх
+   них читался бы провалом. */
 .section.apply { padding-top: 36px; }
-
-@media (min-width: 960px) {
-    .section.apply { padding-top: 48px; }
-}
 
 .guide-note {
     display: flex;
@@ -3842,7 +4029,6 @@ html.js-chat .chat-refresh { display: none; }
 }
 
 @media (min-width: 700px) {
-    .itinerary-list { grid-template-columns: repeat(2, 1fr); }
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid .form-errors,
     .form-grid .form-submit { grid-column: 1 / -1; }
@@ -3883,7 +4069,19 @@ html.js-chat .chat-refresh { display: none; }
     .places-grid { grid-template-columns: repeat(3, 1fr); }
     .places-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
     .hero { padding-block: 72px 32px; }
-    .section { padding-block: 80px; }
+    .section { padding-block: 48px; }
+}
+
+/* Стык «программа дня → другие маршруты»: под кнопкой с ценой шёл полный нижний
+   паддинг секции (80) плюс верхний паддинг .more-routes (64) — 144px пустоты
+   (владелец, 25.08.2026). Блок стоит ПОСЛЕ адаптивных: .section { padding-block }
+   из них перебил бы его на своих ширинах. */
+.itinerary { padding-bottom: 40px; }
+.more-routes { padding-top: 40px; }
+
+@media (max-width: 699px) {
+    .itinerary { padding-bottom: 24px; }
+    .more-routes { padding-top: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3908,8 +4106,9 @@ html.js-chat .chat-refresh { display: none; }
     .contact-fab-close,
     .contact-item { transition: none; }
     .map-whale { animation: none; opacity: 0; }
-    .place-card, .review-card, .guide-card, .alt-route, .itinerary-list li, .season-card,
+    .place-card, .review-card, .guide-card, .alt-route, .route-stop, .season-card,
     .included-grid li, .why-grid li { animation: none; }
+    .itinerary-route::after { animation: none; }
     .shore-band .wave { animation: none; }
     .orca-pod { display: none; }
 }

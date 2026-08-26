@@ -92,7 +92,7 @@
     // плюс заголовкам секций JS даёт каскад: transition-delay по индексу
     // среди соседей-ревилов, чтобы карточки выезжали одна за другой.
     var revealTargets = document.querySelectorAll(
-        ".section-head, .place-card, .itinerary-list li, .season-card, " +
+        ".section-head, .place-card, .route-stop, .season-card, " +
         ".included-grid li, .why-grid li, .guide-card, .guide-note"
     );
 

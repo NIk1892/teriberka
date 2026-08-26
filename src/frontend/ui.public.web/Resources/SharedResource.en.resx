@@ -300,12 +300,12 @@
   <data name="MetaDescription" xml:space="preserve"><value>One-day Teriberka tour from Murmansk: the Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard. Transfer and guide included.</value></data>
   <data name="OgImageAlt" xml:space="preserve"><value>The Kola Peninsula, northern lights and a whale over the Barents Sea</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Why travel with us</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>Key sights in one day</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>a ready-made route with no planning required on your part</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>We adapt to the weather</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>the North is unpredictable: we reorder the stops to fit the forecast and tell you in advance what to bring</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>No prepayment to enquire</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>first we confirm the date, weather and details; then you make your decision</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>The day works out in any weather</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>wind, low tide, a road closed by snow are ordinary here: we reshuffle the stops and show what is open today instead of calling the trip off</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>Nothing to arrange</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>no car to find, no daylight hours to count, no guessing when the tide bares the Dragon Eggs. You name the date, the rest is our job</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>You decide, not a deposit</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>a request commits you to nothing: we call first, settle the date, the weather and the price, and only then you say yes</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous photos</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next photos</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk, Apatity or Kirovsk</value></data>
@@ -362,6 +362,7 @@
   <data name="FormPoint1" xml:space="preserve"><value>Find a travel date that suits you</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Calculate the final price for your group</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Answer questions about weather, clothing and the route</value></data>
+  <data name="FormPoint4" xml:space="preserve"><value>Fit the trip around your flight or train</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>I agree to the processing of my personal data and accept the</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>privacy policy</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>Sole proprietor Ivan Ivanov · Taxpayer ID (INN) 000000000000 · OGRNIP 000000000000000</value></data>

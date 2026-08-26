@@ -29,13 +29,16 @@
 }
 else
 {
-    <span class="apply-kicker">@L[Custom ? "FormCustomKicker" : "FormKicker"]</span>
-    <h2>@L[Custom ? "FormCustomTitle" : "FormTitle"]</h2>
-    <p class="apply-lead">@L[Custom ? "FormCustomText" : "FormText"]</p>
+    @* Кикер, заголовок и подводка вынесены в шапку секции (Home.razor, 25.08.2026):
+       у формы должен быть такой же белый заголовок над карточкой, как у остальных
+       блоков. Карточка начинается сразу с того, что будет после заявки. *@
+    @* Четыре пункта, а не три (владелец, 25.08.2026): на десктопе список идёт
+       в две колонки, и при нечётном числе справа оставалась дыра. *@
     <ul class="apply-points">
         <li>@L["FormPoint1"]</li>
         <li>@L["FormPoint2"]</li>
         <li>@L["FormPoint3"]</li>
+        <li>@L["FormPoint4"]</li>
     </ul>
 
     @if (!string.IsNullOrEmpty(_generalError))

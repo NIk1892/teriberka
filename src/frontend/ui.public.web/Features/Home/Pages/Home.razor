@@ -12,7 +12,7 @@
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
 
 @* Воронка главной: витрина и день в Териберке → кнопка заявки → другие маршруты
-   Кольского → аргументы и FAQ → форма в конце (владелец, 25.08.2026). *@
+   Кольского → форма → аргументы, сезоны и FAQ для сомневающихся (владелец, 25.08.2026). *@
 
 @* data-speed — параллакс-слои effects.js: положительное значение = слой отстаёт
    от прокрутки (читается дальше). Карта отстаёт сильнее текста — глубина как
@@ -46,14 +46,12 @@
             <div class="section-head">
                 <h2>@L["PlacesTitle"]</h2>
                 <p>@L["PlacesSubtitle"]</p>
-                @* Карточек шесть, а кадров у владельца больше — отсюда путь в «Галерею»
-                   (она же в шапке). Ссылка стоит в шапке блока, а не под карточками
-                   (владелец, 25.08.2026): под лентой её замечали уже после того, как
-                   пролистали всё. В скобках и мелким — это примечание к блоку, а не
-                   его призыв: главное здесь сами места (владелец, 25.08.2026).
-                   Скобки — в разметке, а не в ключе: пунктуация одна на все языки.
-                   Раздел пока заглушка «скоро». *@
-                <p class="places-more">(<a href="/gallery">@L["PlacesGalleryLink"]</a>)</p>
+                @* Ссылка «(Смотрите больше фото и видео в галерее)» стояла здесь и
+                   временно убрана владельцем 25.08.2026: раздел «Галерея» пока
+                   заглушка «скоро», вести туда не с чего. Ключ PlacesGalleryLink,
+                   стили .places-more и скобки в разметке сохранены — возвращается
+                   одной строкой:
+                   <p class="places-more">(<a href="/gallery">@L["PlacesGalleryLink"]</a>)</p> *@
             </div>
             @* На ≤560px сетка становится каруселью по одной карточке во всю ширину
                (владелец, 24.08.2026: «половинка» соседней карточки читалась как обрез);
@@ -88,17 +86,55 @@
             <h2>@L["ItineraryTitle"]</h2>
             <p>@L["ItinerarySubtitle"]</p>
         </div>
-        <ol class="itinerary-list">
-            @* Миниатюры мест у шагов были и убраны владельцем 24.08.2026 — программа
-               дня остаётся текстовой, фото живут в карточках мест. *@
+        @* Маршрут дня (владелец, 25.08.2026 — вместо сетки текстовых карточек):
+           вертикальная пунктирная нить, как маршруты на карте Кольского, на ней
+           точки-номера, у каждой остановки карточка с фото и описанием. Фото —
+           кадры владельца из src/frontend/temp (25.08.2026, список RoutePhotos ниже);
+           у остановки с несколькими кадрами — карусель carousel.js (тот же
+           .carousel-wrap: свайп без JS, стрелки с ним). Кадры могут не совпадать
+           с описанием шага дословно — владелец заменит по мере съёмки: новый файл
+           в wwwroot/img/itinerary/ и имя в RoutePhotos. Миниатюры мест у шагов
+           убирались 24.08.2026 — то были мелкие ссылки, спорившие с текстом;
+           здесь фото — часть самой карточки, без ссылок. *@
+        <ol class="itinerary-route">
             @foreach (var i in Enumerable.Range(1, 6))
             {
-                <li>
-                    <span class="itinerary-num">0@(i)</span>
-                    <div>
-                        <strong>@L[$"Itinerary{i}Title"]</strong>
-                        <p>@L[$"Itinerary{i}Text"]</p>
-                    </div>
+                var photos = RoutePhotos[i - 1];
+                <li class="route-stop">
+                    <span class="route-stop-marker" aria-hidden="true">0@(i)</span>
+                    <article class="route-stop-card">
+                        @if (photos.Length > 1)
+                        {
+                            @* data-autoplay — автопрокрут carousel.js по правилам проекта
+                               (пауза вне вьюпорта, в фоновой вкладке и под курсором, ручное
+                               листание выключает насовсем, при reduced-motion не стартует).
+                               Задержки разведены по остановкам, чтобы карусели не листались
+                               синхронно — вместе это читалось бы как один общий таймер. *@
+                            <div class="route-photo-carousel carousel-wrap" data-autoplay="@(4200 + i * 700)">
+                                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                                <div class="route-photo-track carousel-track">
+                                    @for (var n = 0; n < photos.Length; n++)
+                                    {
+                                        <span class="route-stop-photo">
+                                            <img src="/img/itinerary/@photos[n]" alt="@(n == 0 ? L[$"Itinerary{i}Title"].Value : "")"
+                                                 loading="lazy" decoding="async" />
+                                        </span>
+                                    }
+                                </div>
+                                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="route-stop-photo">
+                                <img src="/img/itinerary/@photos[0]" alt="@L[$"Itinerary{i}Title"]" loading="lazy" decoding="async" />
+                            </span>
+                        }
+                        <div class="route-stop-body">
+                            <strong>@L[$"Itinerary{i}Title"]</strong>
+                            <p>@L[$"Itinerary{i}Text"]</p>
+                        </div>
+                    </article>
                 </li>
             }
         </ol>
@@ -113,10 +149,12 @@
             <div class="hero-actions">
                 <a class="btn btn-pulse" href="#apply">@L["HeroCta"]</a>
             </div>
+            @* Строка «Заявка без предоплаты и обязательств» (.hero-trust, ключ
+               HeroTrust) убрана владельцем 25.08.2026 — ключ и стиль сохранены.
+               То же обещание осталось прозой в подводке формы и в «почему с нами». *@
             <p class="hero-meta">
                 <strong class="hero-price">@L["HeroPrice"]</strong>
                 <span class="hero-note">@L["HeroNote"]</span>
-                <span class="hero-trust">@L["HeroTrust"]</span>
             </p>
         </div>
     </div>
@@ -125,7 +163,9 @@
 <section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
     <div class="container">
         <div class="route-picker-head">
-            <span>@L["OtherRoutesKicker"]</span>
+            @* Кикер «Не только Териберка» убран владельцем 25.08.2026 — заголовок
+               «Другие маршруты» и так говорит всё. Ключ OtherRoutesKicker в resx
+               остался, стиль .route-picker-head > span тоже. *@
             <h2 id="other-routes-title">@L["OtherRoutesTitle"]</h2>
             <p>@L["OtherRoutesText"]</p>
         </div>
@@ -169,100 +209,35 @@
 </section>
 
 
-<section class="section why" id="why">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["WhyTitle"]</h2>
-        </div>
-        <ul class="why-grid">
-            @foreach (var i in Enumerable.Range(1, 3))
-            {
-                <li>
-                    <strong>@L[$"Why{i}Title"]</strong>
-                    <span>@L[$"Why{i}Text"]</span>
-                </li>
-            }
-        </ul>
-    </div>
-</section>
-
-<section class="section" id="included">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["IncludedTitle"]</h2>
-            <p>@L["IncludedSubtitle"]</p>
-        </div>
-        <ul class="included-grid">
-            @foreach (var i in Enumerable.Range(1, 6))
-            {
-                <li>@L[$"Included{i}"]</li>
-            }
-        </ul>
-    </div>
-</section>
-
-@* Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды сопок
-   и текст едут с разной скоростью через CSS scroll-driven animations), фоллбек — цельный
-   fixed-пейзаж. Всё без JavaScript, см. блок «параллакс-полосы» в app.css. *@
-<div class="parallax-band">
-    <div class="parallax-mist" aria-hidden="true"></div>
-    <div class="container">
-        <p>@L["Band1Text"]</p>
-    </div>
-</div>
-
-<section class="section seasons" id="seasons">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["SeasonsTitle"]</h2>
-            <p>@L["SeasonsSubtitle"]</p>
-        </div>
-        <div class="seasons-grid">
-            @foreach (var i in Enumerable.Range(1, 3))
-            {
-                <article class="season-card">
-                    <h3>@L[$"Season{i}Title"]</h3>
-                    <p>@L[$"Season{i}Text"]</p>
-                </article>
-            }
-        </div>
-        <p class="season-note">@L["SeasonNote"]</p>
-    </div>
-</section>
-
-<div class="parallax-band band-2">
-    <div class="parallax-mist" aria-hidden="true"></div>
-    <div class="container">
-        <p>@L["Band2Text"]</p>
-    </div>
-</div>
-
-<section class="section practical" id="practical">
-    <div class="container">
-        <div class="section-head">
-            <h2>@L["PracticalTitle"]</h2>
-            <p>@L["PracticalSubtitle"]</p>
-        </div>
-        <div class="faq-list">
-            @foreach (var i in Enumerable.Range(1, 6))
-            {
-                <details>
-                    <summary>@L[$"Faq{i}Question"]</summary>
-                    <p>@L[$"Faq{i}Answer"]</p>
-                </details>
-            }
-        </div>
-    </div>
-</section>
-
-@* Форма — в конце страницы, после того как сняты возражения (что включено,
-   сезоны, FAQ). Под программой дня стоит только кнопка-якорь: пробовали ставить
-   сюда саму форму (25.08.2026), владелец вернул кнопку. Форма на странице ровно
-   одна — у static SSR FormName уникален, двух ApplicationForm быть не может.
+@* Форма — сразу за блоком «Другие маршруты» (владелец, 25.08.2026): посетитель
+   успел увидеть места, прочитать программу дня и посмотреть остальные направления,
+   а маршрут выбирает уже в самой форме. Под программой дня стоит только кнопка-якорь,
+   ведущая сюда; всё, что ниже формы (почему с нами, что включено, сезоны, FAQ),
+   работает на тех, кто ещё сомневается. Форма на странице ровно одна — у static SSR
+   FormName уникален, двух ApplicationForm быть не может.
    id="apply" — внутри, на самой форме (ApplicationForm.razor): якорь должен
    приводить к первому полю, а не к началу карточки. *@
 <section class="section apply">
     <div class="container">
+        @* Заголовок секции — над карточкой, как у остальных блоков (владелец,
+           25.08.2026): раньше он жил внутри карточки, и форма начиналась без
+           «белой шапки». Тексты те же (ветка Custom подменяет их так же, как
+           раньше внутри компонента), поэтому в карточке заголовка больше нет.
+           После отправки шапку не показываем: там уже карточка «спасибо»
+           со своим заголовком. *@
+        @if (!Sent)
+        {
+            <div class="section-head apply-head">
+                @* Кикер «Без предоплаты» (FormKicker) убран владельцем 25.08.2026;
+                   у ветки Custom он осмысленный («Индивидуальный тур») и остаётся. *@
+                @if (CustomTour)
+                {
+                    <span class="apply-kicker">@L["FormCustomKicker"]</span>
+                }
+                <h2>@L[CustomTour ? "FormCustomTitle" : "FormTitle"]</h2>
+                <p>@L[CustomTour ? "FormCustomText" : "FormText"]</p>
+            </div>
+        }
         @* Блок гида временно убран (21.08.2026): его фото теперь работает лицом
            плавающей кнопки связи в углу, и второй раз перед формой не нужно.
            Разметка, стили .guide-note и ключи GuideTitle/GuideText сохранены —
@@ -283,16 +258,76 @@
     </div>
 </section>
 
-@* Индивидуальный тур: последний конверсионный блок — CTA открывает ту же форму
-   в ветке Custom (?tour=custom): другие кикер, заголовок и подводка. *@
-<section class="custom-tour" id="custom-tour">
+<section class="section" id="included">
     <div class="container">
-        <span class="custom-tour-kicker">@L["CustomTourKicker"]</span>
-        <h2>@L["CustomTourTitle"]</h2>
-        <p>@L["CustomTourText"]</p>
-        <a class="btn" href="/?tour=custom#apply">@L["CustomTourCta"]</a>
+        <div class="section-head">
+            <h2>@L["IncludedTitle"]</h2>
+            <p>@L["IncludedSubtitle"]</p>
+        </div>
+        <ul class="included-grid">
+            @foreach (var i in Enumerable.Range(1, 6))
+            {
+                <li>@L[$"Included{i}"]</li>
+            }
+        </ul>
     </div>
 </section>
+
+<section class="section why" id="why">
+    <div class="container">
+        <div class="section-head">
+            <h2>@L["WhyTitle"]</h2>
+        </div>
+        <ul class="why-grid">
+            @foreach (var i in Enumerable.Range(1, 3))
+            {
+                <li>
+                    <strong>@L[$"Why{i}Title"]</strong>
+                    <span>@L[$"Why{i}Text"]</span>
+                </li>
+            }
+        </ul>
+    </div>
+</section>
+
+@* Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды сопок
+   и текст едут с разной скоростью через CSS scroll-driven animations), фоллбек — цельный
+   fixed-пейзаж. Всё без JavaScript, см. блок «параллакс-полосы» в app.css. *@
+<div class="parallax-band">
+    <div class="parallax-mist" aria-hidden="true"></div>
+    <div class="container">
+        <p>@L["Band1Text"]</p>
+    </div>
+</div>
+
+@* Блок «Териберка в разное время года» убран владельцем 25.08.2026 вместе со
+   второй параллакс-полосой (Band2Text): без сезонов две полосы шли бы подряд.
+   Ключи Season*/SeasonNote/Band2Text и стили .seasons-grid/.season-card в проекте
+   остались — блок возвращается разметкой. *@
+
+<section class="section practical" id="practical">
+    <div class="container">
+        <div class="section-head">
+            <h2>@L["PracticalTitle"]</h2>
+            <p>@L["PracticalSubtitle"]</p>
+        </div>
+        <div class="faq-list">
+            @foreach (var i in Enumerable.Range(1, 6))
+            {
+                <details>
+                    <summary>@L[$"Faq{i}Question"]</summary>
+                    <p>@L[$"Faq{i}Answer"]</p>
+                </details>
+            }
+        </div>
+    </div>
+</section>
+
+@* Блок «Нужен индивидуальный тур?» убран владельцем 25.08.2026: индивидуальный
+   маршрут теперь один из вариантов в самой форме, и отдельный призыв в конце
+   страницы дублировал его. Ветка Custom (?tour=custom) жива — меняет кикер,
+   заголовок и подводку над формой, — но ссылок на неё со страницы больше нет;
+   стили .custom-tour и ключи CustomTour* сохранены. *@
 
 @* Разметка schema.org: FAQ из блока «Практично» и минимальный WebSite.
    Контакты и логотип сознательно не указываем: в футере плейсхолдеры,
@@ -304,6 +339,18 @@
 }
 
 @code {
+    // Фото остановок маршрута дня, файлы в wwwroot/img/itinerary/ (кадры владельца,
+    // конвертация — tools/convert-photos.py на 1000px). Несколько имён = карусель.
+    private static readonly string[][] RoutePhotos =
+    [
+        ["step-1.webp"],                                  // лодка у дороги в посёлке
+        ["step-2-1.webp", "step-2-2.webp", "step-2-3.webp"], // кладбище кораблей ×2 + вечерняя панорама посёлка
+        ["step-3-1.webp", "step-3-3.webp", "step-3-2.webp"], // каменистый берег + табличка «Край Земли» + штурвал катера
+        ["step-4-1.webp", "step-4-3.webp", "step-4-2.webp"], // тундра с озером + ущелье к морю + сам водопад: порядок пути
+        ["step-5-1.webp", "step-5-3.webp", "step-5-2.webp"], // ежи и гребешки + ёж в руке над водой
+        ["step-6.webp"],                                  // зимняя панорама посёлка
+    ];
+
     // Сама форма (POST, валидация, редирект) живёт в компоненте ApplicationForm —
     // здесь только флаги из query: показана ли карточка «спасибо» и какая ветка формы.
     [SupplyParameterFromQuery(Name = "sent")]

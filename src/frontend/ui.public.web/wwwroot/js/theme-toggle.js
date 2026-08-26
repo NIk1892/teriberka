@@ -33,6 +33,15 @@
             apply();
         }
 
+        // Страховка позиции: смена темы не должна дёргать страницу наверх.
+        // Полсекунды следим за прокруткой и возвращаем её, если она прыгнула
+        // (порог 40px не мешает обычному скроллу пользователя сразу после клика).
+        var keepY = window.scrollY, frames = 0;
+        (function pin() {
+            if (Math.abs(window.scrollY - keepY) > 40) window.scrollTo(0, keepY);
+            if (++frames < 30) requestAnimationFrame(pin);
+        })();
+
         // навигации не будет — подчистить позицию, сохранённую restore-scroll.js
         // по этому же клику (иначе она сработала бы на следующем заходе на страницу)
         try { sessionStorage.removeItem("kola-restore-scroll"); } catch (err) { /* не критично */ }

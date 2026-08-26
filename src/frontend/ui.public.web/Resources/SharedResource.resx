@@ -300,12 +300,12 @@
   <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей. Трансфер и гид включены.</value></data>
   <data name="OgImageAlt" xml:space="preserve"><value>Кольский полуостров, северное сияние и кит над Баренцевым морем</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Почему удобно ехать с нами</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>Главные места за день</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>маршрут собран так, чтобы увидеть Териберку без самостоятельной подготовки</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>Подстроимся под погоду</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>Север непредсказуем: поменяем порядок остановок под прогноз и заранее подскажем, что взять с собой</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>Без предоплаты за заявку</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>сначала уточним дату, погоду и детали поездки, затем вы примете решение</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>День сложится в любую погоду</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>ветер, отлив, перекрытая дорога — на Севере это обычное дело: меняем порядок остановок и показываем то, что открыто сегодня, вместо отмены поездки</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>Готовиться не нужно</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>не искать машину до посёлка, не считать часы светового дня, не гадать, обнажит ли отлив «Драконьи яйца». Вы называете дату — остальное наша работа</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>Решаете вы, а не предоплата</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>заявка ни к чему не обязывает: сначала созвонимся, обсудим дату, погоду и цену — и только потом вы скажете «да»</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие фото</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Следующие фото</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска, Апатитов или Кировска и обратно</value></data>
@@ -362,6 +362,7 @@
   <data name="FormPoint1" xml:space="preserve"><value>Подберём удобную дату поездки</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>Рассчитаем итоговую стоимость для вашей группы</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>Ответим на вопросы о погоде, одежде и маршруте</value></data>
+  <data name="FormPoint4" xml:space="preserve"><value>Состыкуем поездку с вашим рейсом или поездом</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>Соглашаюсь на обработку персональных данных и принимаю</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>политику конфиденциальности</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>ИП Иванов Иван Иванович · ИНН 000000000000 · ОГРНИП 000000000000000</value></data>

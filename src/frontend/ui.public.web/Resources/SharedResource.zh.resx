@@ -300,12 +300,12 @@
   <data name="MetaDescription" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游：巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地。包含接送与向导。</value></data>
   <data name="OgImageAlt" xml:space="preserve"><value>科拉半岛、北极光与巴伦支海上的鲸鱼</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>为什么跟我们出发更方便</value></data>
-  <data name="Why1Title" xml:space="preserve"><value>一天看遍主要景点</value></data>
-  <data name="Why1Text" xml:space="preserve"><value>无需自己做攻略，我们已安排好核心路线</value></data>
-  <data name="Why2Title" xml:space="preserve"><value>随天气灵活调整</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>北方天气多变：我们会根据预报调整停靠顺序，并提前告诉您需要携带的物品</value></data>
-  <data name="Why3Title" xml:space="preserve"><value>咨询无需预付</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>先确认日期、天气和行程细节，再由您决定是否预订</value></data>
+  <data name="Why1Title" xml:space="preserve"><value>无论天气如何，行程都不落空</value></data>
+  <data name="Why1Text" xml:space="preserve"><value>大风、退潮、封路在北方都是常事：我们会调整停留顺序，带您去当天能去的地方，而不是取消行程</value></data>
+  <data name="Why2Title" xml:space="preserve"><value>无需任何准备</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>不用找车、不用计算日照时间，也不用猜测退潮何时露出“龙蛋”海滩。您定好日期，其余交给我们</value></data>
+  <data name="Why3Title" xml:space="preserve"><value>由您决定，而不是定金</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>提交申请不承担任何义务：我们先通电话，商定日期、天气和价格，之后再由您点头</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>上一张照片</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一张照片</value></data>
   <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克、阿帕季特或基洛夫斯克往返接送</value></data>
@@ -362,6 +362,7 @@
   <data name="FormPoint1" xml:space="preserve"><value>为您挑选合适的出行日期</value></data>
   <data name="FormPoint2" xml:space="preserve"><value>计算您团队的最终价格</value></data>
   <data name="FormPoint3" xml:space="preserve"><value>解答天气、服装和路线问题</value></data>
+  <data name="FormPoint4" xml:space="preserve"><value>让行程与您的航班或火车时间相衔接</value></data>
   <data name="ConsentLabel" xml:space="preserve"><value>我同意处理我的个人数据，并接受</value></data>
   <data name="ConsentPolicyLink" xml:space="preserve"><value>隐私政策</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>个体经营者 Ivan Ivanov · 纳税人识别号（INN）000000000000 · OGRNIP 000000000000000</value></data>
