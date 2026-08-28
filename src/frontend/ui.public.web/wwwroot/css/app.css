@@ -3161,6 +3161,21 @@ html.js-phone .phone-cc { position: relative; display: block; }
     text-align: center;
 }
 
+/* уведомление об обработке данных капчей — обязательная пара к hideShield
+   (условия SmartCaptcha); рендерится только при включённой капче */
+.captcha-note {
+    grid-column: 1 / -1; /* форма — грид: без этого записка ложится в одну колонку */
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: .8rem;
+    text-align: center;
+}
+
+.captcha-note a {
+    color: inherit;
+    text-decoration: underline;
+}
+
 .btn-tg {
     width: 100%;
     gap: 10px;

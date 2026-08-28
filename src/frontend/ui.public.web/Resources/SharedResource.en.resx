@@ -84,6 +84,9 @@
   <data name="ReviewsSubtitle" xml:space="preserve"><value>What our guests say after their trip to the North.</value></data>
   <data name="GuestsAlt" xml:space="preserve"><value>Photo from our tours</value></data>
   <data name="CaptchaFailed" xml:space="preserve"><value>We could not confirm you are human. Make sure JavaScript is enabled and try again — or contact us via any link in the site footer.</value></data>
+  <data name="CaptchaNote" xml:space="preserve"><value>This form is protected from spam by Yandex SmartCaptcha —</value></data>
+  <data name="CaptchaNoteLink" xml:space="preserve"><value>data processing notice</value></data>
+  <data name="CaptchaNoteUrl" xml:space="preserve"><value>https://yandex.com/legal/smartcaptcha_notice/</value></data>
   <data name="Review1Name" xml:space="preserve"><value>Anna</value></data>
   <data name="Review1From" xml:space="preserve"><value>Moscow</value></data>
   <data name="Review1Text" xml:space="preserve"><value>We saw the aurora on the very first night! The guide knew spots without tourists and told stories that gave us chills. Best trip in years.</value></data>

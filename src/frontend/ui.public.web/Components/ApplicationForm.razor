@@ -180,6 +180,15 @@ else
                 </span>
             }
         </div>
+        @* Собственное уведомление об обработке данных капчей — обязательная пара
+           к hideShield в smart-captcha.js (условия сервиса разрешают прятать
+           бейдж только с таким уведомлением; сам бейдж в Safari не закрывался —
+           владелец, 28.08.2026). URL в resx: у ру-версии домен yandex.ru,
+           у en/zh — yandex.com. *@
+        @if (Captcha.Enabled)
+        {
+            <p class="captcha-note">@L["CaptchaNote"] <a href="@L["CaptchaNoteUrl"]" target="_blank" rel="noopener nofollow">@L["CaptchaNoteLink"]</a></p>
+        }
     </EditForm>
 
     @* Скрипты капчи — только когда она включена: сначала виджет Яндекса
@@ -189,7 +198,7 @@ else
     @if (Captcha.Enabled)
     {
         <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
-        <script src="/js/smart-captcha.js?v=1" defer></script>
+        <script src="/js/smart-captcha.js?v=2" defer></script>
     }
 }
 

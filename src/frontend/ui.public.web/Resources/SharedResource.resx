@@ -84,6 +84,9 @@
   <data name="ReviewsSubtitle" xml:space="preserve"><value>Что говорят те, кто уже съездил с нами на Север.</value></data>
   <data name="GuestsAlt" xml:space="preserve"><value>Фото из наших туров</value></data>
   <data name="CaptchaFailed" xml:space="preserve"><value>Не получилось подтвердить, что вы не робот. Проверьте, что JavaScript включён, и попробуйте ещё раз — или напишите нам любым способом из подвала сайта.</value></data>
+  <data name="CaptchaNote" xml:space="preserve"><value>Форму от спама защищает Яндекс SmartCaptcha —</value></data>
+  <data name="CaptchaNoteLink" xml:space="preserve"><value>условия обработки данных</value></data>
+  <data name="CaptchaNoteUrl" xml:space="preserve"><value>https://yandex.ru/legal/smartcaptcha_notice/</value></data>
   <data name="Review1Name" xml:space="preserve"><value>Анна</value></data>
   <data name="Review1From" xml:space="preserve"><value>Москва</value></data>
   <data name="Review1Text" xml:space="preserve"><value>Сияние увидели в первую же ночь! Гид знал точки без туристов и рассказывал так, что мурашки. Лучшая поездка за последние годы.</value></data>

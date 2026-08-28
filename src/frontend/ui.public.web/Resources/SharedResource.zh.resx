@@ -84,6 +84,9 @@
   <data name="ReviewsSubtitle" xml:space="preserve"><value>听听已经跟我们去过北方的旅客怎么说。</value></data>
   <data name="GuestsAlt" xml:space="preserve"><value>旅行团实拍照片</value></data>
   <data name="CaptchaFailed" xml:space="preserve"><value>未能确认您不是机器人。请确认已启用 JavaScript 后重试，或通过页脚的任一联系方式与我们联系。</value></data>
+  <data name="CaptchaNote" xml:space="preserve"><value>本表单由 Yandex SmartCaptcha 提供反垃圾保护 —</value></data>
+  <data name="CaptchaNoteLink" xml:space="preserve"><value>数据处理条款</value></data>
+  <data name="CaptchaNoteUrl" xml:space="preserve"><value>https://yandex.com/legal/smartcaptcha_notice/</value></data>
   <data name="Review1Name" xml:space="preserve"><value>安娜</value></data>
   <data name="Review1From" xml:space="preserve"><value>莫斯科</value></data>
   <data name="Review1Text" xml:space="preserve"><value>第一晚就看到了极光！向导熟悉没有游客的观测点，讲解引人入胜。这是我近几年最棒的旅行。</value></data>

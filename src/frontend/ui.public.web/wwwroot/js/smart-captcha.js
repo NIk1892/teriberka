@@ -23,10 +23,12 @@
             invisible: true,
             // виджет умеет ru/en/be/kk/tt/uk/uz/tr — для zh-версии сайта берём en
             hl: lang === "ru" ? "ru" : "en",
-            // бейдж «обработка данных» — слева: правый нижний угол занят
-            // виджетом связи и кнопками прокрутки (прятать бейдж нельзя по
-            // условиям сервиса — hideShield только вместе со своим уведомлением)
-            shieldPosition: "bottom-left",
+            // Бейдж «обработка данных» скрыт (владелец, 28.08.2026): в Safari
+            // его крестик не закрывал плашку, а состояние не запоминалось.
+            // Условия сервиса разрешают hideShield только вместе с собственным
+            // уведомлением — оно стоит под формой (.captcha-note в
+            // ApplicationForm.razor, ссылка на yandex.ru/legal/smartcaptcha_notice).
+            hideShield: true,
             callback: function (token) {
                 if (typeof token !== "string" || token.length === 0) return;
                 if (tokenInput) tokenInput.value = token;
