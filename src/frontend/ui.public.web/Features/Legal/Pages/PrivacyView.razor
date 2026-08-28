@@ -3,6 +3,7 @@
 @using UI.Public.Web.Layouts
 @layout MainLayout
 @inject IStringLocalizer<SharedResource> L
+@inject IConfiguration Configuration
 
 @* Черновик политики конфиденциальности — плейсхолдер: перед запуском текст
    заменить на настоящий (см. PrivacyDraftNote); реквизиты оператора
@@ -29,8 +30,22 @@
         <h2>@L["PrivacyS4Title"]</h2>
         <p>@L["PrivacyS4Text"]</p>
 
-        <p class="legal-operator">@L["FooterLegal"]</p>
+        @* Согласие на публикацию отзывов и фото гостей (владелец, 28.08.2026) —
+           появилось вместе с блоком отзывов и фотолентой на главной. *@
+        <h2>@L["PrivacyS5Title"]</h2>
+        <p>@L["PrivacyS5Text"]</p>
+
+        @* Почта — из CONTACT_EMAIL, как контакты футера: пустой ключ прячет
+           ссылку, значение не дублируется в resx. *@
+        <p class="legal-operator">
+            @L["FooterLegal"]@if (!string.IsNullOrWhiteSpace(Email))
+            {<text> · </text><a href="mailto:@Email">@Email</a>}
+        </p>
 
         <p><a class="back-link" href="/">@L["BackToHome"]</a></p>
     </div>
 </section>
+
+@code {
+    private string? Email => Configuration["CONTACT_EMAIL"];
+}

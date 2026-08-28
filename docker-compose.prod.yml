@@ -1,0 +1,122 @@
+# Прод-оверлей: всё, что отличает боевой сервер от локальной разработки.
+# Базовый docker-compose.yml остаётся dev-конфигурацией и не меняется.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Ключи берутся из .env рядом с этим файлом (см. .env.example). Значения с «:?»
+# обязательны: без них compose откажется стартовать, а не поднимет сайт с
+# дефолтами разработчика.
+#
+# ЛИМИТЫ ПАМЯТИ рассчитаны на VPS 2 vCPU / 2 ГБ. Смысл не в том, чтобы поделить
+# сервер на доли: контейнер без лимита видит всю память хоста, и GC каждого из
+# четырёх .NET-сервисов считает, что она вся его — мусор копится дольше, чем
+# нужно. .NET читает cgroup-лимит, поэтому потолок реально меняет режим сборки
+# мусора. Сумма лимитов заведомо больше реального потребления (~1 ГБ в покое):
+# это предохранители от утечки, а не резервирование.
+#
+# Postgres намеренно БЕЗ лимита: он не умеет мягко деградировать — упрётся в
+# потолок, и его снимет OOM-killer, то есть сайт ляжет вместо того чтобы
+# замедлиться. Лимиты CPU не ставим тоже: ядра всего два, и пусть сервисы
+# конкурируют за них честно, а не простаивают у искусственного потолка.
+services:
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}"
+    # Логи идут в stdout (OTLP выключен), а json-file по умолчанию растёт без
+    # предела и однажды съедает диск. Якорь ниже переиспользуется всеми сервисами.
+    logging: &prod-logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  api-gateway:
+    environment:
+      # Главное отличие прода: выключает /dev/token (анонимный SuperAdmin-JWT на
+      # 30 дней), Swagger-агрегатор и developer exception page.
+      ASPNETCORE_ENVIRONMENT: Production
+      # У шлюза этих ключей нет в appsettings.json — только в Development-файле.
+      # Без них Production падает на старте (Encoding.UTF8.GetBytes(null)).
+      JWT_KEY: "${JWT_KEY:?set JWT_KEY in .env}"
+      JWT_ISSUER: "${SITE_URL:?set SITE_URL in .env}"
+      # Workstation GC вместо серверного: на двух ядрах серверный GC заводит
+      # отдельный heap на ядро и держит заметно больше памяти, а нагрузка у нас
+      # такая, что его пропускная способность всё равно не востребована.
+      DOTNET_gcServer: "0"
+    deploy:
+      resources:
+        limits:
+          memory: 224M
+    logging: *prod-logging
+
+  api-users:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Пароль подставляется в строку подключения, поэтому в нём не должно быть
+      # символов "=", ";" и кавычек — генерировать `openssl rand -hex 32`.
+      # Пул уменьшен с 20 до 10: пулов четыре (чтение и запись у users и chat),
+      # а Postgres поднят с max_connections=50 — при двадцатке они в потолок
+      # упираются раньше, чем сервер в нагрузку.
+      DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=${POSTGRES_PASSWORD:?};search path=users,public;maximum pool size=10;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=${POSTGRES_PASSWORD:?};search path=users,public;maximum pool size=10;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      DOTNET_gcServer: "0"
+    deploy:
+      resources:
+        limits:
+          memory: 224M
+    logging: *prod-logging
+
+  api-chat:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=${POSTGRES_PASSWORD:?};search path=chat,public;maximum pool size=10;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=${POSTGRES_PASSWORD:?};search path=chat,public;maximum pool size=10;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
+      DOTNET_gcServer: "0"
+    deploy:
+      resources:
+        limits:
+          memory: 224M
+    logging: *prod-logging
+
+  minio:
+    deploy:
+      resources:
+        limits:
+          memory: 320M
+    logging: *prod-logging
+
+  ui-public:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Бота пока нет. Пустая строка в .env дефолт НЕ перекрывает: в базовом
+      # compose стоит ${TG_BOT_URL:-https://t.me/kola_north_bot}, а синтаксис ":-"
+      # подставляет дефолт и на пустое значение. Поэтому зануляем здесь — иначе
+      # сайт вёл бы в несуществующего бота из шапки, футера, виджета связи,
+      # кнопки у формы и финального призыва. Появится бот — вписать username сюда.
+      TG_BOT_URL: ""
+      # Kestrel отвечает только на свой домен: запрос с чужим Host получит 400.
+      AllowedHosts: "${SITE_HOST:?set SITE_HOST in .env};www.${SITE_HOST}"
+      DOTNET_gcServer: "0"
+    deploy:
+      resources:
+        limits:
+          memory: 320M
+    logging: *prod-logging
+
+  nginx:
+    environment:
+      # Канонический хост: на него ведут редиректы с http и с www.
+      # Фильтр NGINX_ENVSUBST_FILTER="^(SITE_|MEDIA_)" эту переменную пропускает.
+      SITE_HOST: "${SITE_HOST:?set SITE_HOST in .env}"
+    volumes:
+      # Тот же целевой путь, что в базовом файле, — compose объединяет volumes по
+      # точке монтирования, поэтому http-шаблон заменяется на TLS-версию.
+      - ./infra/nginx/templates.tls:/etc/nginx/templates:ro
+      # Сертификат живёт вне репозитория: приватный ключ не должен попасть в git
+      # даже случайно. Имена файлов внутри каталога фиксированы (см. шаблон).
+      - "${CERT_DIR:?set CERT_DIR in .env}:/etc/nginx/certs:ro"
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+    logging: *prod-logging

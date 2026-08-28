@@ -1,13 +1,16 @@
 @using global::Applications.Contracts
+@using UI.Public.Web.Features.Captcha
 @using UI.Public.Web.Features.Contacts
 @using FluentValidation
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Http
 @using Microsoft.Extensions.Localization
 @inject IMediator Mediator
 @inject NavigationManager Navigation
 @inject IEnumerable<IValidator<ApplicationCreateCommand>> Validators
 @inject IStringLocalizer<SharedResource> L
 @inject IConfiguration Configuration
+@inject SmartCaptchaService Captcha
 
 @* Единственная форма заявки на сайте: имя (необязательно) и телефон — всё остальное
    уточняется по телефону. Ветка Custom (открывается ссылкой /?tour=custom#apply)
@@ -136,6 +139,16 @@ else
             </div>
             @FieldHint("Route")
         </fieldset>
+        @* Невидимая Яндекс SmartCaptcha (владелец, 28.08.2026): рендерится только
+           при заданной паре ключей. Токен кладёт в hidden наш smart-captcha.js
+           (см. подключение после формы), сервер проверяет его в SubmitAsync.
+           Слот нужен даже невидимой капче — в него виджет ставит iframe и бейдж
+           «обработка данных Яндексом» (прятать бейдж запрещают условия сервиса). *@
+        @if (Captcha.Enabled)
+        {
+            <input type="hidden" name="smart-token" value="" />
+            <div class="captcha-slot" data-sitekey="@Captcha.ClientKey"></div>
+        }
         @* Согласие пока только на клиенте: в контракт не входит,
            сервер его не проверяет — плейсхолдер до настоящей политики ПД. *@
         <label class="consent @ConsentClass()" data-field="Consent">
@@ -168,6 +181,16 @@ else
             }
         </div>
     </EditForm>
+
+    @* Скрипты капчи — только когда она включена: сначала виджет Яндекса
+       (его хост добавлен в CSP в Program.cs тоже условно), затем наша обвязка.
+       Оба defer, порядок в документе гарантирует, что window.smartCaptcha
+       уже есть к моменту исполнения smart-captcha.js. *@
+    @if (Captcha.Enabled)
+    {
+        <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
+        <script src="/js/smart-captcha.js?v=1" defer></script>
+    }
 }
 
 @code {
@@ -179,6 +202,14 @@ else
 
     [SupplyParameterFromForm]
     public ApplicationCreateCommand Model { get; set; } = default!;
+
+    /// <summary>Токен SmartCaptcha из hidden-поля; кладёт его smart-captcha.js.</summary>
+    [SupplyParameterFromForm(Name = "smart-token")]
+    public string? CaptchaToken { get; set; }
+
+    // IP посетителя для проверки токена: за nginx реальный адрес уже восстановлен
+    // middleware'ом forwarded headers (см. USE_FORWARDED_HEADERS в Program.cs).
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
 
     private Dictionary<string, string> _fieldErrors = [];
     private string? _generalError;
@@ -216,6 +247,16 @@ else
 
         if (_fieldErrors.Count > 0)
             return;
+
+        // Капча проверяется после валидации полей: незачем жечь токен на форме,
+        // которую всё равно вернём с подсказками. Отсутствие токена — отказ
+        // (см. SmartCaptchaService: без JavaScript заявку не отправить, это
+        // осознанная цена капчи), сбой сервиса Яндекса — пропуск (fail-open).
+        if (!await Captcha.ValidateAsync(CaptchaToken, HttpContext?.Connection.RemoteIpAddress?.ToString()))
+        {
+            _generalError = L["CaptchaFailed"];
+            return;
+        }
 
         try
         {

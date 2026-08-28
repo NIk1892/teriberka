@@ -31,9 +31,20 @@
                 showError(form, item.field, item.message);
             });
 
+            // Прокручиваемся к первому полю с ошибкой (владелец, 28.08.2026):
+            // кнопка отправки внизу формы, и без скролла клик выглядел «не
+            // работающим» — подсказки оставались за экраном. Скроллим контейнер
+            // поля (block: center — подсказка под полем тоже попадает в кадр),
+            // фокус ставим с preventScroll, чтобы он не дёргал плавный ход.
             var first = form.querySelector(".field-invalid input");
-            if (first)
+            if (first) {
+                var box = first.closest("[data-field]") || first;
+                box.scrollIntoView({
+                    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                    block: "center",
+                });
                 first.focus({ preventScroll: true });
+            }
         });
 
         // ошибка снимается, как только пользователь начал исправлять поле

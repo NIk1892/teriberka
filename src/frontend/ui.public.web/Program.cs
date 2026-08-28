@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
+using UI.Public.Web.Features.Captcha;
 using UI.Public.Web.Features.Chat;
 using UI.Public.Web.Features.Media;
 using UI.Public.Web.Features.Seo;
@@ -52,6 +53,9 @@ builder.Services.AddHostedService<MediaRefresher>();
 
 // Часы работы чата: виджет честно говорит, ответят сейчас или утром.
 builder.Services.AddSingleton<ChatSchedule>();
+
+// Невидимая SmartCaptcha формы заявки: пустые ключи выключают её целиком.
+builder.Services.AddSingleton<SmartCaptchaService>();
 
 // Сжатие только для статики: text/html сознательно не сжимаем — в страницах
 // antiforgery-токен плюс отражённый query в ссылках set-culture/set-theme,
@@ -160,12 +164,29 @@ if (!app.Environment.IsDevelopment())
 // inline-стили запрещены), картинки — свои и data:, отправка форм — только на свой
 // origin, встраивание в iframe запрещено. Скриптов на сайте минимум — сейчас это
 // только water.js (WebGL-вода у футера).
+// SmartCaptcha — единственный разрешённый сторонний хост, и только когда капча
+// включена ключами: её скрипт, iframe проверки и XHR виджета. Без ключей CSP
+// остаётся прежней. Заголовок собирается один раз — конфиг не меняется на лету.
+// 'unsafe-inline' у стилей — вынужденная цена капчи (проверено 28.08.2026):
+// виджет ставит инлайновые style-атрибуты в родительскую страницу (позиция
+// бейджа и попапа с пазлом), под style-src 'self' их режет и пазл не показать;
+// хеши не вариант — они меняются с каждым обновлением виджета. Скрипты при
+// этом остаются под замком: script-src без 'unsafe-inline'.
+var captchaOn = app.Services.GetRequiredService<SmartCaptchaService>().Enabled;
+const string captchaHost = "https://smartcaptcha.yandexcloud.net";
+var csp =
+    "default-src 'self'; " +
+    $"script-src 'self'{(captchaOn ? " " + captchaHost : "")}; " +
+    $"style-src 'self'{(captchaOn ? " 'unsafe-inline'" : "")}; img-src 'self' data:; " +
+    // шрифты бейджа капчи едут с yastatic.net (хост без схемы — матчит и http-локалку);
+    // без них бейдж просто падает на системный шрифт, но чисто — лучше
+    (captchaOn ? $"frame-src 'self' {captchaHost}; connect-src 'self' {captchaHost}; font-src 'self' yastatic.net; " : "") +
+    "form-action 'self'; base-uri 'self'; frame-ancestors 'none'";
+
 app.Use(async (context, next) =>
 {
     var headers = context.Response.Headers;
-    headers["Content-Security-Policy"] =
-        "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; " +
-        "form-action 'self'; base-uri 'self'; frame-ancestors 'none'";
+    headers["Content-Security-Policy"] = csp;
     headers["X-Content-Type-Options"] = "nosniff";
     headers["X-Frame-Options"] = "DENY";
     headers["Referrer-Policy"] = "no-referrer";

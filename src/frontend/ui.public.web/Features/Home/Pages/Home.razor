@@ -9,6 +9,7 @@
 @inject IStringLocalizer<SharedResource> L
 @inject SeoUrls Seo
 @inject IConfiguration Configuration
+@inject IWebHostEnvironment Env
 
 <PageTitle>@L["PageTitle"]</PageTitle>
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" ImagePath="/img/og.jpg" />
@@ -339,6 +340,87 @@
     </div>
 </section>
 
+@* Отзывы возвращены владельцем 28.08.2026 (убирались как вымышленный контент)
+   и стоят после «Что важно знать» (владелец, 28.08.2026) — последний довод перед
+   финальным призывом. Состав — без китайских гостей (владелец, 28.08.2026):
+   шесть карточек из сохранённых ключей Review1..9, список — Reviews в @@code
+   (id ключа + звёзды). Тексты — черновики до замены на настоящие отзывы.
+   Лента — тот же .carousel-wrap, что у мест: свайп на scroll-snap без JS,
+   стрелки от carousel.js; автопрокрута сознательно нет — отзыв читают дольше,
+   чем смотрят фото. Фото гостей владелец пришлёт позже: файл
+   wwwroot/img/reviews/review-{id}.webp (id — номер ключа Review{id}, не позиция
+   в ленте) подхватится сам (проверка File.Exists, как было у слайдов полосы
+   «Что вас ждёт»), пока его нет — кружок-инициал. *@
+<section class="section reviews" id="reviews">
+    <div class="container">
+        <div class="section-head">
+            <h2>@L["ReviewsTitle"]</h2>
+            <p>@L["ReviewsSubtitle"]</p>
+        </div>
+        @* Фотолента гостей (владелец, 28.08.2026): реальные кадры туристов из
+           поездок над карточками отзывов. Файлы — wwwroot/img/guests/guest-*.webp
+           (кроп 3:4 из оригиналов владельца, convert-photos.py); лента рендерит
+           то, что лежит в каталоге: нет файлов — нет ленты, новый кадр = новый
+           файл, без правки кода. ?v= из времени изменения файла — картинки
+           кэшируются 30 дней, как у фото хранилища. Клик — лайтбокс (fallback
+           без JS — файл в новой вкладке), кадры-«полароиды» с лёгким разворотом. *@
+        @* На мобиле — по одному кадру во всю ширину со стрелками carousel.js
+           (владелец, 28.08.2026: край соседнего кадра читался как обрез — та же
+           претензия, что была к ленте мест), на десктопе стрелки скрыты, ряд
+           с переносом. *@
+        @{ var guests = GuestPhotos(); }
+        @if (guests.Count > 0)
+        {
+            <div class="guests-carousel carousel-wrap">
+                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                <ul class="guests-row carousel-track">
+                    @foreach (var (file, ver) in guests)
+                    {
+                        <li class="guest-shot">
+                            <a class="lightbox-link" href="/img/guests/@(file)?v=@ver" target="_blank" rel="noopener">
+                                <img src="/img/guests/@(file)?v=@ver" alt="@L["GuestsAlt"]" loading="lazy" decoding="async" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+            </div>
+        }
+        <div class="carousel-wrap">
+            <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+            <div class="reviews-carousel carousel-track">
+                @foreach (var (id, stars, date) in Reviews)
+                {
+                    <article class="review-card">
+                        <div class="review-head">
+                            @if (ReviewPhotoExists(id))
+                            {
+                                <span class="review-avatar">
+                                    <img src="/img/reviews/review-@(id).webp" alt="@L[$"Review{id}Name"]" loading="lazy" decoding="async" />
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="review-avatar" aria-hidden="true">@L[$"Review{id}Name"].Value[..1]</span>
+                            }
+                            <span class="review-person">
+                                <span class="review-name">@L[$"Review{id}Name"]</span>
+                                <span class="review-from">@L[$"Review{id}From"]</span>
+                            </span>
+                            <span class="review-meta">
+                                <span class="review-stars" role="img" aria-label="@(stars)/5">@(new string('★', stars))@(new string('☆', 5 - stars))</span>
+                                <span class="review-date">@date.ToString("y")</span>
+                            </span>
+                        </div>
+                        <blockquote>@L[$"Review{id}Text"]</blockquote>
+                    </article>
+                }
+            </div>
+            <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+        </div>
+    </div>
+</section>
+
 @* Блок «Нужен индивидуальный тур?» убран владельцем 25.08.2026: индивидуальный
    маршрут теперь один из вариантов в самой форме, и отдельный призыв в конце
    страницы дублировал его. Ветка Custom (?tour=custom) жива — меняет кикер,
@@ -388,6 +470,46 @@
         ["step-5-1.webp", "step-5-3.webp", "step-5-2.webp"], // ежи и гребешки + ёж в руке над водой
         ["step-6.webp"],                                  // зимняя панорама посёлка
     ];
+
+    // Состав ленты отзывов: id ключа Review{id} в resx + звёзды + месяц поездки.
+    // Только гости из России (владелец, 28.08.2026): китайские (Ван Лэй-3,
+    // Чжан Вэй-9) и Сара из Лондона (6) не показываются, ключи в resx целы;
+    // у Павла (8) город сменён с Минска на Нижний Новгород, у Елены (4) текст
+    // переписан — прежний дублировал Дмитрия (драконьи яйца и уха).
+    // У Игоря четыре звезды — его текст прямо говорит «звезду снял», одинаковые
+    // пятёрки у всех читались бы как накрутка. Даты — черновики, как и тексты:
+    // все в текущем 2026 году и в прошлом (владелец, 28.08.2026), подогнаны под
+    // сюжет (аврора — только зимой и ранней весной) и разведены по месяцам.
+    // Показ — ToString("y"): формат «месяц + год» культуры запроса, resx не нужен.
+    private static readonly (int Id, int Stars, DateOnly Date)[] Reviews =
+    [
+        (2, 5, new(2026, 1, 1)),  // Дмитрий — шторм на Баренцевом, драконьи яйца
+        (1, 5, new(2026, 2, 1)),  // Анна — сияние в первую ночь
+        (5, 4, new(2026, 3, 1)),  // Игорь — сияние со второй попытки
+        (4, 5, new(2026, 4, 1)),  // Елена — семьёй с детьми
+        (7, 5, new(2026, 5, 1)),  // Мария — Батарейский водопад в шторм
+        (8, 5, new(2026, 7, 1)),  // Павел — день рождения жены, лето
+    ];
+
+    // Фото гостя подхватывается по появлению файла review-{id}.webp — без правки
+    // разметки (тот же приём File.Exists, что был у слайдов полосы «Что вас ждёт»).
+    private bool ReviewPhotoExists(int id) =>
+        File.Exists(Path.Combine(Env.WebRootPath, "img", "reviews", $"review-{id}.webp"));
+
+    // Кадры фотоленты гостей: guest-*.webp из wwwroot/img/guests, сортировка по
+    // имени (guest-1..guest-9; до десятого кадра строкового порядка достаточно).
+    // Версия — время изменения файла: перезаливка под тем же именем не застрянет
+    // в 30-дневном кеше картинок. Скан каталога на рендер — тот же компромисс,
+    // что у File.Exists выше: главная и так читает диск на каждый запрос.
+    private IReadOnlyList<(string File, long Ver)> GuestPhotos()
+    {
+        var dir = Path.Combine(Env.WebRootPath, "img", "guests");
+        if (!Directory.Exists(dir)) return Array.Empty<(string, long)>();
+        return Directory.GetFiles(dir, "guest-*.webp")
+            .OrderBy(f => f, StringComparer.OrdinalIgnoreCase)
+            .Select(f => (Path.GetFileName(f), File.GetLastWriteTimeUtc(f).Ticks / TimeSpan.TicksPerSecond))
+            .ToList();
+    }
 
     // Сама форма (POST, валидация, редирект) живёт в компоненте ApplicationForm —
     // здесь только флаги из query: показана ли карточка «спасибо» и какая ветка формы.

@@ -81,6 +81,9 @@
   <data name="Guide2Fact" xml:space="preserve"><value>5 лет опыта · фото в подарок</value></data>
 
   <data name="ReviewsTitle" xml:space="preserve"><value>Отзывы путешественников</value></data>
+  <data name="ReviewsSubtitle" xml:space="preserve"><value>Что говорят те, кто уже съездил с нами на Север.</value></data>
+  <data name="GuestsAlt" xml:space="preserve"><value>Фото из наших туров</value></data>
+  <data name="CaptchaFailed" xml:space="preserve"><value>Не получилось подтвердить, что вы не робот. Проверьте, что JavaScript включён, и попробуйте ещё раз — или напишите нам любым способом из подвала сайта.</value></data>
   <data name="Review1Name" xml:space="preserve"><value>Анна</value></data>
   <data name="Review1From" xml:space="preserve"><value>Москва</value></data>
   <data name="Review1Text" xml:space="preserve"><value>Сияние увидели в первую же ночь! Гид знал точки без туристов и рассказывал так, что мурашки. Лучшая поездка за последние годы.</value></data>
@@ -92,7 +95,7 @@
   <data name="Review3Text" xml:space="preserve"><value>Мечтал увидеть северное сияние — и увидел его над океаном. Водитель встретил в аэропорту, всё прошло спокойно и по плану.</value></data>
   <data name="Review4Name" xml:space="preserve"><value>Елена</value></data>
   <data name="Review4From" xml:space="preserve"><value>Казань</value></data>
-  <data name="Review4Text" xml:space="preserve"><value>Ездили в марте всей семьёй. Дети до сих пор вспоминают драконьи яйца и уху из трески. Организация — на пять.</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>Наша первая поездка на Север с детьми. Боялись, что им надоест дорога, — не отходили от окна. На берегу их было не увести: камни, лёд, море. Гид подстроил темп под нас и никуда не гнал.</value></data>
   <data name="Review5Name" xml:space="preserve"><value>Игорь</value></data>
   <data name="Review5From" xml:space="preserve"><value>Екатеринбург</value></data>
   <data name="Review5Text" xml:space="preserve"><value>Сияние поймали со второй попытки: гид честно предупредил про облачность и перенёс выезд. Уважаю такой подход. Звезду снял за долгую дорогу — но Север того стоил.</value></data>
@@ -103,7 +106,7 @@
   <data name="Review7From" xml:space="preserve"><value>Новосибирск</value></data>
   <data name="Review7Text" xml:space="preserve"><value>Батарейский водопад в шторм — самое сильное впечатление года. Между остановками спасали тёплый минивэн и горячий чай.</value></data>
   <data name="Review8Name" xml:space="preserve"><value>Павел</value></data>
-  <data name="Review8From" xml:space="preserve"><value>Минск</value></data>
+  <data name="Review8From" xml:space="preserve"><value>Нижний Новгород</value></data>
   <data name="Review8Text" xml:space="preserve"><value>Брал тур на день рождения жены. Ребята устроили сюрприз с тортом на краю земли — такое не забывается.</value></data>
   <data name="Review9Name" xml:space="preserve"><value>Чжан Вэй</value></data>
   <data name="Review9From" xml:space="preserve"><value>Шанхай</value></data>
@@ -391,5 +394,7 @@
   <data name="PrivacyS3Text" xml:space="preserve"><value>Заявки видит только оператор туров. Мы не передаём данные третьим лицам и не публикуем их.</value></data>
   <data name="PrivacyS4Title" xml:space="preserve"><value>Хранение и удаление</value></data>
   <data name="PrivacyS4Text" xml:space="preserve"><value>Заявка хранится, пока актуальна поездка. Чтобы удалить свои данные, напишите или позвоните по любому контакту из подвала сайта — удалим без лишних вопросов.</value></data>
+  <data name="PrivacyS5Title" xml:space="preserve"><value>Отзывы и фотографии гостей</value></data>
+  <data name="PrivacyS5Text" xml:space="preserve"><value>Отзывы, имена, города и фотографии гостей публикуются на сайте только с их согласия. Согласие можно отозвать в любой момент: напишите нам — уберём отзыв или фото с сайта без лишних вопросов.</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>экскурсия из Мурманска</value></data>
 </root>

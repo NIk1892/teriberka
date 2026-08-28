@@ -365,12 +365,14 @@ a { color: var(--accent-ice); }
 /* дубль ссылки на бота включается только на самых узких экранах,
    где иконка бота убрана из шапки ради места */
 
-/* Порог строки меню — 1040px, а не 900 (26.08.2026): после переименования
-   «Места» → «Териберка» и возврата «Других маршрутов» строке нужно ~965px
-   вместе с брендом и контролами, и на 900–1000px шапка вылезала за экран,
-   давая горизонтальную прокрутку всей странице. Меняешь состав пунктов —
-   перемеряй ширину шапки и правь этот порог (проверять scrollWidth). */
-@media (min-width: 1040px) {
+/* Порог строки меню — 960px (28.08.2026, было 1040 при пяти пунктах): после
+   удаления «Программы дня» строке нужно 901px вместе с брендом и контролами
+   (русский — самый широкий из трёх языков: en 822, zh 771), плюс полоса
+   прокрутки — порог не должен быть ниже ~916. Меняешь состав пунктов —
+   перемеряй ширину шапки во всех языках и правь этот порог, иначе шапка
+   вылезет за экран и даст горизонтальную прокрутку всей странице
+   (проверять scrollWidth). */
+@media (min-width: 960px) {
     .main-nav { display: flex; }
     .nav-burger { display: none; }
 }
@@ -2515,6 +2517,74 @@ html.lightbox-open { overflow: hidden; }
     gap: 12px;
 }
 
+/* фотолента гостей над карточками отзывов: guest-*.webp из img/guests,
+   нет файлов — нет ленты. Кадры-«полароиды» с лёгким разворотом; на мобиле —
+   горизонтальная лента на scroll-snap (свайп, без стрелок), от 800px кадры
+   встают в центрированный ряд с переносом. Клик — лайтбокс (a.lightbox-link).
+   На .guest-shot стоит rotate, но details-оверлеев внутри нет — containing
+   block здесь безопасен (лайтбокс живёт в body). */
+.guests-carousel { margin-bottom: 30px; }
+
+/* стрелки — только на телефоне, как у ленты мест (три класса — перебить .carousel-js) */
+.guests-carousel.carousel-wrap .car-btn { display: none; }
+
+.guests-row {
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 8px 4px 14px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.guests-row::-webkit-scrollbar { display: none; }
+
+/* по одному кадру целиком: край соседнего читался как обрез (владелец, 28.08.2026) */
+.guest-shot {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    padding: 8px 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-elev-2);
+    box-shadow: var(--shadow);
+    rotate: -1.6deg;
+}
+
+.guest-shot:nth-child(even) { rotate: 1.4deg; }
+
+[data-theme="light"] .guest-shot { background: var(--bg-elev); }
+
+.guest-shot a { display: block; }
+
+.guest-shot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+@media (max-width: 799px) {
+    .guests-carousel.carousel-js .car-btn { display: flex; }
+}
+
+@media (min-width: 800px) {
+    .guests-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: visible;
+    }
+
+    .guest-shot { flex: 0 1 220px; transition: rotate .25s ease, scale .25s ease; }
+
+    .guest-shot:hover { rotate: 0deg; scale: 1.04; }
+}
+
+/* пока фото гостя нет — кружок-инициал на аврора-фоне; файл
+   img/reviews/review-{i}.webp Home.razor подхватывает сам (File.Exists) */
 .review-avatar {
     display: flex;
     align-items: center;
@@ -2522,10 +2592,23 @@ html.lightbox-open { overflow: hidden; }
     width: 44px;
     height: 44px;
     flex: none;
+    overflow: hidden;
     border-radius: 50%;
     background: var(--aurora);
     color: var(--on-accent);
     font-weight: 800;
+}
+
+.review-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review-person {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
 }
 
 .review-name { font-weight: 700; }
@@ -2535,10 +2618,25 @@ html.lightbox-open { overflow: hidden; }
     font-size: .85rem;
 }
 
+/* правая колонка шапки карточки: звёзды, под ними дата поездки */
+.review-meta {
+    display: flex;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
 .review-stars {
     color: var(--star);
     font-size: .9rem;
     letter-spacing: 2px;
+}
+
+.review-date {
+    color: var(--text-muted);
+    font-size: .8rem;
+    white-space: nowrap;
 }
 
 .review-card blockquote {
@@ -3591,6 +3689,22 @@ html.js-fx .guide-card { animation: none; }
     @keyframes scroller-reveal {
         to { opacity: 1; }
     }
+
+    /* На телефоне две кнопки — много (владелец, 28.08.2026): «вниз» гаснет на
+       том же отрезке, где проявляется «наверх», — видна всегда ровно одна.
+       visibility в keyframes переключается только в самом конце, поэтому
+       кнопка кликабельна, пока не исчезла. Без поддержки — обе, как раньше. */
+    @media (max-width: 699px) {
+        .scroller-bottom {
+            animation: scroller-hide linear both;
+            animation-timeline: scroll();
+            animation-range: 0 60vh;
+        }
+
+        @keyframes scroller-hide {
+            to { opacity: 0; visibility: hidden; }
+        }
+    }
 }
 
 /* ---------- плавающая кнопка связи ---------- */
@@ -4406,6 +4520,10 @@ html.js-chat .chat-refresh { display: none; }
 @media (max-width: 699px) {
     .itinerary { padding-bottom: 24px; }
     .more-routes { padding-top: 28px; }
+    /* стык «другие маршруты → форма» на телефоне: 48+36px читались провалом
+       (владелец, 28.08.2026) — ужато до 24+20 */
+    .more-routes { padding-bottom: 24px; }
+    .section.apply { padding-top: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4434,6 +4552,7 @@ html.js-chat .chat-refresh { display: none; }
     .included-grid li, .why-grid li { animation: none; }
     .scroller { transition: none; }
     .scroller:hover { transform: none; }
+    .guest-shot { transition: none; }
     .itinerary-route::after { animation: none; }
     .cookie-notice { animation: none; }
     .cookie-notice.is-gone { transition: none; }

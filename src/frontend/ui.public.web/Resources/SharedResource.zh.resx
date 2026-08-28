@@ -81,6 +81,9 @@
   <data name="Guide2Fact" xml:space="preserve"><value>5 年经验 · 赠送照片</value></data>
 
   <data name="ReviewsTitle" xml:space="preserve"><value>旅客评价</value></data>
+  <data name="ReviewsSubtitle" xml:space="preserve"><value>听听已经跟我们去过北方的旅客怎么说。</value></data>
+  <data name="GuestsAlt" xml:space="preserve"><value>旅行团实拍照片</value></data>
+  <data name="CaptchaFailed" xml:space="preserve"><value>未能确认您不是机器人。请确认已启用 JavaScript 后重试，或通过页脚的任一联系方式与我们联系。</value></data>
   <data name="Review1Name" xml:space="preserve"><value>安娜</value></data>
   <data name="Review1From" xml:space="preserve"><value>莫斯科</value></data>
   <data name="Review1Text" xml:space="preserve"><value>第一晚就看到了极光！向导熟悉没有游客的观测点，讲解引人入胜。这是我近几年最棒的旅行。</value></data>
@@ -92,7 +95,7 @@
   <data name="Review3Text" xml:space="preserve"><value>一直梦想亲眼看到北极光——终于在大海上空看到了。司机到机场接机，一切顺利而从容。</value></data>
   <data name="Review4Name" xml:space="preserve"><value>叶莲娜</value></data>
   <data name="Review4From" xml:space="preserve"><value>喀山</value></data>
-  <data name="Review4Text" xml:space="preserve"><value>三月全家出行。孩子们至今还念叨“龙蛋”海滩和鳕鱼汤。组织工作满分。</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>这是我们第一次带孩子来北方。原以为路上他们会觉得无聊，结果一路趴在车窗前。到了海边更是不肯走——礁石、浮冰和大海。向导完全配合我们的节奏，从不催促。</value></data>
   <data name="Review5Name" xml:space="preserve"><value>伊戈尔</value></data>
   <data name="Review5From" xml:space="preserve"><value>叶卡捷琳堡</value></data>
   <data name="Review5Text" xml:space="preserve"><value>第二次尝试才追到极光：向导如实告知云况并改期出发，这种态度令人敬佩。因路途较长扣一星——但北方值得。</value></data>
@@ -103,7 +106,7 @@
   <data name="Review7From" xml:space="preserve"><value>新西伯利亚</value></data>
   <data name="Review7Text" xml:space="preserve"><value>风暴中的巴塔雷斯基瀑布是我今年最震撼的记忆。停靠点之间，温暖的车厢和热茶救了我们。</value></data>
   <data name="Review8Name" xml:space="preserve"><value>帕维尔</value></data>
-  <data name="Review8From" xml:space="preserve"><value>明斯克</value></data>
+  <data name="Review8From" xml:space="preserve"><value>下诺夫哥罗德</value></data>
   <data name="Review8Text" xml:space="preserve"><value>为妻子的生日订了行程。团队在世界尽头准备了惊喜蛋糕——终生难忘。</value></data>
   <data name="Review9Name" xml:space="preserve"><value>张伟</value></data>
   <data name="Review9From" xml:space="preserve"><value>上海</value></data>
@@ -391,5 +394,7 @@
   <data name="PrivacyS3Text" xml:space="preserve"><value>申请仅由旅行团经营者查看。我们不会向第三方提供或公开您的数据。</value></data>
   <data name="PrivacyS4Title" xml:space="preserve"><value>保存与删除</value></data>
   <data name="PrivacyS4Text" xml:space="preserve"><value>申请在行程有效期内保存。如需删除您的数据，请通过页脚的任一联系方式告知我们——我们会直接删除。</value></data>
+  <data name="PrivacyS5Title" xml:space="preserve"><value>旅客评价与照片</value></data>
+  <data name="PrivacyS5Text" xml:space="preserve"><value>旅客的评价、姓名、城市和照片仅在征得本人同意后才会发布在网站上。同意可随时撤回：告知我们即可，我们会直接删除相应评价或照片。</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>摩尔曼斯克出发的游览</value></data>
 </root>

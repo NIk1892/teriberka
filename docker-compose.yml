@@ -156,6 +156,14 @@ services:
       MAX_URL: "${MAX_URL:-https://max.ru/u/f9LHodD0cOL9pyuTyC-yn2A5asXpY0PtxQBm1gQNk2PssX3xaagwiGY3G9U}"
       # Телефон владельца: показывается в футере и пунктом «Позвоните нам» в виджете.
       CONTACT_PHONE: "${CONTACT_PHONE:-+7 911 303-13-43}"
+      # Почта владельца (настоящая, 28.08.2026): футер и страница /privacy.
+      CONTACT_EMAIL: "${CONTACT_EMAIL:-teriberka-kray@yandex.ru}"
+      # Невидимая Яндекс SmartCaptcha на форме заявки. Клиентский ключ публичный
+      # (владелец создал капчу 28.08.2026) — дефолт как у CONTACT_PHONE; серверный —
+      # секрет, живёт только в .env. Без серверного ключа капча выключена целиком:
+      # ни виджета, ни проверки, ни каптча-хоста в CSP (пара обязательна).
+      SMARTCAPTCHA_CLIENT_KEY: "${SMARTCAPTCHA_CLIENT_KEY:-ysc1_06RpwjgUys3A7IKdYjy5YIfohpZqsOq88uNMcQRR58086212}"
+      SMARTCAPTCHA_SERVER_KEY: "${SMARTCAPTCHA_SERVER_KEY:-}"
       # База для canonical/og:url/sitemap; в проде заменить на реальный домен.
       # Пустое значение просто отключает абсолютные SEO-ссылки (см. SeoUrls).
       SITE_URL: "${SITE_URL:-http://localhost}"

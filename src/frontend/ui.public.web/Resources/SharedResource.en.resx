@@ -81,6 +81,9 @@
   <data name="Guide2Fact" xml:space="preserve"><value>5 years of experience · photos as a gift</value></data>
 
   <data name="ReviewsTitle" xml:space="preserve"><value>Traveller reviews</value></data>
+  <data name="ReviewsSubtitle" xml:space="preserve"><value>What our guests say after their trip to the North.</value></data>
+  <data name="GuestsAlt" xml:space="preserve"><value>Photo from our tours</value></data>
+  <data name="CaptchaFailed" xml:space="preserve"><value>We could not confirm you are human. Make sure JavaScript is enabled and try again — or contact us via any link in the site footer.</value></data>
   <data name="Review1Name" xml:space="preserve"><value>Anna</value></data>
   <data name="Review1From" xml:space="preserve"><value>Moscow</value></data>
   <data name="Review1Text" xml:space="preserve"><value>We saw the aurora on the very first night! The guide knew spots without tourists and told stories that gave us chills. Best trip in years.</value></data>
@@ -92,7 +95,7 @@
   <data name="Review3Text" xml:space="preserve"><value>I dreamed of seeing the northern lights — and saw them over the ocean. The driver met me at the airport, everything went calmly and on schedule.</value></data>
   <data name="Review4Name" xml:space="preserve"><value>Elena</value></data>
   <data name="Review4From" xml:space="preserve"><value>Kazan</value></data>
-  <data name="Review4Text" xml:space="preserve"><value>We went in March with the whole family. The kids still talk about the Dragon Eggs and the cod soup. Organisation gets a five.</value></data>
+  <data name="Review4Text" xml:space="preserve"><value>Our first trip north with the children. We feared they would get bored on the road — they never left the window. On the shore we could not drag them away: rocks, ice, sea. The guide kept our pace and never rushed us.</value></data>
   <data name="Review5Name" xml:space="preserve"><value>Igor</value></data>
   <data name="Review5From" xml:space="preserve"><value>Yekaterinburg</value></data>
   <data name="Review5Text" xml:space="preserve"><value>We caught the aurora on the second try: the guide honestly warned about clouds and moved the trip. I respect that. One star off for the long drive — but the North was worth it.</value></data>
@@ -103,7 +106,7 @@
   <data name="Review7From" xml:space="preserve"><value>Novosibirsk</value></data>
   <data name="Review7Text" xml:space="preserve"><value>Batareysky waterfall in a storm was the strongest impression of my year. Between the stops we were saved by the warm minivan and hot tea.</value></data>
   <data name="Review8Name" xml:space="preserve"><value>Pavel</value></data>
-  <data name="Review8From" xml:space="preserve"><value>Minsk</value></data>
+  <data name="Review8From" xml:space="preserve"><value>Nizhny Novgorod</value></data>
   <data name="Review8Text" xml:space="preserve"><value>Booked the tour for my wife's birthday. The team arranged a surprise cake at the edge of the world — unforgettable.</value></data>
   <data name="Review9Name" xml:space="preserve"><value>Zhang Wei</value></data>
   <data name="Review9From" xml:space="preserve"><value>Shanghai</value></data>
@@ -391,5 +394,7 @@
   <data name="PrivacyS3Text" xml:space="preserve"><value>Requests are seen only by the tour operator. We do not share your data with third parties or publish it.</value></data>
   <data name="PrivacyS4Title" xml:space="preserve"><value>Storage and deletion</value></data>
   <data name="PrivacyS4Text" xml:space="preserve"><value>A request is kept while the trip is relevant. To delete your data, call or message any contact in the site footer — we will remove it, no questions asked.</value></data>
+  <data name="PrivacyS5Title" xml:space="preserve"><value>Guest reviews and photos</value></data>
+  <data name="PrivacyS5Text" xml:space="preserve"><value>Reviews, names, cities and photos of our guests are published only with their consent. You can withdraw consent at any time: write to us and we will remove the review or photo, no questions asked.</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>tour from Murmansk</value></data>
 </root>
