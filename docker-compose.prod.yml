@@ -82,7 +82,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 320M
+          memory: 512M   # в покое занимает ~300 МБ: на 320 упирался в потолок
     logging: *prod-logging
 
   ui-public:
@@ -97,6 +97,12 @@ services:
       # Kestrel отвечает только на свой домен: запрос с чужим Host получит 400.
       AllowedHosts: "${SITE_HOST:?set SITE_HOST in .env};www.${SITE_HOST}"
       DOTNET_gcServer: "0"
+    volumes:
+      # Ключи DataProtection по умолчанию лежат внутри контейнера и умирают
+      # вместе с ним. Ими шифруется antiforgery-токен формы: после каждого
+      # деплоя посетитель, открывший страницу заранее, получал бы ошибку при
+      # отправке заявки. Том сохраняет ключи между пересозданиями.
+      - dp_keys:/root/.aspnet/DataProtection-Keys
     deploy:
       resources:
         limits:
@@ -120,3 +126,6 @@ services:
         limits:
           memory: 64M
     logging: *prod-logging
+
+volumes:
+  dp_keys:
