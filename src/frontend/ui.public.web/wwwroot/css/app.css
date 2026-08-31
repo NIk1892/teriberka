@@ -3179,6 +3179,14 @@ html.js-phone .phone-cc { position: relative; display: block; }
     text-decoration: underline;
 }
 
+/* noscript-пиксель Яндекс.Метрики: прячем классом, а не style="" — inline-стили
+   запрещены CSP. display: none браузеры могут не загружать, поэтому уводим
+   картинку за край экрана, как в официальном сниппете. */
+.ym-noscript {
+    position: absolute;
+    left: -9999px;
+}
+
 .btn-tg {
     width: 100%;
     gap: 10px;

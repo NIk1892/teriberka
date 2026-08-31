@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Threading.RateLimiting;
@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using UI.Public.Web.Components;
+using UI.Public.Web.Features.Analytics;
 using UI.Public.Web.Features.Captcha;
 using UI.Public.Web.Features.Chat;
 using UI.Public.Web.Features.Media;
@@ -56,6 +57,9 @@ builder.Services.AddSingleton<ChatSchedule>();
 
 // Невидимая SmartCaptcha формы заявки: пустые ключи выключают её целиком.
 builder.Services.AddSingleton<SmartCaptchaService>();
+
+// Яндекс.Метрика: пустой YANDEX_METRIKA_ID выключает счётчик целиком.
+builder.Services.AddSingleton<MetrikaService>();
 
 // Сжатие только для статики: text/html сознательно не сжимаем — в страницах
 // antiforgery-токен плюс отражённый query в ссылках set-culture/set-theme,
@@ -162,25 +166,51 @@ if (!app.Environment.IsDevelopment())
 
 // Жёсткая CSP: скрипты и стили — только собственные файлы (inline-скрипты и
 // inline-стили запрещены), картинки — свои и data:, отправка форм — только на свой
-// origin, встраивание в iframe запрещено. Скриптов на сайте минимум — сейчас это
-// только water.js (WebGL-вода у футера).
-// SmartCaptcha — единственный разрешённый сторонний хост, и только когда капча
-// включена ключами: её скрипт, iframe проверки и XHR виджета. Без ключей CSP
-// остаётся прежней. Заголовок собирается один раз — конфиг не меняется на лету.
+// origin, встраивание в iframe запрещено.
+// Сторонних хостов ровно два, и каждый появляется только вместе со своей фичей
+// (без ключей CSP остаётся прежней): SmartCaptcha — её скрипт, iframe проверки и
+// XHR виджета; Яндекс.Метрика — tag.js, хиты картинкой и XHR/beacon вебвизора
+// (blob: в worker-src — вебвизор пишет сессию в Worker'е, созданном из blob).
+// Хит уходит на mc.yandex.ru, но у зарубежных посетителей — на mc.yandex.com,
+// поэтому в img/connect он тоже перечислен; скрипт грузится только с .ru.
+// Заголовок собирается один раз — конфиг не меняется на лету.
 // 'unsafe-inline' у стилей — вынужденная цена капчи (проверено 28.08.2026):
 // виджет ставит инлайновые style-атрибуты в родительскую страницу (позиция
 // бейджа и попапа с пазлом), под style-src 'self' их режет и пазл не показать;
 // хеши не вариант — они меняются с каждым обновлением виджета. Скрипты при
 // этом остаются под замком: script-src без 'unsafe-inline'.
 var captchaOn = app.Services.GetRequiredService<SmartCaptchaService>().Enabled;
+var metrikaOn = app.Services.GetRequiredService<MetrikaService>().Enabled;
 const string captchaHost = "https://smartcaptcha.yandexcloud.net";
+const string metrikaHost = "https://mc.yandex.ru";
+const string metrikaHostCom = "https://mc.yandex.com";
+
+var scriptSrc = "'self'"
+    + (captchaOn ? " " + captchaHost : "")
+    + (metrikaOn ? " " + metrikaHost : "");
+var imgSrc = "'self' data:" + (metrikaOn ? $" {metrikaHost} {metrikaHostCom}" : "");
+// wss:// перечисляется отдельно: источник со схемой https источники wss не
+// покрывает, а вебвизор держит WebSocket на mc.yandex.ru/solid.ws (проверено
+// в браузере 31.08.2026 — без него запись сессий блокируется CSP).
+var connectSrc = "'self'"
+    + (captchaOn ? " " + captchaHost : "")
+    + (metrikaOn ? $" {metrikaHost} {metrikaHostCom} wss://mc.yandex.ru wss://mc.yandex.com" : "");
+var frameSrc = "'self'"
+    + (captchaOn ? " " + captchaHost : "")
+    + (metrikaOn ? " " + metrikaHost : "");
+
 var csp =
     "default-src 'self'; " +
-    $"script-src 'self'{(captchaOn ? " " + captchaHost : "")}; " +
-    $"style-src 'self'{(captchaOn ? " 'unsafe-inline'" : "")}; img-src 'self' data:; " +
+    $"script-src {scriptSrc}; " +
+    $"style-src 'self'{(captchaOn ? " 'unsafe-inline'" : "")}; img-src {imgSrc}; " +
+    // frame-src/connect-src перечисляются, только когда есть кому их использовать:
+    // без капчи и Метрики оба падают на default-src 'self'
+    (captchaOn || metrikaOn ? $"frame-src {frameSrc}; connect-src {connectSrc}; " : "") +
     // шрифты бейджа капчи едут с yastatic.net (хост без схемы — матчит и http-локалку);
     // без них бейдж просто падает на системный шрифт, но чисто — лучше
-    (captchaOn ? $"frame-src 'self' {captchaHost}; connect-src 'self' {captchaHost}; font-src 'self' yastatic.net; " : "") +
+    (captchaOn ? "font-src 'self' yastatic.net; " : "") +
+    // вебвизор Метрики поднимает Worker из blob-URL; без этого запись сессий молчит
+    (metrikaOn ? "worker-src 'self' blob:; " : "") +
     "form-action 'self'; base-uri 'self'; frame-ancestors 'none'";
 
 app.Use(async (context, next) =>

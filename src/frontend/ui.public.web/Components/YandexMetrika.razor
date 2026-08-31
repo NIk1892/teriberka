@@ -1,0 +1,21 @@
+@using UI.Public.Web.Features.Analytics
+@inject MetrikaService Metrika
+
+@* Яндекс.Метрика: подключается на всех страницах, пока задан YANDEX_METRIKA_ID
+   (см. MetrikaService — пустой или нечисловой ключ выключает счётчик целиком,
+   вместе с хостами Метрики в CSP).
+
+   Кода счётчика в разметке нет: официальный сниппет — inline-скрипт, а CSP это
+   запрещает, поэтому он живёт в /js/metrika.js, а номер едет data-атрибутом.
+
+   noscript-пиксель — из того же сниппета: считает визиты без JavaScript.
+   Прячется классом .ym-noscript в app.css, а не style="" — inline-стили тоже
+   запрещены CSP. *@
+@if (Metrika.Enabled)
+{
+    <script src="/js/metrika.js" data-metrika="@Metrika.CounterId" defer></script>
+
+    <noscript>
+        <div><img class="ym-noscript" src="https://mc.yandex.ru/watch/@Metrika.CounterId" alt="" /></div>
+    </noscript>
+}

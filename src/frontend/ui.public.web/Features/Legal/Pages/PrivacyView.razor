@@ -2,8 +2,10 @@
 @using Microsoft.Extensions.Localization
 @using UI.Public.Web.Layouts
 @layout MainLayout
+@using UI.Public.Web.Features.Analytics
 @inject IStringLocalizer<SharedResource> L
 @inject IConfiguration Configuration
+@inject MetrikaService Metrika
 
 @* Черновик политики конфиденциальности — плейсхолдер: перед запуском текст
    заменить на настоящий (см. PrivacyDraftNote); реквизиты оператора
@@ -18,8 +20,11 @@
         <p class="detail-lead">@L["PrivacyLead"]</p>
         <p class="legal-draft">@L["PrivacyDraftNote"]</p>
 
+        @* Про cookie аналитики говорим, только когда счётчик реально включён
+           (YANDEX_METRIKA_ID): выключенная Метрика не должна упоминаться в
+           политике — отсюда отдельное предложение, а не второй вариант текста. *@
         <h2>@L["PrivacyS1Title"]</h2>
-        <p>@L["PrivacyS1Text"]</p>
+        <p>@L["PrivacyS1Text"]@(Metrika.Enabled ? L["PrivacyS1Analytics"].Value : "")</p>
 
         <h2>@L["PrivacyS2Title"]</h2>
         <p>@L["PrivacyS2Text"]</p>
@@ -34,6 +39,18 @@
            появилось вместе с блоком отзывов и фотолентой на главной. *@
         <h2>@L["PrivacyS5Title"]</h2>
         <p>@L["PrivacyS5Text"]</p>
+
+        @* Яндекс.Метрика (31.08.2026): раздел появляется вместе со счётчиком.
+           Ссылка ведёт на страницу отказа Яндекса — у ru и en/zh она разная,
+           поэтому URL лежит в resx, как у уведомления SmartCaptcha. *@
+        @if (Metrika.Enabled)
+        {
+            <h2>@L["PrivacyS6Title"]</h2>
+            <p>
+                @L["PrivacyS6Text"]
+                <a href="@L["PrivacyS6LinkUrl"]" target="_blank" rel="noopener nofollow">@L["PrivacyS6LinkText"]</a>
+            </p>
+        }
 
         @* Почта — из CONTACT_EMAIL, как контакты футера: пустой ключ прячет
            ссылку, значение не дублируется в resx. *@

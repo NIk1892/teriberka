@@ -390,7 +390,7 @@
   <data name="PrivacyLead" xml:space="preserve"><value>This page explains what data we receive from the booking form and what we do with it.</value></data>
   <data name="PrivacyDraftNote" xml:space="preserve"><value>The operator's details here are real, but the policy text itself is a draft: it will be replaced with a full version before launch.</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>What data we collect</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>Your name (optional), phone number and the chosen route — only what you enter in the request form yourself, plus the messages you write in the chat on this site. Cookies are used only to remember the theme, the language and your chat conversation.</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Your name (optional), phone number and the chosen route — only what you enter in the request form yourself, plus the messages you write in the chat on this site. Cookies are used to remember the theme, the language and your chat conversation.</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>Why we need it</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>Only to contact you about your request: confirm the date, calculate the price and answer questions. No newsletters, no advertising.</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>Who has access</value></data>
@@ -399,5 +399,10 @@
   <data name="PrivacyS4Text" xml:space="preserve"><value>A request is kept while the trip is relevant. To delete your data, call or message any contact in the site footer — we will remove it, no questions asked.</value></data>
   <data name="PrivacyS5Title" xml:space="preserve"><value>Guest reviews and photos</value></data>
   <data name="PrivacyS5Text" xml:space="preserve"><value>Reviews, names, cities and photos of our guests are published only with their consent. You can withdraw consent at any time: write to us and we will remove the review or photo, no questions asked.</value></data>
+  <data name="PrivacyS1Analytics" xml:space="preserve"><value> The site also uses Yandex Metrica: it sets its own cookies and collects anonymous visit statistics — see the “Analytics” section.</value></data>
+  <data name="PrivacyS6Title" xml:space="preserve"><value>Analytics</value></data>
+  <data name="PrivacyS6Text" xml:space="preserve"><value>To understand which parts of the site people read and where they get stuck, we use Yandex Metrica. It collects anonymous data: pages viewed, device, referral source and actions on the page. The name and phone number from your request are never passed to Metrica, and the statistics are not linked to a specific person. You can opt out on Yandex’s side — see their opt-out page — or by blocking cookies in your browser settings.</value></data>
+  <data name="PrivacyS6LinkText" xml:space="preserve"><value>How to opt out of Yandex Metrica</value></data>
+  <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.com/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>tour from Murmansk</value></data>
 </root>

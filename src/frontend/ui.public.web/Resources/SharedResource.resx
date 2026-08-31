@@ -390,7 +390,7 @@
   <data name="PrivacyLead" xml:space="preserve"><value>Эта страница описывает, какие данные мы получаем из формы заявки и что с ними делаем.</value></data>
   <data name="PrivacyDraftNote" xml:space="preserve"><value>Реквизиты оператора здесь настоящие, а сам текст политики — черновик: перед запуском сайта он будет заменён на полноценный.</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>Какие данные мы собираем</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>Имя (необязательно), телефон и выбранный маршрут — только то, что вы сами указываете в форме заявки, плюс сообщения, которые вы пишете в чат на сайте. Файлы cookie используются лишь для запоминания темы и языка сайта и диалога в чате.</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>Имя (необязательно), телефон и выбранный маршрут — только то, что вы сами указываете в форме заявки, плюс сообщения, которые вы пишете в чат на сайте. Файлы cookie используются для запоминания темы и языка сайта и диалога в чате.</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>Зачем они нужны</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>Только чтобы связаться с вами по заявке: подтвердить дату, рассчитать стоимость и ответить на вопросы. Рассылок и рекламы нет.</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>Кто имеет доступ</value></data>
@@ -399,5 +399,10 @@
   <data name="PrivacyS4Text" xml:space="preserve"><value>Заявка хранится, пока актуальна поездка. Чтобы удалить свои данные, напишите или позвоните по любому контакту из подвала сайта — удалим без лишних вопросов.</value></data>
   <data name="PrivacyS5Title" xml:space="preserve"><value>Отзывы и фотографии гостей</value></data>
   <data name="PrivacyS5Text" xml:space="preserve"><value>Отзывы, имена, города и фотографии гостей публикуются на сайте только с их согласия. Согласие можно отозвать в любой момент: напишите нам — уберём отзыв или фото с сайта без лишних вопросов.</value></data>
+  <data name="PrivacyS1Analytics" xml:space="preserve"><value> Кроме того, сайт использует Яндекс.Метрику: она ставит собственные файлы cookie и собирает обезличенную статистику посещений — см. раздел «Аналитика».</value></data>
+  <data name="PrivacyS6Title" xml:space="preserve"><value>Аналитика</value></data>
+  <data name="PrivacyS6Text" xml:space="preserve"><value>Чтобы понимать, какие разделы сайта читают и где посетителям неудобно, мы используем Яндекс.Метрику. Она собирает обезличенные данные: страницы, устройство, источник перехода, действия на странице. Ваше имя и телефон из заявки в Метрику не передаются, а статистика не связывается с конкретным человеком. Отказаться можно на стороне Яндекса — страница «Отключение записи собственных визитов», либо запретив файлы cookie в настройках браузера.</value></data>
+  <data name="PrivacyS6LinkText" xml:space="preserve"><value>Как отказаться от Яндекс.Метрики</value></data>
+  <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.ru/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>экскурсия из Мурманска</value></data>
 </root>

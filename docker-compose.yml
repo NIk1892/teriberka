@@ -164,6 +164,10 @@ services:
       # ни виджета, ни проверки, ни каптча-хоста в CSP (пара обязательна).
       SMARTCAPTCHA_CLIENT_KEY: "${SMARTCAPTCHA_CLIENT_KEY:-ysc1_06RpwjgUys3A7IKdYjy5YIfohpZqsOq88uNMcQRR58086212}"
       SMARTCAPTCHA_SERVER_KEY: "${SMARTCAPTCHA_SERVER_KEY:-}"
+      # Яндекс.Метрика. Здесь дефолт ПУСТОЙ намеренно: локальный стек не должен
+      # слать хиты в боевую статистику. Номер счётчика прописан в прод-оверлее,
+      # а для проверки локально достаточно задать ключ в .env.
+      YANDEX_METRIKA_ID: "${YANDEX_METRIKA_ID:-}"
       # База для canonical/og:url/sitemap; в проде заменить на реальный домен.
       # Пустое значение просто отключает абсолютные SEO-ссылки (см. SeoUrls).
       SITE_URL: "${SITE_URL:-http://localhost}"

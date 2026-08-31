@@ -390,7 +390,7 @@
   <data name="PrivacyLead" xml:space="preserve"><value>本页说明我们从预订表单收到哪些数据，以及如何处理这些数据。</value></data>
   <data name="PrivacyDraftNote" xml:space="preserve"><value>此处的经营者信息为真实信息，但政策文本仍是草稿：网站正式上线前将替换为完整版本。</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>我们收集哪些数据</value></data>
-  <data name="PrivacyS1Text" xml:space="preserve"><value>姓名（可选）、电话号码和所选路线——仅限您在申请表中自行填写的内容，以及您在本站聊天中发送的消息。Cookie 仅用于记住主题、语言和您的聊天会话。</value></data>
+  <data name="PrivacyS1Text" xml:space="preserve"><value>姓名（可选）、电话号码和所选路线——仅限您在申请表中自行填写的内容，以及您在本站聊天中发送的消息。Cookie 用于记住主题、语言和您的聊天会话。</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>用途</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>仅用于就您的申请与您联系：确认日期、计算价格并解答问题。没有邮件推送，也没有广告。</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>谁可以访问</value></data>
@@ -399,5 +399,10 @@
   <data name="PrivacyS4Text" xml:space="preserve"><value>申请在行程有效期内保存。如需删除您的数据，请通过页脚的任一联系方式告知我们——我们会直接删除。</value></data>
   <data name="PrivacyS5Title" xml:space="preserve"><value>旅客评价与照片</value></data>
   <data name="PrivacyS5Text" xml:space="preserve"><value>旅客的评价、姓名、城市和照片仅在征得本人同意后才会发布在网站上。同意可随时撤回：告知我们即可，我们会直接删除相应评价或照片。</value></data>
+  <data name="PrivacyS1Analytics" xml:space="preserve"><value> 此外，本站使用 Yandex Metrica：它会设置自己的 Cookie 并收集匿名访问统计，详见“数据统计”一节。</value></data>
+  <data name="PrivacyS6Title" xml:space="preserve"><value>数据统计</value></data>
+  <data name="PrivacyS6Text" xml:space="preserve"><value>为了解访客浏览哪些内容、在哪里遇到不便，本站使用 Yandex Metrica。它收集的是匿名数据：访问的页面、设备、来源和页面上的操作。申请表中的姓名和电话不会传给 Metrica，统计数据也不会与具体个人关联。您可以在 Yandex 的退出页面选择不被统计，也可以在浏览器设置中禁用 Cookie。</value></data>
+  <data name="PrivacyS6LinkText" xml:space="preserve"><value>如何退出 Yandex Metrica 统计</value></data>
+  <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.com/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>摩尔曼斯克出发的游览</value></data>
 </root>
