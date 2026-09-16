@@ -6,18 +6,28 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>ТериберкаКрай</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Экскурсия в Териберку из Мурманска — Кольский Север</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Экскурсия в Териберку из Мурманска — ТериберкаКрай</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>Выезд из Мурманска, Апатитов и Кировска</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>Выезд из Мурманска</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Териберка за один день.</value></data>
-  <data name="HeroText" xml:space="preserve"><value>Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей — главные места Териберки в одной поездке.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>Баренцево море, Батарейский водопад, птичьи базары, пляж «Драконьих яиц», «Гнездо дракона», полярные качели и кладбище кораблей — главные места Териберки в одной поездке.</value></data>
   <data name="HeroCta" xml:space="preserve"><value>Оставить заявку</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>от 12 000 ₽ / человек</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Полный день · группа до 8 человек</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>Что вы увидите</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>Главные точки дня: от кладбища кораблей и «Драконьих яиц» до водопада, который падает в океан.</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Каждый камень здесь — легенда. Каждый шаг — приключение. Териберка ждёт.</value></data>
+  <data name="See1Title" xml:space="preserve"><value>Северный Ледовитый океан и песчаный пляж</value></data>
+  <data name="See1Text" xml:space="preserve"><value>Смотровые точки на краю континента и песчаный берег: дальше — только океан и Арктика.</value></data>
+  <data name="See2Title" xml:space="preserve"><value>Пляж «Драконьих яиц» и Батарейский водопад</value></data>
+  <data name="See2Text" xml:space="preserve"><value>Берег из гигантских округлых валунов и водопад, который срывается со скал прямо в океан.</value></data>
+  <data name="See3Title" xml:space="preserve"><value>Кладбище кораблей и грот «Гнездо дракона»</value></data>
+  <data name="See3Text" xml:space="preserve"><value>Остовы деревянных судов в заливе — самый узнаваемый кадр Териберки — и скалистый грот «Гнездо дракона».</value></data>
+  <data name="See4Title" xml:space="preserve"><value>Морская прогулка к китам и птичьим базарам</value></data>
+  <data name="See4Text" xml:space="preserve"><value>Есть шанс увидеть китов, косаток и тюленей, а заодно посмотреть на Териберку со стороны моря.</value></data>
+  <data name="See5Title" xml:space="preserve"><value>Полярные качели, трон, корабль-призрак и скелет кита</value></data>
+  <data name="See5Text" xml:space="preserve"><value>Самые узнаваемые фототочки Старой Териберки — все в одной прогулке.</value></data>
   <data name="PlacesGalleryLink" xml:space="preserve"><value>Смотрите больше фото и видео в галерее</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Фотография скоро появится</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Фото:</value></data>
@@ -29,7 +39,7 @@
   <data name="FooterPhotoCreditsLink" xml:space="preserve"><value>Фотографии и авторы</value></data>
   <data name="PhotoSoon" xml:space="preserve"><value>Фото скоро</value></data>
 
-  <data name="Place1Title" xml:space="preserve"><value>Пляж «Драконьи яйца»</value></data>
+  <data name="Place1Title" xml:space="preserve"><value>Пляж «Драконьих яиц»</value></data>
   <data name="Place1Text" xml:space="preserve"><value>Берег из гигантских округлых валунов, отшлифованных океаном за тысячи лет.</value></data>
   <data name="Place2Title" xml:space="preserve"><value>Кладбище кораблей</value></data>
   <data name="Place2Text" xml:space="preserve"><value>Остовы деревянных судов в заливе — самый узнаваемый кадр Териберки.</value></data>
@@ -64,7 +74,7 @@
   <data name="IncludedSubtitle" xml:space="preserve"><value>Одна цена — без доплат на месте</value></data>
   <data name="Included1" xml:space="preserve"><value>Трансфер из Мурманска и обратно на комфортном минивэне</value></data>
   <data name="Included2" xml:space="preserve"><value>Гид, который живёт Севером и знает точки без толп туристов</value></data>
-  <data name="Included3" xml:space="preserve"><value>Обед с морепродуктами: свежая треска, гребешки, уха</value></data>
+  <data name="Included3" xml:space="preserve"><value>Обед в ресторане арктической кухни</value></data>
   <data name="Included4" xml:space="preserve"><value>Термосы с горячим чаем и перекус в дороге</value></data>
   <data name="Included5" xml:space="preserve"><value>Фотосопровождение — кадры с тура в подарок</value></data>
   <data name="Included6" xml:space="preserve"><value>Группы до 8 человек: без очередей и суеты</value></data>
@@ -92,7 +102,7 @@
   <data name="Review1Text" xml:space="preserve"><value>Сияние увидели в первую же ночь! Гид знал точки без туристов и рассказывал так, что мурашки. Лучшая поездка за последние годы.</value></data>
   <data name="Review2Name" xml:space="preserve"><value>Дмитрий</value></data>
   <data name="Review2From" xml:space="preserve"><value>Санкт-Петербург</value></data>
-  <data name="Review2Text" xml:space="preserve"><value>Драконьи яйца, шторм на Баренцевом и уха из свежей трески. Организация чёткая: забрали из Мурманска, вернули к поезду.</value></data>
+  <data name="Review2Text" xml:space="preserve"><value>«Драконьи яйца», шторм на Баренцевом и уха из свежей трески. Организация чёткая: забрали из Мурманска, вернули к поезду.</value></data>
   <data name="Review3Name" xml:space="preserve"><value>Ван Лэй</value></data>
   <data name="Review3From" xml:space="preserve"><value>Пекин</value></data>
   <data name="Review3Text" xml:space="preserve"><value>Мечтал увидеть северное сияние — и увидел его над океаном. Водитель встретил в аэропорту, всё прошло спокойно и по плану.</value></data>
@@ -142,7 +152,7 @@
   <data name="FormCallbackNote" xml:space="preserve"><value>В рабочее время мы свяжемся с вами в течение получаса</value></data>
   <data name="FormOr" xml:space="preserve"><value>или</value></data>
   <data name="FormTelegram" xml:space="preserve"><value>Забронировать через бота</value></data>
-  <data name="FormTelegramNote" xml:space="preserve"><value>Через бот вы сможете узнать приблизительную стоимость поездки</value></data>
+  <data name="FormTelegramNote" xml:space="preserve"><value>Через бота вы сможете узнать приблизительную стоимость поездки</value></data>
   <data name="ValPhone" xml:space="preserve"><value>Укажите телефон в формате +7 900 000-00-00</value></data>
   <data name="ValConsent" xml:space="preserve"><value>Подтвердите согласие на обработку данных</value></data>
   <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
@@ -199,17 +209,17 @@
   <data name="Place10Detail2" xml:space="preserve"><value>Рядом — озеро Канозеро, на островах которого нашли тысячи наскальных рисунков возрастом до шести тысяч лет. Летом Умба — столица сплавов и рыбалки: сюда едут за сёмгой, морошкой и тишиной.</value></data>
   <data name="ThemeToggle" xml:space="preserve"><value>Переключить тему</value></data>
   <data name="ScrollTop" xml:space="preserve"><value>Наверх</value></data>
-  <data name="ScrollBottom" xml:space="preserve"><value>Вниз страницы</value></data>
+  <data name="ScrollBottom" xml:space="preserve"><value>В конец страницы</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Связаться с нами</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Позвоните нам</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>Чат с гидом</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Чат с менеджером</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем за несколько минут</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>Сейчас офлайн — ответим утром</value></data>
   <data name="ChatClose" xml:space="preserve"><value>Закрыть чат</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — гид ответит здесь же.</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — менеджер ответит здесь же.</value></data>
   <data name="ChatYou" xml:space="preserve"><value>Вы</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>Гид</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Менеджер</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>Спросите о туре…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>Отправить</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>Обновить переписку</value></data>
@@ -229,7 +239,7 @@
   <data name="MapMurmanskNote" xml:space="preserve"><value>старт всех туров</value></data>
   <data name="MapClose" xml:space="preserve"><value>Свернуть</value></data>
   <data name="Dir1Title" xml:space="preserve"><value>Териберка и Баренцево море</value></data>
-  <data name="Dir1Text" xml:space="preserve"><value>Драконьи яйца, кладбище кораблей, водопад в океан и охота за сиянием на краю континента.</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>«Драконьи яйца», кладбище кораблей, водопад в океан и охота за сиянием на краю континента.</value></data>
   <data name="Dir2Title" xml:space="preserve"><value>Тундры и полуостров Рыбачий</value></data>
   <data name="Dir2Text" xml:space="preserve"><value>Священное Сейдозеро, перевал Геологов и дорога на край земли — полуострова Средний и Рыбачий.</value></data>
   <data name="Dir3Title" xml:space="preserve"><value>Терский берег и Умба</value></data>
@@ -248,7 +258,7 @@
   <data name="MapDist3" xml:space="preserve"><value>~350 км</value></data>
   <data name="Place11Title" xml:space="preserve"><value>Варзуга</value></data>
   <data name="Place11Text" xml:space="preserve"><value>Село XV века с деревянной Успенской церковью, срубленной без единого гвоздя.</value></data>
-  <data name="Place11Detail1" xml:space="preserve"><value>Варзуга стоит на одноимённой реке в пятнадцати километрах от моря — одно из старейших русских поселений Кольского полуострова, упомянутое ещё в 1466 году. Главное чудо — шатровая Успенская церковь 1674 года: её срубили из сосны без единого гвоздя, и она до сих пор выдерживает северные шторма.</value></data>
+  <data name="Place11Detail1" xml:space="preserve"><value>Варзуга стоит на одноимённой реке в пятнадцати километрах от моря — одно из старейших русских поселений Кольского полуострова, упомянутое ещё в 1466 году. Главное чудо — шатровая Успенская церковь 1674 года: её срубили из сосны без единого гвоздя, и она до сих пор выдерживает северные штормы.</value></data>
   <data name="Place11Detail2" xml:space="preserve"><value>Река Варзуга — одна из самых сёмужьих рек Европы: в сезон сюда съезжаются рыбаки со всей страны. По дороге — пески Кузомени, где среди дюн бродят одичавшие лошади.</value></data>
   <data name="Place12Title" xml:space="preserve"><value>Каменный лабиринт</value></data>
   <data name="Place12Text" xml:space="preserve"><value>Спиральная выкладка возрастом четыре тысячи лет на берегу Белого моря.</value></data>
@@ -266,12 +276,12 @@
   <data name="Place3Detail3" xml:space="preserve"><value>Водопад срывается к морю несколькими уступами по тёмным скалам, и каньон работает как рупор — рёв воды слышно задолго до подхода. Весной, в снеготаяние, поток самый мощный; к концу лета он стихает и становится прозрачным.</value></data>
   <data name="Place3Fact" xml:space="preserve"><value>Даже в крепкие морозы водопад не замерзает до конца — подо льдом слышно, как продолжает идти вода.</value></data>
   <data name="Place4Detail3" xml:space="preserve"><value>У Териберки встречаются тёплое атлантическое течение и арктические воды, поэтому море здесь на редкость живое: треска и зубатка, камчатский краб, а за мойвой к самому берегу приходят горбатые киты. Именно за «китовым сафари» сюда едут со всей страны.</value></data>
-  <data name="Place4Fact" xml:space="preserve"><value>Средняя глубина Баренцева моря — всего около 220 метров: по океанским меркам это мелководный шельф, потому оно такое богатое рыбой.</value></data>
+  <data name="Place4Fact" xml:space="preserve"><value>Средняя глубина Баренцева моря — всего около 220 метров: по океанским меркам это мелководный шельф, поэтому оно такое богатое рыбой.</value></data>
   <data name="Place5Detail3" xml:space="preserve"><value>Сияние рождается на высоте от ста до трёхсот километров: частицы солнечного ветра сталкиваются с атмосферой, и кислород светится зелёным, а азот добавляет фиолетовые всполохи. Чем сильнее вспышка на Солнце, тем южнее видно аврору, но над Териберкой она загорается даже в спокойные ночи.</value></data>
   <data name="Place5Fact" xml:space="preserve"><value>Лучшие месяцы для охоты — сентябрь и март: в равноденствие геомагнитные бури случаются заметно чаще.</value></data>
   <data name="Place6Detail3" xml:space="preserve"><value>Тундра только кажется пустой: здесь живут сотни видов мхов и лишайников, а ягель прирастает всего на несколько миллиметров в год. Поэтому мы ходим по тропам — след от колеса или кострища тундра залечивает десятилетиями.</value></data>
   <data name="Place6Fact" xml:space="preserve"><value>Карликовой берёзке, которая едва достаёт вам до щиколотки, может быть больше ста лет.</value></data>
-  <data name="Place7Detail3" xml:space="preserve"><value>По саамской легенде Куйва — великан, разбитый молниями богов; его тёмный силуэт так и остался на скале над водой. Наука объясняет фигуру узором мхов и влажных потёков, но особая слава у озера всё равно есть: саамы веками считали его священным и без нужды даже не рыбачили здесь.</value></data>
+  <data name="Place7Detail3" xml:space="preserve"><value>По саамской легенде, Куйва — великан, разбитый молниями богов; его тёмный силуэт так и остался на скале над водой. Наука объясняет фигуру узором мхов и влажных потёков, но особая слава у озера всё равно есть: саамы веками считали его священным и без нужды даже не рыбачили здесь.</value></data>
   <data name="Place7Fact" xml:space="preserve"><value>Фигура Куйвы на скале достигает 74 метров — выше двадцатиэтажного дома.</value></data>
   <data name="Place8Detail3" xml:space="preserve"><value>Ловозерские и соседние Хибинские тундры — древние щелочные массивы, кладовая редких минералов: здесь находят эвдиалит, который называют «саамской кровью», и десятки камней, почти не встречающихся больше нигде в мире.</value></data>
   <data name="Place8Fact" xml:space="preserve"><value>Этим горам сотни миллионов лет — ледники и ветер успели сточить их до пологих каменных плато.</value></data>
@@ -292,7 +302,7 @@
   <data name="MapTuriy" xml:space="preserve"><value>Турий мыс</value></data>
   <data name="MapArcticCircle" xml:space="preserve"><value>Северный полярный круг</value></data>
   <data name="MapApatity" xml:space="preserve"><value>Апатиты</value></data>
-  <data name="HeroTitleSub" xml:space="preserve"><value>От тундры до берега Северного Ледовитого океана</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>Край земли, где тундра встречает океан</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>Программа дня</value></data>
   <data name="HighlightsTitle" xml:space="preserve"><value>Что вас ждёт</value></data>
   <data name="HighlightsSubtitle" xml:space="preserve"><value>Север, который хочется увидеть своими глазами — листайте или просто смотрите</value></data>
@@ -309,27 +319,28 @@
   <data name="HeroSlide8Alt" xml:space="preserve"><value>Морской ёж на ладони во время морской прогулки</value></data>
   <data name="HeroSlide9Alt" xml:space="preserve"><value>Раковина трубача среди ламинарии на берегу</value></data>
   <data name="HeroSlide10Alt" xml:space="preserve"><value>Свежие морские ежи, гребешки и морская звезда на ламинарии</value></data>
-  <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьи яйца» и кладбище кораблей. Трансфер и гид включены.</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьих яиц» и кладбище кораблей. Трансфер и гид включены.</value></data>
   <data name="OgImageAlt" xml:space="preserve"><value>Кольский полуостров, северное сияние и кит над Баренцевым морем</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Почему удобно ехать с нами</value></data>
   <data name="Why1Title" xml:space="preserve"><value>День сложится в любую погоду</value></data>
   <data name="Why1Text" xml:space="preserve"><value>ветер, отлив, перекрытая дорога — на Севере это обычное дело: меняем порядок остановок и показываем то, что открыто сегодня, вместо отмены поездки</value></data>
   <data name="Why2Title" xml:space="preserve"><value>Готовиться не нужно</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>не искать машину до посёлка, не считать часы светового дня, не гадать, обнажит ли отлив «Драконьи яйца». Вы называете дату — остальное наша работа</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>не искать машину до посёлка, не считать часы светового дня, не гадать, обнажит ли отлив «Драконьи яйца». Вы называете дату, а остальное — наша работа</value></data>
   <data name="Why3Title" xml:space="preserve"><value>Решаете вы, а не предоплата</value></data>
   <data name="Why3Text" xml:space="preserve"><value>заявка ни к чему не обязывает: сначала созвонимся, обсудим дату, погоду и цену — и только потом вы скажете «да»</value></data>
   <data name="Why4Title" xml:space="preserve"><value>За рулём — гид, а не случайный водитель</value></data>
   <data name="Why4Text" xml:space="preserve"><value>дорога на Териберку — его работа круглый год: и в полярную ночь, и в метель, и в белые ночи. Он ведёт машину сам, знает, где трасса обманчива, а где стоит переждать, и не поедет туда, где сегодня небезопасно</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Предыдущие фото</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Следующие фото</value></data>
-  <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска, Апатитов или Кировска и обратно</value></data>
-  <data name="HeroFact2" xml:space="preserve"><value>Гид, остановки и обед из морепродуктов</value></data>
-  <data name="HeroFact3" xml:space="preserve"><value>Подберём программу по сезону и погоде</value></data>
-  <data name="HeroFact4" xml:space="preserve"><value>Позаботимся о мелочах: тёплая машина, горячий чай и советы, что взять с собой</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>Трансфер из Мурманска в Териберку и обратно</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>Аттестованный гид</value></data>
+  <data name="HeroFact3" xml:space="preserve"><value>Остановки и обед из морепродуктов</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>Подберём программу по сезону и погоде</value></data>
+  <data name="HeroFact5" xml:space="preserve"><value>Позаботимся о мелочах: тёплая машина, горячий чай и советы, что взять с собой</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>Заявка без предоплаты и обязательств</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Не только Териберка</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Другие маршруты</value></data>
-  <data name="OtherRoutesText" xml:space="preserve"><value>Если Териберка уже была или хочется увидеть другой Север — подберём маршрут. При звонке просто назовите, куда хотите.</value></data>
+  <data name="OtherRoutesText" xml:space="preserve"><value>Если в Териберке вы уже были или хотите увидеть другой Север — подберём маршрут. При звонке просто назовите, куда хотите.</value></data>
   <data name="OtherRoute2Type" xml:space="preserve"><value>Внедорожные маршруты</value></data>
   <data name="OtherRoute3Type" xml:space="preserve"><value>Побережье Белого моря</value></data>
   <data name="OtherRoutesCta" xml:space="preserve"><value>Посмотреть направление →</value></data>
@@ -337,17 +348,21 @@
   <data name="ItinerarySubtitle" xml:space="preserve"><value>Полный день: встретим вас в аэропорту или в городе, с комфортом довезём до главных точек побережья и вечером привезём назад.</value></data>
   <data name="ItineraryNote" xml:space="preserve"><value>Порядок и доступность остановок могут меняться из-за погоды — Север всегда оставляет последнее слово за собой.</value></data>
   <data name="Itinerary1Title" xml:space="preserve"><value>Встреча в аэропорту или в городе</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>Забираем вас в аэропорту или в согласованной точке Мурманска, Апатитов или Кировска и везём на комфортном минивэне. Дорога из Мурманска через тундру — около двух часов.</value></data>
-  <data name="Itinerary2Title" xml:space="preserve"><value>Старая Териберка</value></data>
-  <data name="Itinerary2Text" xml:space="preserve"><value>Гуляем у кладбища кораблей и узнаём, как менялся посёлок у Баренцева моря.</value></data>
-  <data name="Itinerary3Title" xml:space="preserve"><value>Побережье океана</value></data>
-  <data name="Itinerary3Text" xml:space="preserve"><value>Выходим к пляжу «Драконьи яйца» и открытым видам на Баренцево море.</value></data>
-  <data name="Itinerary4Title" xml:space="preserve"><value>Батарейский водопад</value></data>
-  <data name="Itinerary4Text" xml:space="preserve"><value>Идём по тундре к водопаду, который срывается со скал прямо к морю.</value></data>
-  <data name="Itinerary5Title" xml:space="preserve"><value>Обед из морепродуктов</value></data>
-  <data name="Itinerary5Text" xml:space="preserve"><value>Свежая треска, гребешки, уха — обед в Териберке перед обратной дорогой.</value></data>
-  <data name="Itinerary6Title" xml:space="preserve"><value>Возвращение в город</value></data>
-  <data name="Itinerary6Text" xml:space="preserve"><value>После насыщенного дня возвращаемся и привозим вас в согласованную точку Мурманска, Апатитов или Кировска.</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>Забираем вас в аэропорту, у вокзала или в согласованной точке Мурманска и сажаем в комфортный минивэн.</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>Дорога в Териберку</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>Около двух часов пути: Кольская ВЭС, каменный сад и бескрайняя тундра до самого горизонта.</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>Дегустация морепродуктов</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>Пробуем морских ежей, гребешков, морских огурцов и многое другое. Здесь же — кофе, чай и перекус, уборная и сувениры.</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>Морская прогулка</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>Выходим в море: есть шанс увидеть китов, косаток, тюленей и других морских млекопитающих, а ещё птичьи базары. Красоту Териберки стоит увидеть и со стороны моря.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Старая Териберка</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>Песчаный пляж, скелет кита, трон и корабль-призрак, а ещё знакомство с северными оленями и собаками хаски.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Обед в ресторане арктической кухни</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>Комплексный обед или блюда по меню. После обеда — смотровая площадка и знаменитый знак «Край Земли».</value></data>
+  <data name="Itinerary7Title" xml:space="preserve"><value>Природный парк</value></data>
+  <data name="Itinerary7Text" xml:space="preserve"><value>«Логово», пляж «Драконьих яиц», Батарейский водопад и смотровые площадки над птичьими базарами. Идём по деревянным тропам, а зимой передвигаемся по парку на снегоходах.</value></data>
+  <data name="Itinerary8Title" xml:space="preserve"><value>Возвращение в город</value></data>
+  <data name="Itinerary8Text" xml:space="preserve"><value>После насыщенного дня возвращаемся и привозим вас в согласованную точку Мурманска.</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Териберка в разное время года</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>У каждого сезона свой Север — подскажем, какой подходит именно вам.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>Ноябрь — апрель</value></data>
@@ -401,7 +416,7 @@
   <data name="PrivacyS5Text" xml:space="preserve"><value>Отзывы, имена, города и фотографии гостей публикуются на сайте только с их согласия. Согласие можно отозвать в любой момент: напишите нам — уберём отзыв или фото с сайта без лишних вопросов.</value></data>
   <data name="PrivacyS1Analytics" xml:space="preserve"><value> Кроме того, сайт использует Яндекс.Метрику: она ставит собственные файлы cookie и собирает обезличенную статистику посещений — см. раздел «Аналитика».</value></data>
   <data name="PrivacyS6Title" xml:space="preserve"><value>Аналитика</value></data>
-  <data name="PrivacyS6Text" xml:space="preserve"><value>Чтобы понимать, какие разделы сайта читают и где посетителям неудобно, мы используем Яндекс.Метрику. Она собирает обезличенные данные: страницы, устройство, источник перехода, действия на странице. Ваше имя и телефон из заявки в Метрику не передаются, а статистика не связывается с конкретным человеком. Отказаться можно на стороне Яндекса — страница «Отключение записи собственных визитов», либо запретив файлы cookie в настройках браузера.</value></data>
+  <data name="PrivacyS6Text" xml:space="preserve"><value>Чтобы понимать, какие разделы сайта читают и где посетителям неудобно, мы используем Яндекс.Метрику. Она собирает обезличенные данные: страницы, устройство, источник перехода, действия на странице. Ваше имя и телефон из заявки в Метрику не передаются, а статистика не связывается с конкретным человеком. Отказаться можно на стороне Яндекса (страница «Отключение записи собственных визитов») либо запретив файлы cookie в настройках браузера.</value></data>
   <data name="PrivacyS6LinkText" xml:space="preserve"><value>Как отказаться от Яндекс.Метрики</value></data>
   <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.ru/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>экскурсия из Мурманска</value></data>

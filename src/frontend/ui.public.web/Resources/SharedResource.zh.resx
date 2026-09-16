@@ -6,18 +6,28 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>捷里别尔卡之境</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游——科拉之北</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游——捷里别尔卡之境</value></data>
   <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>从摩尔曼斯克、阿帕季特、基洛夫斯克出发</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>从摩尔曼斯克出发</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>一天游遍捷里别尔卡。</value></data>
-  <data name="HeroText" xml:space="preserve"><value>巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地——一次看遍捷里别尔卡的主要景点。</value></data>
+  <data name="HeroText" xml:space="preserve"><value>巴伦支海、巴塔雷斯基瀑布、鸟崖、“龙蛋”海滩、“龙巢”、极地秋千和船舶墓地——一次看遍捷里别尔卡的主要景点。</value></data>
   <data name="HeroCta" xml:space="preserve"><value>提交申请</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>每人 12 000 卢布起</value></data>
   <data name="HeroNote" xml:space="preserve"><value>全天行程 · 8 人以内小团</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>行程亮点</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>一天中的主要地点：从船舶墓地和“龙蛋”海滩，到坠入大洋的瀑布。</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>这里的每一块石头都是传说，每一步都是冒险。捷里别尔卡在等你。</value></data>
+  <data name="See1Title" xml:space="preserve"><value>北冰洋与沙滩</value></data>
+  <data name="See1Text" xml:space="preserve"><value>大陆尽头的观景点与沙质海岸：再往前，只有大海与北极。</value></data>
+  <data name="See2Title" xml:space="preserve"><value>“龙蛋”海滩与巴塔雷斯基瀑布</value></data>
+  <data name="See2Text" xml:space="preserve"><value>由巨大浑圆砾石组成的海岸，以及从悬崖直接跌入大洋的瀑布。</value></data>
+  <data name="See3Title" xml:space="preserve"><value>船舶墓地与“龙巢”岩洞</value></data>
+  <data name="See3Text" xml:space="preserve"><value>海湾中的木船残骸——捷里别尔卡最具代表性的景观，还有岩石间的“龙巢”洞穴。</value></data>
+  <data name="See4Title" xml:space="preserve"><value>出海观鲸与鸟崖</value></data>
+  <data name="See4Text" xml:space="preserve"><value>有机会看到鲸鱼、虎鲸和海豹，还能从海上欣赏捷里别尔卡。</value></data>
+  <data name="See5Title" xml:space="preserve"><value>极地秋千、王座、幽灵船和鲸鱼骨架</value></data>
+  <data name="See5Text" xml:space="preserve"><value>老捷里别尔卡最具代表性的拍照点，一次步行全部打卡。</value></data>
   <data name="PlacesGalleryLink" xml:space="preserve"><value>在相册中查看更多照片和视频</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>照片即将上线</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>摄影：</value></data>
@@ -64,7 +74,7 @@
   <data name="IncludedSubtitle" xml:space="preserve"><value>一口价——现场无任何加收</value></data>
   <data name="Included1" xml:space="preserve"><value>摩尔曼斯克往返接送，舒适商务车</value></data>
   <data name="Included2" xml:space="preserve"><value>熟悉北方、避开人流的本地向导</value></data>
-  <data name="Included3" xml:space="preserve"><value>海鲜午餐：新鲜鳕鱼、扇贝、鱼汤</value></data>
+  <data name="Included3" xml:space="preserve"><value>北极风味餐厅午餐</value></data>
   <data name="Included4" xml:space="preserve"><value>保温壶热茶和路上的小食</value></data>
   <data name="Included5" xml:space="preserve"><value>随队摄影——行程照片免费赠送</value></data>
   <data name="Included6" xml:space="preserve"><value>8 人以内小团：不排队、不匆忙</value></data>
@@ -203,13 +213,13 @@
   <data name="ContactLabel" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>给我们打电话</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>与向导对话</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>与客服经理对话</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>我们通常几分钟内回复</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>目前离线，我们早上回复</value></data>
   <data name="ChatClose" xml:space="preserve"><value>关闭聊天</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>提出问题，向导会在这里回复。</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>提出问题，客服经理会在这里回复。</value></data>
   <data name="ChatYou" xml:space="preserve"><value>您</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>向导</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>客服经理</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>咨询行程…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>发送</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>刷新对话</value></data>
@@ -292,7 +302,7 @@
   <data name="MapTuriy" xml:space="preserve"><value>图里角</value></data>
   <data name="MapArcticCircle" xml:space="preserve"><value>北极圈</value></data>
   <data name="MapApatity" xml:space="preserve"><value>阿帕季特</value></data>
-  <data name="HeroTitleSub" xml:space="preserve"><value>从北极苔原到北冰洋海岸</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>天涯海角，苔原在这里与大洋相遇</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>行程安排</value></data>
   <data name="HighlightsTitle" xml:space="preserve"><value>等待您的风景</value></data>
   <data name="HighlightsSubtitle" xml:space="preserve"><value>值得亲眼一见的北方——滑动浏览或静静欣赏</value></data>
@@ -322,10 +332,11 @@
   <data name="Why4Text" xml:space="preserve"><value>这条通往捷里别尔卡的路，他常年在跑：极夜、暴风雪、极昼都走过。他亲自驾车，清楚哪段路看着好走其实凶险、哪种天气该先等一等，绝不会在当天不安全的路段冒险</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>上一张照片</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>下一张照片</value></data>
-  <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克、阿帕季特或基洛夫斯克往返接送</value></data>
-  <data name="HeroFact2" xml:space="preserve"><value>向导、主要停靠点与海鲜午餐</value></data>
-  <data name="HeroFact3" xml:space="preserve"><value>根据季节和天气调整行程</value></data>
-  <data name="HeroFact4" xml:space="preserve"><value>细节都为您想好：温暖的车厢、热茶，以及出行装备建议</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>摩尔曼斯克往返捷里别尔卡接送</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>持证导游</value></data>
+  <data name="HeroFact3" xml:space="preserve"><value>沿途停靠点与海鲜午餐</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>根据季节和天气调整行程</value></data>
+  <data name="HeroFact5" xml:space="preserve"><value>细节都为您想好：温暖的车厢、热茶，以及出行装备建议</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>提交申请无需预付，也不强制预订</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>不止捷里别尔卡</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>其他路线</value></data>
@@ -337,17 +348,21 @@
   <data name="ItinerarySubtitle" xml:space="preserve"><value>全天行程：我们在机场或市区接您，乘舒适车辆前往海岸主要景点，傍晚送您返回。</value></data>
   <data name="ItineraryNote" xml:space="preserve"><value>停靠顺序与开放情况可能因天气调整——北方的大自然拥有最终决定权。</value></data>
   <data name="Itinerary1Title" xml:space="preserve"><value>机场或市区接送</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>我们在机场或摩尔曼斯克、阿帕季特、基洛夫斯克的约定地点接您，乘舒适的小型客车出发。从摩尔曼斯克穿越苔原约两小时车程。</value></data>
-  <data name="Itinerary2Title" xml:space="preserve"><value>老捷里别尔卡</value></data>
-  <data name="Itinerary2Text" xml:space="preserve"><value>参观船舶墓地，了解这座巴伦支海村落的历史。</value></data>
-  <data name="Itinerary3Title" xml:space="preserve"><value>大洋海岸</value></data>
-  <data name="Itinerary3Text" xml:space="preserve"><value>前往“龙蛋”海滩，欣赏开阔的巴伦支海景色。</value></data>
-  <data name="Itinerary4Title" xml:space="preserve"><value>巴塔雷斯基瀑布</value></data>
-  <data name="Itinerary4Text" xml:space="preserve"><value>穿过苔原，前往从悬崖奔向大海的瀑布。</value></data>
-  <data name="Itinerary5Title" xml:space="preserve"><value>海鲜午餐</value></data>
-  <data name="Itinerary5Text" xml:space="preserve"><value>新鲜鳕鱼、扇贝和鱼汤——返程前在捷里别尔卡享用午餐。</value></data>
-  <data name="Itinerary6Title" xml:space="preserve"><value>返回市区</value></data>
-  <data name="Itinerary6Text" xml:space="preserve"><value>全天游览结束后返程，送您至摩尔曼斯克、阿帕季特或基洛夫斯克的约定地点。</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>我们在机场、火车站或摩尔曼斯克的约定地点接您，乘舒适的小型客车出发。</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>前往捷里别尔卡</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>约两小时车程，沿途经过科拉风电场、石头花园和一望无际的苔原。</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>海鲜品尝</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>品尝海胆、扇贝、海参等多种海鲜。这里还可以喝咖啡、茶，吃点小食，使用洗手间，选购纪念品。</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>出海游览</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>乘船出海，有机会看到鲸鱼、虎鲸、海豹等海洋哺乳动物，还有海鸟聚居的鸟崖。从海上欣赏捷里别尔卡，别有一番美景。</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>老捷里别尔卡</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>沙滩、鲸鱼骨架、王座和幽灵船，还能见到北方驯鹿和哈士奇。</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>北极风味餐厅午餐</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>可选套餐，也可按菜单点餐。饭后前往观景台，打卡著名的“天涯海角”路牌。</value></data>
+  <data name="Itinerary7Title" xml:space="preserve"><value>自然公园</value></data>
+  <data name="Itinerary7Text" xml:space="preserve"><value>“洛戈沃”、“龙蛋”海滩、巴塔雷斯基瀑布和俯瞰鸟崖的观景台。沿木栈道漫步，冬季乘雪地摩托穿行公园。</value></data>
+  <data name="Itinerary8Title" xml:space="preserve"><value>返回市区</value></data>
+  <data name="Itinerary8Text" xml:space="preserve"><value>全天游览结束后返程，送您至摩尔曼斯克的约定地点。</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>不同季节的捷里别尔卡</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>每个季节都有不同的北方，我们帮您选择。</value></data>
   <data name="Season1Title" xml:space="preserve"><value>十一月—四月</value></data>

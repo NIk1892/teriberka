@@ -6,18 +6,28 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>TeriberkaKray</value></data>
-  <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — Kola North</value></data>
+  <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — TeriberkaKray</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
-  <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk, Apatity and Kirovsk</value></data>
+  <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk</value></data>
   <data name="HeroTitle" xml:space="preserve"><value>Teriberka in one day.</value></data>
-  <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
+  <data name="HeroText" xml:space="preserve"><value>The Barents Sea, Batareysky waterfall, seabird colonies, Dragon Eggs beach, the Dragon's Nest, the polar swing and the ship graveyard — Teriberka's essential sights in one trip.</value></data>
   <data name="HeroCta" xml:space="preserve"><value>Leave a request</value></data>
   <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
   <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
 
   <data name="PlacesTitle" xml:space="preserve"><value>What you will see</value></data>
-  <data name="PlacesSubtitle" xml:space="preserve"><value>The day's landmarks: from the ship graveyard and Dragon Eggs to the waterfall that falls into the ocean.</value></data>
+  <data name="PlacesSubtitle" xml:space="preserve"><value>Every stone here is a legend. Every step is an adventure. Teriberka is waiting.</value></data>
+  <data name="See1Title" xml:space="preserve"><value>The Arctic Ocean and a sandy beach</value></data>
+  <data name="See1Text" xml:space="preserve"><value>Viewpoints at the edge of the continent and a sandy shore: beyond — only the ocean and the Arctic.</value></data>
+  <data name="See2Title" xml:space="preserve"><value>Dragon Eggs beach and Batareysky waterfall</value></data>
+  <data name="See2Text" xml:space="preserve"><value>A shore of giant rounded boulders and a waterfall dropping from the cliffs straight into the ocean.</value></data>
+  <data name="See3Title" xml:space="preserve"><value>The ship graveyard and the Dragon's Nest grotto</value></data>
+  <data name="See3Text" xml:space="preserve"><value>Skeletons of wooden ships in the bay — the most recognisable view of Teriberka — and the rocky Dragon's Nest grotto.</value></data>
+  <data name="See4Title" xml:space="preserve"><value>A boat trip to whales and seabird colonies</value></data>
+  <data name="See4Text" xml:space="preserve"><value>A chance to spot whales, orcas and seals, and to see Teriberka from the water.</value></data>
+  <data name="See5Title" xml:space="preserve"><value>The polar swing, the throne, the ghost ship and the whale skeleton</value></data>
+  <data name="See5Text" xml:space="preserve"><value>Old Teriberka's most recognisable photo spots — all in one walk.</value></data>
   <data name="PlacesGalleryLink" xml:space="preserve"><value>See more photos and videos in the gallery</value></data>
   <data name="PhotoAlt" xml:space="preserve"><value>Photo coming soon</value></data>
   <data name="PhotoCreditPrefix" xml:space="preserve"><value>Photo:</value></data>
@@ -64,7 +74,7 @@
   <data name="IncludedSubtitle" xml:space="preserve"><value>One price — no extra charges on site</value></data>
   <data name="Included1" xml:space="preserve"><value>Transfer from Murmansk and back in a comfortable minivan</value></data>
   <data name="Included2" xml:space="preserve"><value>A guide who lives the North and knows spots without the crowds</value></data>
-  <data name="Included3" xml:space="preserve"><value>Seafood lunch: fresh cod, scallops, fish soup</value></data>
+  <data name="Included3" xml:space="preserve"><value>Lunch at an Arctic cuisine restaurant</value></data>
   <data name="Included4" xml:space="preserve"><value>Thermoses of hot tea and snacks for the road</value></data>
   <data name="Included5" xml:space="preserve"><value>Photo support — tour shots as a gift</value></data>
   <data name="Included6" xml:space="preserve"><value>Groups up to 8: no queues, no rush</value></data>
@@ -189,7 +199,7 @@
   <data name="Place5Detail2" xml:space="preserve"><value>The aurora is capricious: sometimes a faint green haze, sometimes the whole sky dancing in waves from horizon to horizon. Dress in layers — the hunt means several hours in the cold, with hot tea and a tripod.</value></data>
   <data name="Place6Detail1" xml:space="preserve"><value>The road to Teriberka runs through true Arctic tundra: hills, lakes, dwarf birches and carpets of reindeer moss. In summer the tundra blooms with cloudberries and fireweed; in winter it becomes an endless white desert.</value></data>
   <data name="Place6Detail2" xml:space="preserve"><value>Along the way we stop at panoramic points — from here the Kola Peninsula looks just like in films about the North. With luck, we will meet reindeer.</value></data>
-  <data name="Place7Detail1" xml:space="preserve"><value>A mountain horseshoe east of the Khibiny hides Seydozero, the sacred lake of the Sami. From the cliff above the water stares Kuyva — a petrified giant, as the legend goes — surrounded by cirques, gorges and screes where some of the rarest minerals are found.</value></data>
+  <data name="Place7Detail1" xml:space="preserve"><value>A mountain horseshoe east of the Khibiny hides Seydozero, the sacred lake of the Sami. From the cliff above the water stares Kuiva — a petrified giant, as the legend goes — surrounded by cirques, gorges and screes where some of the rarest minerals are found.</value></data>
   <data name="Place7Detail2" xml:space="preserve"><value>A one-day route: approach via the settlement of Revda, a hike over the pass and a descent to the lake. The trail is easy but rocky — trekking shoes required. White nights in summer; in September the tundra blazes gold and crimson.</value></data>
   <data name="Place8Detail1" xml:space="preserve"><value>Geologists' Pass is a saddle by Mount Alluaiv in the Lovozero Tundras, just over a kilometre above the sea. It offers one of the best panoramas of the Kola: Lake Umbozero spreads below, with the wall of the Khibiny rising beyond.</value></data>
   <data name="Place8Detail2" xml:space="preserve"><value>We go up in prepared off-road trucks — the road itself is an adventure. It is windy on top even in summer, so bring a warm jacket. In winter the pass drowns in snow, and on clear nights it is a great spot to hunt the aurora.</value></data>
@@ -203,13 +213,13 @@
   <data name="ContactLabel" xml:space="preserve"><value>Contact us</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Any questions?</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Call us</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>Chat with the guide</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Chat with our manager</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>We usually reply within a few minutes</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>We're offline — we'll reply in the morning</value></data>
   <data name="ChatClose" xml:space="preserve"><value>Close the chat</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>Ask a question — the guide will answer right here.</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Ask a question — our manager will answer right here.</value></data>
   <data name="ChatYou" xml:space="preserve"><value>You</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>Guide</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Manager</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>Ask about the tour…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>Send</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>Refresh the conversation</value></data>
@@ -292,7 +302,7 @@
   <data name="MapTuriy" xml:space="preserve"><value>Cape Turiy</value></data>
   <data name="MapArcticCircle" xml:space="preserve"><value>Arctic Circle</value></data>
   <data name="MapApatity" xml:space="preserve"><value>Apatity</value></data>
-  <data name="HeroTitleSub" xml:space="preserve"><value>From Arctic tundra to the shore of the Arctic Ocean</value></data>
+  <data name="HeroTitleSub" xml:space="preserve"><value>The edge of the world, where the tundra meets the ocean</value></data>
   <data name="HeroCta2" xml:space="preserve"><value>Day’s programme</value></data>
   <data name="HighlightsTitle" xml:space="preserve"><value>What awaits you</value></data>
   <data name="HighlightsSubtitle" xml:space="preserve"><value>The North you will want to see with your own eyes — swipe or just watch</value></data>
@@ -315,17 +325,18 @@
   <data name="Why1Title" xml:space="preserve"><value>The day works out in any weather</value></data>
   <data name="Why1Text" xml:space="preserve"><value>wind, low tide, a road closed by snow are ordinary here: we reshuffle the stops and show what is open today instead of calling the trip off</value></data>
   <data name="Why2Title" xml:space="preserve"><value>Nothing to arrange</value></data>
-  <data name="Why2Text" xml:space="preserve"><value>no car to find, no daylight hours to count, no guessing when the tide bares the Dragon Eggs. You name the date, the rest is our job</value></data>
+  <data name="Why2Text" xml:space="preserve"><value>no car to find, no daylight hours to count, no guessing when the tide bares the Dragon Eggs. You name the date; the rest is our job</value></data>
   <data name="Why3Title" xml:space="preserve"><value>You decide, not a deposit</value></data>
-  <data name="Why3Text" xml:space="preserve"><value>a request commits you to nothing: we call first, settle the date, the weather and the price, and only then you say yes</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>a request commits you to nothing: we call first, settle the date, the weather and the price, and only then do you say yes</value></data>
   <data name="Why4Title" xml:space="preserve"><value>Your guide is the driver</value></data>
   <data name="Why4Text" xml:space="preserve"><value>the road to Teriberka is his job all year round: through polar night, blizzards and white nights alike. He drives himself, knows where the highway is deceptive and where it pays to wait out the weather, and will not take you anywhere unsafe that day</value></data>
   <data name="CarouselPrev" xml:space="preserve"><value>Previous photos</value></data>
   <data name="CarouselNext" xml:space="preserve"><value>Next photos</value></data>
-  <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk, Apatity or Kirovsk</value></data>
-  <data name="HeroFact2" xml:space="preserve"><value>Guide, route stops and a seafood lunch</value></data>
-  <data name="HeroFact3" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
-  <data name="HeroFact4" xml:space="preserve"><value>We take care of the details: a warm van, hot tea and advice on what to pack</value></data>
+  <data name="HeroFact1" xml:space="preserve"><value>Return transfer from Murmansk to Teriberka</value></data>
+  <data name="HeroFact2" xml:space="preserve"><value>Certified guide</value></data>
+  <data name="HeroFact3" xml:space="preserve"><value>Route stops and a seafood lunch</value></data>
+  <data name="HeroFact4" xml:space="preserve"><value>Programme adapted to season and weather</value></data>
+  <data name="HeroFact5" xml:space="preserve"><value>We take care of the details: a warm van, hot tea and advice on what to pack</value></data>
   <data name="HeroTrust" xml:space="preserve"><value>No prepayment or obligation to enquire</value></data>
   <data name="OtherRoutesKicker" xml:space="preserve"><value>Beyond Teriberka</value></data>
   <data name="OtherRoutesTitle" xml:space="preserve"><value>Other routes</value></data>
@@ -337,17 +348,21 @@
   <data name="ItinerarySubtitle" xml:space="preserve"><value>A full day: we meet you at the airport or in town, drive you in comfort to the highlights of the coast and bring you back in the evening.</value></data>
   <data name="ItineraryNote" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
   <data name="Itinerary1Title" xml:space="preserve"><value>Airport or city pickup</value></data>
-  <data name="Itinerary1Text" xml:space="preserve"><value>We collect you at the airport or at an agreed point in Murmansk, Apatity or Kirovsk and travel in a comfortable minivan. From Murmansk, the road across the tundra takes about two hours.</value></data>
-  <data name="Itinerary2Title" xml:space="preserve"><value>Old Teriberka</value></data>
-  <data name="Itinerary2Text" xml:space="preserve"><value>Walk by the ship graveyard and learn how the settlement by the Barents Sea has changed.</value></data>
-  <data name="Itinerary3Title" xml:space="preserve"><value>Ocean coast</value></data>
-  <data name="Itinerary3Text" xml:space="preserve"><value>Visit Dragon Eggs beach and take in open views across the Barents Sea.</value></data>
-  <data name="Itinerary4Title" xml:space="preserve"><value>Batareysky waterfall</value></data>
-  <data name="Itinerary4Text" xml:space="preserve"><value>Walk across the tundra to the waterfall dropping from the cliffs towards the sea.</value></data>
-  <data name="Itinerary5Title" xml:space="preserve"><value>Seafood lunch</value></data>
-  <data name="Itinerary5Text" xml:space="preserve"><value>Fresh cod, scallops and fish soup — lunch in Teriberka before the drive back.</value></data>
-  <data name="Itinerary6Title" xml:space="preserve"><value>Return to the city</value></data>
-  <data name="Itinerary6Text" xml:space="preserve"><value>After a full day we drive back and drop you at the agreed point in Murmansk, Apatity or Kirovsk.</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>We collect you at the airport, the railway station or an agreed point in Murmansk, and you settle into a comfortable minivan.</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>The road to Teriberka</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>About a two-hour drive past the Kola wind farm, the stone garden and tundra stretching to the horizon.</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>Seafood tasting</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>Sample sea urchins, scallops, sea cucumbers and much more. Coffee, tea and snacks, restrooms and souvenirs are on hand too.</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>Boat trip</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>Head out to sea with a chance to spot whales, orcas, seals and other marine mammals, as well as seabird colonies. Teriberka is well worth seeing from the water.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Old Teriberka</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>A sandy beach, a whale skeleton, the throne and the ghost ship — plus reindeer and husky dogs.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Lunch at an Arctic cuisine restaurant</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>A set lunch or dishes from the menu. After lunch — the viewpoint and the famous “Edge of the Earth” sign.</value></data>
+  <data name="Itinerary7Title" xml:space="preserve"><value>Nature park</value></data>
+  <data name="Itinerary7Text" xml:space="preserve"><value>Logovo (the Lair), Dragon Eggs beach, Batareysky waterfall and viewpoints over the seabird colonies. We walk along wooden trails, and in winter we get around the park by snowmobile.</value></data>
+  <data name="Itinerary8Title" xml:space="preserve"><value>Return to the city</value></data>
+  <data name="Itinerary8Text" xml:space="preserve"><value>After a full day we drive back and drop you at the agreed point in Murmansk.</value></data>
   <data name="SeasonsTitle" xml:space="preserve"><value>Teriberka through the seasons</value></data>
   <data name="SeasonsSubtitle" xml:space="preserve"><value>Every season has its own North — we will help you choose yours.</value></data>
   <data name="Season1Title" xml:space="preserve"><value>November — April</value></data>
@@ -381,7 +396,7 @@
   <data name="ConsentPolicyLink" xml:space="preserve"><value>privacy policy</value></data>
   <data name="PhoneCountryLabel" xml:space="preserve"><value>Country code</value></data>
   <data name="CookieTextBefore" xml:space="preserve"><value>We use </value></data>
-  <data name="CookieLink" xml:space="preserve"><value>Cookies</value></data>
+  <data name="CookieLink" xml:space="preserve"><value>cookies</value></data>
   <data name="CookieTextAfter" xml:space="preserve"><value> for analytics and to keep the site working properly.</value></data>
   <data name="CookieAccept" xml:space="preserve"><value>Got it</value></data>
   <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · Taxpayer ID (INN) 511100738876</value></data>

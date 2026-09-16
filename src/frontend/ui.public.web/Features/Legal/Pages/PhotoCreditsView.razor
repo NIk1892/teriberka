@@ -21,22 +21,12 @@
 
         @foreach (var place in PlaceCatalog.All)
         {
-            if (place.Photo is null && place.Gallery is not { Length: > 0 })
+            if (place.Photo is not { } main)
             {
                 continue;
             }
             <h2><a href="/place/@place.Slug">@L[$"Place{place.Index}Title"]</a></h2>
-            @if (place.Photo is { } main)
-            {
-                <PhotoCreditLine Credit="main" Label="@L["PhotoCreditMain"]" />
-            }
-            @if (place.Gallery is { Length: > 0 } gallery)
-            {
-                for (var n = 0; n < gallery.Length; n++)
-                {
-                    <PhotoCreditLine Credit="gallery[n]" Label="@L["PhotoCreditFrame", n + 1]" />
-                }
-            }
+            <PhotoCreditLine Credit="main" Label="@L["PhotoCreditMain"]" />
         }
 
         <p><a class="back-link" href="/">@L["BackToHome"]</a></p>

@@ -31,7 +31,7 @@
             </h1>
             <p class="hero-text">@L["HeroText"]</p>
             <ul class="hero-facts">
-                @foreach (var i in Enumerable.Range(1, 4))
+                @foreach (var i in Enumerable.Range(1, 5))
                 {
                     <li>@L[$"HeroFact{i}"]</li>
                 }
@@ -62,19 +62,21 @@
                стрелки — carousel.js, на широких экранах скрыты, там обычная сетка. *@
             <div class="places-carousel carousel-wrap">
             <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-            <div class="places-grid carousel-track">
-                @foreach (var idx in PlaceCatalog.Directions[0].PlaceIndexes)
+            @* Карточки — список SeeCards ниже, а не места каталога один к одному
+               (владелец, 16.09.2026): две карточки объединяют по два места, а у морской
+               прогулки и фототочек Старой Териберки своих страниц нет — они ведут на шаг
+               программы дня. Карточек семь, одинокую последнюю в ряду центрирует .see-grid. *@
+            <div class="places-grid see-grid carousel-track">
+                @foreach (var card in SeeCards)
                 {
-                    var place = PlaceCatalog.ByIndex(idx);
-                    <a class="place-card" href="/place/@place.Slug">
+                    <a class="place-card" href="@card.Href">
                         <span class="place-photo">
-                            @* ?v=2 — главные фото пяти мест Териберки заменены на свои кадры под теми же
-                                   именами, а картинки кэшируются на 30 дней *@
-                                <img src="/img/places/@(place.Slug).webp?v=2" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                            <img src="@card.Src" srcset="@SrcSet(card.Photo, 1280, card.Query)"
+                                 sizes="@PlaceSizes(twoCols: false)" alt="@L[$"{card.Key}Title"]" loading="lazy" decoding="async" />
                         </span>
                         <span class="place-body">
-                            <strong class="place-title">@L[$"Place{idx}Title"]</strong>
-                            <span class="place-text">@L[$"Place{idx}Text"]</span>
+                            <strong class="place-title">@L[$"{card.Key}Title"]</strong>
+                            <span class="place-text">@L[$"{card.Key}Text"]</span>
                             <span class="place-more">@L["PlaceMore"]</span>
                         </span>
                     </a>
@@ -94,19 +96,21 @@
         </div>
         @* Маршрут дня (владелец, 25.08.2026 — вместо сетки текстовых карточек):
            вертикальная пунктирная нить, как маршруты на карте Кольского, на ней
-           точки-номера, у каждой остановки карточка с фото и описанием. Фото —
-           кадры владельца из src/frontend/temp (25.08.2026, список RoutePhotos ниже);
+           точки-номера, у каждой остановки карточка с фото и описанием. Восемь
+           шагов с 16.09.2026 (программа владельца: встреча → дорога → дегустация →
+           морская прогулка → Старая Териберка → обед → природный парк → возвращение).
+           Фото — кадры владельца из src/frontend/temp (список RoutePhotos ниже);
            у остановки с несколькими кадрами — карусель carousel.js (тот же
-           .carousel-wrap: свайп без JS, стрелки с ним). Кадры могут не совпадать
-           с описанием шага дословно — владелец заменит по мере съёмки: новый файл
-           в wwwroot/img/itinerary/ и имя в RoutePhotos. Миниатюры мест у шагов
+           .carousel-wrap: свайп без JS, стрелки с ним). Новый кадр: файл в
+           wwwroot/img/itinerary/ и имя в RoutePhotos; новый шаг — ещё и ключи
+           Itinerary{i}Title/Text в трёх resx. Миниатюры мест у шагов
            убирались 24.08.2026 — то были мелкие ссылки, спорившие с текстом;
            здесь фото — часть самой карточки, без ссылок. *@
         <ol class="itinerary-route">
-            @foreach (var i in Enumerable.Range(1, 6))
+            @foreach (var i in Enumerable.Range(1, RoutePhotos.Length))
             {
                 var photos = RoutePhotos[i - 1];
-                <li class="route-stop">
+                <li class="route-stop" id="stop-@i">
                     <span class="route-stop-marker" aria-hidden="true">0@(i)</span>
                     <article class="route-stop-card">
                         @if (photos.Length > 1)
@@ -115,14 +119,17 @@
                                (пауза вне вьюпорта, в фоновой вкладке и под курсором, ручное
                                листание выключает насовсем, при reduced-motion не стартует).
                                Задержки разведены по остановкам, чтобы карусели не листались
-                               синхронно — вместе это читалось бы как один общий таймер. *@
-                            <div class="route-photo-carousel carousel-wrap" data-autoplay="@(4200 + i * 700)">
+                               синхронно — вместе это читалось бы как один общий таймер.
+                               Цикл 5,6–7,7 с по кругу: у соседних остановок задержки всегда
+                               разные, а с ростом числа шагов лента не замедляется. *@
+                            <div class="route-photo-carousel carousel-wrap" data-autoplay="@(5600 + i % 4 * 700)">
                                 <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
                                 <div class="route-photo-track carousel-track">
                                     @for (var n = 0; n < photos.Length; n++)
                                     {
                                         <span class="route-stop-photo">
-                                            <img src="/img/itinerary/@photos[n]" alt="@(n == 0 ? L[$"Itinerary{i}Title"].Value : "")"
+                                            <img src="/img/itinerary/@photos[n]" srcset="@SrcSet($"/img/itinerary/{photos[n]}", 1000)"
+                                                 sizes="@RouteSizes" alt="@(n == 0 ? L[$"Itinerary{i}Title"].Value : "")"
                                                  loading="lazy" decoding="async" />
                                         </span>
                                     }
@@ -133,7 +140,8 @@
                         else
                         {
                             <span class="route-stop-photo">
-                                <img src="/img/itinerary/@photos[0]" alt="@L[$"Itinerary{i}Title"]" loading="lazy" decoding="async" />
+                                <img src="/img/itinerary/@photos[0]" srcset="@SrcSet($"/img/itinerary/{photos[0]}", 1000)"
+                                     sizes="@RouteSizes" alt="@L[$"Itinerary{i}Title"]" loading="lazy" decoding="async" />
                             </span>
                         }
                         <div class="route-stop-body">
@@ -229,7 +237,8 @@
                             <span class="place-photo">
                                 @* ?v=2 — главные фото пяти мест Териберки заменены на свои кадры под теми же
                                    именами, а картинки кэшируются на 30 дней *@
-                                <img src="/img/places/@(place.Slug).webp?v=2" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
+                                <img src="/img/places/@(place.Slug).webp?v=2" srcset="@SrcSet($"/img/places/{place.Slug}.webp", 1280, "v=2")"
+                                     sizes="@PlaceSizes(twoCols: dir.PlaceIndexes.Length < 3)" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                             </span>
                             <span class="place-body">
                                 <strong class="place-title">@L[$"Place{idx}Title"]</strong>
@@ -378,7 +387,8 @@
                     {
                         <li class="guest-shot">
                             <a class="lightbox-link" href="/img/guests/@(file)?v=@ver" target="_blank" rel="noopener">
-                                <img src="/img/guests/@(file)?v=@ver" alt="@L["GuestsAlt"]" loading="lazy" decoding="async" />
+                                <img src="/img/guests/@(file)?v=@ver" srcset="@SrcSet($"/img/guests/{file}", 900, $"v={ver}")"
+                                     sizes="@GuestSizes" alt="@L["GuestsAlt"]" loading="lazy" decoding="async" />
                             </a>
                         </li>
                     }
@@ -459,16 +469,44 @@
 }
 
 @code {
+    // Карточки «Что вы увидите». Key — префикс ключей {Key}Title/{Key}Text в resx (у тундры
+    // и сияния — ключи самих мест, тексты не дублируются). Photo — кадр шириной 1280px
+    // с копиями для srcset; Query — сброс 30-дневного кеша у фото мест, перезаписанных
+    // под теми же именами. Href — страница места или шаг программы дня: #stop-N — номер
+    // остановки в RoutePhotos, переставишь шаги — поправь и здесь.
+    private sealed record SeeCard(string Key, string Photo, string? Query, string Href)
+    {
+        public string Src => Query is null ? Photo : $"{Photo}?{Query}";
+    }
+
+    private static readonly SeeCard[] SeeCards =
+    [
+        new("See1", "/img/see/ocean-beach.webp", null, "/place/barents-sea"),
+        new("See2", "/img/places/dragon-eggs.webp", "v=2", "/place/dragon-eggs"),
+        new("See3", "/img/places/ship-graveyard.webp", "v=2", "/place/ship-graveyard"),
+        new("See4", "/img/see/sea-trip.webp", null, "#stop-4"),         // морская прогулка
+        new("See5", "/img/see/old-teriberka.webp", null, "#stop-5"),    // Старая Териберка
+        new("Place6", "/img/places/arctic-tundra.webp", "v=2", "/place/arctic-tundra"),
+        new("Place5", "/img/places/northern-lights.webp", "v=2", "/place/northern-lights"),
+    ];
+
     // Фото остановок маршрута дня, файлы в wwwroot/img/itinerary/ (кадры владельца,
-    // конвертация — tools/convert-photos.py на 1000px). Несколько имён = карусель.
+    // конвертация — tools/convert-photos.py --width 1000 --aspect 16:10: рамка
+    // карточки 16/10, остальное обрезалось бы CSS, но скачивалось; копии для srcset —
+    // tools/image-variants.py --widths 640). Несколько имён = карусель. Имена
+    // описательные, без номера шага: перестановка шагов не требует переименований,
+    // а новый кадр под новым именем не застревает в 30-дневном кеше картинок.
+    // Первый кадр — главный, его alt — название шага.
     private static readonly string[][] RoutePhotos =
     [
-        ["step-1.webp"],                                  // лодка у дороги в посёлке
-        ["step-2-1.webp", "step-2-2.webp", "step-2-3.webp"], // кладбище кораблей ×2 + вечерняя панорама посёлка
-        ["step-3-1.webp", "step-3-3.webp", "step-3-2.webp"], // каменистый берег + табличка «Край Земли» + штурвал катера
-        ["step-4-1.webp", "step-4-3.webp", "step-4-2.webp"], // тундра с озером + ущелье к морю + сам водопад: порядок пути
-        ["step-5-1.webp", "step-5-3.webp", "step-5-2.webp"], // ежи и гребешки + ёж в руке над водой
-        ["step-6.webp"],                                  // зимняя панорама посёлка
+        ["meet-lighthouse.webp", "meet-icebreaker.webp", "meet-icebreaker-sunset.webp"], // маяк-мемориал в Мурманске + ледокол «Ленин» + ледокол на закате
+        ["road-windfarm-winter.webp", "road-stone-garden.webp", "road-tundra.webp"],     // Кольская ВЭС + каменный сад + тундра
+        ["tasting-urchins.webp", "tasting-scallop.webp", "tasting-urchin-hand.webp"],    // ежи и гребешки + гребешок и ёж в руке над водой
+        ["sea-helm.webp", "sea-bay.webp", "sea-sunset.webp"],                            // штурвал катера + бухта с воды + закат над морем
+        ["old-ship.webp", "old-ship-winter.webp", "old-reindeer.webp", "old-beach.webp"], // корабль на песке летом и зимой + олень + песчаный пляж
+        ["lunch-edge-sign.webp", "lunch-edge-bay.webp"],                                 // знак «Край Земли» над посёлком и бухтой
+        ["park-dragon-eggs.webp", "park-waterfall.webp", "park-boardwalk.webp"],         // пляж Драконьих яиц + Батарейский водопад + деревянная тропа зимой
+        ["return-sunset.webp"],                                                          // зимний закат над сопками
     ];
 
     // Состав ленты отзывов: id ключа Review{id} в resx + звёзды + месяц поездки.
@@ -501,15 +539,69 @@
     // Версия — время изменения файла: перезаливка под тем же именем не застрянет
     // в 30-дневном кеше картинок. Скан каталога на рендер — тот же компромисс,
     // что у File.Exists выше: главная и так читает диск на каждый запрос.
+    // Уменьшенные копии для srcset (guest-1-w480.webp) — не отдельные кадры, их отсекаем.
     private IReadOnlyList<(string File, long Ver)> GuestPhotos()
     {
         var dir = Path.Combine(Env.WebRootPath, "img", "guests");
         if (!Directory.Exists(dir)) return Array.Empty<(string, long)>();
         return Directory.GetFiles(dir, "guest-*.webp")
+            .Where(f => !VariantName.IsMatch(Path.GetFileNameWithoutExtension(f)))
             .OrderBy(f => f, StringComparer.OrdinalIgnoreCase)
             .Select(f => (Path.GetFileName(f), File.GetLastWriteTimeUtc(f).Ticks / TimeSpan.TicksPerSecond))
             .ToList();
     }
+
+    // Уменьшенные копии фото лежат рядом с кадром: umba.webp → umba-w640.webp, umba-w960.webp.
+    // Делает их tools/image-variants.py; ширины в его --widths обязаны быть из этого списка.
+    private static readonly int[] SrcSetWidths = [480, 640, 960];
+    private static readonly System.Text.RegularExpressions.Regex VariantName = new(@"-w\d+$");
+
+    // srcset из копий кадра: браузер сам берёт файл под ширину карточки и плотность
+    // экрана — карточка в 340px больше не качает кадр в 1280px (замер 16.09.2026:
+    // 6,4 МБ фото на главной). width — ширина самого файла. Копий нет — null, Blazor
+    // атрибут не рендерит, и кадр грузится целиком, как раньше. Query (?v=…) у копий
+    // тот же, что у кадра, — сброс кеша действует на все размеры сразу. File.Exists
+    // на рендер — тот же компромисс, что у GuestPhotos.
+    private string? SrcSet(string path, int width, string? query = null)
+    {
+        var q = string.IsNullOrEmpty(query) ? "" : "?" + query;
+        var ext = Path.GetExtension(path);
+        var stem = path[..^ext.Length];
+        var candidates = SrcSetWidths
+            .Where(w => w < width && File.Exists(Path.Combine(Env.WebRootPath, $"{stem.TrimStart('/')}-w{w}{ext}")))
+            .Select(w => $"{stem}-w{w}{ext}{q} {w}w")
+            .ToList();
+        return candidates.Count == 0 ? null : string.Join(", ", candidates.Append($"{path}{q} {width}w"));
+    }
+
+    // sizes из пар «медиаусловие → ширина слота» (последняя пара — без условия).
+    // На экранах плотнее 2,5x (телефоны) слот называется в полтора раза меньше:
+    // браузер берёт кадр под 2x, а не под 3x — на фото разницы не видно, а весит он
+    // вдвое меньше (замер 16.09.2026, профиль iPhone 390px@3x: 4,9 МБ фото без этого
+    // пункта, 2,8 МБ с ним). На вёрстку sizes не влияет — ширину img задаёт CSS.
+    // Браузер без min-resolution просто пропустит эти пункты и возьмёт кадр под 3x.
+    private static string Sizes(params (string? Media, string Slot)[] slots) =>
+        string.Join(", ", slots.SelectMany(s => new[]
+        {
+            $"{(s.Media is null ? "" : s.Media + " and ")}(min-resolution: 2.5dppx) calc(({s.Slot}) / 1.5)",
+            $"{(s.Media is null ? "" : s.Media + " ")}calc({s.Slot})",
+        }));
+
+    // Слоты повторяют сетки из app.css — промах вёрстку не ломает, но браузер возьмёт
+    // не тот файл, поэтому меняешь сетку — правь и здесь. Карточки мест (.places-grid):
+    // до 560px карусель по одной во всю ширину контейнера (паддинги 20+20), до 960px
+    // две колонки, дальше три (у .cols-2 — две) в контейнере 1080px.
+    private static readonly string PlaceSizes3 = Sizes(("(max-width: 559px)", "100vw - 40px"), ("(max-width: 959px)", "50vw - 30px"), (null, "340px"));
+    private static readonly string PlaceSizes2 = Sizes(("(max-width: 559px)", "100vw - 40px"), ("(max-width: 959px)", "50vw - 30px"), (null, "510px"));
+    private static string PlaceSizes(bool twoCols) => twoCols ? PlaceSizes2 : PlaceSizes3;
+
+    // Остановки маршрута: до 900px карточка правее нити (паддинги контейнера 40 +
+    // отступ .route-stop 58), дальше шахматка — половина контейнера минус 48px.
+    private static readonly string RouteSizes = Sizes(("(max-width: 899px)", "100vw - 98px"), (null, "470px"));
+
+    // Фотолента гостей: до 800px кадр во всю ленту (контейнер 40 + паддинги ленты 8
+    // и «полароида» 16), дальше .guest-shot 220px минус тот же паддинг.
+    private static readonly string GuestSizes = Sizes(("(max-width: 799px)", "100vw - 64px"), (null, "204px"));
 
     // Сама форма (POST, валидация, редирект) живёт в компоненте ApplicationForm —
     // здесь только флаги из query: показана ли карточка «спасибо» и какая ветка формы.

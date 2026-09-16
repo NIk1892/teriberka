@@ -1306,6 +1306,8 @@ html.js-route .itinerary-route::after { transform: scaleY(var(--route-p, 0)); }
 .route-stop {
     position: relative;
     padding-left: 58px;
+    /* на остановки ведут карточки «Что вы увидите» (#stop-N) — шапка не должна их закрывать */
+    scroll-margin-top: 80px;
 }
 
 .route-stop-marker {
@@ -4306,7 +4308,7 @@ html.js-chat .chat-refresh { display: none; }
 /* WebGL-вода запустилась — CSS-волны-фоллбек не нужны */
 .sea-zone.water-live .wave { display: none; }
 
-/* Пасхалка: стая касаток раз в ~75 секунд проплывает в толще воды справа
+/* Пасхалка: стая косаток раз в ~75 секунд проплывает в толще воды справа
    налево. Анимируется только transform: пока стая «ждёт» (первая половина
    цикла), элементы стоят за правым краем — их прячет overflow: hidden
    самой .sea-zone, отдельная анимация opacity не нужна. */
@@ -4527,6 +4529,20 @@ html.js-chat .chat-refresh { display: none; }
 @media (min-width: 800px) {
     /* в кадре три карточки + виден край четвёртой — подсказка, что лента листается */
     .reviews-carousel { grid-auto-columns: calc((100% - 32px) / 3); }
+}
+
+/* «Что вы увидите»: карточек семь, и последняя остаётся в ряду одна — ставим её
+   по центру, а не у левого края. От 561px: на 560 ещё действует карусель. */
+@media (min-width: 561px) and (max-width: 959px) {
+    .see-grid > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc(50% - 10px);
+    }
+}
+
+@media (min-width: 960px) {
+    .see-grid > :last-child:nth-child(3n+1) { grid-column: 2; }
 }
 
 @media (min-width: 960px) {

@@ -54,47 +54,6 @@
                 <p>@L[$"Place{i}Fact"]</p>
             </div>
 
-            <h2 class="gallery-title">@L["PlacePhotosTitle"]</h2>
-            @if (_place.Gallery is { Length: > 0 } gallery)
-            {
-                @* Карусель на scroll-snap (механика отзывов): свайп/колесо работают без
-                   JavaScript, стрелки добавляет carousel.js (без него скрыты). Клик по
-                   кадру — полноэкранный просмотр (лайтбокс, фоллбек — новая вкладка). *@
-                <div class="carousel-wrap">
-                    <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-                    <div class="gallery-carousel carousel-track">
-                        @for (var n = 0; n < gallery.Length; n++)
-                        {
-                            <a class="gallery-item lightbox-link" href="/img/places/@(_place.Slug)-g@(n + 1).webp" target="_blank" rel="noopener">
-                                <img src="/img/places/@(_place.Slug)-g@(n + 1).webp" alt="@L[$"Place{i}Title"]" loading="lazy" decoding="async" />
-                            </a>
-                        }
-                    </div>
-                    <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
-                </div>
-                @* подписи ко всем кадрам галереи — атрибуция CC обязательна для каждого файла *@
-                <div class="photo-credits">
-                    @for (var n = 0; n < gallery.Length; n++)
-                    {
-                        <PhotoCreditLine Credit="gallery[n]" Label="@L["PhotoCreditFrame", n + 1]" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="gallery-grid">
-                    @* Фотографий пока нет — четыре заглушки; CSS-фильтры слегка меняют
-                       оттенок, чтобы галерея не выглядела копиями одного кадра. *@
-                    @for (var n = 0; n < 4; n++)
-                    {
-                        <div class="gallery-item">
-                            <img src="/img/placeholder.svg" alt="@L["PhotoAlt"]" loading="lazy" decoding="async" />
-                            <span class="photo-soon">@L["PhotoSoon"]</span>
-                        </div>
-                    }
-                </div>
-            }
-
             <div class="cta-band">
                 <h2>@L["PlaceCtaTitle"]</h2>
                 <p>@L["PlaceCtaText"]</p>
