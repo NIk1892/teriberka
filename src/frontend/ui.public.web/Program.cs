@@ -214,7 +214,7 @@ if (!app.Environment.IsDevelopment())
 // этом остаются под замком: script-src без 'unsafe-inline'.
 var captchaOn = app.Services.GetRequiredService<SmartCaptchaService>().Enabled;
 var metrikaOn = app.Services.GetRequiredService<MetrikaService>().Enabled;
-const string captchaHost = "https://smartcaptcha.yandexcloud.net";
+const string captchaHost = SmartCaptchaService.WidgetHost;
 const string metrikaHost = "https://mc.yandex.ru";
 const string metrikaHostCom = "https://mc.yandex.com";
 

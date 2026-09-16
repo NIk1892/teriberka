@@ -2,6 +2,12 @@
 // Волнующаяся поверхность с бликами; цвета берутся из CSS-переменных темы.
 // Если WebGL недоступен или включён prefers-reduced-motion — канвас остаётся
 // пустым и снизу видны CSS-волны (фоллбек).
+//
+// Контекст WebGL и шейдеры поднимаются не при загрузке страницы, а когда
+// морская зона подходит к экрану (16.09.2026): зона — в самом низу, а создание
+// контекста и компиляция шейдера на слабом железе и без GPU (так PageSpeed
+// меряет мобильный профиль) стоили секунды главного потока ещё до первой
+// прокрутки. До этого момента видны CSS-волны — тот же фоллбек, что без WebGL.
 (function () {
     "use strict";
 
@@ -10,6 +16,14 @@
     var canvas = document.querySelector(".water-canvas");
     if (!canvas) return;
 
+    var boot = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (en) { return en.isIntersecting; })) return;
+        boot.disconnect();
+        start();
+    }, { rootMargin: "600px 0px" });
+    boot.observe(canvas);
+
+    function start() {
     var gl = canvas.getContext("webgl", { alpha: true, antialias: false, depth: false });
     if (!gl) return;
 
@@ -128,4 +142,5 @@
         visible = entries[0].isIntersecting;
         if (visible && !raf) raf = requestAnimationFrame(frame);
     }).observe(canvas);
+    }
 })();

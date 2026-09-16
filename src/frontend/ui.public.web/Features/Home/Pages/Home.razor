@@ -546,7 +546,10 @@
 
     // Уменьшенные копии фото лежат рядом с кадром: umba.webp → umba-w640.webp, umba-w960.webp.
     // Делает их tools/image-variants.py; ширины в его --widths обязаны быть из этого списка.
-    private static readonly int[] SrcSetWidths = [480, 640, 960];
+    // 800 добавлена 16.09.2026: карточка места на телефоне 372px при 1,75–2x просила
+    // 651–744px, и браузер брал ближайший больший кадр — 960 (≈150 КБ); с копией 800
+    // тот же экран получает ≈100 КБ (PageSpeed: «изображение больше контейнера»).
+    private static readonly int[] SrcSetWidths = [480, 640, 800, 960];
     private static readonly System.Text.RegularExpressions.Regex VariantName = new(@"-w\d+$");
 
     // srcset из копий кадра: браузер сам берёт файл под ширину карточки и плотность

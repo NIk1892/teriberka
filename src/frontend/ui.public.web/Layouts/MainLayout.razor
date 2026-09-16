@@ -63,10 +63,11 @@
 @* Маршрут дня: линия-прогресс рисуется прокруткой, точки загораются по ходу
    (фоллбек без JS — CSS scroll-driven, при reduced-motion — статичный пунктир) *@
 <script src="@Assets["js/route-progress.js"]" defer></script>
-@* Вендоренный Lenis (инерционная прокрутка) + effects.js: слои data-speed в hero
-   и пружинящие reveal-каскады. Порядок важен: effects.js ждёт глобал Lenis. *@
-<script src="@Assets["js/vendor/lenis.min.js"]" defer></script>
-<script src="@Assets["js/effects.js"]" defer></script>
+@* effects.js: слои data-speed в hero и пружинящие reveal-каскады. Вендоренный
+   Lenis (инерционная прокрутка) он подключает сам и только при pointer: fine —
+   на телефонах Lenis не нужен, а его rAF-цикл стоил процессора (16.09.2026);
+   адрес файла с отпечатком сборки едет data-lenis. *@
+<script src="@Assets["js/effects.js"]" data-lenis="@Assets["js/vendor/lenis.min.js"]" defer></script>
 @* WebGL-«жидкое» искажение фото мест при наведении (desktop, pointer: fine) *@
 <script src="@Assets["js/photo-fx.js"]" defer></script>
 <script src="@Assets["js/carousel.js"]" defer></script>

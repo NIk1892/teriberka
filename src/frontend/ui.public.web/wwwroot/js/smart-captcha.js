@@ -1,10 +1,19 @@
 // Невидимая Яндекс SmartCaptcha на форме заявки. Подключается только при
-// заданной паре ключей (разметка и скрипты — ApplicationForm.razor, CSP —
-// Program.cs). Схема из документации invisible-captcha: submit перехватывается,
-// execute() запускает проверку, токен приходит в callback — кладём его в hidden
+// заданной паре ключей (разметка — ApplicationForm.razor, CSP — Program.cs).
+// Схема из документации invisible-captcha: submit перехватывается, execute()
+// запускает проверку, токен приходит в callback — кладём его в hidden
 // smart-token и отправляем форму по-настоящему; сервер проверяет токен в
 // SubmitAsync. Без JavaScript токен не собрать — сервер честно откажет с
 // подсказкой включить его (осознанная цена капчи, см. CLAUDE.md).
+//
+// Сам виджет Яндекса (captcha.js и следом ~700 КБ его скриптов и iframe'ов)
+// подключается НЕ вместе со страницей, а когда форма подходит к экрану или
+// посетитель её трогает (16.09.2026): форма стоит в самом низу главной, а
+// капча грузилась у каждого посетителя сразу и была самым тяжёлым ресурсом
+// страницы — PageSpeed считал её в LCP и в блокировку главного потока.
+// Адрес captcha.js едет data-src слота (единственный источник — C#, тот же
+// хост, что в CSP). Нажали «отправить» раньше, чем виджет поднялся, —
+// отправка ждёт его загрузки и уходит сама.
 (function () {
     "use strict";
 
@@ -15,8 +24,12 @@
     var tokenInput = form.querySelector('input[name="smart-token"]');
     var widgetId = null;
     var solved = false;
+    var loading = false;       // captcha.js уже запрошен
+    var failed = false;        // captcha.js не загрузился (блокировщик, сеть) — форма уходит без токена
+    var pendingSubmit = false; // посетитель нажал «отправить», пока виджет ещё грузился
 
     function init() {
+        if (widgetId !== null || !window.smartCaptcha) return;
         var lang = (document.documentElement.lang || "ru").slice(0, 2);
         widgetId = window.smartCaptcha.render(slot, {
             sitekey: slot.dataset.sitekey,
@@ -45,13 +58,51 @@
             if (tokenInput) tokenInput.value = "";
             window.smartCaptcha.reset(widgetId);
         });
+
+        // форму отправили, пока виджет грузился, — проверка стартует сейчас
+        if (pendingSubmit) {
+            pendingSubmit = false;
+            window.smartCaptcha.execute(widgetId);
+        }
     }
 
-    // captcha.js подключён defer'ом строкой выше нас, к нашему исполнению
-    // window.smartCaptcha уже есть; страховка на случай медленной загрузки.
-    if (window.smartCaptcha) init();
-    else window.addEventListener("load", function () {
-        if (window.smartCaptcha && widgetId === null) init();
+    function load() {
+        if (loading) return;
+        loading = true;
+        if (window.smartCaptcha) { init(); return; }
+        var src = slot.dataset.src;
+        if (!src) { failed = true; return; }
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.onload = init;
+        s.onerror = function () {
+            // виджет не поднялся — форма уходит без токена, отказ покажет сервер
+            // (то же поведение, что было у блокировщиков до ленивой загрузки)
+            failed = true;
+            if (pendingSubmit) {
+                pendingSubmit = false;
+                solved = true;
+                form.requestSubmit();
+            }
+        };
+        document.head.appendChild(s);
+    }
+
+    // Форма подходит к экрану (запас ~1000px — на слабом мобильном интернете
+    // виджету нужно несколько секунд) или посетитель взялся за неё — грузим.
+    if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+            if (!entries.some(function (en) { return en.isIntersecting; })) return;
+            io.disconnect();
+            load();
+        }, { rootMargin: "1000px 0px" });
+        io.observe(form);
+    } else {
+        load();
+    }
+    ["focusin", "pointerdown", "touchstart"].forEach(function (ev) {
+        form.addEventListener(ev, load, { once: true, passive: true });
     });
 
     // Отправка без перезагрузки не удалась (apply-submit.js): токен уже потрачен
@@ -67,8 +118,15 @@
     // не добирается и токены зря не жгутся. Если виджет не поднялся (блокировщик,
     // сеть) — форма уходит без токена, отказ покажет сервер.
     document.addEventListener("submit", function (e) {
-        if (e.target !== form || e.defaultPrevented || solved || widgetId === null) return;
+        if (e.target !== form || e.defaultPrevented || solved || failed) return;
         e.preventDefault();
+        if (widgetId === null) {
+            // виджет ещё грузится (или его не запрашивали — например, отправили
+            // с клавиатуры, не трогая форму): дождёмся и проверим
+            pendingSubmit = true;
+            load();
+            return;
+        }
         window.smartCaptcha.execute(widgetId);
     });
 })();

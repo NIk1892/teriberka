@@ -11,6 +11,14 @@ namespace UI.Public.Web.Features.Captcha;
 /// </summary>
 public sealed class SmartCaptchaService
 {
+    /// <summary>
+    /// Хост виджета: он же в CSP (Program.cs), с него smart-captcha.js подгружает
+    /// captcha.js, когда форма подходит к экрану (адрес едет data-src слота).
+    /// </summary>
+    public const string WidgetHost = "https://smartcaptcha.yandexcloud.net";
+
+    public const string WidgetUrl = WidgetHost + "/captcha.js";
+
     // Хост валидации отличается от хоста виджета (smartcaptcha.yandexcloud.net) —
     // так в документации: docs/smartcaptcha/operations/validate-captcha.
     private const string ValidateUrl = "https://smartcaptcha.cloud.yandex.ru/validate";

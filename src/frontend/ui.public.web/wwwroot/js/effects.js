@@ -14,15 +14,31 @@
 
     // ---- инерционная прокрутка -------------------------------------------
     // anchors: true — якорные ссылки (#apply, #top…) едут плавно через Lenis.
-    // На тач-устройствах Lenis по умолчанию не трогает нативный скролл.
     // Своё смещение под шапку здесь НЕ задаём: у секций уже есть scroll-margin-top
     // в app.css, и offset Lenis складывался бы с ним — секция уезжала вдвое ниже.
+    //
+    // Lenis — только для мыши/тачпада (pointer: fine) и грузится отсюда сам, а не
+    // тегом в разметке (16.09.2026): на тач-устройствах он и так не трогает
+    // нативный скролл (syncTouch по умолчанию выключен), якоря там плавно едут
+    // через scroll-behavior: smooth, а его rAF-цикл крутился каждый кадр впустую —
+    // PageSpeed на мобильном профиле записывал ему больше секунды процессора.
+    // Адрес файла (с отпечатком сборки) — data-lenis на нашем теге <script>.
     var lenis = null;
-    try {
-        if (typeof Lenis === "function") {
-            lenis = new Lenis({ autoRaf: true, anchors: true });
-        }
-    } catch (e) { /* без Lenis остаётся нативная прокрутка */ }
+    var me = document.currentScript || document.querySelector("script[data-lenis]");
+    var lenisSrc = me && me.getAttribute("data-lenis");
+    if (lenisSrc && window.matchMedia("(pointer: fine)").matches) {
+        var ls = document.createElement("script");
+        ls.src = lenisSrc;
+        ls.async = true;
+        ls.onload = function () {
+            try {
+                if (typeof Lenis === "function") {
+                    lenis = new Lenis({ autoRaf: true, anchors: true });
+                }
+            } catch (e) { /* без Lenis остаётся нативная прокрутка */ }
+        };
+        document.head.appendChild(ls);
+    }
 
 
     // ---- параллакс-слои по data-speed ------------------------------------
@@ -131,13 +147,21 @@
     // блок показывается, — нет ощущения запаздывания при прокрутке
     }, { threshold: 0, rootMargin: "0px 0px 40px 0px" });
 
+    // Прокручиваемость треков меряем один раз ДО раздачи классов: чтение
+    // scrollWidth после каждого classList.add в цикле заставляло браузер
+    // пересчитывать раскладку на каждой карточке (forced reflow в PageSpeed).
+    var scrollableTracks = [];
+    Array.prototype.forEach.call(document.querySelectorAll(".carousel-track"), function (track) {
+        if (track.scrollWidth > track.clientWidth + 1) scrollableTracks.push(track);
+    });
+
     Array.prototype.forEach.call(revealTargets, function (el) {
         // Внутри горизонтальной карусели (места на телефоне) каскад не даём: кадр
         // «появлялся» в момент листания и выезжал снизу, а у фото-полосы такого нет —
         // все карусели должны листаться одинаково. Тот же трек на десктопе — обычная
         // сетка без прокрутки, там каскад остаётся.
         var track = el.closest(".carousel-track");
-        if (track && track.scrollWidth > track.clientWidth + 1) return;
+        if (track && scrollableTracks.indexOf(track) !== -1) return;
         // элемент попадёт в восстановленный вьюпорт — оставить видимым без анимации
         // (запас 120px — на сдвиги вёрстки от шрифтов/картинок после загрузки)
         if (restoredY >= 0 &&

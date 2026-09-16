@@ -145,11 +145,13 @@ else
            при заданной паре ключей. Токен кладёт в hidden наш smart-captcha.js
            (см. подключение после формы), сервер проверяет его в SubmitAsync.
            Слот нужен даже невидимой капче — в него виджет ставит iframe и бейдж
-           «обработка данных Яндексом» (прятать бейдж запрещают условия сервиса). *@
+           «обработка данных Яндексом» (прятать бейдж запрещают условия сервиса).
+           data-src — адрес captcha.js: скрипт Яндекса подключает smart-captcha.js
+           сам, когда форма подходит к экрану (см. комментарий в нём). *@
         @if (Captcha.Enabled)
         {
             <input type="hidden" name="smart-token" value="" />
-            <div class="captcha-slot" data-sitekey="@Captcha.ClientKey"></div>
+            <div class="captcha-slot" data-sitekey="@Captcha.ClientKey" data-src="@SmartCaptchaService.WidgetUrl"></div>
         }
         @* Согласие пока только на клиенте: в контракт не входит,
            сервер его не проверяет — плейсхолдер до настоящей политики ПД. *@
@@ -193,13 +195,13 @@ else
         }
     </EditForm>
 
-    @* Скрипты капчи — только когда она включена: сначала виджет Яндекса
-       (его хост добавлен в CSP в Program.cs тоже условно), затем наша обвязка.
-       Оба defer, порядок в документе гарантирует, что window.smartCaptcha
-       уже есть к моменту исполнения smart-captcha.js. *@
+    @* Обвязка капчи — только когда она включена. Сам виджет Яндекса (captcha.js,
+       хост добавлен в CSP в Program.cs тоже условно) тегом в разметке больше не
+       подключается (16.09.2026): его и ~700 КБ его скриптов и iframe'ов
+       smart-captcha.js подгружает, когда форма подходит к экрану или посетитель
+       её трогает, — раньше капча была самым тяжёлым ресурсом первого экрана. *@
     @if (Captcha.Enabled)
     {
-        <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
         <script src="@Assets["js/smart-captcha.js"]" defer></script>
     }
 }
