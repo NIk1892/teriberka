@@ -277,8 +277,10 @@ else
             return;
         }
 
-        // именно "true": биндинг bool из query не понимает "1"
-        Navigation.NavigateTo("/?sent=true");
+        // именно "true": биндинг bool из query не понимает "1". Якорь #apply обязателен:
+        // карточка «спасибо» стоит внизу страницы, на месте формы, и без него после
+        // редиректа посетитель оказывался в самом верху и подтверждения не видел.
+        Navigation.NavigateTo("/?sent=true#apply");
     }
 
     private bool HasError(string field) => _fieldErrors.ContainsKey(field);
