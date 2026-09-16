@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Telegram.Bot" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\shared\Api\Api.csproj" />
     <ProjectReference Include="..\..\shared\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\shared\OTLP\OTLP.csproj" />

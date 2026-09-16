@@ -1,3 +1,4 @@
+using Api;
 using Telegram.Bot;
 
 namespace Chat.Bot;
@@ -15,7 +16,9 @@ public sealed class TelegramBotAccessor
     public TelegramBotAccessor(IConfiguration configuration, ILogger<TelegramBotAccessor> logger)
     {
         var token = configuration["TG_BOT_TOKEN"];
-        Client = string.IsNullOrWhiteSpace(token) ? null : new TelegramBotClient(token);
+        Client = string.IsNullOrWhiteSpace(token)
+            ? null
+            : new TelegramBotClient(token, ProxyHttpClient.Create(configuration["TG_PROXY_URL"], logger));
 
         AdminChatId = long.TryParse(configuration["TG_ADMIN_CHAT_ID"], out var chatId) ? chatId : null;
         AdminLanguage = configuration["TG_ADMIN_LANG"] is { Length: > 0 } lang ? lang : "ru";

@@ -15,5 +15,6 @@ public partial class ApplicationDtoMapper : IEntityToDtoMapper<ApplicationDto, A
 public partial class ApplicationCreateEntityMapper : ICommandToEntityMapper<ApplicationEntity, ApplicationCreateCommand>
 {
     [MapperIgnoreTarget(nameof(ApplicationEntity.Audit))]
+    [MapperIgnoreTarget(nameof(ApplicationEntity.TgMessageId))]
     public partial ApplicationEntity ToNewEntity(ApplicationCreateCommand source);
 }

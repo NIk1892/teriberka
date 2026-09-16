@@ -5,6 +5,7 @@ using Domain;
 using Applications.Contracts;
 using Users.Contracts;
 using Users.Infrastructure.DataAccess;
+using Users.Notifications;
 using Constants = Api.Constants;
 
 
@@ -23,6 +24,10 @@ namespace Users
             });
 
             Services.AddScoped<IIdentityService, IdentityService>();
+
+            // Отбивка новых заявок в Telegram-канал менеджеров. Без TG_BOT_TOKEN и
+            // TG_APPLICATIONS_CHAT_ID просто пишет в лог и не мешает приёму заявок.
+            Services.AddHostedService<ApplicationNotifier>();
         }
 
         public override void ConfigureEndPoints(WebApplication app)

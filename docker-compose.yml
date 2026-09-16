@@ -51,6 +51,12 @@ services:
       DB_READ_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       DB_WRITE_CONNECTION_STRING: "host=postgres;port=5432;database=platform;username=postgres;password=postgres;search path=users,public;maximum pool size=20;Connection Idle Lifetime=3;Connection Pruning Interval=1;"
       OTLP_EXPORT_ENABLED: "false"
+      # Отбивка новых заявок в приватный Telegram-канал менеджеров: нужны и токен, и id
+      # канала. Без них заявки принимаются как обычно, просто никуда не уходят.
+      TG_BOT_TOKEN: "${TG_BOT_TOKEN:-}"
+      TG_APPLICATIONS_CHAT_ID: "${TG_APPLICATIONS_CHAT_ID:-}"
+      # Прокси для Telegram: на бою — туннель (docs/deploy.md), локально пусто.
+      TG_PROXY_URL: "${TG_PROXY_URL:-}"
     expose:
       - "8080"
     # Порт открыт только для локальной отладки: сервис не проверяет авторизацию и доверяет
@@ -81,6 +87,8 @@ services:
       TG_ADMIN_CHAT_ID: "${TG_ADMIN_CHAT_ID:-}"
       # Язык служебных сообщений в группе (к языку посетителя отношения не имеет).
       TG_ADMIN_LANG: "ru"
+      # Прокси для Telegram (и long polling, и доставка): на бою — туннель, локально пусто.
+      TG_PROXY_URL: "${TG_PROXY_URL:-}"
       # Срок хранения переписки; по нему идёт жёсткое удаление персональных данных.
       CHAT_RETENTION_DAYS: "90"
       # Куда бот ведёт кнопкой «Открыть сайт».

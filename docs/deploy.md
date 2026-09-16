@@ -178,6 +178,44 @@ docker compose ... up -d
 причём именно `--force-recreate`: `--build` без него пересобирает образ, но
 оставляет работать старый контейнер.
 
+## Telegram через туннель
+
+С этого сервера Telegram не отвечает — ни `api.telegram.org`, ни дата-центры
+(проверено 16.09.2026). Поэтому users (отбивка заявок в канал) и chat (бот) ходят
+в Telegram через socks5-прокси: туннель VLESS + XHTTP + Reality на финский VPS.
+
+- Туннель **не в этом репозитории**: отдельный compose-проект `/opt/tg-relay`
+  (контейнер `tg-relay-xray`, конфиг с ключами есть только на сервере), выход —
+  `/opt/proxy` на финском VPS (Xray + Caddy). Там же, в `/opt/tg-relay`, лежит
+  выключенный MTProto-прокси для телефонов (профиль `mtproto`): на мобильном
+  интернете его режут, включать не нужно.
+- Xray подключён к сети `teriberka_default` под именем **`tg-proxy`**, socks без
+  пароля на порту 1080, наружу не опубликован.
+- В `.env`: `TG_PROXY_URL=socks5://tg-proxy:1080`.
+
+Проверить туннель:
+
+```bash
+docker run --rm --network teriberka_default curlimages/curl:8.16.0 -s -o /dev/null \
+  -w '%{http_code}\n' -x socks5h://tg-proxy:1080 https://api.telegram.org   # ждём 302
+```
+
+**Ловушка:** `docker compose down` у проекта teriberka удаляет сеть
+`teriberka_default`, и xray из неё выпадает. После `up` вернуть его:
+`cd /opt/tg-relay && docker compose up -d`. Обычный `up -d --build` сеть не трогает.
+Туннель лёг — сайт работает, в логах users/chat таймауты Telegram; заявки
+дождутся восстановления в БД (в канал уйдут, если им меньше суток).
+
+### Включение отбивки заявок
+
+1. Бот в @BotFather → токен в `.env` (`TG_BOT_TOKEN`), там же `TG_PROXY_URL`;
+   `up -d` пересоздаст api-users и api-chat.
+2. Приватный канал (в сообщениях имя и телефон) → бот администратором с правом
+   публикации → в `docker logs teriberka-api-chat-1` появится строка
+   «Бота добавили в чат -100…».
+3. Этот id → `TG_APPLICATIONS_CHAT_ID` в `.env` → `up -d`. Проверка — заявка с сайта:
+   через ~10 с сообщение в канале, в логе users «Заявка … отправлена в Telegram-канал».
+
 ## Наблюдение
 
 ```bash
@@ -207,4 +245,6 @@ docker compose ... exec postgres psql -U postgres -d platform \
   никто не видит**. Ссылка на бота на сайте при этом показывается и ведёт в никуда
   (решение владельца, 28.08.2026): username в дефолте выдуманный, пока бота нет.
   Появится бот — `TG_BOT_TOKEN`, `TG_ADMIN_CHAT_ID` и `TG_BOT_URL` в `.env`, `up -d`.
+  Отбивка заявок в канал в коде есть (16.09.2026), но без `TG_BOT_TOKEN`
+  и `TG_APPLICATIONS_CHAT_ID` тоже выключена — см. «Telegram через туннель».
 - **Метрики.** OTLP выключен, логи живут только в docker (10 МБ × 5 файлов на сервис).
