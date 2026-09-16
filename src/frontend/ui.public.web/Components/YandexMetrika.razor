@@ -13,7 +13,7 @@
    запрещены CSP. *@
 @if (Metrika.Enabled)
 {
-    <script src="/js/metrika.js" data-metrika="@Metrika.CounterId" defer></script>
+    <script src="@Assets["js/metrika.js"]" data-metrika="@Metrika.CounterId" defer></script>
 
     <noscript>
         <div><img class="ym-noscript" src="https://mc.yandex.ru/watch/@Metrika.CounterId" alt="" /></div>

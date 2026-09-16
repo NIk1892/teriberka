@@ -11,10 +11,11 @@
     @* title и SEO-мета (description, canonical, OG) задают <PageTitle> и <PageMeta>
        каждой страницы через HeadOutlet — глобальных дублей здесь быть не должно *@
     <base href="/" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    @* v=2 — сброс часового кеша браузеров при правках стилей (fingerprinting нет,
-       версию поднимать руками при заметных изменениях, как у js-файлов) *@
-    <link rel="stylesheet" href="/css/app.css?v=79" />
+    <link rel="icon" type="image/svg+xml" href="@Assets["favicon.svg"]" />
+    @* Assets[...] — адрес с отпечатком содержимого (css/app.<хеш>.css), его ставит
+       MapStaticAssets при сборке: поменялся файл — поменялась ссылка, кеш на год.
+       Ручные ?v=N больше не нужны (16.09.2026) *@
+    <link rel="stylesheet" href="@Assets["css/app.css"]" />
     <HeadOutlet />
 </head>
 

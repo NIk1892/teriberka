@@ -57,44 +57,37 @@
 @* Быстрая прокрутка без JavaScript: якорные ссылки + scroll-behavior: smooth.
    Кнопка «наверх» проявляется после первого экрана через CSS scroll-driven
    animation (в браузерах без поддержки просто видна всегда). *@
-@* v=2: вода перечитывает цвета при живой смене темы (theme-toggle.js) *@
-<script src="/js/water.js?v=2" defer></script>
+<script src="@Assets["js/water.js"]" defer></script>
 @* Инерционный параллакс полос .parallax-band (фоллбек без JS — CSS-ярусы в app.css) *@
-<script src="/js/parallax.js" defer></script>
+<script src="@Assets["js/parallax.js"]" defer></script>
 @* Маршрут дня: линия-прогресс рисуется прокруткой, точки загораются по ходу
    (фоллбек без JS — CSS scroll-driven, при reduced-motion — статичный пунктир) *@
-@* v=6: выхлоп из четырёх мягких клубов за машинкой *@
-<script src="/js/route-progress.js?v=7" defer></script>
+<script src="@Assets["js/route-progress.js"]" defer></script>
 @* Вендоренный Lenis (инерционная прокрутка) + effects.js: слои data-speed в hero
    и пружинящие reveal-каскады. Порядок важен: effects.js ждёт глобал Lenis. *@
-<script src="/js/vendor/lenis.min.js" defer></script>
-@* v=5: карточки внутри прокручиваемой карусели без reveal-каскада (листались «снизу») *@
-<script src="/js/effects.js?v=6" defer></script>
+<script src="@Assets["js/vendor/lenis.min.js"]" defer></script>
+<script src="@Assets["js/effects.js"]" defer></script>
 @* WebGL-«жидкое» искажение фото мест при наведении (desktop, pointer: fine) *@
-<script src="/js/photo-fx.js" defer></script>
-@* v=3: carousel.js научился автопрокруту (data-autoplay) — сбрасываем кеш браузеров *@
-<script src="/js/carousel.js?v=3" defer></script>
+<script src="@Assets["js/photo-fx.js"]" defer></script>
+<script src="@Assets["js/carousel.js"]" defer></script>
 @* сохранение прокрутки при переключении темы/языка (см. комментарий в файле) *@
-<script src="/js/restore-scroll.js" defer></script>
+<script src="@Assets["js/restore-scroll.js"]" defer></script>
 @* смена темы без перезагрузки; порядок важен: клик-обработчик restore-scroll.js
    должен зарегистрироваться раньше, чтобы theme-toggle.js подчистил его запись *@
-@* v=3: второй клик по переключателю снова обрабатывается скриптом (был уход наверх) *@
-<script src="/js/theme-toggle.js?v=3" defer></script>
+<script src="@Assets["js/theme-toggle.js"]" defer></script>
 @* клиентская валидация формы заявки: подсказки под полями (см. комментарий в файле) *@
-@* v=4: маска телефона переехала в phone-intl.js, здесь остались проверки *@
-<script src="/js/form-ui.js?v=5" defer></script>
+<script src="@Assets["js/form-ui.js"]" defer></script>
 @* международный ввод телефона: список стран с флагом и кодом, маска по стране;
    без него поле работает как обычное, а селектор просто скрыт *@
-@* v=2: в поле только национальный номер — код страны живёт в плашке *@
-<script src="/js/phone-intl.js?v=2" defer></script>
+<script src="@Assets["js/phone-intl.js"]" defer></script>
 @* полноэкранный просмотр фото на страницах мест (см. комментарий в файле) *@
-<script src="/js/lightbox.js" defer></script>
+<script src="@Assets["js/lightbox.js"]" defer></script>
 @* кнопка связи: Esc и сворачивание после выбора канала; меню и без JS работает *@
-<script src="/js/contact-widget.js" defer></script>
+<script src="@Assets["js/contact-widget.js"]" defer></script>
 @* чат с гидом: открытие панели без перезагрузки и опрос новых ответов *@
-<script src="/js/chat.js" defer></script>
+<script src="@Assets["js/chat.js"]" defer></script>
 @* уведомление о cookie: согласие без перезагрузки; без JS работает ссылкой *@
-<script src="/js/cookie-notice.js" defer></script>
+<script src="@Assets["js/cookie-notice.js"]" defer></script>
 
 @* Кнопки быстрой прокрутки: якорные ссылки, без JavaScript. *@
 @* Стрелки — инлайн-SVG, а не символы ↑↓: глиф шрифта рисуется тонким и над

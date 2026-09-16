@@ -2528,7 +2528,8 @@ html.lightbox-open { overflow: hidden; }
    встают в центрированный ряд с переносом. Клик — лайтбокс (a.lightbox-link).
    На .guest-shot стоит rotate, но details-оверлеев внутри нет — containing
    block здесь безопасен (лайтбокс живёт в body). */
-.guests-carousel { margin-bottom: 30px; }
+/* лента стоит под карточками отзывов (16.09.2026) — отступ сверху */
+.guests-carousel { margin-top: 30px; }
 
 /* стрелки — только на телефоне, как у ленты мест (три класса — перебить .carousel-js) */
 .guests-carousel.carousel-wrap .car-btn { display: none; }

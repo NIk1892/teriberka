@@ -71,7 +71,7 @@
                 {
                     <a class="place-card" href="@card.Href">
                         <span class="place-photo">
-                            <img src="@card.Src" srcset="@SrcSet(card.Photo, 1280, card.Query)"
+                            <img src="@Asset(card.Photo)" srcset="@SrcSet(card.Photo, 1280)"
                                  sizes="@PlaceSizes(twoCols: false)" alt="@L[$"{card.Key}Title"]" loading="lazy" decoding="async" />
                         </span>
                         <span class="place-body">
@@ -128,7 +128,7 @@
                                     @for (var n = 0; n < photos.Length; n++)
                                     {
                                         <span class="route-stop-photo">
-                                            <img src="/img/itinerary/@photos[n]" srcset="@SrcSet($"/img/itinerary/{photos[n]}", 1000)"
+                                            <img src="@Asset($"/img/itinerary/{photos[n]}")" srcset="@SrcSet($"/img/itinerary/{photos[n]}", 1000)"
                                                  sizes="@RouteSizes" alt="@(n == 0 ? L[$"Itinerary{i}Title"].Value : "")"
                                                  loading="lazy" decoding="async" />
                                         </span>
@@ -140,7 +140,7 @@
                         else
                         {
                             <span class="route-stop-photo">
-                                <img src="/img/itinerary/@photos[0]" srcset="@SrcSet($"/img/itinerary/{photos[0]}", 1000)"
+                                <img src="@Asset($"/img/itinerary/{photos[0]}")" srcset="@SrcSet($"/img/itinerary/{photos[0]}", 1000)"
                                      sizes="@RouteSizes" alt="@L[$"Itinerary{i}Title"]" loading="lazy" decoding="async" />
                             </span>
                         }
@@ -235,9 +235,7 @@
                         var place = PlaceCatalog.ByIndex(idx);
                         <a class="place-card" href="/place/@place.Slug">
                             <span class="place-photo">
-                                @* ?v=2 — главные фото пяти мест Териберки заменены на свои кадры под теми же
-                                   именами, а картинки кэшируются на 30 дней *@
-                                <img src="/img/places/@(place.Slug).webp?v=2" srcset="@SrcSet($"/img/places/{place.Slug}.webp", 1280, "v=2")"
+                                <img src="@Asset($"/img/places/{place.Slug}.webp")" srcset="@SrcSet($"/img/places/{place.Slug}.webp", 1280)"
                                      sizes="@PlaceSizes(twoCols: dir.PlaceIndexes.Length < 3)" alt="@L[$"Place{idx}Title"]" loading="lazy" decoding="async" />
                             </span>
                             <span class="place-body">
@@ -366,36 +364,6 @@
             <h2>@L["ReviewsTitle"]</h2>
             <p>@L["ReviewsSubtitle"]</p>
         </div>
-        @* Фотолента гостей (владелец, 28.08.2026): реальные кадры туристов из
-           поездок над карточками отзывов. Файлы — wwwroot/img/guests/guest-*.webp
-           (кроп 3:4 из оригиналов владельца, convert-photos.py); лента рендерит
-           то, что лежит в каталоге: нет файлов — нет ленты, новый кадр = новый
-           файл, без правки кода. ?v= из времени изменения файла — картинки
-           кэшируются 30 дней, как у фото хранилища. Клик — лайтбокс (fallback
-           без JS — файл в новой вкладке), кадры-«полароиды» с лёгким разворотом. *@
-        @* На мобиле — по одному кадру во всю ширину со стрелками carousel.js
-           (владелец, 28.08.2026: край соседнего кадра читался как обрез — та же
-           претензия, что была к ленте мест), на десктопе стрелки скрыты, ряд
-           с переносом. *@
-        @{ var guests = GuestPhotos(); }
-        @if (guests.Count > 0)
-        {
-            <div class="guests-carousel carousel-wrap">
-                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
-                <ul class="guests-row carousel-track">
-                    @foreach (var (file, ver) in guests)
-                    {
-                        <li class="guest-shot">
-                            <a class="lightbox-link" href="/img/guests/@(file)?v=@ver" target="_blank" rel="noopener">
-                                <img src="/img/guests/@(file)?v=@ver" srcset="@SrcSet($"/img/guests/{file}", 900, $"v={ver}")"
-                                     sizes="@GuestSizes" alt="@L["GuestsAlt"]" loading="lazy" decoding="async" />
-                            </a>
-                        </li>
-                    }
-                </ul>
-                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
-            </div>
-        }
         <div class="carousel-wrap">
             <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
             <div class="reviews-carousel carousel-track">
@@ -406,7 +374,7 @@
                             @if (ReviewPhotoExists(id))
                             {
                                 <span class="review-avatar">
-                                    <img src="/img/reviews/review-@(id).webp" alt="@L[$"Review{id}Name"]" loading="lazy" decoding="async" />
+                                    <img src="@Asset($"/img/reviews/review-{id}.webp")" alt="@L[$"Review{id}Name"]" loading="lazy" decoding="async" />
                                 </span>
                             }
                             else
@@ -428,6 +396,36 @@
             </div>
             <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
         </div>
+        @* Фотолента гостей (владелец, 28.08.2026): реальные кадры туристов из
+           поездок под карточками отзывов (16.09.2026 — сначала отзывы, потом фото; раньше лента стояла над ними). Файлы — wwwroot/img/guests/guest-*.webp
+           (кроп 3:4 из оригиналов владельца, convert-photos.py); лента рендерит
+           то, что лежит в каталоге: нет файлов — нет ленты, новый кадр = новый
+           файл, без правки кода (адрес с отпечатком выдаёт MapStaticAssets, поэтому
+           кадр должен попасть в сборку). Клик — лайтбокс (fallback
+           без JS — файл в новой вкладке), кадры-«полароиды» с лёгким разворотом. *@
+        @* На мобиле — по одному кадру во всю ширину со стрелками carousel.js
+           (владелец, 28.08.2026: край соседнего кадра читался как обрез — та же
+           претензия, что была к ленте мест), на десктопе стрелки скрыты, ряд
+           с переносом. *@
+        @{ var guests = GuestPhotos(); }
+        @if (guests.Count > 0)
+        {
+            <div class="guests-carousel carousel-wrap">
+                <button class="car-btn car-prev" type="button" aria-label="@L["CarouselPrev"]">‹</button>
+                <ul class="guests-row carousel-track">
+                    @foreach (var file in guests)
+                    {
+                        <li class="guest-shot">
+                            <a class="lightbox-link" href="@Asset($"/img/guests/{file}")" target="_blank" rel="noopener">
+                                <img src="@Asset($"/img/guests/{file}")" srcset="@SrcSet($"/img/guests/{file}", 900)"
+                                     sizes="@GuestSizes" alt="@L["GuestsAlt"]" loading="lazy" decoding="async" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
+            </div>
+        }
     </div>
 </section>
 
@@ -471,23 +469,19 @@
 @code {
     // Карточки «Что вы увидите». Key — префикс ключей {Key}Title/{Key}Text в resx (у тундры
     // и сияния — ключи самих мест, тексты не дублируются). Photo — кадр шириной 1280px
-    // с копиями для srcset; Query — сброс 30-дневного кеша у фото мест, перезаписанных
-    // под теми же именами. Href — страница места или шаг программы дня: #stop-N — номер
+    // с копиями для srcset. Href — страница места или шаг программы дня: #stop-N — номер
     // остановки в RoutePhotos, переставишь шаги — поправь и здесь.
-    private sealed record SeeCard(string Key, string Photo, string? Query, string Href)
-    {
-        public string Src => Query is null ? Photo : $"{Photo}?{Query}";
-    }
+    private sealed record SeeCard(string Key, string Photo, string Href);
 
     private static readonly SeeCard[] SeeCards =
     [
-        new("See1", "/img/see/ocean-beach.webp", null, "/place/barents-sea"),
-        new("See2", "/img/places/dragon-eggs.webp", "v=2", "/place/dragon-eggs"),
-        new("See3", "/img/places/ship-graveyard.webp", "v=2", "/place/ship-graveyard"),
-        new("See4", "/img/see/sea-trip.webp", null, "#stop-4"),         // морская прогулка
-        new("See5", "/img/see/old-teriberka.webp", null, "#stop-5"),    // Старая Териберка
-        new("Place6", "/img/places/arctic-tundra.webp", "v=2", "/place/arctic-tundra"),
-        new("Place5", "/img/places/northern-lights.webp", "v=2", "/place/northern-lights"),
+        new("See1", "/img/see/ocean-beach.webp", "/place/barents-sea"),
+        new("See2", "/img/places/dragon-eggs.webp", "/place/dragon-eggs"),
+        new("See3", "/img/places/ship-graveyard.webp", "/place/ship-graveyard"),
+        new("See4", "/img/see/sea-trip.webp", "#stop-4"),         // морская прогулка
+        new("See5", "/img/see/old-teriberka.webp", "#stop-5"),    // Старая Териберка
+        new("Place6", "/img/places/arctic-tundra.webp", "/place/arctic-tundra"),
+        new("Place5", "/img/places/northern-lights.webp", "/place/northern-lights"),
     ];
 
     // Фото остановок маршрута дня, файлы в wwwroot/img/itinerary/ (кадры владельца,
@@ -536,18 +530,17 @@
 
     // Кадры фотоленты гостей: guest-*.webp из wwwroot/img/guests, сортировка по
     // имени (guest-1..guest-9; до десятого кадра строкового порядка достаточно).
-    // Версия — время изменения файла: перезаливка под тем же именем не застрянет
-    // в 30-дневном кеше картинок. Скан каталога на рендер — тот же компромисс,
-    // что у File.Exists выше: главная и так читает диск на каждый запрос.
+    // Скан каталога на рендер — тот же компромисс, что у File.Exists выше: главная
+    // и так читает диск на каждый запрос.
     // Уменьшенные копии для srcset (guest-1-w480.webp) — не отдельные кадры, их отсекаем.
-    private IReadOnlyList<(string File, long Ver)> GuestPhotos()
+    private IReadOnlyList<string> GuestPhotos()
     {
         var dir = Path.Combine(Env.WebRootPath, "img", "guests");
-        if (!Directory.Exists(dir)) return Array.Empty<(string, long)>();
+        if (!Directory.Exists(dir)) return [];
         return Directory.GetFiles(dir, "guest-*.webp")
             .Where(f => !VariantName.IsMatch(Path.GetFileNameWithoutExtension(f)))
             .OrderBy(f => f, StringComparer.OrdinalIgnoreCase)
-            .Select(f => (Path.GetFileName(f), File.GetLastWriteTimeUtc(f).Ticks / TimeSpan.TicksPerSecond))
+            .Select(f => Path.GetFileName(f))
             .ToList();
     }
 
@@ -559,20 +552,24 @@
     // srcset из копий кадра: браузер сам берёт файл под ширину карточки и плотность
     // экрана — карточка в 340px больше не качает кадр в 1280px (замер 16.09.2026:
     // 6,4 МБ фото на главной). width — ширина самого файла. Копий нет — null, Blazor
-    // атрибут не рендерит, и кадр грузится целиком, как раньше. Query (?v=…) у копий
-    // тот же, что у кадра, — сброс кеша действует на все размеры сразу. File.Exists
-    // на рендер — тот же компромисс, что у GuestPhotos.
-    private string? SrcSet(string path, int width, string? query = null)
+    // атрибут не рендерит, и кадр грузится целиком, как раньше. File.Exists на рендер —
+    // тот же компромисс, что у GuestPhotos.
+    private string? SrcSet(string path, int width)
     {
-        var q = string.IsNullOrEmpty(query) ? "" : "?" + query;
         var ext = Path.GetExtension(path);
         var stem = path[..^ext.Length];
         var candidates = SrcSetWidths
             .Where(w => w < width && File.Exists(Path.Combine(Env.WebRootPath, $"{stem.TrimStart('/')}-w{w}{ext}")))
-            .Select(w => $"{stem}-w{w}{ext}{q} {w}w")
+            .Select(w => $"{Asset($"{stem}-w{w}{ext}")} {w}w")
             .ToList();
-        return candidates.Count == 0 ? null : string.Join(", ", candidates.Append($"{path}{q} {width}w"));
+        return candidates.Count == 0 ? null : string.Join(", ", candidates.Append($"{Asset(path)} {width}w"));
     }
+
+    // Адрес файла из wwwroot с отпечатком содержимого (img/places/umba.<хеш>.webp): его
+    // выдаёт MapStaticAssets, кеш у такого адреса вечный, а при замене файла меняется
+    // сама ссылка — ручные ?v= больше не нужны (16.09.2026). Файл, неизвестный сборке,
+    // Assets не знает — тогда адрес остаётся как есть.
+    private string Asset(string path) => Assets[path.TrimStart('/')];
 
     // sizes из пар «медиаусловие → ширина слота» (последняя пара — без условия).
     // На экранах плотнее 2,5x (телефоны) слот называется в полтора раза меньше:

@@ -232,10 +232,13 @@ app.UseStatusCodePagesWithReExecute("/not-found");
 
 app.UseResponseCompression();
 
-// Статика до rate limiter'а: css и картинки не должны сжигать лимит запросов.
-// Кэш: css/js — час (fingerprinting нет, при деплое стили должны подтянуться
-// быстро; ETag делает повторную проверку дешёвой — 304), картинки — 30 дней
-// (webp меняются только вместе с новым файлом).
+// Статику отдаёт MapStaticAssets (ниже, у эндпоинтов): при сборке каждый файл
+// wwwroot получает адрес с отпечатком содержимого, разметка берёт его через
+// Assets[...], и такой адрес кешируется на год (immutable). UseStaticFiles остался
+// запасным вариантом для файлов, которых нет в манифесте сборки (например,
+// подложенных в wwwroot уже после неё): маршрутизация идёт раньше middleware,
+// поэтому известные сборке пути сюда не доходят. Стоит до rate limiter'а — css и
+// картинки не должны сжигать лимит запросов.
 app.UseStaticFiles(new StaticFileOptions
 {
     OnPrepareResponse = ctx =>
@@ -439,7 +442,15 @@ app.MapGet("/chat/poll", async (HttpContext context, IMediator mediator, ChatSch
     });
 });
 
-app.MapRazorComponents<App>();
+// Статика с отпечатками содержимого (см. комментарий у UseStaticFiles). Лимитер
+// снят явно: эти эндпоинты идут через маршрутизацию, а значит и через глобальный
+// лимитер — одна загрузка главной это ~70 запросов, и несколько переходов в минуту
+// упирались бы в лимит GET. Без .WithStaticAssets() у MapRazorComponents Assets[...]
+// в компонентах не знает отпечатков и возвращает путь как есть.
+app.MapStaticAssets().DisableRateLimiting();
+
+app.MapRazorComponents<App>()
+    .WithStaticAssets();
 
 app.MapHealthChecks("/health").DisableRateLimiting();
 
