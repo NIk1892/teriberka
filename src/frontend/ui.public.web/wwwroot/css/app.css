@@ -4148,6 +4148,35 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
     overscroll-behavior: contain;
     max-height: min(46svh, 320px);
     list-style: none;
+    /* Системная полоса со стрелками спорила с пузырями (владелец, 16.09.2026) — тонкий
+       бегунок в цветах сайта. gutter: stable держит место под полосу, чтобы пузыри не
+       сдвигались, когда сообщений становится больше экрана. */
+    padding-right: 4px;
+    scrollbar-gutter: stable;
+}
+
+/* Chrome и Safari — через ::-webkit-scrollbar: у такой полосы нет кнопок со стрелками.
+   Стандартные scrollbar-width/color Chrome тоже понимает, но с ними игнорирует
+   webkit-правила и на Windows рисует крошечные стрелки — поэтому стандартные
+   свойства отданы только Firefox (ниже, по -moz-appearance). */
+.chat-log::-webkit-scrollbar { width: 6px; }
+
+.chat-log::-webkit-scrollbar-track { background: transparent; }
+
+.chat-log::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.chat-log:hover::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 60%, transparent); }
+
+@supports (-moz-appearance: none) {
+    .chat-log {
+        scrollbar-width: thin;
+        scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
+    }
+
+    .chat-log:hover { scrollbar-color: color-mix(in srgb, var(--accent) 60%, transparent) transparent; }
 }
 
 .chat-empty {
