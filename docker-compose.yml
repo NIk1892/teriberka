@@ -156,9 +156,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       API_URL: "http://api-gateway:8080"
-      # тот же dev-плейсхолдер, что в appsettings.Development.json (пустая строка
-      # перекрывала его и прятала кнопку бота из шапки); заменить на реальный username
-      TG_BOT_URL: "${TG_BOT_URL:-https://t.me/kola_north_bot}"
+      # Настоящий бот владельца (16.09.2026), тот же, что в appsettings.Development.json.
+      # Дефолт, а не пустая строка: пустое значение прячет кнопку бота везде на сайте.
+      TG_BOT_URL: "${TG_BOT_URL:-https://t.me/trbrkray_bot}"
       # Профиль владельца в MAX (настоящий, 26.08.2026): пункт виджета связи и
       # строка в футере. Пустая строка спрятала бы их — отсюда дефолт, как у TG_BOT_URL.
       MAX_URL: "${MAX_URL:-https://max.ru/u/f9LHodD0cOL9pyuTyC-yn2A5asXpY0PtxQBm1gQNk2PssX3xaagwiGY3G9U}"
