@@ -53,7 +53,8 @@ public sealed class SeoUrls
             .AppendLine("Disallow: /set-theme")
             .AppendLine("Disallow: /accept-cookies")
             .AppendLine("Disallow: /not-found")
-            .AppendLine("Disallow: /chat");
+            .AppendLine("Disallow: /chat")
+            .AppendLine("Disallow: /manager");
 
         if (_siteUrl is not null)
             sb.AppendLine().AppendLine($"Sitemap: {_siteUrl}/sitemap.xml");

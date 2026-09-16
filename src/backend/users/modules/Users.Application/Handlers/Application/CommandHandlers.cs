@@ -9,3 +9,9 @@ public class ApplicationCreateHandler(
     IServiceProvider serviceProvider)
     : CreateCommandHandler<ApplicationCreateCommand, ApplicationEntity,
         ICommandRepository<ApplicationCreateCommand, ApplicationEntity>>(repository, serviceProvider);
+
+public class ApplicationProcessHandler(
+    ICommandRepository<ApplicationProcessCommand, ApplicationEntity> repository,
+    IServiceProvider serviceProvider)
+    : UpdateCommandHandler<ApplicationProcessCommand, ApplicationEntity,
+        ICommandRepository<ApplicationProcessCommand, ApplicationEntity>>(repository, serviceProvider);

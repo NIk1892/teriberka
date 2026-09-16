@@ -41,8 +41,12 @@ namespace Users
 
             app.MediatePostCommand<ApplicationCreateCommand>("application", "create");
 
+            // Admin-маршруты закрыты на шлюзе политикой Admin; читает и отмечает заявки
+            // страница /manager сайта со служебным токеном API_TOKEN.
             app.MediateGroup("application", Constants.UrlRestrictions.Admin)
-                .List<ApplicationListQuery, ApplicationDto>();
+                .List<ApplicationListQuery, ApplicationDto>()
+                .PagedList<ApplicationPagedListQuery, ApplicationListQuery, ApplicationDto>()
+                .Update<ApplicationProcessCommand>();
         }
     }
 }

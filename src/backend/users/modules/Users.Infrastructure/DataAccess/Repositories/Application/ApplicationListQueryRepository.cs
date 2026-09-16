@@ -15,4 +15,12 @@ public class ApplicationListQueryRepository(
     protected override IQueryable<ApplicationEntity> ProcessSorting(string sorting,
         IQueryable<ApplicationEntity> dbQuery)
         => dbQuery.OrderByDescending(x => x.Audit!.CreatedAt);
+
+    protected override IQueryable<ApplicationEntity> ProcessDbQuery(ApplicationListQuery query,
+        IQueryable<ApplicationEntity> dbQuery) => query.Status switch
+    {
+        ApplicationStatuses.New => dbQuery.Where(x => x.ProcessedAt == null),
+        ApplicationStatuses.Done => dbQuery.Where(x => x.ProcessedAt != null),
+        _ => dbQuery
+    };
 }

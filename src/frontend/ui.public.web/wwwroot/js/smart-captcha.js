@@ -54,6 +54,14 @@
         if (window.smartCaptcha && widgetId === null) init();
     });
 
+    // Отправка без перезагрузки не удалась (apply-submit.js): токен уже потрачен
+    // сервером, следующая попытка должна пройти капчу заново.
+    form.addEventListener("apply:failed", function () {
+        solved = false;
+        if (tokenInput) tokenInput.value = "";
+        if (widgetId !== null) window.smartCaptcha.reset(widgetId);
+    });
+
     // Обработчик на document (bubble): событие доходит сюда ПОСЛЕ валидации
     // form-ui.js, которая висит на самой форме, — невалидная форма до капчи
     // не добирается и токены зря не жгутся. Если виджет не поднялся (блокировщик,

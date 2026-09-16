@@ -14,3 +14,21 @@ public record ApplicationCreateCommand : Command
     /// <summary>Код направления из <see cref="ApplicationRoutes"/>; по умолчанию Териберка.</summary>
     public string? Route { get; set; } = ApplicationRoutes.Teriberka;
 }
+
+/// <summary>
+/// Отметка менеджера на странице заявок (/manager): обработана ли заявка и комментарий.
+/// Правит только эти два поля — имя, телефон и маршрут посетителя менеджер не меняет.
+/// Xmin не проверяется (ApplicationProcessCommandRepository): отметку ставит один
+/// менеджер за раз, а побеждает последняя правка.
+/// </summary>
+public record ApplicationProcessCommand : Command, IUpdateCommand
+{
+    public const int MaxCommentLength = 1000;
+
+    public Guid Id { get; set; }
+    public uint Xmin { get; set; }
+
+    public bool Processed { get; set; }
+
+    public string? ManagerComment { get; set; }
+}

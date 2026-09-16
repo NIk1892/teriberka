@@ -1,0 +1,191 @@
+@page "/manager"
+@layout ManagerLayout
+@attribute [Authorize]
+@using Applications.Contracts
+@using Contracts
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Manager
+@inject IMediator Mediator
+@inject IStringLocalizer<SharedResource> L
+@inject ILogger<ManagerApplicationsView> Logger
+
+@* Страница заявок для менеджеров (владелец, 16.09.2026): запасной путь к заявкам, не
+   зависящий от Telegram и туннеля. Список берётся у шлюза со служебным токеном
+   (API_TOKEN), отметки сохраняет эндпоинт /manager/process — manager.js шлёт их без
+   перезагрузки. Каждая форма работает и без скрипта: POST и возврат к карточке. *@
+
+<PageTitle>Заявки · ТериберкаКрай</PageTitle>
+<PageMeta Noindex />
+
+<header class="mgr-top">
+    <a class="mgr-brand" href="@ManagerAuth.BasePath">
+        <img src="@Assets["favicon.svg"]" alt="" width="28" height="28" />
+        <span>Заявки</span>
+    </a>
+    <form method="post" action="/manager/logout">
+        <AntiforgeryToken />
+        <button class="mgr-link" type="submit">Выйти</button>
+    </form>
+</header>
+
+<main class="mgr-main">
+    <nav class="mgr-tabs" aria-label="Фильтр заявок">
+        <a class="@TabClass(null)" href="@ManagerPaths.List(null, 1)">Новые <span data-count="new">@_newCount</span></a>
+        <a class="@TabClass("done")" href="@ManagerPaths.List("done", 1)">Обработанные <span data-count="done">@_doneCount</span></a>
+        <a class="@TabClass("all")" href="@ManagerPaths.List("all", 1)">Все <span data-count="all">@(_newCount + _doneCount)</span></a>
+    </nav>
+
+    @if (_loadError)
+    {
+        <p class="form-errors" role="alert">
+            Не удалось получить заявки. Обновите страницу через минуту; если не поможет — проверьте API_TOKEN на сервере.
+        </p>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="mgr-empty">@(Show switch { "done" => "Обработанных заявок пока нет.", "all" => "Заявок пока нет.", _ => "Новых заявок нет — всё обработано." })</p>
+    }
+    else
+    {
+        <ul class="mgr-list">
+            @foreach (var item in _items)
+            {
+                var processed = item.ProcessedAt is not null;
+                <li id="app-@item.Id" class="mgr-card mgr-app @(processed ? "is-processed" : "")">
+                    <div class="mgr-app-head">
+                        <time datetime="@item.Audit?.CreatedAt?.ToString("O")">@Moscow(item.Audit?.CreatedAt)</time>
+                        <span class="mgr-route">@RouteTitle(item.Route)</span>
+                        @if (item.TgMessageId is null)
+                        {
+                            <span class="mgr-badge" title="Отбивка в Telegram-канал не ушла: Telegram или туннель были недоступны, либо заявке больше суток">не ушла в Telegram</span>
+                        }
+                    </div>
+
+                    <div class="mgr-app-contact">
+                        <a class="mgr-phone" href="tel:@TelHref(item.Phone)">@item.Phone</a>
+                        @if (!string.IsNullOrWhiteSpace(item.Title))
+                        {
+                            <span class="mgr-name">@item.Title</span>
+                        }
+                    </div>
+
+                    <form class="mgr-process" method="post" action="/manager/process">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="hidden" name="show" value="@Show" />
+                        <input type="hidden" name="page" value="@CurrentPage" />
+                        <label class="field">
+                            <span class="field-label">Комментарий</span>
+                            <textarea name="comment" rows="2" maxlength="@ApplicationProcessCommand.MaxCommentLength"
+                                      placeholder="Например: созвонились, ждут программу на 12 марта">@item.ManagerComment</textarea>
+                        </label>
+                        <div class="mgr-actions">
+                            <span class="mgr-status" aria-live="polite">@(processed ? $"Обработана {Moscow(item.ProcessedAt)}" : "Новая")</span>
+                            @* Обе раскладки кнопок в разметке сразу, видимость — от класса
+                               карточки: manager.js меняет только класс и подпись статуса. *@
+                            <button class="btn mgr-when-new" type="submit" name="processed" value="true">Отметить обработанной</button>
+                            <button class="btn mgr-when-done" type="submit" name="processed" value="true">Сохранить комментарий</button>
+                            <button class="btn-ghost mgr-when-done" type="submit" name="processed" value="false">Вернуть в новые</button>
+                        </div>
+                    </form>
+                </li>
+            }
+        </ul>
+
+        @if (CurrentPage > 1 || CurrentPage * PageSize < _total)
+        {
+            <nav class="mgr-pager" aria-label="Страницы">
+                @if (CurrentPage > 1)
+                {
+                    <a class="btn-ghost" href="@ManagerPaths.List(Show, CurrentPage - 1)">← Новее</a>
+                }
+                <span class="mgr-muted">@((CurrentPage - 1) * PageSize + 1)–@((CurrentPage - 1) * PageSize + _items.Count) из @_total</span>
+                @if (CurrentPage * PageSize < _total)
+                {
+                    <a class="btn-ghost" href="@ManagerPaths.List(Show, CurrentPage + 1)">Старше →</a>
+                }
+            </nav>
+        }
+    }
+</main>
+
+@code {
+    /// <summary>Заявок на странице — столько же, сколько общий конвейер отдаёт за один запрос.</summary>
+    private const int PageSize = 30;
+
+    /// <summary>В Москве с 2014 года нет перехода на летнее время.</summary>
+    private static readonly TimeSpan MoscowOffset = TimeSpan.FromHours(3);
+
+    [SupplyParameterFromQuery(Name = "show")] public string? Show { get; set; }
+
+    [SupplyParameterFromQuery(Name = "page")] public int? Page { get; set; }
+
+    private int CurrentPage => Page is > 1 ? Page.Value : 1;
+
+    private IReadOnlyCollection<ApplicationDto> _items = [];
+    private int _total;
+    private int _newCount;
+    private int _doneCount;
+    private bool _loadError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Счётчики вкладок — Total запросов по одной записи; сама вкладка — страница по 30.
+            _newCount = (await Load(ApplicationStatuses.New, 1, 1)).Total;
+            _doneCount = (await Load(ApplicationStatuses.Done, 1, 1)).Total;
+
+            var page = await Load(Show switch
+            {
+                "done" => ApplicationStatuses.Done,
+                "all" => null,
+                _ => ApplicationStatuses.New
+            }, CurrentPage, PageSize);
+
+            _items = page.Items;
+            _total = page.Total;
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Страница заявок не получила список у шлюза");
+            _loadError = true;
+        }
+    }
+
+    private async Task<PagedList<ApplicationDto>> Load(string? status, int pageIndex, int pageSize)
+        => await Mediator.Send(new ApplicationPagedListQuery
+        {
+            Query = new ApplicationListQuery { Status = status },
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        });
+
+    private string TabClass(string? tab) => (Show is "done" or "all" ? Show : null) == tab ? "is-active" : "";
+
+    private static string Moscow(DateTime? utc)
+    {
+        if (utc is not { } value)
+            return "—";
+
+        var local = value + MoscowOffset;
+        var today = DateTime.UtcNow + MoscowOffset;
+        return local.Year == today.Year ? local.ToString("dd.MM HH:mm") : local.ToString("dd.MM.yyyy HH:mm");
+    }
+
+    /// <summary>Те же названия, что в форме и на карте (MapSpot1..3, RouteCustomTitle).</summary>
+    private string RouteTitle(string? code) => code switch
+    {
+        ApplicationRoutes.Teriberka => L["MapSpot1"].Value,
+        ApplicationRoutes.Lovozero => L["MapSpot2"].Value,
+        ApplicationRoutes.Tersky => L["MapSpot3"].Value,
+        ApplicationRoutes.Custom => L["RouteCustomTitle"].Value,
+        null or "" => "Маршрут не выбран",
+        _ => code
+    };
+
+    /// <summary>Для tel: — только «+» и цифры.</summary>
+    private static string TelHref(string? phone)
+        => new((phone ?? "").Where(c => char.IsDigit(c) || c == '+').ToArray());
+}

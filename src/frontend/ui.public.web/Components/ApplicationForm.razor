@@ -18,18 +18,12 @@
    индивидуального тура сознательно нет. Работает на static SSR: значения приезжают
    через [SupplyParameterFromForm], после успеха — редирект (post-redirect-get).
    Клиентская валидация — form-ui.js (novalidate + подсказки под полями);
-   без JavaScript работают HTML5-атрибуты и серверная проверка. *@
+   без JavaScript работают HTML5-атрибуты и серверная проверка. С JavaScript
+   форму отправляет apply-submit.js — тот же POST fetch'ем, без перезагрузки. *@
 
 @if (Sent)
 {
-    @* тот же id, что у формы: ссылка «Записаться» не должна вести в пустоту,
-       когда вместо формы показана карточка «спасибо» *@
-    <div class="sent-card" id="apply">
-        <span class="sent-icon" aria-hidden="true">✓</span>
-        <h2>@L["SentTitle"]</h2>
-        <p>@L["SentText"]</p>
-        <a href="/">@L["SentAgain"]</a>
-    </div>
+    @SentCard
 }
 else
 {
@@ -54,12 +48,20 @@ else
         <p class="form-errors" role="alert">@_generalError</p>
     }
 
+    @* Карточка «спасибо» заранее, в <template>: apply-submit.js отправляет форму
+       без перезагрузки и при успехе ставит её на место формы. Разметка та же, что
+       у серверной ветки Sent, — один фрагмент на оба пути. *@
+    <template class="apply-sent">@SentCard</template>
+
     @* id="apply" висит на самой форме, а не на секции: ссылки «Записаться» должны
        приводить к первому полю, а не к шапке карточки с фото и подводкой. *@
     <EditForm id="apply" class="form-grid apply-form" Model="Model" FormName="application"
               OnValidSubmit="SubmitAsync"
               data-val-phone="@L["ValPhone"]"
-              data-val-consent="@L["ValConsent"]">
+              data-val-consent="@L["ValConsent"]"
+              data-msg-sending="@L["FormSending"]"
+              data-msg-error="@L["FormErrorGeneric"]"
+              data-msg-too-many="@L["FormErrorTooMany"]">
         <label class="field @FieldClass("Title")" data-field="Title">
             <span class="field-label">@L["FieldName"]</span>
             <InputText @bind-Value="Model.Title" maxlength="255" autocomplete="name"
@@ -288,6 +290,15 @@ else
     private string FieldClass(string field) => HasError(field) ? "field-invalid" : "";
 
     private string ConsentClass() => HasError("Consent") ? "field-invalid" : "";
+
+    // Тот же id, что у формы: ссылка «Записаться» не должна вести в пустоту,
+    // когда вместо формы показана карточка «спасибо».
+    private RenderFragment SentCard => @<div class="sent-card" id="apply">
+        <span class="sent-icon" aria-hidden="true">✓</span>
+        <h2>@L["SentTitle"]</h2>
+        <p>@L["SentText"]</p>
+        <a href="/">@L["SentAgain"]</a>
+    </div>;
 
     private RenderFragment FieldHint(string field) => builder =>
     {

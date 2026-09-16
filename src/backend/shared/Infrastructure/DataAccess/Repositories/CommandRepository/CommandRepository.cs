@@ -33,11 +33,13 @@ public class CommandRepository<TCommand, TEntity>(
 
         BeforeSave(command, entity);
 
+        // Правим существующий Audit, а не подменяем его: новый объект обнулял CreatedAt,
+        // а колонка обязательная — любое обновление падало на NOT NULL.
         if (entity is AuditableEntity auditableEntity)
-            auditableEntity.Audit = new Audit
-            {
-                ModifiedAt = DateTime.UtcNow
-            };
+        {
+            auditableEntity.Audit ??= new Audit();
+            auditableEntity.Audit.ModifiedAt = DateTime.UtcNow;
+        }
 
         if (command is IUpdateCommand updateCmd)
             Context.Entry(entity).Property(nameof(Entity.Xmin)).OriginalValue = updateCmd.Xmin;
@@ -52,7 +54,10 @@ public class CommandRepository<TCommand, TEntity>(
         Context.Entry(entity).Property("IsDeleted").CurrentValue = true;
 
         if (entity is AuditableEntity auditableEntity)
-            auditableEntity.Audit = new Audit { ModifiedAt = DateTime.UtcNow };
+        {
+            auditableEntity.Audit ??= new Audit();
+            auditableEntity.Audit.ModifiedAt = DateTime.UtcNow;
+        }
     }
 
     public virtual async Task SaveField<T>(Guid id, string field, T value)

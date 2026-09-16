@@ -13,6 +13,7 @@ using UI.Public.Web.Components;
 using UI.Public.Web.Features.Analytics;
 using UI.Public.Web.Features.Captcha;
 using UI.Public.Web.Features.Chat;
+using UI.Public.Web.Features.Manager;
 using UI.Public.Web.Features.Media;
 using UI.Public.Web.Features.Seo;
 using UI.Shared;
@@ -91,6 +92,16 @@ builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
+    // Вход на страницу заявок: вместо общей страницы ошибки — обратно на форму входа
+    // с понятным «подождите», иначе менеджер видел «Страница не найдена».
+    options.OnRejected = (context, _) =>
+    {
+        if (context.HttpContext.Request.Path.StartsWithSegments(ManagerAuth.SignInPath))
+            context.HttpContext.Response.Redirect(ManagerAuth.LoginPath + "?locked=true");
+
+        return ValueTask.CompletedTask;
+    };
+
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
     {
         var client = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
@@ -103,6 +114,25 @@ builder.Services.AddRateLimiter(options =>
             return RateLimitPartition.GetFixedWindowLimiter($"chatpoll:{client}", _ => new FixedWindowRateLimiterOptions
             {
                 PermitLimit = 40,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            });
+
+        // Вход на страницу заявок — отдельно и строже: пароль один на всех,
+        // перебирать его не должно быть смысла. Отметки менеджера — своя щедрая
+        // партиция, иначе шестая за пять минут упиралась бы в квоту формы заявки.
+        if (path.StartsWithSegments(ManagerAuth.SignInPath))
+            return RateLimitPartition.GetFixedWindowLimiter($"mgrlogin:{client}", _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(15),
+                QueueLimit = 0
+            });
+
+        if (path.StartsWithSegments("/manager/process"))
+            return RateLimitPartition.GetFixedWindowLimiter($"mgrprocess:{client}", _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
                 Window = TimeSpan.FromMinutes(1),
                 QueueLimit = 0
             });
@@ -133,6 +163,9 @@ builder.Services.AddRateLimiter(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
+// Страница заявок для менеджеров: cookie-вход по MANAGER_PASSWORD (Features/Manager).
+builder.Services.AddManager();
 builder.Services.AddTransient<AuthorizationHeaderHandler>();
 builder.Services.AddScoped(sp =>
 {
@@ -222,6 +255,14 @@ app.Use(async (context, next) =>
     headers["Referrer-Policy"] = "no-referrer";
     headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()";
 
+    // Страница заявок с телефонами клиентов не должна оседать ни в кеше браузера,
+    // ни в промежуточных прокси.
+    if (context.Request.Path.StartsWithSegments(ManagerAuth.BasePath))
+    {
+        headers.CacheControl = "no-store";
+        headers["X-Robots-Tag"] = "noindex, nofollow";
+    }
+
     await next();
 });
 
@@ -254,6 +295,10 @@ app.UseRequestLocalization();
 
 app.UseRateLimiter();
 
+// Аутентификация — только для страницы заявок (cookie с путём /manager); до
+// antiforgery, как требует ASP.NET Core.
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseAntiforgery();
 
 // Переключение языка без JavaScript: GET-ссылка ставит culture-cookie и возвращает
@@ -448,6 +493,9 @@ app.MapGet("/chat/poll", async (HttpContext context, IMediator mediator, ChatSch
 // упирались бы в лимит GET. Без .WithStaticAssets() у MapRazorComponents Assets[...]
 // в компонентах не знает отпечатков и возвращает путь как есть.
 app.MapStaticAssets().DisableRateLimiting();
+
+// Вход, выход и отметки страницы заявок — до MapRazorComponents, как и чат.
+app.MapManager();
 
 app.MapRazorComponents<App>()
     .WithStaticAssets();

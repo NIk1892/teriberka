@@ -156,6 +156,10 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       API_URL: "http://api-gateway:8080"
+      # Страница заявок /manager: пароль менеджеров и служебный токен для admin-маршрутов
+      # шлюза (tools/make-api-token.py). Пустой пароль — страницы нет вовсе.
+      MANAGER_PASSWORD: "${MANAGER_PASSWORD:-}"
+      API_TOKEN: "${API_TOKEN:-}"
       # Настоящий бот владельца (16.09.2026), тот же, что в appsettings.Development.json.
       # Дефолт, а не пустая строка: пустое значение прячет кнопку бота везде на сайте.
       TG_BOT_URL: "${TG_BOT_URL:-https://t.me/trbrkray_bot}"

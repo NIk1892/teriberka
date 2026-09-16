@@ -216,6 +216,35 @@ docker run --rm --network teriberka_default curlimages/curl:8.16.0 -s -o /dev/nu
 3. Этот id → `TG_APPLICATIONS_CHAT_ID` в `.env` → `up -d`. Проверка — заявка с сайта:
    через ~10 с сообщение в канале, в логе users «Заявка … отправлена в Telegram-канал».
 
+## Страница заявок
+
+`https://teriberka-kray.ru/manager` — заявки для менеджеров (вход по общему паролю).
+Нужны два ключа в `.env`:
+
+```bash
+# пароль менеджеров — случайные буквы и цифры от 8 символов, без $ # и кавычек;
+# его и отдать владельцу (в менеджер паролей)
+openssl rand -hex 8
+# служебный токен: ключ и issuer — из окружения работающего шлюза (прод-оверлей их
+# переопределяет, на бою issuer — https://teriberka-kray.ru, а не localhost)
+env=$(docker inspect -f '{{range .Config.Env}}{{println .}}{{end}}' teriberka-api-gateway-1)
+python3 tools/make-api-token.py "$(printf '%s
+' "$env" | sed -n 's/^JWT_KEY=//p')"   "$(printf '%s
+' "$env" | sed -n 's/^JWT_ISSUER=//p')" 3
+```
+
+Проверить токен до записи в `.env` (заголовок через stdin — токен не попадает в список
+процессов; `curlimages/curl` работает не от root и файлы из `/root` не читает):
+`printf 'Authorization: Bearer %s
+' "$TOKEN" | docker run --rm -i --network teriberka_default curlimages/curl:8.16.0 -s -o /dev/null -w '%{http_code}' -H @- http://api-gateway:8080/api/admin/application/list?limit=1` —
+ждём `200` (без заголовка — `401`).
+
+`MANAGER_PASSWORD=…` и `API_TOKEN=…` в `.env`, затем `up -d ui-public`. Проверка: `/manager`
+отправляет на вход, после входа видны заявки. «Не удалось получить заявки» — токен не
+подходит шлюзу (другой `JWT_KEY` или истёк срок). Сменить пароль (ушёл менеджер) —
+поменять `MANAGER_PASSWORD` и `up -d ui-public`: все старые входы перестанут действовать.
+Токен выпущен на 3 года — дата истечения в самом токене (`exp`), перевыпустить заранее.
+
 ## Наблюдение
 
 ```bash

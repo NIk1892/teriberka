@@ -1,3 +1,4 @@
+using Applications.Contracts;
 using Domain;
 using Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ public class ApplicationConfig : AuditableEntityConfig<ApplicationEntity>
 
         builder.Property(e => e.Phone).HasMaxLength(Constatnts.FieldLength.Text64).IsRequired();
         builder.Property(e => e.Route).HasMaxLength(Constatnts.FieldLength.Text32);
+        builder.Property(e => e.ManagerComment).HasMaxLength(ApplicationProcessCommand.MaxCommentLength);
     }
 
     // Без уникального индекса на Title из базового конфига: имя необязательно,

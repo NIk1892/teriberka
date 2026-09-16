@@ -158,6 +158,9 @@
   <data name="SentTitle" xml:space="preserve"><value>Заявка принята!</value></data>
   <data name="SentText" xml:space="preserve"><value>Мы свяжемся с вами по телефону, чтобы подтвердить детали поездки.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Оставить ещё одну заявку</value></data>
+  <data name="FormSending" xml:space="preserve"><value>Отправляем…</value></data>
+  <data name="FormErrorGeneric" xml:space="preserve"><value>Не получилось отправить заявку. Попробуйте ещё раз — или свяжитесь с нами любым способом из подвала сайта.</value></data>
+  <data name="FormErrorTooMany" xml:space="preserve"><value>Слишком много заявок подряд. Подождите пару минут и попробуйте снова.</value></data>
 
   <data name="FooterLine" xml:space="preserve"><value>Мурманск · Мурманская область · Кольский полуостров</value></data>
   <data name="FooterSlogan" xml:space="preserve"><value>Туры по Кольскому полуострову: Териберка, горные тундры и Терский берег. Маленькие группы, живой Север и никакой суеты.</value></data>
@@ -212,6 +215,7 @@
   <data name="ScrollBottom" xml:space="preserve"><value>В конец страницы</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Связаться с нами</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
+  <data name="ContactTeaserCta" xml:space="preserve"><value>Свяжитесь с нами</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Позвоните нам</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>Чат с менеджером</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем за несколько минут</value></data>

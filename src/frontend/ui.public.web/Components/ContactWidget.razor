@@ -39,7 +39,10 @@ else if (_channels.Count > 1)
                Лежит внутри summary, поэтому виден в закрытом состоянии, кликается
                вместе с кнопкой и не требует JavaScript. Для скринридера скрыт —
                имя кнопке уже даёт aria-label. *@
-            <span class="contact-teaser" aria-hidden="true">@L["ContactTeaser"]</span>
+            <span class="contact-teaser" aria-hidden="true">
+                @L["ContactTeaser"]
+                <span class="contact-teaser-cta">@L["ContactTeaserCta"]</span>
+            </span>
             <span class="contact-fab-face">
                 <img class="contact-fab-photo" src="@Assets["img/manager.webp"]" alt="" aria-hidden="true"
                      width="50" height="50" decoding="async" />

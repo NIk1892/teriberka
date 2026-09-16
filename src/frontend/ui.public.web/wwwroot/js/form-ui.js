@@ -27,24 +27,14 @@
                 return;
 
             e.preventDefault();
-            errors.forEach(function (item) {
-                showError(form, item.field, item.message);
-            });
+            showErrors(form, errors);
+        });
 
-            // Прокручиваемся к первому полю с ошибкой (владелец, 28.08.2026):
-            // кнопка отправки внизу формы, и без скролла клик выглядел «не
-            // работающим» — подсказки оставались за экраном. Скроллим контейнер
-            // поля (block: center — подсказка под полем тоже попадает в кадр),
-            // фокус ставим с preventScroll, чтобы он не дёргал плавный ход.
-            var first = form.querySelector(".field-invalid input");
-            if (first) {
-                var box = first.closest("[data-field]") || first;
-                box.scrollIntoView({
-                    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-                    block: "center",
-                });
-                first.focus({ preventScroll: true });
-            }
+        // Ошибки, которые вернул сервер при отправке без перезагрузки (apply-submit.js):
+        // тот же вид подсказок и тот же подкат к первому полю.
+        form.addEventListener("apply:errors", function (e) {
+            clearErrors(form);
+            showErrors(form, e.detail || []);
         });
 
         // ошибка снимается, как только пользователь начал исправлять поле
@@ -55,6 +45,27 @@
                     clearFieldError(field);
             });
         });
+    }
+
+    function showErrors(form, errors) {
+        errors.forEach(function (item) {
+            showError(form, item.field, item.message);
+        });
+
+        // Прокручиваемся к первому полю с ошибкой (владелец, 28.08.2026):
+        // кнопка отправки внизу формы, и без скролла клик выглядел «не
+        // работающим» — подсказки оставались за экраном. Скроллим контейнер
+        // поля (block: center — подсказка под полем тоже попадает в кадр),
+        // фокус ставим с preventScroll, чтобы он не дёргал плавный ход.
+        var first = form.querySelector(".field-invalid input");
+        if (first) {
+            var box = first.closest("[data-field]") || first;
+            box.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                block: "center",
+            });
+            first.focus({ preventScroll: true });
+        }
     }
 
     function collectErrors(form, msgs) {

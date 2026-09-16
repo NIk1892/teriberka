@@ -158,6 +158,9 @@
   <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
   <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
   <data name="SentAgain" xml:space="preserve"><value>Send another request</value></data>
+  <data name="FormSending" xml:space="preserve"><value>Sending…</value></data>
+  <data name="FormErrorGeneric" xml:space="preserve"><value>Couldn't send your request. Please try again — or reach us any way listed at the bottom of the page.</value></data>
+  <data name="FormErrorTooMany" xml:space="preserve"><value>Too many requests in a row. Please wait a couple of minutes and try again.</value></data>
 
   <data name="FooterLine" xml:space="preserve"><value>Murmansk · Murmansk region · Kola Peninsula</value></data>
   <data name="FooterSlogan" xml:space="preserve"><value>Tours across the Kola Peninsula: Teriberka, mountain tundras and the Tersky Coast. Small groups, the real North, no rush.</value></data>
@@ -212,6 +215,7 @@
   <data name="ScrollBottom" xml:space="preserve"><value>To the bottom</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>Contact us</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>Any questions?</value></data>
+  <data name="ContactTeaserCta" xml:space="preserve"><value>Get in touch</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Call us</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>Chat with our manager</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>We usually reply within a few minutes</value></data>

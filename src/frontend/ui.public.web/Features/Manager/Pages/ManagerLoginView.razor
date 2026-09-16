@@ -1,0 +1,58 @@
+@page "/manager/login"
+@layout ManagerLayout
+@using UI.Public.Web.Features.Manager
+@inject ManagerAuth Auth
+@inject NavigationManager Navigation
+
+@* Вход на страницу заявок. Форма уходит обычным POST на эндпоинт /manager/signin
+   (ManagerEndpoints): cookie ставится только из HTTP-обработчика. Тексты служебной
+   страницы — по-русски прямо здесь, без resx: ей пользуются только менеджеры. *@
+
+<PageTitle>Вход · Заявки ТериберкаКрай</PageTitle>
+<PageMeta Noindex />
+
+<main class="mgr-login">
+    <form class="mgr-card mgr-login-form" method="post" action="@ManagerAuth.SignInPath">
+        <AntiforgeryToken />
+        <img class="mgr-logo" src="@Assets["favicon.svg"]" alt="" width="48" height="48" />
+        <h1>Заявки</h1>
+        <p class="mgr-muted">ТериберкаКрай · для менеджеров</p>
+
+        @if (Locked)
+        {
+            <p class="form-errors" role="alert">Слишком много попыток входа. Подождите 15 минут.</p>
+        }
+        else if (Error)
+        {
+            <p class="form-errors" role="alert">Неверный пароль</p>
+        }
+
+        <label class="field">
+            <span class="field-label">Пароль</span>
+            <input type="password" name="password" autocomplete="current-password" required autofocus />
+        </label>
+        <button class="btn" type="submit">Войти</button>
+    </form>
+</main>
+
+@code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromQuery(Name = "error")] public bool Error { get; set; }
+
+    [SupplyParameterFromQuery(Name = "locked")] public bool Locked { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Раздел выключен (нет MANAGER_PASSWORD) — честный 404, а не форма без смысла.
+        if (!Auth.Enabled)
+        {
+            Navigation.NotFound();
+            return;
+        }
+
+        // Уже вошли — сразу к заявкам.
+        if (HttpContext?.User.Identity?.IsAuthenticated == true && Auth.IsCurrent(HttpContext.User))
+            Navigation.NavigateTo(ManagerAuth.BasePath);
+    }
+}

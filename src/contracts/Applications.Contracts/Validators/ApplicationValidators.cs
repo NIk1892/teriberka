@@ -28,3 +28,20 @@ public class ApplicationCreateCommandValidator : CreateCommandValidator<Applicat
             .WithMessage("Выберите маршрут из списка");
     }
 }
+
+// Наследник CreateCommandValidator, а не UpdateCommandValidator: у последнего конструктор
+// вызывает Validate() второй раз, и каждое правило срабатывало бы дважды.
+public class ApplicationProcessCommandValidator : CreateCommandValidator<ApplicationProcessCommand>
+{
+    protected override bool TitleRequired => false;
+
+    protected override void Validate()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("Не указана заявка");
+
+        RuleFor(x => x.ManagerComment)
+            .MaximumLength(ApplicationProcessCommand.MaxCommentLength)
+            .WithMessage($"Комментарий — не длиннее {ApplicationProcessCommand.MaxCommentLength} символов");
+    }
+}

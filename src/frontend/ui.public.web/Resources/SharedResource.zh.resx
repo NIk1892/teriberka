@@ -158,6 +158,9 @@
   <data name="SentTitle" xml:space="preserve"><value>申请已收到！</value></data>
   <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
   <data name="SentAgain" xml:space="preserve"><value>再提交一份申请</value></data>
+  <data name="FormSending" xml:space="preserve"><value>正在提交…</value></data>
+  <data name="FormErrorGeneric" xml:space="preserve"><value>申请提交失败，请重试，或通过页面底部的任一方式联系我们。</value></data>
+  <data name="FormErrorTooMany" xml:space="preserve"><value>提交过于频繁，请等待几分钟后再试。</value></data>
 
   <data name="FooterLine" xml:space="preserve"><value>摩尔曼斯克 · 摩尔曼斯克州 · 科拉半岛</value></data>
   <data name="FooterSlogan" xml:space="preserve"><value>科拉半岛旅行团：捷里别尔卡、山地苔原与捷尔斯基海岸。小团出行，真实的北方，从容不迫。</value></data>
@@ -212,6 +215,7 @@
   <data name="ScrollBottom" xml:space="preserve"><value>前往底部</value></data>
   <data name="ContactLabel" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
+  <data name="ContactTeaserCta" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>给我们打电话</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>与客服经理对话</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>我们通常几分钟内回复</value></data>

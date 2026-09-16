@@ -1,0 +1,15 @@
+@inherits LayoutComponentBase
+
+@* Служебная раскладка страницы заявок (/manager). Без шапки сайта, виджета связи,
+   чата, эффектов и — главное — без Яндекс.Метрики: вебвизор записал бы телефоны
+   клиентов. Тема и токены — из общего app.css (его подключает App.razor), своё
+   оформление — в manager.css, который посетителям сайта не грузится. *@
+@* Стиль — обычным <link> в разметке, а не через HeadContent: HeadOutlet выводит только
+   последний отрисованный HeadContent, и PageMeta страницы его перекрывал. *@
+<link rel="stylesheet" href="@Assets["css/manager.css"]" />
+
+<div class="mgr">
+    @Body
+</div>
+
+<script src="@Assets["js/manager.js"]" defer></script>
