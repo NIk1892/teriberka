@@ -48,8 +48,10 @@ public sealed class ChatNotificationDispatcher(
             await foreach (var messageId in queue.ReadAllAsync(stoppingToken))
                 await SafeDeliverAsync(messageId, stoppingToken);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
         {
+            // Штатная остановка сервиса. Фильтр по токену обязателен: любая другая отмена
+            // (таймаут) без него молча завершила бы чтение очереди до рестарта.
         }
 
         await sweeping;
@@ -67,24 +69,39 @@ public sealed class ChatNotificationDispatcher(
         {
             while (await timer.WaitForNextTickAsync(stoppingToken))
             {
-                using var scope = scopeFactory.CreateScope();
-                var repository = scope.ServiceProvider.GetRequiredService<IChatRepository>();
-
-                var pending = await repository.FindUndeliveredMessageIdsAsync(
-                    DateTime.UtcNow - SweepDepth, SweepBatch, stoppingToken);
-
-                if (pending.Count == 0)
-                    continue;
-
-                logger.LogInformation("Подметание outbox'а: {Count} недоставленных сообщений", pending.Count);
-
-                foreach (var messageId in pending)
-                    await SafeDeliverAsync(messageId, stoppingToken);
+                try
+                {
+                    await SweepOnceAsync(stoppingToken);
+                }
+                catch (Exception e) when (!stoppingToken.IsCancellationRequested)
+                {
+                    // Без этого одна ошибка базы (или таймаут) молча гасила бы подметание
+                    // до рестарта сервиса.
+                    logger.LogWarning(e, "Подметание outbox'а не удалось, повтор через {Interval}", SweepInterval);
+                }
             }
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
         {
+            // Штатная остановка сервиса — таймер отменён.
         }
+    }
+
+    private async Task SweepOnceAsync(CancellationToken stoppingToken)
+    {
+        using var scope = scopeFactory.CreateScope();
+        var repository = scope.ServiceProvider.GetRequiredService<IChatRepository>();
+
+        var pending = await repository.FindUndeliveredMessageIdsAsync(
+            DateTime.UtcNow - SweepDepth, SweepBatch, stoppingToken);
+
+        if (pending.Count == 0)
+            return;
+
+        logger.LogInformation("Подметание outbox'а: {Count} недоставленных сообщений", pending.Count);
+
+        foreach (var messageId in pending)
+            await SafeDeliverAsync(messageId, stoppingToken);
     }
 
     private async Task SafeDeliverAsync(Guid messageId, CancellationToken cancellationToken)
@@ -93,8 +110,10 @@ public sealed class ChatNotificationDispatcher(
         {
             await DeliverAsync(messageId, cancellationToken);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
+            // Остановка сервиса — пробрасываем. Отмена по таймауту сюда не попадает и
+            // уходит в общий catch: сообщение останется в outbox'е.
             throw;
         }
         catch (Exception e)
@@ -129,9 +148,13 @@ public sealed class ChatNotificationDispatcher(
 
         if (session.TopicMessageId is null)
         {
+            // Язык и адрес страницы приходят от посетителя, а шапка уходит в parseMode Html:
+            // «&» в адресе (/?a=1&b=2) без экранирования Telegram отвергает, и тогда не уходит
+            // ни шапка, ни одно сообщение диалога.
             var header = await client.SendMessage(
                 chatId,
-                BotTexts.SessionHeader(bot.AdminLanguage, ShortId(session.Id), session.Culture, session.Page),
+                BotTexts.SessionHeader(bot.AdminLanguage, ShortId(session.Id),
+                    HtmlOrNull(session.Culture), HtmlOrNull(session.Page)),
                 parseMode: ParseMode.Html,
                 linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true },
                 cancellationToken: cancellationToken);
@@ -180,4 +203,6 @@ public sealed class ChatNotificationDispatcher(
 
         return WebUtility.HtmlEncode(value);
     }
+
+    private static string? HtmlOrNull(string? value) => value is null ? null : WebUtility.HtmlEncode(value);
 }

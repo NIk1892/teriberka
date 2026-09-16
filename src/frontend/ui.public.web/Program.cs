@@ -482,7 +482,9 @@ app.MapGet("/chat/poll", async (HttpContext context, IMediator mediator, ChatSch
         {
             o = message.Ordinal,
             d = (int)message.Direction,
-            t = message.Text
+            t = message.Text,
+            // доставлено в Telegram-группу менеджеров — «✓ Доставлено менеджеру» под сообщением
+            v = message.Delivered
         })
     });
 });

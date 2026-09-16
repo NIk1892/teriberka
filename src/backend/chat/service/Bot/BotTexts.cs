@@ -12,21 +12,25 @@ namespace Chat.Bot;
 /// </summary>
 public static class BotTexts
 {
+    /// <summary>
+    /// Приветствие в личке. Переписываться здесь бот пока не умеет (бронирование через бота —
+    /// следующий этап), поэтому зовёт в чат на сайте: там отвечает менеджер.
+    /// </summary>
     public static string Greeting(string? languageCode) => Lang(languageCode) switch
     {
-        "ru" => "Привет! Я бот «Кольского Севера» — туры в Териберку, Ловозерские тундры и на Терский берег.\n\n"
-                + "Скоро здесь можно будет оставить заявку прямо в чате, а пока вся информация и форма записи — на сайте.",
-        "zh" => "你好！我是「科拉之北」的机器人——捷里别尔卡、洛沃泽罗苔原和捷尔斯基海岸之旅。\n\n"
-                + "不久后即可直接在聊天中报名，目前请在网站上查看行程并填写申请表。",
-        _ => "Hi! I'm the Kola North bot — tours to Teriberka, the Lovozero tundras and the Tersky coast.\n\n"
-             + "Soon you'll be able to book right here in the chat; for now all the details and the booking form are on the website.",
+        "ru" => "Здравствуйте! Я бот «ТериберкаКрай» — туры в Териберку, Ловозерские тундры и на Терский берег.\n\n"
+                + "Задайте вопрос в чате на сайте — менеджер ответит там же. Скоро записаться на тур можно будет прямо здесь.",
+        "zh" => "您好！我是「捷里别尔卡之境」的机器人——捷里别尔卡、洛沃泽罗苔原和捷尔斯基海岸之旅。\n\n"
+                + "请在网站聊天中提问，客服经理会在那里回复。不久后即可直接在这里报名参加旅行。",
+        _ => "Hello! I'm the TeriberkaKray bot — tours to Teriberka, the Lovozero tundras and the Tersky coast.\n\n"
+             + "Ask your question in the chat on our website — a manager will answer right there. Soon you'll be able to book a tour right here.",
     };
 
     public static string OpenSiteButton(string? languageCode) => Lang(languageCode) switch
     {
-        "ru" => "Открыть сайт",
-        "zh" => "打开网站",
-        _ => "Open the website",
+        "ru" => "Открыть чат на сайте",
+        "zh" => "打开网站聊天",
+        _ => "Open the website chat",
     };
 
     /// <summary>
@@ -67,6 +71,22 @@ public static class BotTexts
         "zh" => "目前只能向访客转发文本消息。",
         "en" => "For now I can only pass plain text on to the visitor.",
         _ => "Пока умею передавать посетителю только текст.",
+    };
+
+    /// <summary>Ответ длиннее лимита чата: не отправлен, иначе менеджер думал бы, что посетитель его видит.</summary>
+    public static string ReplyTooLong(string? adminLang, int maxLength) => Lang(adminLang) switch
+    {
+        "zh" => $"未发送：每条回复最多 {maxLength} 个字符。请拆分为几条消息，每条都使用「回复」。",
+        "en" => $"Not sent: a reply to the visitor can be at most {maxLength} characters. Split it into several messages, each as a reply.",
+        _ => $"Не отправлено: за раз посетителю можно передать не больше {maxLength} символов. Разбейте ответ на несколько сообщений, каждое — reply.",
+    };
+
+    /// <summary>Ответ не сохранился (сбой базы или валидации) — повторить может только сам менеджер.</summary>
+    public static string ReplyNotSaved(string? adminLang) => Lang(adminLang) switch
+    {
+        "zh" => "此回复未能送达访客——请再次使用「回复」发送。",
+        "en" => "This reply didn't reach the visitor — please send it again as a reply.",
+        _ => "Ответ не дошёл до посетителя — отправьте его ещё раз (reply).",
     };
 
     private static string Lang(string? languageCode)

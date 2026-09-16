@@ -54,7 +54,12 @@ public sealed class SeoUrls
             .AppendLine("Disallow: /accept-cookies")
             .AppendLine("Disallow: /not-found")
             .AppendLine("Disallow: /chat")
-            .AppendLine("Disallow: /manager");
+            .AppendLine("Disallow: /manager")
+            // Директива Яндекса (Google её игнорирует): ?sent=true (после заявки),
+            // ?tour=custom и ?chat=open (виджет связи на каждой странице) не меняют
+            // индексируемое содержимое — canonical их и так склеивает, а Clean-param
+            // не даёт роботу тратить на эти дубли обход.
+            .AppendLine("Clean-param: sent&tour&chat /");
 
         if (_siteUrl is not null)
             sb.AppendLine().AppendLine($"Sitemap: {_siteUrl}/sitemap.xml");

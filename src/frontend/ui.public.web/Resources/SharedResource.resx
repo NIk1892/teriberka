@@ -94,8 +94,8 @@
   <data name="ReviewsSubtitle" xml:space="preserve"><value>Что говорят те, кто уже съездил с нами на Север.</value></data>
   <data name="GuestsAlt" xml:space="preserve"><value>Фото из наших туров</value></data>
   <data name="CaptchaFailed" xml:space="preserve"><value>Не получилось подтвердить, что вы не робот. Проверьте, что JavaScript включён, и попробуйте ещё раз — или напишите нам любым способом из подвала сайта.</value></data>
-  <data name="CaptchaNote" xml:space="preserve"><value>Форму от спама защищает Яндекс SmartCaptcha —</value></data>
-  <data name="CaptchaNoteLink" xml:space="preserve"><value>условия обработки данных</value></data>
+  <data name="CaptchaNote" xml:space="preserve"><value>Защищено Яндекс SmartCaptcha ·</value></data>
+  <data name="CaptchaNoteLink" xml:space="preserve"><value>обработка данных</value></data>
   <data name="CaptchaNoteUrl" xml:space="preserve"><value>https://yandex.ru/legal/smartcaptcha_notice/</value></data>
   <data name="Review1Name" xml:space="preserve"><value>Анна</value></data>
   <data name="Review1From" xml:space="preserve"><value>Москва</value></data>
@@ -218,12 +218,14 @@
   <data name="ContactTeaserCta" xml:space="preserve"><value>Свяжитесь с нами</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Позвоните нам</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>Чат с менеджером</value></data>
-  <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем за несколько минут</value></data>
+  <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем в течение получаса</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>Сейчас офлайн — ответим утром</value></data>
   <data name="ChatClose" xml:space="preserve"><value>Закрыть чат</value></data>
   <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — менеджер ответит здесь же.</value></data>
   <data name="ChatYou" xml:space="preserve"><value>Вы</value></data>
   <data name="ChatGuide" xml:space="preserve"><value>Менеджер</value></data>
+  <data name="ChatStatusSent" xml:space="preserve"><value>Отправлено</value></data>
+  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ Доставлено менеджеру</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>Спросите о туре…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>Отправить</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>Обновить переписку</value></data>
@@ -406,16 +408,16 @@
   <data name="FooterLegal" xml:space="preserve"><value>Диденко Сергей Денисович · ИНН 511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>Политика конфиденциальности</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Политика конфиденциальности</value></data>
-  <data name="PrivacyLead" xml:space="preserve"><value>Эта страница описывает, какие данные мы получаем из формы заявки и что с ними делаем.</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>Эта страница описывает, какие данные мы получаем из формы заявки и чата на сайте и что с ними делаем.</value></data>
   <data name="PrivacyDraftNote" xml:space="preserve"><value>Реквизиты оператора здесь настоящие, а сам текст политики — черновик: перед запуском сайта он будет заменён на полноценный.</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>Какие данные мы собираем</value></data>
   <data name="PrivacyS1Text" xml:space="preserve"><value>Имя (необязательно), телефон и выбранный маршрут — только то, что вы сами указываете в форме заявки, плюс сообщения, которые вы пишете в чат на сайте. Файлы cookie используются для запоминания темы и языка сайта и диалога в чате.</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>Зачем они нужны</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>Только чтобы связаться с вами по заявке: подтвердить дату, рассчитать стоимость и ответить на вопросы. Рассылок и рекламы нет.</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>Кто имеет доступ</value></data>
-  <data name="PrivacyS3Text" xml:space="preserve"><value>Заявки видит только оператор туров. Мы не передаём данные третьим лицам и не публикуем их.</value></data>
+  <data name="PrivacyS3Text" xml:space="preserve"><value>Заявки и сообщения из чата видят только менеджеры оператора туров. Мы не передаём данные третьим лицам и не публикуем их.</value></data>
   <data name="PrivacyS4Title" xml:space="preserve"><value>Хранение и удаление</value></data>
-  <data name="PrivacyS4Text" xml:space="preserve"><value>Заявка хранится, пока актуальна поездка. Чтобы удалить свои данные, напишите или позвоните по любому контакту из подвала сайта — удалим без лишних вопросов.</value></data>
+  <data name="PrivacyS4Text" xml:space="preserve"><value>Заявка хранится, пока актуальна поездка. Переписка в чате на сайте удаляется автоматически через 90 дней. Чтобы удалить свои данные, напишите или позвоните по любому контакту из подвала сайта — удалим без лишних вопросов.</value></data>
   <data name="PrivacyS5Title" xml:space="preserve"><value>Отзывы и фотографии гостей</value></data>
   <data name="PrivacyS5Text" xml:space="preserve"><value>Отзывы, имена, города и фотографии гостей публикуются на сайте только с их согласия. Согласие можно отозвать в любой момент: напишите нам — уберём отзыв или фото с сайта без лишних вопросов.</value></data>
   <data name="PrivacyS1Analytics" xml:space="preserve"><value> Кроме того, сайт использует Яндекс.Метрику: она ставит собственные файлы cookie и собирает обезличенную статистику посещений — см. раздел «Аналитика».</value></data>

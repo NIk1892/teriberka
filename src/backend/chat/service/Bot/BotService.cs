@@ -1,5 +1,6 @@
 using Chat.Application.Abstract;
 using Chat.Contracts;
+using Domain;
 using Mediator;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
@@ -36,6 +37,9 @@ public sealed class BotService(
     /// </summary>
     private static readonly TimeSpan GreetingFreshness = TimeSpan.FromMinutes(10);
 
+    /// <summary>Потолок паузы между попытками достучаться до Telegram при старте.</summary>
+    private static readonly TimeSpan MaxStartBackoff = TimeSpan.FromMinutes(5);
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         if (bot.Client is not { } client)
@@ -51,20 +55,8 @@ public sealed class BotService(
             return;
         }
 
-        try
-        {
-            var me = await client.GetMe(stoppingToken);
-            logger.LogInformation("Telegram-бот @{Username} запущен, кнопка ведёт на {SiteUrl}", me.Username, siteUrl);
-        }
-        catch (OperationCanceledException)
-        {
+        if (!await WaitForTelegramAsync(client, siteUrl, stoppingToken))
             return;
-        }
-        catch (ApiRequestException e)
-        {
-            logger.LogError(e, "Telegram отверг токен бота — проверь TG_BOT_TOKEN; бот выключен");
-            return;
-        }
 
         var options = new ReceiverOptions
         {
@@ -83,6 +75,51 @@ public sealed class BotService(
             OnError,
             options,
             stoppingToken);
+    }
+
+    /// <summary>
+    /// Проверка токена при старте. Отказ Telegram (401/404) выключает бота. Сетевой сбой —
+    /// лёг туннель или сам Telegram — не должен ронять chat-сервис: исключение из
+    /// ExecuteAsync останавливает хост, контейнер уходит в рестарты, и чат на сайте
+    /// перестаёт принимать сообщения. Поэтому ждём связь с растущей паузой.
+    /// </summary>
+    private async Task<bool> WaitForTelegramAsync(ITelegramBotClient client, string siteUrl, CancellationToken stoppingToken)
+    {
+        var delay = TimeSpan.FromSeconds(5);
+
+        while (true)
+        {
+            try
+            {
+                var me = await client.GetMe(stoppingToken);
+                logger.LogInformation("Telegram-бот @{Username} запущен, кнопка ведёт на {SiteUrl}", me.Username, siteUrl);
+                return true;
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+            {
+                return false;
+            }
+            catch (ApiRequestException e) when (e.ErrorCode is 401 or 404)
+            {
+                logger.LogError(e, "Telegram отверг токен бота — проверь TG_BOT_TOKEN; бот выключен");
+                return false;
+            }
+            catch (Exception e)
+            {
+                logger.LogWarning(e, "Telegram недоступен при старте бота (туннель?) — повтор через {Delay}", delay);
+            }
+
+            try
+            {
+                await Task.Delay(delay, stoppingToken);
+            }
+            catch (OperationCanceledException)
+            {
+                return false;
+            }
+
+            delay = delay * 2 > MaxStartBackoff ? MaxStartBackoff : delay * 2;
+        }
     }
 
     private async Task OnUpdate(ITelegramBotClient client, Update update, string siteUrl, CancellationToken ct)
@@ -121,8 +158,11 @@ public sealed class BotService(
         }
 
         var lang = message.From?.LanguageCode;
+
+        // Переписываться в личке бот пока не умеет (бронирование через бота — позже),
+        // поэтому ведёт сразу в чат на сайте: ?chat=open открывает панель и без JavaScript.
         var keyboard = new InlineKeyboardMarkup(
-            InlineKeyboardButton.WithUrl(BotTexts.OpenSiteButton(lang), siteUrl));
+            InlineKeyboardButton.WithUrl(BotTexts.OpenSiteButton(lang), $"{siteUrl.TrimEnd('/')}/?chat=open"));
 
         await client.SendMessage(message.Chat, BotTexts.Greeting(lang), replyMarkup: keyboard, cancellationToken: ct);
 
@@ -173,19 +213,42 @@ public sealed class BotService(
             return;
         }
 
-        // Через Mediator, а не напрямую в репозиторий: так работают ValidatorBehavior,
-        // общий CommitAsync и защита от повторной доставки апдейта.
-        var result = await mediator.Send(new ChatAdminReplyCommand
+        // Отказ не должен быть молчаливым: без подсказки менеджер уверен, что ответ ушёл.
+        // Длину проверяем сами, чтобы сказать, что именно не так, — валидатор команды
+        // отверг бы такой ответ безлико.
+        if (text.Length > ChatLimits.MaxTextLength)
         {
-            SessionId = sessionId.Value,
-            Text = text,
-            TgMessageId = message.MessageId
-        }, ct);
+            await ReplyToManagerAsync(client, message, BotTexts.ReplyTooLong(bot.AdminLanguage, ChatLimits.MaxTextLength), ct);
+            return;
+        }
+
+        ExecuteRequestResult result;
+
+        try
+        {
+            // Через Mediator, а не напрямую в репозиторий: так работают ValidatorBehavior,
+            // общий CommitAsync и защита от повторной доставки апдейта.
+            result = await mediator.Send(new ChatAdminReplyCommand
+            {
+                SessionId = sessionId.Value,
+                Text = text,
+                TgMessageId = message.MessageId
+            }, ct);
+        }
+        catch (Exception e) when (!ct.IsCancellationRequested)
+        {
+            // Упавший обработчик апдейта Telegram.Bot считает обработанным — повтора не будет,
+            // поэтому о сбое (например, базы) менеджер должен узнать сразу.
+            logger.LogWarning(e, "Ответ гида в диалог {SessionId} не сохранён", sessionId);
+            await ReplyToManagerAsync(client, message, BotTexts.ReplyNotSaved(bot.AdminLanguage), ct);
+            return;
+        }
 
         if (!result.IsSuccess)
         {
             logger.LogWarning("Ответ гида в диалог {SessionId} не сохранён: {StatusCode}",
                 sessionId, result.StatusCode);
+            await ReplyToManagerAsync(client, message, BotTexts.ReplyNotSaved(bot.AdminLanguage), ct);
             return;
         }
 
@@ -203,6 +266,12 @@ public sealed class BotService(
 
         logger.LogInformation("Ответ гида сохранён в диалог {SessionId}", sessionId);
     }
+
+    /// <summary>Служебный ответ менеджеру reply на его сообщение — видно, к какому ответу он относится.</summary>
+    private static Task ReplyToManagerAsync(ITelegramBotClient client, Message message, string text, CancellationToken ct) =>
+        client.SendMessage(message.Chat, text,
+            replyParameters: new ReplyParameters { MessageId = message.MessageId, AllowSendingWithoutReply = true },
+            cancellationToken: ct);
 
     private async Task OnError(ITelegramBotClient client, Exception exception, CancellationToken ct)
     {

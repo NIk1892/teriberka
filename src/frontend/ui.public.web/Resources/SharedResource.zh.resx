@@ -94,8 +94,8 @@
   <data name="ReviewsSubtitle" xml:space="preserve"><value>听听已经跟我们去过北方的旅客怎么说。</value></data>
   <data name="GuestsAlt" xml:space="preserve"><value>旅行团实拍照片</value></data>
   <data name="CaptchaFailed" xml:space="preserve"><value>未能确认您不是机器人。请确认已启用 JavaScript 后重试，或通过页脚的任一联系方式与我们联系。</value></data>
-  <data name="CaptchaNote" xml:space="preserve"><value>本表单由 Yandex SmartCaptcha 提供反垃圾保护 —</value></data>
-  <data name="CaptchaNoteLink" xml:space="preserve"><value>数据处理条款</value></data>
+  <data name="CaptchaNote" xml:space="preserve"><value>由 Yandex SmartCaptcha 保护 ·</value></data>
+  <data name="CaptchaNoteLink" xml:space="preserve"><value>数据处理</value></data>
   <data name="CaptchaNoteUrl" xml:space="preserve"><value>https://yandex.com/legal/smartcaptcha_notice/</value></data>
   <data name="Review1Name" xml:space="preserve"><value>安娜</value></data>
   <data name="Review1From" xml:space="preserve"><value>莫斯科</value></data>
@@ -218,12 +218,14 @@
   <data name="ContactTeaserCta" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>给我们打电话</value></data>
   <data name="ChatTitle" xml:space="preserve"><value>与客服经理对话</value></data>
-  <data name="ChatOnline" xml:space="preserve"><value>我们通常几分钟内回复</value></data>
+  <data name="ChatOnline" xml:space="preserve"><value>我们通常在半小时内回复</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>目前离线，我们早上回复</value></data>
   <data name="ChatClose" xml:space="preserve"><value>关闭聊天</value></data>
   <data name="ChatEmpty" xml:space="preserve"><value>提出问题，客服经理会在这里回复。</value></data>
   <data name="ChatYou" xml:space="preserve"><value>您</value></data>
   <data name="ChatGuide" xml:space="preserve"><value>客服经理</value></data>
+  <data name="ChatStatusSent" xml:space="preserve"><value>已发送</value></data>
+  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ 已送达客服经理</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>咨询行程…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>发送</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>刷新对话</value></data>
@@ -406,16 +408,16 @@
   <data name="FooterLegal" xml:space="preserve"><value>Sergey Denisovich Didenko · 纳税人识别号（INN）511100738876</value></data>
   <data name="FooterPrivacyLink" xml:space="preserve"><value>隐私政策</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>隐私政策</value></data>
-  <data name="PrivacyLead" xml:space="preserve"><value>本页说明我们从预订表单收到哪些数据，以及如何处理这些数据。</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>本页说明我们从预订表单和网站聊天收到哪些数据，以及如何处理这些数据。</value></data>
   <data name="PrivacyDraftNote" xml:space="preserve"><value>此处的经营者信息为真实信息，但政策文本仍是草稿：网站正式上线前将替换为完整版本。</value></data>
   <data name="PrivacyS1Title" xml:space="preserve"><value>我们收集哪些数据</value></data>
   <data name="PrivacyS1Text" xml:space="preserve"><value>姓名（可选）、电话号码和所选路线——仅限您在申请表中自行填写的内容，以及您在本站聊天中发送的消息。Cookie 用于记住主题、语言和您的聊天会话。</value></data>
   <data name="PrivacyS2Title" xml:space="preserve"><value>用途</value></data>
   <data name="PrivacyS2Text" xml:space="preserve"><value>仅用于就您的申请与您联系：确认日期、计算价格并解答问题。没有邮件推送，也没有广告。</value></data>
   <data name="PrivacyS3Title" xml:space="preserve"><value>谁可以访问</value></data>
-  <data name="PrivacyS3Text" xml:space="preserve"><value>申请仅由旅行团经营者查看。我们不会向第三方提供或公开您的数据。</value></data>
+  <data name="PrivacyS3Text" xml:space="preserve"><value>申请和聊天消息仅由旅行团经营者的客服经理查看。我们不会向第三方提供或公开您的数据。</value></data>
   <data name="PrivacyS4Title" xml:space="preserve"><value>保存与删除</value></data>
-  <data name="PrivacyS4Text" xml:space="preserve"><value>申请在行程有效期内保存。如需删除您的数据，请通过页脚的任一联系方式告知我们——我们会直接删除。</value></data>
+  <data name="PrivacyS4Text" xml:space="preserve"><value>申请在行程有效期内保存。网站聊天记录会在 90 天后自动删除。如需删除您的数据，请通过页脚的任一联系方式告知我们——我们会直接删除。</value></data>
   <data name="PrivacyS5Title" xml:space="preserve"><value>旅客评价与照片</value></data>
   <data name="PrivacyS5Text" xml:space="preserve"><value>旅客的评价、姓名、城市和照片仅在征得本人同意后才会发布在网站上。同意可随时撤回：告知我们即可，我们会直接删除相应评价或照片。</value></data>
   <data name="PrivacyS1Analytics" xml:space="preserve"><value> 此外，本站使用 Yandex Metrica：它会设置自己的 Cookie 并收集匿名访问统计，详见“数据统计”一节。</value></data>

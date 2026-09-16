@@ -1,4 +1,4 @@
-// Чат с гидом. Без JavaScript он тоже работает: пункт «Чат на сайте» — обычная
+// Чат с менеджером. Без JavaScript он тоже работает: пункт «Чат на сайте» — обычная
 // ссылка ?chat=open, панель рендерит сервер, отправка идёт POST'ом с редиректом
 // обратно (см. ChatPanel.razor). Скрипт убирает перезагрузки: открывает панель на
 // месте, отправляет сообщение фоном и опрашивает /chat/poll на новые ответы.
@@ -20,8 +20,8 @@
     // Под этим классом CSS прячет ссылку «обновить переписку» — с поллингом она не нужна
     root.classList.add("js-chat");
 
-    // Курсор: с какого номера просить новые сообщения. Сервер отдаёт его в data-after,
-    // когда рендерит историю сам.
+    // Самый большой номер сообщения, которое уже на экране. Сервер отдаёт его в
+    // data-after, когда рендерит историю сам.
     let after = Number(panel.dataset.after || 0);
     let timer = null;
     let failures = 0;
@@ -30,6 +30,13 @@
     const PERIOD_HIDDEN = 15000;
     const PERIOD_MAX = 60000;
 
+    // Статус «✓ Доставлено менеджеру» меняется у сообщений, которые уже показаны, а опрос
+    // отдаёт только сообщения новее курсора. Поэтому, пока есть недоставленные, опрос
+    // начинается с первого из них и перечитывает хвост. Окно меньше страницы опроса
+    // (ChatLimits.PageSize = 30): давнее недоставленное — например, при выключенной
+    // доставке — не должно заслонять новые ответы.
+    const STATUS_WINDOW = 20;
+
     const isOpen = () => panel.classList.contains("is-open");
 
     const period = () => {
@@ -37,7 +44,18 @@
         return document.hidden ? PERIOD_HIDDEN : PERIOD_OPEN;
     };
 
-    const append = (message) => {
+    const cursor = () => {
+        let from = after;
+
+        log.querySelectorAll("li.from-you[data-o]:not(.is-delivered)").forEach((item) => {
+            const ordinal = Number(item.dataset.o);
+            if (ordinal > after - STATUS_WINDOW && ordinal - 1 < from) from = ordinal - 1;
+        });
+
+        return Math.max(0, from);
+    };
+
+    const create = (message) => {
         const item = document.createElement("li");
         item.className = "chat-msg " + (message.d === 1 ? "from-guide" : "from-you");
 
@@ -54,6 +72,38 @@
         log.querySelector(".chat-empty")?.remove();
         log.append(item);
         log.scrollTop = log.scrollHeight;
+        return item;
+    };
+
+    // Статус есть только у сообщений посетителя.
+    const setState = (item, delivered) => {
+        let state = item.querySelector(".chat-state");
+
+        if (!state) {
+            state = document.createElement("span");
+            state.className = "chat-state";
+            item.append(state);
+        }
+
+        item.classList.toggle("is-delivered", delivered);
+        state.textContent = delivered ? log.dataset.delivered : log.dataset.sent;
+    };
+
+    // Сообщение из опроса: новое — дорисовать, уже показанное — обновить статус.
+    const upsert = (message) => {
+        let item = log.querySelector(`li[data-o="${Number(message.o)}"]`);
+
+        if (!item && message.d !== 1) {
+            // своё сообщение, нарисованное до ответа /chat/send: опрос мог его опередить
+            item = [...log.querySelectorAll("li.from-you:not([data-o])")]
+                .find((pending) => pending.querySelector(".chat-text")?.textContent === (message.t || ""));
+        }
+
+        if (!item) item = create(message);
+
+        item.dataset.o = String(message.o);
+        if (message.d !== 1) setState(item, Boolean(message.v));
+        if (message.o > after) after = message.o;
     };
 
     const showWarning = (key) => {
@@ -73,7 +123,7 @@
 
     const poll = async () => {
         try {
-            const response = await fetch(`/chat/poll?after=${after}`, {
+            const response = await fetch(`/chat/poll?after=${cursor()}`, {
                 headers: { Accept: "application/json" },
             });
 
@@ -82,10 +132,7 @@
             const data = await response.json();
             failures = 0;
 
-            (data.messages || []).forEach((message) => {
-                append(message);
-                if (message.o > after) after = message.o;
-            });
+            (data.messages || []).forEach(upsert);
 
             panel.querySelector(".chat-status")?.classList.toggle("is-online", data.online);
             panel.querySelector(".chat-status")?.classList.toggle("is-offline", !data.online);
@@ -141,8 +188,9 @@
         clearWarning();
         const body = new URLSearchParams(new FormData(form));
 
-        // рисуем своё сообщение сразу: ждать ответа сервера ради эха незачем
-        append({ d: 0, t: text });
+        // рисуем своё сообщение сразу: ждать ответа сервера ради эха незачем. Статуса у него
+        // пока нет — «Отправлено» появится, только когда сервер сообщение принял.
+        const item = create({ d: 0, t: text });
         input.value = "";
 
         try {
@@ -163,7 +211,13 @@
             }
 
             const data = await response.json();
-            if (data.ordinal > after) after = data.ordinal;
+
+            // Опрос мог успеть раньше и уже проставить номер и статус — тогда не трогаем.
+            if (data.ordinal > 0 && !item.dataset.o) {
+                item.dataset.o = String(data.ordinal);
+                setState(item, false);
+                if (data.ordinal > after) after = data.ordinal;
+            }
 
             failures = 0;
             schedule();

@@ -3168,18 +3168,28 @@ html.js-phone .phone-cc { position: relative; display: block; }
 }
 
 /* уведомление об обработке данных капчей — обязательная пара к hideShield
-   (условия SmartCaptcha); рендерится только при включённой капче */
+   (условия SmartCaptcha); рендерится только при включённой капче. Сноска
+   сознательно едва заметная (владелец, 16.09.2026): убрать её нельзя,
+   но спорить с кнопкой отправки она не должна */
 .captcha-note {
     grid-column: 1 / -1; /* форма — грид: без этого записка ложится в одну колонку */
-    margin: 4px 0 0;
+    margin: 2px 0 0;
     color: var(--text-muted);
-    font-size: .8rem;
+    opacity: .7;
+    font-size: .7rem;
     text-align: center;
 }
 
 .captcha-note a {
     color: inherit;
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.captcha-note a:hover,
+.captcha-note a:focus-visible {
+    color: var(--text);
 }
 
 /* noscript-пиксель Яндекс.Метрики: прячем классом, а не style="" — inline-стили
@@ -4173,6 +4183,18 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
 }
 
 .chat-text { white-space: pre-wrap; word-break: break-word; }
+
+/* статус сообщения посетителя: «Отправлено» → «✓ Доставлено менеджеру» (в Telegram-группу).
+   Приглушённая строка в углу пузыря; доставленное подсвечено акцентом */
+.chat-state {
+    align-self: flex-end;
+    color: var(--text-muted);
+    font-size: .7rem;
+}
+
+/* чистый акцент на подкрашенном акцентом пузыре в светлой теме давал контраст ~2.3:1 —
+   подмешиваем цвет текста, чтобы мелкая строка читалась в обеих темах */
+.chat-msg.is-delivered .chat-state { color: color-mix(in srgb, var(--accent) 55%, var(--text)); }
 
 .chat-warn {
     margin: 0;
