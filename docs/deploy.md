@@ -117,16 +117,37 @@ HSTS в конфиге намеренно начинается с `max-age=300`.
 ## Обновление сайта
 
 ```bash
-# на машине разработчика
+# на машине разработчика: архив и список файлов, удалённых с прошлой выкатки
 git archive --format=tar.gz -o teriberka.tar.gz HEAD
-scp teriberka.tar.gz user@server:/opt/teriberka/
+prev=$(ssh user@server cat /opt/teriberka/.deployed-commit)
+git diff --name-only --no-renames --diff-filter=D "$prev" HEAD > deleted.txt
+scp teriberka.tar.gz deleted.txt user@server:/opt/teriberka/
 
-# на сервере
+# на сервере: распаковать, убрать удалённое, собрать
 cd /opt/teriberka && tar xzf teriberka.tar.gz
+while IFS= read -r f; do [ -f "$f" ] && rm -- "$f"; done < deleted.txt
+rm deleted.txt teriberka.tar.gz
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+# на машине разработчика, когда сайт проверен: запомнить выкаченный коммит
+git rev-parse HEAD | ssh user@server 'cat > /opt/teriberka/.deployed-commit'
 ```
 
 `.env` и `certs/` распаковка не затрагивает — они не входят в архив.
+
+**Удалённые из репозитория файлы распаковка не удаляет.** `tar xzf` только добавляет
+и перезаписывает: убранный из git файл остаётся лежать в `/opt/teriberka`, попадает
+в образ при сборке и продолжает раздаваться сайтом. Это не просто мусор в образе —
+фотолента гостей показывает всё, что лежит в `img/guests/`, так что удалённый кадр
+остался бы на странице. Отсюда шаги с `deleted.txt` выше (16.09.2026 так вручную
+убирали 51 старый кадр программы дня и галерей мест).
+
+- `--no-renames` обязателен: без него переименование git показывает как `R`, и старый
+  путь в список удалённых не попадает.
+- Если `.deployed-commit` на сервере нет, взять прошлый выкаченный коммит из истории
+  (на 16.09.2026 на сервере `115104a`) и записать его командой из последнего шага.
+- Файл запоминается после проверки сайта, а не сразу: если выкатку пришлось
+  повторять, следующий список удалённых посчитается от той же точки.
 
 **Сборка на этом сервере — по одному сервису.** `docker compose build` по умолчанию
 собирает сервисы параллельно, а четыре одновременных `dotnet publish` на 2 ГБ кладут
