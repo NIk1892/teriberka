@@ -55,7 +55,7 @@
     [Parameter] public string? Path { get; set; }
 
     /// <summary>Относительный путь OG-картинки, например "/img/places/umba.webp".
-    /// Пусто — общая карточка шаринга /img/og.jpg (1200×630).</summary>
+    /// Пусто — общая карточка шаринга ShareCardPath (1200×630).</summary>
     [Parameter] public string? ImagePath { get; set; }
 
     /// <summary>Подпись к картинке для og:image:alt; пусто — OgImageAlt или Title.</summary>
@@ -65,7 +65,10 @@
 
     [Parameter] public bool Noindex { get; set; }
 
-    private const string ShareCardPath = "/img/og.jpg";
+    // Адрес без отпечатка сборки: краулерам и мессенджерам нужен стабильный URL. Сами они
+    // запоминают превью надолго, поэтому новая картинка — новое имя файла, а не замена
+    // под старым (16.09.2026: og.jpg → og-whale.jpg, из макета владельца 1280×720).
+    private const string ShareCardPath = "/img/og-whale.jpg";
 
     private string ResolvedImagePath => string.IsNullOrEmpty(ImagePath) ? ShareCardPath : ImagePath;
 
