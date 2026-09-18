@@ -11,11 +11,16 @@ public static class ChatPaths
     public const string Open = "open";
     public const string Error = "error";
 
+    /// <summary>Первое сообщение не прошло капчу — без JavaScript её не пройти.</summary>
+    public const string Captcha = "captcha";
+
     public static string Clean(string? path) => WithState(path, state: null);
 
     public static string WithOpen(string? path) => WithState(path, Open);
 
     public static string WithError(string? path) => WithState(path, Error);
+
+    public static string WithCaptcha(string? path) => WithState(path, Captcha);
 
     private static string WithState(string? path, string? state)
     {

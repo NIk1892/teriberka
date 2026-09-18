@@ -387,7 +387,8 @@ app.MapGet("/sitemap.xml", (SeoUrls seo, HttpContext context) =>
 // Форма чата и JS шлют одно и то же тело (application/x-www-form-urlencoded) на один
 // адрес: так antiforgery работает штатно и не нужно двух путей кода. Ответ разный —
 // JSON для скрипта, редирект для страницы без JavaScript.
-app.MapPost("/chat/send", async (HttpContext context, IMediator mediator, IAntiforgery antiforgery) =>
+app.MapPost("/chat/send", async (HttpContext context, IMediator mediator, IAntiforgery antiforgery,
+    SmartCaptchaService captcha) =>
 {
     // UseAntiforgery проверяет только эндпоинты с form-binding, а форму мы читаем
     // руками — значит и токен проверяем руками.
@@ -416,9 +417,23 @@ app.MapPost("/chat/send", async (HttpContext context, IMediator mediator, IAntif
             ? Results.Json(new { error = "text" }, statusCode: StatusCodes.Status400BadRequest)
             : Results.LocalRedirect(ChatPaths.WithError(form["redirect"].ToString()));
 
+    var sessionToken = context.Request.Cookies[ChatCookie.Name];
+
+    // Капча — только на первое сообщение нового диалога. Спам 11–18.09.2026 слал бот
+    // без JavaScript: брал HTML страницы, находил в нём форму чата и через полсекунды
+    // отправлял её, по сообщению в день с разных адресов — лимиты частоты его не ловили.
+    // Диалог в chat-сервисе теперь заводится только после капчи, поэтому существующий
+    // диалог = посетитель проверку уже прошёл. Проверяем по базе, а не по наличию
+    // cookie: выдуманный chat_sid сервис принял бы за новый диалог и завёл бы его.
+    if (captcha.Enabled && !await SessionExistsAsync(sessionToken)
+        && !await captcha.ValidateAsync(form["smart-token"], context.Connection.RemoteIpAddress?.ToString()))
+        return wantsJson
+            ? Results.Json(new { error = "captcha" }, statusCode: StatusCodes.Status403Forbidden)
+            : Results.LocalRedirect(ChatPaths.WithCaptcha(form["redirect"].ToString()));
+
     var result = await mediator.Send(new ChatSendCommand
     {
-        SessionToken = context.Request.Cookies[ChatCookie.Name],
+        SessionToken = sessionToken,
         Text = text,
         Culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
         Page = ChatPaths.Clean(form["redirect"].ToString())
@@ -441,6 +456,25 @@ app.MapPost("/chat/send", async (HttpContext context, IMediator mediator, IAntif
     return wantsJson
         ? Results.Json(new { ordinal = (int)(result.Hash ?? 0) })
         : Results.LocalRedirect(back);
+
+    // Диалог существует, если в нём есть хоть одно сообщение: пустым диалог не бывает,
+    // он заводится вместе с первым. Сервис недоступен — считаем, что диалога нет:
+    // chat.js на отказ сам пройдёт капчу и повторит отправку.
+    async Task<bool> SessionExistsAsync(string? token)
+    {
+        if (string.IsNullOrEmpty(token))
+            return false;
+
+        try
+        {
+            var first = await mediator.Send(new ChatMessageListQuery { Token = token, After = 0, Limit = 1 });
+            return first.Count > 0;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 });
 
 // Опрос новых сообщений. Ответ зависит от cookie, поэтому no-store и Vary: Cookie —

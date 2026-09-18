@@ -4279,6 +4279,13 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
 
 .chat-note a { color: var(--text-muted); }
 
+/* Слот невидимой капчи чата: сам по себе ничего не показывает (бейдж спрятан,
+   задание Яндекс открывает поверх страницы), но пустым элементом flex-колонки
+   панели добавил бы лишний gap. absolute выводит его из потока, overflow не режем. */
+.chat-captcha {
+    position: absolute;
+}
+
 /* honeypot: не display:none — такие поля боты пропускают */
 .hp-field {
     position: absolute;

@@ -4,11 +4,13 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Http
 @using Microsoft.Extensions.Localization
+@using UI.Public.Web.Features.Captcha
 @using UI.Public.Web.Features.Chat
 @inject IStringLocalizer<SharedResource> L
 @inject IMediator Mediator
 @inject NavigationManager Navigation
 @inject ChatSchedule Schedule
+@inject SmartCaptchaService Captcha
 
 @* Панель чата с менеджером. Живёт рядом с кнопкой связи и открывается её пунктом.
 
@@ -22,7 +24,8 @@
 
 <section class="chat-panel @(IsOpen ? "is-open" : "")" id="chat"
          aria-label="@L["ChatTitle"]" data-after="@LastOrdinal"
-         data-error="@L["ChatErrorGeneric"]" data-too-many="@L["ChatErrorTooMany"]">
+         data-error="@L["ChatErrorGeneric"]" data-too-many="@L["ChatErrorTooMany"]"
+         data-captcha="@L["CaptchaFailed"]" data-session="@(HasSession ? "true" : "false")">
     <header class="chat-head">
         <span class="chat-title">@L["ChatTitle"]</span>
         <span class="chat-status @(Schedule.IsOnline() ? "is-online" : "is-offline")">
@@ -72,6 +75,10 @@
     {
         <p class="chat-warn" role="alert">@L["ChatErrorGeneric"]</p>
     }
+    else if (State == ChatPaths.Captcha)
+    {
+        <p class="chat-warn" role="alert">@L["CaptchaFailed"]</p>
+    }
     else if (_cookiesOff)
     {
         <p class="chat-warn" role="alert">@L["ChatErrorCookies"]</p>
@@ -92,10 +99,25 @@
         </button>
     </form>
 
+    @* Невидимая SmartCaptcha первого сообщения (спам 11–18.09.2026, см. /chat/send
+       в Program.cs). Слот — только контейнер виджета: chat.js подключает captcha.js, когда
+       панель открыли, а диалога ещё нет. Ключи и CSP общие с формой заявки. *@
+    @if (Captcha.Enabled)
+    {
+        <div class="chat-captcha" data-sitekey="@Captcha.ClientKey" data-src="@SmartCaptchaService.WidgetUrl"></div>
+    }
+
     <p class="chat-note">
         @L["ChatConsentPrefix"] <a href="/privacy" target="_blank" rel="noopener">@L["ConsentPolicyLink"]</a>.
         @L["ChatNoPersonal"]
     </p>
+
+    @* Бейдж виджета спрятан (hideShield) — условия SmartCaptcha требуют тогда своего
+       уведомления рядом с формой; то же, что под формой заявки. *@
+    @if (Captcha.Enabled)
+    {
+        <p class="chat-note">@L["CaptchaNote"] <a href="@L["CaptchaNoteUrl"]" target="_blank" rel="noopener nofollow">@L["CaptchaNoteLink"]</a></p>
+    }
 
     @* Без JS новые ответы забираются перезагрузкой; chat.js прячет эту ссылку. *@
     <a class="chat-refresh" href="@ChatPaths.WithOpen(CurrentPath)">@L["ChatRefresh"]</a>
@@ -111,7 +133,13 @@
     /// <summary>Состояние из адреса: open — панель раскрыта, error — отправка не удалась.</summary>
     private string? State => HttpContext?.Request.Query[ChatPaths.Parameter].ToString();
 
-    private bool IsOpen => State is ChatPaths.Open or ChatPaths.Error;
+    private bool IsOpen => State is ChatPaths.Open or ChatPaths.Error or ChatPaths.Captcha;
+
+    /// <summary>
+    /// Есть cookie диалога — chat.js не просит капчу заранее. Устаревшую cookie
+    /// сервер всё равно отобьёт, и скрипт пройдёт капчу по отказу.
+    /// </summary>
+    private bool HasSession => !string.IsNullOrEmpty(HttpContext?.Request.Cookies[ChatCookie.Name]);
 
     private string CurrentPath => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
 

@@ -149,10 +149,128 @@
         if (isOpen()) timer = setTimeout(poll, period());
     };
 
+    // ---- капча первого сообщения ------------------------------------------------
+    // Невидимая SmartCaptcha — та же, что у формы заявки (ключи и CSP общие). Сервер
+    // требует её только у первого сообщения нового диалога (/chat/send в Program.cs):
+    // спам 11–18.09.2026 слал бот без JavaScript, находивший форму чата в HTML.
+    // Виджет Яндекса тяжёлый (~700 КБ), поэтому грузится, только когда панель открыли,
+    // а диалога ещё нет. Слота нет — капча выключена ключами, скрипт работает как раньше.
+    const captchaSlot = panel.querySelector(".chat-captcha");
+    let hasSession = panel.dataset.session === "true";
+    let captchaReady = null;   // Promise: captcha.js загружен и виджет отрисован
+    let captchaId = null;
+    let captchaUsed = false;   // токен одноразовый: перед следующим — reset
+    let captchaWaiter = null;  // resolve ожидающего токен
+    let verifying = false;     // идёт проверка — вторую отправку не начинаем
+
+    const finishCaptcha = (token) => {
+        const resolve = captchaWaiter;
+        captchaWaiter = null;
+        resolve?.(token);
+    };
+
+    const prepareCaptcha = () => {
+        if (captchaReady) return captchaReady;
+
+        captchaReady = new Promise((resolve, reject) => {
+            const render = () => {
+                const lang = (root.lang || "ru").slice(0, 2);
+                captchaId = window.smartCaptcha.render(captchaSlot, {
+                    sitekey: captchaSlot.dataset.sitekey,
+                    invisible: true,
+                    // виджет не знает китайского — для zh-версии сайта берём en
+                    hl: lang === "ru" ? "ru" : "en",
+                    // Бейдж спрятан, как у формы заявки: условия сервиса требуют тогда
+                    // своего уведомления — оно стоит под формой чата (.chat-note).
+                    hideShield: true,
+                    callback: (token) => finishCaptcha(typeof token === "string" && token ? token : null),
+                });
+                // Задание закрыли, не решив, — отправки не будет. challenge-hidden
+                // приходит и после успешного решения, поэтому с запасом ждём: токен
+                // из callback успеет раньше, и тогда этот null уже никому не адресован.
+                window.smartCaptcha.subscribe(captchaId, "challenge-hidden",
+                    () => setTimeout(() => finishCaptcha(null), 2000));
+                window.smartCaptcha.subscribe(captchaId, "network-error", () => finishCaptcha(null));
+                resolve();
+            };
+
+            if (window.smartCaptcha) {
+                render();
+                return;
+            }
+
+            // На главной captcha.js мог уже запросить smart-captcha.js формы заявки —
+            // второй раз тот же скрипт не грузим, ждём первый.
+            const src = captchaSlot.dataset.src;
+            let script = document.querySelector(`script[src="${src}"]`);
+
+            if (script?.dataset.failed) {
+                reject();
+                return;
+            }
+
+            if (!script) {
+                script = document.createElement("script");
+                script.src = src;
+                script.async = true;
+                script.addEventListener("error", () => { script.dataset.failed = "1"; });
+                document.head.append(script);
+            }
+
+            script.addEventListener("load", () => (window.smartCaptcha ? render() : reject()));
+            script.addEventListener("error", () => reject());
+        });
+
+        // отказ разбирает captchaToken; без этого консоль ругалась бы на необработанный
+        captchaReady.catch(() => {});
+        return captchaReady;
+    };
+
+    // Токен капчи или null: задание закрыли, виджет заблокирован, сеть.
+    const captchaToken = async () => {
+        try {
+            await prepareCaptcha();
+        } catch {
+            return null;
+        }
+
+        if (captchaUsed) window.smartCaptcha.reset(captchaId);
+        captchaUsed = true;
+
+        return new Promise((resolve) => {
+            captchaWaiter = resolve;
+            window.smartCaptcha.execute(captchaId);
+        });
+    };
+
+    const addCaptcha = async (body) => {
+        verifying = true;
+        try {
+            const token = await captchaToken();
+            if (!token) return false;
+            body.set("smart-token", token);
+            return true;
+        } finally {
+            verifying = false;
+        }
+    };
+
+    // Капчу не прошли — сообщение не ушло: убираем его из ленты и возвращаем текст в поле.
+    const captchaFailed = (item, text) => {
+        item.remove();
+        if (!input.value) input.value = text;
+        showWarning("captcha");
+    };
+
+    const warmCaptcha = () => {
+        if (captchaSlot && !hasSession) prepareCaptcha();
+    };
+
     const open = () => {
         panel.classList.add("is-open");
         if (widget) widget.open = false;
         input?.focus();
+        warmCaptcha();
         poll();
     };
 
@@ -179,8 +297,17 @@
         if (e.key === "Escape" && isOpen()) close();
     });
 
+    const post = (body) => fetch("/chat/send", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body,
+    });
+
+    input?.addEventListener("focus", warmCaptcha);
+
     form?.addEventListener("submit", async (e) => {
         e.preventDefault();
+        if (verifying) return;
 
         const text = input.value.trim();
         if (!text) return;
@@ -194,11 +321,28 @@
         input.value = "";
 
         try {
-            const response = await fetch("/chat/send", {
-                method: "POST",
-                headers: { Accept: "application/json" },
-                body,
-            });
+            // первое сообщение диалога — сразу с токеном, чтобы не ловить отказ сервера
+            if (captchaSlot && !hasSession && !(await addCaptcha(body))) {
+                captchaFailed(item, text);
+                return;
+            }
+
+            let response = await post(body);
+
+            // Сервер всё же потребовал капчу: cookie диалога устарела (переписку удалили
+            // по сроку хранения) или токен отвергнут. Проходим и повторяем один раз.
+            if (response.status === 403 && captchaSlot) {
+                if (!(await addCaptcha(body))) {
+                    captchaFailed(item, text);
+                    return;
+                }
+                response = await post(body);
+            }
+
+            if (response.status === 403) {
+                captchaFailed(item, text);
+                return;
+            }
 
             if (response.status === 429) {
                 showWarning("tooMany");
@@ -211,6 +355,7 @@
             }
 
             const data = await response.json();
+            hasSession = true;
 
             // Опрос мог успеть раньше и уже проставить номер и статус — тогда не трогаем.
             if (data.ordinal > 0 && !item.dataset.o) {
@@ -231,6 +376,7 @@
     // страница пришла уже с ?chat=open (переход без JS или перезагрузка после отправки)
     if (isOpen()) {
         log.scrollTop = log.scrollHeight;
+        warmCaptcha();
         schedule();
     }
 })();

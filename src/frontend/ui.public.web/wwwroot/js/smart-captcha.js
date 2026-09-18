@@ -72,11 +72,8 @@
         if (window.smartCaptcha) { init(); return; }
         var src = slot.dataset.src;
         if (!src) { failed = true; return; }
-        var s = document.createElement("script");
-        s.src = src;
-        s.async = true;
-        s.onload = init;
-        s.onerror = function () {
+
+        function onError() {
             // виджет не поднялся — форма уходит без токена, отказ покажет сервер
             // (то же поведение, что было у блокировщиков до ленивой загрузки)
             failed = true;
@@ -85,8 +82,21 @@
                 solved = true;
                 form.requestSubmit();
             }
-        };
-        document.head.appendChild(s);
+        }
+
+        // captcha.js мог уже запросить chat.js (капча первого сообщения чата) —
+        // второй раз тот же скрипт не грузим, ждём первый
+        var s = document.querySelector('script[src="' + src + '"]');
+        if (s && s.dataset.failed) { onError(); return; }
+        if (!s) {
+            s = document.createElement("script");
+            s.src = src;
+            s.async = true;
+            s.addEventListener("error", function () { s.dataset.failed = "1"; });
+            document.head.appendChild(s);
+        }
+        s.addEventListener("load", init);
+        s.addEventListener("error", onError);
     }
 
     // Форма подходит к экрану (запас ~1000px — на слабом мобильном интернете
