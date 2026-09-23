@@ -8,6 +8,10 @@ namespace Chat.Domain;
 /// Диалог посетителя сайта. Никакой авторизации нет, поэтому единственный ключ к
 /// переписке — секретный <see cref="Token"/> из cookie chat_sid. Контакты посетителя
 /// сознательно не хранятся (решение владельца), IP и User-Agent тоже.
+///
+/// Диалог из лички Telegram-бота — та же сущность с заполненным <see cref="TgChatId"/>:
+/// сообщения так же уходят в группу гидов, а ответ гида бот отправляет в личку, а не на сайт.
+/// Токен у такого диалога есть (колонка обязательна), но наружу не уходит.
 /// </summary>
 public record ChatSessionEntity : AuditableEntity
 {
@@ -34,6 +38,14 @@ public record ChatSessionEntity : AuditableEntity
 
     /// <summary>В какую группу ушёл диалог: смена TG_ADMIN_CHAT_ID не должна ломать старые переписки.</summary>
     public long? AdminChatId { get; set; }
+
+    /// <summary>Личка Telegram, из которой пишет посетитель; у диалогов сайта — null.</summary>
+    public long? TgChatId { get; set; }
+
+    /// <summary>Username посетителя в Telegram (без «@») — гиду видно, кто пишет; может отсутствовать.</summary>
+    public string? TgUsername { get; set; }
+
+    public bool IsTelegram => TgChatId is not null;
 }
 
 /// <summary>

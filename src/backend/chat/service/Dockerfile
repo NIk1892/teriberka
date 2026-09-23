@@ -25,6 +25,7 @@ COPY ["src/backend/shared/Domain/Domain.csproj", "backend/shared/Domain/"]
 COPY ["src/backend/shared/Infrastructure/Infrastructure.csproj", "backend/shared/Infrastructure/"]
 COPY ["src/contracts/Contracts/Contracts.csproj", "contracts/Contracts/"]
 COPY ["src/contracts/Chat.Contracts/Chat.Contracts.csproj", "contracts/Chat.Contracts/"]
+COPY ["src/contracts/Applications.Contracts/Applications.Contracts.csproj", "contracts/Applications.Contracts/"]
 
 RUN dotnet restore "backend/chat/service/Chat.csproj"
 

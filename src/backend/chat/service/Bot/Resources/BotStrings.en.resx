@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Тексты лички Telegram-бота: английский. Ключи и порядок — как в BotStrings.resx (русский, нейтральный).
+    Ключи без префикса Bot скопированы с сайта (SharedResource.en.resx) под теми же именами дословно —
+    поменялся текст на сайте, скопировать значение сюда. Ключи Bot* — только бота, переведены.
+    Иконки к кнопкам сюда не класть: их приклеивает код (BotIcons.cs), подписи здесь — без эмодзи.
+    Тексты уходят в Telegram как HTML: «<», «>» и «&» здесь недопустимы; {0}/{1} — подстановки.
+  -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- ===== welcome and menu ===== -->
+  <data name="BotWelcomeTitle" xml:space="preserve"><value>Hello! I'm the TeriberkaKray bot</value></data>
+  <data name="BotWelcome" xml:space="preserve"><value>Tours from Murmansk: Teriberka, the Lovozero Tundras and the Tersky Coast. I'll tell you about the programme and prices, book you on a tour and pass your question on to a manager.</value></data>
+  <data name="BotMenuTitle" xml:space="preserve"><value>How can I help?</value></data>
+  <data name="BotMenuBook" xml:space="preserve"><value>Book a tour</value></data>
+  <data name="BotMenuProgram" xml:space="preserve"><value>Day programme</value></data>
+  <data name="BotMenuPrice" xml:space="preserve"><value>Price</value></data>
+  <data name="BotMenuRoutes" xml:space="preserve"><value>Other routes</value></data>
+  <data name="BotMenuFaq" xml:space="preserve"><value>FAQ</value></data>
+  <data name="BotMenuContacts" xml:space="preserve"><value>Contacts</value></data>
+  <data name="BotMenuWrite" xml:space="preserve"><value>Message the manager</value></data>
+  <data name="BotMenuSite" xml:space="preserve"><value>Open the website</value></data>
+  <data name="BotUnknownCommand" xml:space="preserve"><value>I don't know that command. Here's what I can do:</value></data>
+
+  <!-- ===== buttons ===== -->
+  <data name="BotBtnMenu" xml:space="preserve"><value>Menu</value></data>
+  <data name="BotBtnBack" xml:space="preserve"><value>Back</value></data>
+  <data name="BotBtnCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="BotBtnBook" xml:space="preserve"><value>Book now</value></data>
+  <data name="BotBtnBookRoute" xml:space="preserve"><value>Book this route</value></data>
+  <data name="BotBtnToFaq" xml:space="preserve"><value>Back to questions</value></data>
+  <data name="BotBtnToRoutes" xml:space="preserve"><value>Back to routes</value></data>
+  <data name="BotBtnPolicy" xml:space="preserve"><value>Privacy policy</value></data>
+  <data name="BotBtnSubmit" xml:space="preserve"><value>Send request</value></data>
+  <data name="BotBtnRetry" xml:space="preserve"><value>Try again</value></data>
+  <data name="BotBtnSiteApply" xml:space="preserve"><value>Leave a request on the site</value></data>
+  <data name="BotBtnResume" xml:space="preserve"><value>Continue</value></data>
+  <data name="BotBtnRestart" xml:space="preserve"><value>Start over</value></data>
+  <data name="BotBtnDateSkip" xml:space="preserve"><value>Not sure yet</value></data>
+  <data name="BotBtnPeopleMore" xml:space="preserve"><value>More than 8</value></data>
+  <data name="BotBtnWishesSkip" xml:space="preserve"><value>Skip</value></data>
+  <data name="BotBtnNameTg" xml:space="preserve"><value>Use name: {0}</value></data>
+  <data name="BotBtnSharePhone" xml:space="preserve"><value>Share my number</value></data>
+  <data name="BotBtnSendToManager" xml:space="preserve"><value>Send to the manager</value></data>
+  <data name="BotBtnEditRoute" xml:space="preserve"><value>Route</value></data>
+  <data name="BotBtnEditDate" xml:space="preserve"><value>Date</value></data>
+  <data name="BotBtnEditPeople" xml:space="preserve"><value>People</value></data>
+  <data name="BotBtnEditWishes" xml:space="preserve"><value>Wishes</value></data>
+  <data name="BotBtnEditName" xml:space="preserve"><value>Name</value></data>
+  <data name="BotBtnEditPhone" xml:space="preserve"><value>Phone</value></data>
+
+  <!-- ===== info screens (bot's own keys) ===== -->
+  <data name="BotPriceTitle" xml:space="preserve"><value>Price and what's included</value></data>
+  <data name="BotRoutesPick" xml:space="preserve"><value>Choose a destination to find out more:</value></data>
+  <data name="BotFaqPick" xml:space="preserve"><value>Choose a question:</value></data>
+  <data name="BotContactsTitle" xml:space="preserve"><value>Contacts</value></data>
+  <data name="BotContactsPhone" xml:space="preserve"><value>Phone: {0}</value></data>
+  <data name="BotContactsEmail" xml:space="preserve"><value>Email: {0}</value></data>
+  <data name="BotContactsHowTitle" xml:space="preserve"><value>How to get there</value></data>
+  <data name="BotContactsHow" xml:space="preserve"><value>Every tour starts in Murmansk: we meet you at the airport, the railway station or an agreed point in town. Distances from Murmansk: Teriberka — {0}, Lovozero Tundras — {1}, Tersky Coast — {2}.</value></data>
+
+  <!-- ===== request wizard ===== -->
+  <data name="BotStepOf" xml:space="preserve"><value>Step {0} of {1}</value></data>
+  <data name="BotStepRoute" xml:space="preserve"><value>Which route are you interested in?</value></data>
+  <data name="BotStepDate" xml:space="preserve"><value>When are you planning to travel? Type a date or a period — for example “12 March” or “early May”. If you haven't decided yet, tap the button.</value></data>
+  <data name="BotStepPeople" xml:space="preserve"><value>How many people are travelling?</value></data>
+  <data name="BotStepWishes" xml:space="preserve"><value>Any wishes? Children, meeting your flight, special interests — write them here or skip this step.</value></data>
+  <data name="BotStepName" xml:space="preserve"><value>What should we call you?</value></data>
+  <data name="BotStepPhone" xml:space="preserve"><value>A phone number for the manager to call you. Tap the button below or type your number with the country code, for example +7 912 345-67-89.</value></data>
+  <data name="BotEstimateTeriberka" xml:space="preserve"><value>Roughly from {0} ₽ for a group of {1}. The manager will confirm the exact price.</value></data>
+  <data name="BotEstimateManager" xml:space="preserve"><value>The manager will work out the price for this trip when they call.</value></data>
+  <data name="BotPhoneAccepted" xml:space="preserve"><value>Number received</value></data>
+  <data name="BotPhoneInvalid" xml:space="preserve"><value>That doesn't look like a phone number. Type your number with the country code, for example +7 912 345-67-89, or tap “Share my number”.</value></data>
+  <data name="BotPhoneNotOwn" xml:space="preserve"><value>Please send your own number — with the “Share my number” button or as text.</value></data>
+  <data name="BotPeopleInvalid" xml:space="preserve"><value>Type the number of people or pick one with a button.</value></data>
+  <data name="BotUseButtons" xml:space="preserve"><value>Please choose an option with the buttons below.</value></data>
+  <data name="BotSummaryTitle" xml:space="preserve"><value>Check your request</value></data>
+  <data name="BotSummaryRoute" xml:space="preserve"><value>Route: {0}</value></data>
+  <data name="BotSummaryDate" xml:space="preserve"><value>Date: {0}</value></data>
+  <data name="BotSummaryPeople" xml:space="preserve"><value>People: {0}</value></data>
+  <data name="BotSummaryWishes" xml:space="preserve"><value>Wishes: {0}</value></data>
+  <data name="BotSummaryName" xml:space="preserve"><value>Name: {0}</value></data>
+  <data name="BotSummaryPhone" xml:space="preserve"><value>Phone: {0}</value></data>
+  <data name="BotSummaryDateUnknown" xml:space="preserve"><value>not sure yet</value></data>
+  <data name="BotSummaryPeopleMore" xml:space="preserve"><value>more than 8</value></data>
+  <data name="BotSummaryNone" xml:space="preserve"><value>—</value></data>
+  <data name="BotSummaryConsent" xml:space="preserve"><value>By tapping “Send request” you agree to the processing of your personal data and accept the privacy policy. The request commits you to nothing: the manager will call, confirm the details and quote the final price.</value></data>
+  <data name="BotSubmitInvalid" xml:space="preserve"><value>Couldn't send the request: {0}. Please correct the details and try again.</value></data>
+  <data name="BotSubmitUnavailable" xml:space="preserve"><value>Couldn't send the request — please try again in a minute; your details are saved. You can also leave a request on the site or call us{0}.</value></data>
+  <data name="BotSubmitRateLimited" xml:space="preserve"><value>Too many requests in a row. Please wait a couple of minutes and tap “Try again”.</value></data>
+  <data name="BotBookingDisabled" xml:space="preserve"><value>Booking through the bot is unavailable right now. Please leave a request on the site or call us{0}.</value></data>
+  <data name="BotCooldown" xml:space="preserve"><value>Your request has already been received — you can send the next one in {0} min. If you'd like to add something, message the manager.</value></data>
+  <data name="BotDailyCap" xml:space="preserve"><value>That's enough requests for today — the manager will contact you about the one you've already sent. If it's urgent, message the manager.</value></data>
+  <data name="BotDraftExists" xml:space="preserve"><value>You have an unfinished request. Continue or start over?</value></data>
+  <data name="BotCancelled" xml:space="preserve"><value>Request cancelled. If you change your mind, I'm here.</value></data>
+
+  <!-- ===== hints and service messages ===== -->
+  <data name="BotOnlyText" xml:space="preserve"><value>I only understand text and buttons.</value></data>
+  <data name="BotChatOnlyText" xml:space="preserve"><value>I can only pass text on to the manager — please write your question in words.</value></data>
+  <data name="BotStepPassed" xml:space="preserve"><value>This step is already complete</value></data>
+  <data name="BotStaleButton" xml:space="preserve"><value>This button has expired — send /start</value></data>
+  <data name="BotFreeTextOffer" xml:space="preserve"><value>I'm a bot and I work with buttons, but I can pass your question on to Elena, our manager — she will answer right here.</value></data>
+  <data name="BotWriteTitle" xml:space="preserve"><value>Write your question</value></data>
+  <data name="BotWriteIntro" xml:space="preserve"><value>The manager will answer right here. During working hours we reply within half an hour.</value></data>
+  <data name="BotForwarded" xml:space="preserve"><value>Passed on to the manager. The reply will come right here — within half an hour during working hours.</value></data>
+  <data name="BotForwardTooMany" xml:space="preserve"><value>Too many messages in a row — please wait a little and write again.</value></data>
+  <data name="BotForwardTooLong" xml:space="preserve"><value>The message is too long — no more than {0} characters. Please split it into parts.</value></data>
+  <data name="BotForwardFailed" xml:space="preserve"><value>Couldn't pass your message on — please try again in a minute.</value></data>
+  <data name="BotError" xml:space="preserve"><value>Something went wrong. Please try again in a minute.</value></data>
+
+  <!-- ===== command menu and bot description in the client ===== -->
+  <data name="BotCmdStart" xml:space="preserve"><value>Start / main menu</value></data>
+  <data name="BotCmdBook" xml:space="preserve"><value>Book a tour</value></data>
+  <data name="BotCmdProgram" xml:space="preserve"><value>Day programme in Teriberka</value></data>
+  <data name="BotCmdPrice" xml:space="preserve"><value>Price and what's included</value></data>
+  <data name="BotCmdRoutes" xml:space="preserve"><value>Other routes</value></data>
+  <data name="BotCmdFaq" xml:space="preserve"><value>Frequently asked questions</value></data>
+  <data name="BotCmdContacts" xml:space="preserve"><value>Contacts</value></data>
+  <data name="BotCmdWrite" xml:space="preserve"><value>Message the manager</value></data>
+  <data name="BotCmdMenu" xml:space="preserve"><value>Main menu</value></data>
+  <data name="BotCmdCancel" xml:space="preserve"><value>Cancel the request</value></data>
+  <data name="BotDescription" xml:space="preserve"><value>Tours from Murmansk: Teriberka, the Lovozero Tundras and the Tersky Coast. I'll tell you about the programme and prices, book you on a tour and pass your question on to a manager.</value></data>
+  <data name="BotShortDescription" xml:space="preserve"><value>Teriberka and Kola Peninsula tours: programme, prices, booking</value></data>
+
+  <!-- ===== from the site, same keys (SharedResource.en.resx) ===== -->
+  <data name="HeroKicker" xml:space="preserve"><value>Departures from Murmansk</value></data>
+  <data name="HeroPrice" xml:space="preserve"><value>from 12 000 ₽ per person</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>Full day · groups up to 8</value></data>
+  <data name="IncludedTitle" xml:space="preserve"><value>What's included</value></data>
+  <data name="IncludedSubtitle" xml:space="preserve"><value>One price — no extra charges on site</value></data>
+  <data name="Included1" xml:space="preserve"><value>Transfer from Murmansk and back in a comfortable minivan</value></data>
+  <data name="Included2" xml:space="preserve"><value>A guide who lives the North and knows spots without the crowds</value></data>
+  <data name="Included3" xml:space="preserve"><value>Lunch at an Arctic cuisine restaurant</value></data>
+  <data name="Included4" xml:space="preserve"><value>Thermoses of hot tea and snacks for the road</value></data>
+  <data name="Included5" xml:space="preserve"><value>Photo support — tour shots as a gift</value></data>
+  <data name="Included6" xml:space="preserve"><value>Groups up to 8: no queues, no rush</value></data>
+  <data name="ItineraryTitle" xml:space="preserve"><value>Your day in Teriberka</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>A full day: we meet you at the airport or in town, drive you in comfort to the highlights of the coast and bring you back in the evening.</value></data>
+  <data name="ItineraryNote" xml:space="preserve"><value>The order and availability of stops may change with the weather — the North always has the final say.</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>Airport or city pickup</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>We collect you at the airport, the railway station or an agreed point in Murmansk, and you settle into a comfortable minivan.</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>The road to Teriberka</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>About a two-hour drive past the Kola wind farm, the stone garden and tundra stretching to the horizon.</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>Seafood tasting</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>Sample sea urchins, scallops, sea cucumbers and much more. Coffee, tea and snacks, restrooms and souvenirs are on hand too.</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>Boat trip</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>Head out to sea with a chance to spot whales, orcas, seals and other marine mammals, as well as seabird colonies. Teriberka is well worth seeing from the water.</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>Old Teriberka</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>A sandy beach, a whale skeleton, the throne and the ghost ship — plus reindeer and husky dogs.</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>Lunch at an Arctic cuisine restaurant</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>A set lunch or dishes from the menu. After lunch — the viewpoint and the famous “Edge of the Earth” sign.</value></data>
+  <data name="Itinerary7Title" xml:space="preserve"><value>Nature park</value></data>
+  <data name="Itinerary7Text" xml:space="preserve"><value>Logovo (the Lair), Dragon Eggs beach, Batareysky waterfall and viewpoints over the seabird colonies. We walk along wooden trails, and in winter we get around the park by snowmobile.</value></data>
+  <data name="Itinerary8Title" xml:space="preserve"><value>Return to the city</value></data>
+  <data name="Itinerary8Text" xml:space="preserve"><value>After a full day we drive back and drop you at the agreed point in Murmansk.</value></data>
+  <data name="PracticalTitle" xml:space="preserve"><value>Before you travel</value></data>
+  <data name="Faq1Question" xml:space="preserve"><value>What if the road closes because of the weather?</value></data>
+  <data name="Faq1Answer" xml:space="preserve"><value>Safety comes before the programme. We will contact you and offer a new date or another available route.</value></data>
+  <data name="Faq2Question" xml:space="preserve"><value>What should I wear?</value></data>
+  <data name="Faq2Answer" xml:space="preserve"><value>Coastal weather changes quickly. Bring a windproof outer layer, warm layers and shoes with non-slip soles.</value></data>
+  <data name="Faq3Question" xml:space="preserve"><value>Can children join?</value></data>
+  <data name="Faq3Answer" xml:space="preserve"><value>Yes, but the route takes a full day and includes walks over rocky terrain. Tell the operator your child's age.</value></data>
+  <data name="Faq4Question" xml:space="preserve"><value>Do I pay when I submit the form?</value></data>
+  <data name="Faq4Answer" xml:space="preserve"><value>No. We first confirm the date, programme and final price; then you decide whether to book.</value></data>
+  <data name="Faq5Question" xml:space="preserve"><value>How long is the tour?</value></data>
+  <data name="Faq5Answer" xml:space="preserve"><value>A full day: we leave Murmansk in the morning and return in the evening. We confirm exact times when you book — they depend on the season and daylight.</value></data>
+  <data name="Faq6Question" xml:space="preserve"><value>What happens after I send a request?</value></data>
+  <data name="Faq6Answer" xml:space="preserve"><value>We call you back on the number you gave, confirm the date, group size and wishes, and quote the final price. Booking happens only once you agree.</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>a request commits you to nothing: we call first, settle the date, the weather and the price, and only then do you say yes</value></data>
+  <data name="MapTitle" xml:space="preserve"><value>Where we will take you</value></data>
+  <data name="MapSubtitle" xml:space="preserve"><value>Three destinations across the Kola Peninsula — every tour starts in Murmansk</value></data>
+  <data name="Dir1Title" xml:space="preserve"><value>Teriberka and the Barents Sea</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>Dragon Eggs, the ship graveyard, a waterfall into the ocean and aurora hunting at the edge of the continent.</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>Tundras and the Rybachy Peninsula</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>Sacred Seydozero, the Geologists' Pass and the road to land's end — the Sredny and Rybachy peninsulas.</value></data>
+  <data name="Dir3Title" xml:space="preserve"><value>Tersky Coast and Umba</value></data>
+  <data name="Dir3Text" xml:space="preserve"><value>Amethysts of Cape Korabl, the Kuzomen sands and Pomor villages by the White Sea.</value></data>
+  <data name="MapSpot1" xml:space="preserve"><value>Teriberka</value></data>
+  <data name="MapSpot2" xml:space="preserve"><value>Lovozero Tundras</value></data>
+  <data name="MapSpot3" xml:space="preserve"><value>Tersky Coast</value></data>
+  <data name="MapDist1" xml:space="preserve"><value>~75 mi</value></data>
+  <data name="MapDist2" xml:space="preserve"><value>~100 mi</value></data>
+  <data name="MapDist3" xml:space="preserve"><value>~220 mi</value></data>
+  <data name="RouteCustomTitle" xml:space="preserve"><value>Custom route</value></data>
+  <data name="RouteCustomText" xml:space="preserve"><value>We will build the programme around your dates, group and interests — from a single day to a week-long expedition across the Kola Peninsula.</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>During working hours we will get back to you within half an hour</value></data>
+  <data name="SentTitle" xml:space="preserve"><value>Request received!</value></data>
+  <data name="SentText" xml:space="preserve"><value>We will call you to confirm the details of your trip.</value></data>
+  <data name="FooterDaily" xml:space="preserve"><value>Daily from 9:00 to 21:00 (MSK)</value></data>
+</root>

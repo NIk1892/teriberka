@@ -25,6 +25,27 @@ public class ChatSendCommandValidator : CreateCommandValidator<ChatSendCommand>
     }
 }
 
+public class ChatTelegramSendCommandValidator : CreateCommandValidator<ChatTelegramSendCommand>
+{
+    protected override bool TitleRequired => false;
+
+    protected override void Validate()
+    {
+        base.Validate();
+
+        RuleFor(x => x.TgChatId).NotEqual(0);
+
+        RuleFor(x => x.Text)
+            .NotEmpty()
+            .WithMessage("Напишите вопрос")
+            .MaximumLength(ChatLimits.MaxTextLength)
+            .WithMessage($"Сообщение — не длиннее {ChatLimits.MaxTextLength} символов");
+
+        RuleFor(x => x.Lang).MaximumLength(8);
+        RuleFor(x => x.Username).MaximumLength(64);
+    }
+}
+
 public class ChatAdminReplyCommandValidator : CreateCommandValidator<ChatAdminReplyCommand>
 {
     protected override bool TitleRequired => false;

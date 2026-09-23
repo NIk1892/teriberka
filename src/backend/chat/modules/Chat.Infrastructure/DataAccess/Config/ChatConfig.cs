@@ -18,6 +18,7 @@ public class ChatSessionConfig : AuditableEntityConfig<ChatSessionEntity>
         builder.Property(e => e.Culture).HasMaxLength(Constatnts.FieldLength.Text32);
         builder.Property(e => e.Page).HasMaxLength(Constatnts.FieldLength.Text255);
         builder.Property(e => e.LastMessageAt).IsRequired();
+        builder.Property(e => e.TgUsername).HasMaxLength(Constatnts.FieldLength.Text64);
     }
 
     // base не вызываем: он вешает уникальный citext-индекс на Title, которого у чата нет
@@ -32,6 +33,10 @@ public class ChatSessionConfig : AuditableEntityConfig<ChatSessionEntity>
 
         // Чистка по сроку хранения переписки.
         builder.HasIndex(e => e.LastMessageAt);
+
+        // Диалог из лички бота ищется по чату Telegram. Не уникальный: исчерпавший лимит
+        // сообщений диалог закрывается, и для того же чата заводится новый.
+        builder.HasIndex(e => e.TgChatId);
     }
 }
 

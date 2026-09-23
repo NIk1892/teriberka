@@ -131,11 +131,29 @@ public sealed class ApplicationNotifier(
         var text = new StringBuilder()
             .Append("<b>Новая заявка</b> · ").Append(Escape(RouteTitle(application.Route)));
 
+        // Заявка из бота: менеджер может ответить прямо в Telegram, поэтому username —
+        // ссылкой. Без username остаётся только id — по нему написать нельзя, но видно,
+        // что это тот же человек, если он придёт снова.
+        if (application.Source == ApplicationSources.Telegram)
+        {
+            text.Append("\nИсточник: Telegram");
+
+            if (!string.IsNullOrWhiteSpace(application.TgUsername))
+                text.Append(" · <a href=\"https://t.me/").Append(Escape(application.TgUsername)).Append("\">@")
+                    .Append(Escape(application.TgUsername)).Append("</a>");
+            else if (application.TgUserId is { } userId)
+                text.Append(" · id ").Append(userId);
+        }
+
         if (!string.IsNullOrWhiteSpace(application.Title))
             text.Append("\nИмя: ").Append(Escape(application.Title));
 
         // Номер обычным текстом, без <code>: так Telegram делает его нажимаемым для звонка.
         text.Append("\nТелефон: ").Append(Escape(application.Phone));
+
+        // Дата, число человек, пожелания — то, что бот узнал по шагам; с сайта пусто.
+        if (!string.IsNullOrWhiteSpace(application.Details))
+            text.Append('\n').Append(Escape(application.Details));
 
         if (application.Audit?.CreatedAt is { } createdAt)
             text.Append('\n').Append((createdAt + MoscowOffset).ToString("dd.MM.yyyy HH:mm")).Append(" МСК");

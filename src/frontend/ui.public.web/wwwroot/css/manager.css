@@ -180,6 +180,28 @@
 
 .mgr-name { font-size: 1.05rem; overflow-wrap: anywhere; }
 
+/* заявка из Telegram-бота: бейдж своим цветом, чтобы не путать с «не ушла в Telegram» */
+.mgr-badge.mgr-source {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent);
+}
+
+.mgr-tg {
+    color: var(--accent);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+.mgr-tg:hover { text-decoration: underline; }
+
+/* дата, число человек, пожелания — как бот собрал, построчно */
+.mgr-details {
+    margin: -4px 0 12px;
+    color: var(--text-muted);
+    font-size: .92rem;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
 .mgr-process textarea {
     box-sizing: border-box;
     width: 100%;

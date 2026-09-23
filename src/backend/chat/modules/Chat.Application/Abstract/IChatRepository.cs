@@ -21,6 +21,16 @@ public interface IChatRepository : IUnitOfWorkRepository
     /// <summary>Заводит диалог с новым секретным токеном. Сохраняется общим CommitAsync.</summary>
     ChatSessionEntity CreateSession(string? culture, string? page);
 
+    #region Диалог из лички Telegram-бота
+
+    /// <summary>Текущий (самый свежий) диалог из этой лички Telegram; null — ещё не писали.</summary>
+    Task<ChatSessionEntity?> FindSessionByTgChatIdAsync(long tgChatId, CancellationToken cancellationToken);
+
+    /// <summary>Заводит диалог из лички бота: токен есть, но наружу не уходит; страница — «telegram».</summary>
+    ChatSessionEntity CreateTelegramSession(long tgChatId, string? lang, string? username);
+
+    #endregion
+
     /// <summary>Сколько сообщений посетитель прислал в этот диалог начиная с указанного момента.</summary>
     Task<int> CountRecentVisitorMessagesAsync(Guid sessionId, DateTime since, CancellationToken cancellationToken);
 

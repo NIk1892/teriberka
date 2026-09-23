@@ -26,6 +26,19 @@ public class ApplicationCreateCommandValidator : CreateCommandValidator<Applicat
         RuleFor(x => x.Route)
             .Must(ApplicationRoutes.IsKnown)
             .WithMessage("Выберите маршрут из списка");
+
+        // Источник — тоже только известный код: в БД он уходит как есть.
+        RuleFor(x => x.Source)
+            .Must(ApplicationSources.IsKnown)
+            .WithMessage("Неизвестный источник заявки");
+
+        // У Telegram username не длиннее 32 символов; поле шире с запасом.
+        RuleFor(x => x.TgUsername)
+            .MaximumLength(64).WithMessage("Слишком длинный username");
+
+        RuleFor(x => x.Details)
+            .MaximumLength(ApplicationCreateCommand.MaxDetailsLength)
+            .WithMessage($"Детали — не длиннее {ApplicationCreateCommand.MaxDetailsLength} символов");
     }
 }
 

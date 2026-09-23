@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Тексты лички Telegram-бота: китайский (упрощённый). Ключи и порядок — как в BotStrings.resx.
+    Ключи без префикса Bot скопированы с сайта (SharedResource.zh.resx) под теми же именами —
+    поменялся текст на сайте, скопировать значение сюда. Ключи Bot* — только бота.
+    Тексты уходят в Telegram как HTML: «<», «>» и «&» здесь недопустимы; {0}/{1} — подстановки.
+    Иконки к кнопкам подставляет код (BotIcons.cs) — в подписях эмодзи не нужны.
+  -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- ===== приветствие и меню ===== -->
+  <data name="BotWelcomeTitle" xml:space="preserve"><value>您好！我是“捷里别尔卡之境”机器人</value></data>
+  <data name="BotWelcome" xml:space="preserve"><value>从摩尔曼斯克出发的行程：捷里别尔卡、洛沃泽罗山地和捷尔斯基海岸。我可以介绍行程与费用、为您预约行程，并把问题转交客服经理。</value></data>
+  <data name="BotMenuTitle" xml:space="preserve"><value>有什么可以帮您？</value></data>
+  <data name="BotMenuBook" xml:space="preserve"><value>预约行程</value></data>
+  <data name="BotMenuProgram" xml:space="preserve"><value>一日行程</value></data>
+  <data name="BotMenuPrice" xml:space="preserve"><value>费用</value></data>
+  <data name="BotMenuRoutes" xml:space="preserve"><value>其他路线</value></data>
+  <data name="BotMenuFaq" xml:space="preserve"><value>常见问题</value></data>
+  <data name="BotMenuContacts" xml:space="preserve"><value>联系方式</value></data>
+  <data name="BotMenuWrite" xml:space="preserve"><value>联系客服经理</value></data>
+  <data name="BotMenuSite" xml:space="preserve"><value>打开网站</value></data>
+  <data name="BotUnknownCommand" xml:space="preserve"><value>我不认识这个命令。我能做的有：</value></data>
+
+  <!-- ===== кнопки ===== -->
+  <data name="BotBtnMenu" xml:space="preserve"><value>菜单</value></data>
+  <data name="BotBtnBack" xml:space="preserve"><value>返回</value></data>
+  <data name="BotBtnCancel" xml:space="preserve"><value>取消</value></data>
+  <data name="BotBtnBook" xml:space="preserve"><value>预约</value></data>
+  <data name="BotBtnBookRoute" xml:space="preserve"><value>预约此路线</value></data>
+  <data name="BotBtnToFaq" xml:space="preserve"><value>返回问题列表</value></data>
+  <data name="BotBtnToRoutes" xml:space="preserve"><value>返回路线列表</value></data>
+  <data name="BotBtnPolicy" xml:space="preserve"><value>隐私政策</value></data>
+  <data name="BotBtnSubmit" xml:space="preserve"><value>提交申请</value></data>
+  <data name="BotBtnRetry" xml:space="preserve"><value>再试一次</value></data>
+  <data name="BotBtnSiteApply" xml:space="preserve"><value>在网站上提交申请</value></data>
+  <data name="BotBtnResume" xml:space="preserve"><value>继续</value></data>
+  <data name="BotBtnRestart" xml:space="preserve"><value>重新开始</value></data>
+  <data name="BotBtnDateSkip" xml:space="preserve"><value>尚未确定</value></data>
+  <data name="BotBtnPeopleMore" xml:space="preserve"><value>8 人以上</value></data>
+  <data name="BotBtnWishesSkip" xml:space="preserve"><value>跳过</value></data>
+  <data name="BotBtnNameTg" xml:space="preserve"><value>使用姓名：{0}</value></data>
+  <data name="BotBtnSharePhone" xml:space="preserve"><value>发送我的号码</value></data>
+  <data name="BotBtnSendToManager" xml:space="preserve"><value>转交客服经理</value></data>
+  <data name="BotBtnEditRoute" xml:space="preserve"><value>路线</value></data>
+  <data name="BotBtnEditDate" xml:space="preserve"><value>日期</value></data>
+  <data name="BotBtnEditPeople" xml:space="preserve"><value>人数</value></data>
+  <data name="BotBtnEditWishes" xml:space="preserve"><value>需求</value></data>
+  <data name="BotBtnEditName" xml:space="preserve"><value>姓名</value></data>
+  <data name="BotBtnEditPhone" xml:space="preserve"><value>电话</value></data>
+
+  <!-- ===== инфо-экраны (свои ключи) ===== -->
+  <data name="BotPriceTitle" xml:space="preserve"><value>费用与包含内容</value></data>
+  <data name="BotRoutesPick" xml:space="preserve"><value>请选择方向，查看详情：</value></data>
+  <data name="BotFaqPick" xml:space="preserve"><value>请选择问题：</value></data>
+  <data name="BotContactsTitle" xml:space="preserve"><value>联系方式</value></data>
+  <data name="BotContactsPhone" xml:space="preserve"><value>电话：{0}</value></data>
+  <data name="BotContactsEmail" xml:space="preserve"><value>邮箱：{0}</value></data>
+  <data name="BotContactsHowTitle" xml:space="preserve"><value>如何到达</value></data>
+  <data name="BotContactsHow" xml:space="preserve"><value>所有行程均从摩尔曼斯克出发：我们在机场、火车站或市内约定地点接您。距摩尔曼斯克的距离：捷里别尔卡——{0}，洛沃泽罗山地——{1}，捷尔斯基海岸——{2}。</value></data>
+
+  <!-- ===== мастер заявки ===== -->
+  <data name="BotStepOf" xml:space="preserve"><value>第 {0} 步，共 {1} 步</value></data>
+  <data name="BotStepRoute" xml:space="preserve"><value>您对哪条路线感兴趣？</value></data>
+  <data name="BotStepDate" xml:space="preserve"><value>您计划什么时候出行？请写下日期或时间段，例如“3 月 12 日”或“5 月初”。如果还没决定，请点击下方按钮。</value></data>
+  <data name="BotStepPeople" xml:space="preserve"><value>一共几位出行？</value></data>
+  <data name="BotStepWishes" xml:space="preserve"><value>有什么特别需求吗？带儿童、航班接机、特别兴趣——请写下来，或跳过此步。</value></data>
+  <data name="BotStepName" xml:space="preserve"><value>请问怎么称呼您？</value></data>
+  <data name="BotStepPhone" xml:space="preserve"><value>请留下电话号码，方便客服经理与您联系。点击下方按钮，或输入带国家代码的号码，例如 +7 912 345-67-89。</value></data>
+  <data name="BotEstimateTeriberka" xml:space="preserve"><value>{1} 人的费用预计为 {0} 卢布起。准确价格由客服经理告知。</value></data>
+  <data name="BotEstimateManager" xml:space="preserve"><value>此行程的费用将由客服经理在电话中为您计算。</value></data>
+  <data name="BotPhoneAccepted" xml:space="preserve"><value>号码已收到</value></data>
+  <data name="BotPhoneInvalid" xml:space="preserve"><value>这看起来不像电话号码。请输入带国家代码的号码，例如 +7 912 345-67-89，或点击“发送我的号码”按钮。</value></data>
+  <data name="BotPhoneNotOwn" xml:space="preserve"><value>请发送您本人的号码——点击“发送我的号码”按钮或直接输入。</value></data>
+  <data name="BotPeopleInvalid" xml:space="preserve"><value>请输入人数，或用按钮选择。</value></data>
+  <data name="BotUseButtons" xml:space="preserve"><value>请用下方按钮选择。</value></data>
+  <data name="BotSummaryTitle" xml:space="preserve"><value>请核对申请</value></data>
+  <data name="BotSummaryRoute" xml:space="preserve"><value>路线：{0}</value></data>
+  <data name="BotSummaryDate" xml:space="preserve"><value>日期：{0}</value></data>
+  <data name="BotSummaryPeople" xml:space="preserve"><value>人数：{0}</value></data>
+  <data name="BotSummaryWishes" xml:space="preserve"><value>需求：{0}</value></data>
+  <data name="BotSummaryName" xml:space="preserve"><value>姓名：{0}</value></data>
+  <data name="BotSummaryPhone" xml:space="preserve"><value>电话：{0}</value></data>
+  <data name="BotSummaryDateUnknown" xml:space="preserve"><value>尚未确定</value></data>
+  <data name="BotSummaryPeopleMore" xml:space="preserve"><value>8 人以上</value></data>
+  <data name="BotSummaryNone" xml:space="preserve"><value>—</value></data>
+  <data name="BotSummaryConsent" xml:space="preserve"><value>点击“提交申请”，即表示您同意处理个人数据并接受隐私政策。提交申请不承担任何义务：客服经理会致电您，确认细节并告知最终价格。</value></data>
+  <data name="BotSubmitInvalid" xml:space="preserve"><value>申请提交失败：{0}。请修改信息后重试。</value></data>
+  <data name="BotSubmitUnavailable" xml:space="preserve"><value>申请提交失败——请一分钟后再试，您填写的信息已保存。您也可以在网站上提交申请，或致电我们{0}。</value></data>
+  <data name="BotSubmitRateLimited" xml:space="preserve"><value>短时间内提交的申请过多。请等待几分钟，然后点击“再试一次”。</value></data>
+  <data name="BotBookingDisabled" xml:space="preserve"><value>目前暂不支持通过机器人预约。请在网站上提交申请，或致电我们{0}。</value></data>
+  <data name="BotCooldown" xml:space="preserve"><value>您的申请已收到——{0} 分钟后可再提交一份。如需补充，请联系客服经理。</value></data>
+  <data name="BotDailyCap" xml:space="preserve"><value>今天的申请已经足够——客服经理会就您已提交的申请与您联系。如有急事，请联系客服经理。</value></data>
+  <data name="BotDraftExists" xml:space="preserve"><value>您有一份未完成的申请。是继续填写，还是重新开始？</value></data>
+  <data name="BotCancelled" xml:space="preserve"><value>申请已取消。如果改变主意，我随时在这里。</value></data>
+
+  <!-- ===== подсказки и служебное ===== -->
+  <data name="BotOnlyText" xml:space="preserve"><value>我只能理解文字和按钮。</value></data>
+  <data name="BotChatOnlyText" xml:space="preserve"><value>我只能把文字转交给客服经理——请用文字写下您的问题。</value></data>
+  <data name="BotStepPassed" xml:space="preserve"><value>此步骤已完成</value></data>
+  <data name="BotStaleButton" xml:space="preserve"><value>按钮已失效——请发送 /start</value></data>
+  <data name="BotFreeTextOffer" xml:space="preserve"><value>我是机器人，只能通过按钮回复，但可以把您的问题转交给客服经理叶莲娜——她会在这里回复您。</value></data>
+  <data name="BotWriteTitle" xml:space="preserve"><value>请写下您的问题</value></data>
+  <data name="BotWriteIntro" xml:space="preserve"><value>客服经理会在这里回复。工作时间内，我们将在半小时内回复。</value></data>
+  <data name="BotForwarded" xml:space="preserve"><value>已转交客服经理。回复会发到这里——工作时间内半小时内回复。</value></data>
+  <data name="BotForwardTooMany" xml:space="preserve"><value>短时间内消息过多——请稍等片刻后再发。</value></data>
+  <data name="BotForwardTooLong" xml:space="preserve"><value>消息太长——不能超过 {0} 个字符。请分成几条发送。</value></data>
+  <data name="BotForwardFailed" xml:space="preserve"><value>消息转交失败——请一分钟后再试。</value></data>
+  <data name="BotError" xml:space="preserve"><value>出了点问题。请一分钟后再试。</value></data>
+
+  <!-- ===== меню команд и описание бота в клиенте ===== -->
+  <data name="BotCmdStart" xml:space="preserve"><value>开始 / 主菜单</value></data>
+  <data name="BotCmdBook" xml:space="preserve"><value>预约行程</value></data>
+  <data name="BotCmdProgram" xml:space="preserve"><value>捷里别尔卡一日行程</value></data>
+  <data name="BotCmdPrice" xml:space="preserve"><value>费用与包含内容</value></data>
+  <data name="BotCmdRoutes" xml:space="preserve"><value>其他路线</value></data>
+  <data name="BotCmdFaq" xml:space="preserve"><value>常见问题</value></data>
+  <data name="BotCmdContacts" xml:space="preserve"><value>联系方式</value></data>
+  <data name="BotCmdWrite" xml:space="preserve"><value>联系客服经理</value></data>
+  <data name="BotCmdMenu" xml:space="preserve"><value>主菜单</value></data>
+  <data name="BotCmdCancel" xml:space="preserve"><value>取消申请</value></data>
+  <data name="BotDescription" xml:space="preserve"><value>从摩尔曼斯克出发的行程：捷里别尔卡、洛沃泽罗山地和捷尔斯基海岸。我可以介绍行程与价格、为您预约行程，并把问题转交客服经理。</value></data>
+  <data name="BotShortDescription" xml:space="preserve"><value>捷里别尔卡与科拉半岛之旅：行程、价格、预约</value></data>
+
+  <!-- ===== с сайта, те же ключи (SharedResource.zh.resx) ===== -->
+  <data name="HeroKicker" xml:space="preserve"><value>从摩尔曼斯克出发</value></data>
+  <data name="HeroPrice" xml:space="preserve"><value>每人 12 000 卢布起</value></data>
+  <data name="HeroNote" xml:space="preserve"><value>全天行程 · 8 人以内小团</value></data>
+  <data name="IncludedTitle" xml:space="preserve"><value>费用包含</value></data>
+  <data name="IncludedSubtitle" xml:space="preserve"><value>一口价——现场无任何加收</value></data>
+  <data name="Included1" xml:space="preserve"><value>摩尔曼斯克往返接送，舒适商务车</value></data>
+  <data name="Included2" xml:space="preserve"><value>熟悉北方、避开人流的本地向导</value></data>
+  <data name="Included3" xml:space="preserve"><value>北极风味餐厅午餐</value></data>
+  <data name="Included4" xml:space="preserve"><value>保温壶热茶和路上的小食</value></data>
+  <data name="Included5" xml:space="preserve"><value>随队摄影——行程照片免费赠送</value></data>
+  <data name="Included6" xml:space="preserve"><value>8 人以内小团：不排队、不匆忙</value></data>
+  <data name="ItineraryTitle" xml:space="preserve"><value>捷里别尔卡的一天</value></data>
+  <data name="ItinerarySubtitle" xml:space="preserve"><value>全天行程：我们在机场或市区接您，乘舒适车辆前往海岸主要景点，傍晚送您返回。</value></data>
+  <data name="ItineraryNote" xml:space="preserve"><value>停靠顺序与开放情况可能因天气调整——北方的大自然拥有最终决定权。</value></data>
+  <data name="Itinerary1Title" xml:space="preserve"><value>机场或市区接送</value></data>
+  <data name="Itinerary1Text" xml:space="preserve"><value>我们在机场、火车站或摩尔曼斯克的约定地点接您，乘舒适的小型客车出发。</value></data>
+  <data name="Itinerary2Title" xml:space="preserve"><value>前往捷里别尔卡</value></data>
+  <data name="Itinerary2Text" xml:space="preserve"><value>约两小时车程，沿途经过科拉风电场、石头花园和一望无际的苔原。</value></data>
+  <data name="Itinerary3Title" xml:space="preserve"><value>海鲜品尝</value></data>
+  <data name="Itinerary3Text" xml:space="preserve"><value>品尝海胆、扇贝、海参等多种海鲜。这里还可以喝咖啡、茶，吃点小食，使用洗手间，选购纪念品。</value></data>
+  <data name="Itinerary4Title" xml:space="preserve"><value>出海游览</value></data>
+  <data name="Itinerary4Text" xml:space="preserve"><value>乘船出海，有机会看到鲸鱼、虎鲸、海豹等海洋哺乳动物，还有海鸟聚居的鸟崖。从海上欣赏捷里别尔卡，别有一番美景。</value></data>
+  <data name="Itinerary5Title" xml:space="preserve"><value>老捷里别尔卡</value></data>
+  <data name="Itinerary5Text" xml:space="preserve"><value>沙滩、鲸鱼骨架、王座和幽灵船，还能见到北方驯鹿和哈士奇。</value></data>
+  <data name="Itinerary6Title" xml:space="preserve"><value>北极风味餐厅午餐</value></data>
+  <data name="Itinerary6Text" xml:space="preserve"><value>可选套餐，也可按菜单点餐。饭后前往观景台，打卡著名的“天涯海角”路牌。</value></data>
+  <data name="Itinerary7Title" xml:space="preserve"><value>自然公园</value></data>
+  <data name="Itinerary7Text" xml:space="preserve"><value>“洛戈沃”、“龙蛋”海滩、巴塔雷斯基瀑布和俯瞰鸟崖的观景台。沿木栈道漫步，冬季乘雪地摩托穿行公园。</value></data>
+  <data name="Itinerary8Title" xml:space="preserve"><value>返回市区</value></data>
+  <data name="Itinerary8Text" xml:space="preserve"><value>全天游览结束后返程，送您至摩尔曼斯克的约定地点。</value></data>
+  <data name="PracticalTitle" xml:space="preserve"><value>出发前须知</value></data>
+  <data name="Faq1Question" xml:space="preserve"><value>如果因天气封路怎么办？</value></data>
+  <data name="Faq1Answer" xml:space="preserve"><value>安全优先。我们会联系您，并提供改期或其他可行路线。</value></data>
+  <data name="Faq2Question" xml:space="preserve"><value>应该怎么穿？</value></data>
+  <data name="Faq2Answer" xml:space="preserve"><value>海岸天气变化很快，请准备防风外套、保暖内层和防滑鞋。</value></data>
+  <data name="Faq3Question" xml:space="preserve"><value>儿童可以参加吗？</value></data>
+  <data name="Faq3Answer" xml:space="preserve"><value>可以，但行程为全天并包含石地徒步。请向客服说明儿童年龄。</value></data>
+  <data name="Faq4Question" xml:space="preserve"><value>提交申请时需要付款吗？</value></data>
+  <data name="Faq4Answer" xml:space="preserve"><value>不需要。我们先确认日期、行程和最终价格，再由您决定是否预订。</value></data>
+  <data name="Faq5Question" xml:space="preserve"><value>行程需要多长时间？</value></data>
+  <data name="Faq5Answer" xml:space="preserve"><value>全天行程：早上从摩尔曼斯克出发，傍晚返回。具体时间在预订时确认，取决于季节和日照。</value></data>
+  <data name="Faq6Question" xml:space="preserve"><value>提交申请后会发生什么？</value></data>
+  <data name="Faq6Answer" xml:space="preserve"><value>我们会按您留下的电话回访，确认日期、人数和需求，并告知最终价格。只有在您同意后才会正式预订。</value></data>
+  <data name="Why3Text" xml:space="preserve"><value>提交申请不承担任何义务：我们先通电话，商定日期、天气和价格，之后再由您点头</value></data>
+  <data name="MapTitle" xml:space="preserve"><value>我们带您去哪里</value></data>
+  <data name="MapSubtitle" xml:space="preserve"><value>科拉半岛的三个方向——所有行程从摩尔曼斯克出发</value></data>
+  <data name="Dir1Title" xml:space="preserve"><value>捷里别尔卡与巴伦支海</value></data>
+  <data name="Dir1Text" xml:space="preserve"><value>“龙蛋”海滩、船舶墓地、入海瀑布，以及大陆尽头的极光。</value></data>
+  <data name="Dir2Title" xml:space="preserve"><value>苔原与雷巴奇半岛</value></data>
+  <data name="Dir2Text" xml:space="preserve"><value>圣湖谢伊德湖、地质学家山口，以及通往天涯海角——斯列德尼与雷巴奇半岛的道路。</value></data>
+  <data name="Dir3Title" xml:space="preserve"><value>捷尔斯基海岸与温巴</value></data>
+  <data name="Dir3Text" xml:space="preserve"><value>科拉布尔角的紫水晶、库佐缅的沙丘和白海的波莫尔村落。</value></data>
+  <data name="MapSpot1" xml:space="preserve"><value>捷里别尔卡</value></data>
+  <data name="MapSpot2" xml:space="preserve"><value>洛沃泽罗山地</value></data>
+  <data name="MapSpot3" xml:space="preserve"><value>捷尔斯基海岸</value></data>
+  <data name="MapDist1" xml:space="preserve"><value>约 120 公里</value></data>
+  <data name="MapDist2" xml:space="preserve"><value>约 160 公里</value></data>
+  <data name="MapDist3" xml:space="preserve"><value>约 350 公里</value></data>
+  <data name="RouteCustomTitle" xml:space="preserve"><value>定制路线</value></data>
+  <data name="RouteCustomText" xml:space="preserve"><value>我们会根据您的日期、同行人数和兴趣安排行程——从一日游到为期一周的科拉半岛探险。</value></data>
+  <data name="FormCallbackNote" xml:space="preserve"><value>工作时间内，我们将在半小时内与您联系</value></data>
+  <data name="SentTitle" xml:space="preserve"><value>申请已收到！</value></data>
+  <data name="SentText" xml:space="preserve"><value>我们会电话联系您，确认行程细节。</value></data>
+  <data name="FooterDaily" xml:space="preserve"><value>每天 9:00–21:00（莫斯科时间）</value></data>
+</root>

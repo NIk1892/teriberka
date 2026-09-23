@@ -56,6 +56,10 @@
                     <div class="mgr-app-head">
                         <time datetime="@item.Audit?.CreatedAt?.ToString("O")">@Moscow(item.Audit?.CreatedAt)</time>
                         <span class="mgr-route">@RouteTitle(item.Route)</span>
+                        @if (item.Source == ApplicationSources.Telegram)
+                        {
+                            <span class="mgr-badge mgr-source" title="Заявка оставлена в Telegram-боте">из Telegram</span>
+                        }
                         @if (item.TgMessageId is null)
                         {
                             <span class="mgr-badge" title="Отбивка в Telegram-канал не ушла: Telegram или туннель были недоступны, либо заявке больше суток">не ушла в Telegram</span>
@@ -68,7 +72,18 @@
                         {
                             <span class="mgr-name">@item.Title</span>
                         }
+                        @* Заявка из бота: менеджер может ответить прямо в Telegram. *@
+                        @if (!string.IsNullOrWhiteSpace(item.TgUsername))
+                        {
+                            <a class="mgr-tg" href="https://t.me/@item.TgUsername" target="_blank" rel="noopener">@("@" + item.TgUsername)</a>
+                        }
                     </div>
+
+                    @* Что бот узнал по шагам (дата, число человек, пожелания); с сайта пусто. *@
+                    @if (!string.IsNullOrWhiteSpace(item.Details))
+                    {
+                        <p class="mgr-details">@item.Details</p>
+                    }
 
                     <form class="mgr-process" method="post" action="/manager/process">
                         <AntiforgeryToken />

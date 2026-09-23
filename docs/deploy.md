@@ -239,6 +239,30 @@ docker run --rm --network teriberka_default curlimages/curl:8.16.0 -s -o /dev/nu
 (создавалась обычной группой `-5413673973` и сменила id при включении истории для новых
 участников — ровно та ловушка из шага 1). Путь «сайт → группа → reply → сайт» проверен.
 
+### Включение записи через бота
+
+В личке бот показывает меню (программа дня, стоимость, маршруты, вопросы, контакты),
+ведёт по шагам к заявке и передаёт свободный вопрос в ту же группу менеджеров. Заявку
+бот отправляет в users **через шлюз** со служебным JWT — тем же `API_TOKEN`, что у
+страницы `/manager` (см. ниже). Бот и туннель — те же, что у отбивки и чата.
+
+1. `API_TOKEN` уже в `.env` с 16.09.2026 — отдельного ключа не нужно. Пересобрать и
+   поднять три сервиса: `docker compose … up -d --build api-users api-gateway api-chat`
+   (users получил колонки заявки и приватный маршрут, шлюз — маршрут `applications-private`).
+2. В логе chat при старте: «Telegram-бот @trbrkray_bot запущен … запись через бота включена».
+   Строка «API_URL или API_TOKEN не заданы» означает, что бот предложит только сайт и телефон.
+3. Проверка: в личке бота `/book` → маршрут → дата → люди → пожелания → имя → телефон →
+   «Отправить заявку». Через ~10 с в канале отбивка с «Источник: Telegram · @username»
+   и строками «Дата / Человек / Оценка в боте», на `/manager` — карточка с бейджем
+   «из Telegram». В группе менеджеров вопрос из лички приходит с шапкой
+   «✈️ Новый чат из Telegram · #… · @username»; reply на него уходит посетителю в личку
+   (бот ставит 👍, если доставил; «посетитель заблокировал бота» — если нет).
+4. Меню команд и описание бота в клиенте бот задаёт сам при каждом старте (ru/en/zh);
+   в @BotFather их править не нужно.
+
+Ссылка «Забронировать через бота» на сайте ведёт на `https://t.me/trbrkray_bot?start=book` —
+бот открывается сразу в мастере заявки.
+
 ## Страница заявок
 
 `https://teriberka-kray.ru/manager` — заявки для менеджеров (вход по общему паролю).
@@ -277,11 +301,20 @@ docker compose ... logs -f api-chat           # чат и Telegram-бот
 docker compose ... exec nginx nginx -t        # проверить конфиг перед reload
 ```
 
-Заявки (Telegram-бот их пока не читает):
+Заявки (удобнее — страница `/manager`; `Source` = site или telegram, у заявок из бота
+ещё `TgUsername` и `Details`):
 
 ```bash
 docker compose ... exec postgres psql -U postgres -d platform \
-  -c 'select "Title", "Phone", "Route", "Audit_CreatedAt" from users."Applications" where not "IsDeleted" order by "Audit_CreatedAt" desc limit 20'
+  -c 'select "Title", "Phone", "Route", "Source", "TgUsername", "Audit_CreatedAt" from users."Applications" where not "IsDeleted" order by "Audit_CreatedAt" desc limit 20'
+```
+
+Диалоги бота (черновики заявок; персональные поля обнуляются после отправки и через
+сутки без ответа, строки удаляются через 30 дней без активности):
+
+```bash
+docker compose ... exec postgres psql -U postgres -d platform \
+  -c 'select "TgUserId", "Step", "Lang", "LastActivityAt", "SubmitDayCount" from chat."BotDialogs" order by "LastActivityAt" desc limit 20'
 ```
 
 Консоль MinIO наружу не публикуется никогда — только через туннель:

@@ -1,4 +1,5 @@
 using Chat.Application.Abstract;
+using Chat.Bot.Dm;
 using Chat.Contracts;
 using Domain;
 using Mediator;
@@ -7,14 +8,13 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 using Update = Telegram.Bot.Types.Update;
 
 namespace Chat.Bot;
 
 /// <summary>
-/// Telegram-бот проекта: на сообщение в личке отвечает локализованным приветствием
-/// с кнопкой-ссылкой на сайт, а из группы гидов принимает ответы посетителям.
+/// Telegram-бот проекта. В личке — меню, информация о туре, мастер заявки и «написать
+/// менеджеру» (всё это — BotDmHandler); из группы гидов принимает ответы посетителям.
 ///
 /// Живёт внутри chat-сервиса, потому что именно чат — его основная работа, а long
 /// polling обязан работать ровно в одном экземпляре: два процесса с одним токеном
@@ -25,18 +25,13 @@ namespace Chat.Bot;
 /// боту не мешает.
 /// </summary>
 public sealed class BotService(
-    IConfiguration configuration,
     TelegramBotAccessor bot,
+    BotOptions options,
+    BotDmHandler dm,
+    BotSender sender,
     IServiceScopeFactory scopeFactory,
     ILogger<BotService> logger) : BackgroundService
 {
-    /// <summary>
-    /// Насколько старое сообщение из лички ещё стоит приветствовать. Апдейты больше не
-    /// отбрасываются при старте (иначе терялись бы ответы гидов), поэтому от пачки
-    /// приветствий на вчерашние «/start» защищает возраст сообщения.
-    /// </summary>
-    private static readonly TimeSpan GreetingFreshness = TimeSpan.FromMinutes(10);
-
     /// <summary>Потолок паузы между попытками достучаться до Telegram при старте.</summary>
     private static readonly TimeSpan MaxStartBackoff = TimeSpan.FromMinutes(5);
 
@@ -48,33 +43,32 @@ public sealed class BotService(
             return;
         }
 
-        var siteUrl = configuration["SITE_URL"];
-        if (string.IsNullOrWhiteSpace(siteUrl))
+        if (options.SiteUrl.Length == 0)
         {
-            logger.LogError("SITE_URL не задан — кнопке бота некуда вести, бот выключен");
+            logger.LogError("SITE_URL не задан — кнопкам бота некуда вести, бот выключен");
             return;
         }
 
-        if (!await WaitForTelegramAsync(client, siteUrl, stoppingToken))
+        if (!await WaitForTelegramAsync(client, stoppingToken))
             return;
 
-        var options = new ReceiverOptions
+        // Меню команд и описание — после проверки токена; сбой не мешает работе.
+        await BotCommandsSetup.ApplyAsync(client, logger, stoppingToken);
+
+        var receiverOptions = new ReceiverOptions
         {
-            // MyChatMember нужен, чтобы в лог попал id группы в момент добавления бота —
-            // это единственный удобный способ узнать TG_ADMIN_CHAT_ID.
-            AllowedUpdates = [UpdateType.Message, UpdateType.MyChatMember],
+            // CallbackQuery — нажатия inline-кнопок лички. MyChatMember нужен, чтобы в лог
+            // попал id группы в момент добавления бота — единственный удобный способ узнать
+            // TG_ADMIN_CHAT_ID. EditedMessage сознательно не берём: правку сообщения бот не видит.
+            AllowedUpdates = [UpdateType.Message, UpdateType.CallbackQuery, UpdateType.MyChatMember],
 
             // Раньше было true: пачка ответов на вчерашние «/start» никому не нужна.
-            // Но теперь тем же каналом приходят ОТВЕТЫ ГИДОВ — их терять нельзя,
-            // поэтому апдейты забираем все, а приветствия фильтруем по возрасту.
+            // Но тем же каналом приходят ОТВЕТЫ ГИДОВ — их терять нельзя, поэтому апдейты
+            // забираем все, а старые сообщения без активного диалога отбрасывает BotDmHandler.
             DropPendingUpdates = false,
         };
 
-        await client.ReceiveAsync(
-            (c, update, ct) => OnUpdate(c, update, siteUrl, ct),
-            OnError,
-            options,
-            stoppingToken);
+        await client.ReceiveAsync(OnUpdate, OnError, receiverOptions, stoppingToken);
     }
 
     /// <summary>
@@ -83,7 +77,7 @@ public sealed class BotService(
     /// ExecuteAsync останавливает хост, контейнер уходит в рестарты, и чат на сайте
     /// перестаёт принимать сообщения. Поэтому ждём связь с растущей паузой.
     /// </summary>
-    private async Task<bool> WaitForTelegramAsync(ITelegramBotClient client, string siteUrl, CancellationToken stoppingToken)
+    private async Task<bool> WaitForTelegramAsync(ITelegramBotClient client, CancellationToken stoppingToken)
     {
         var delay = TimeSpan.FromSeconds(5);
 
@@ -92,7 +86,8 @@ public sealed class BotService(
             try
             {
                 var me = await client.GetMe(stoppingToken);
-                logger.LogInformation("Telegram-бот @{Username} запущен, кнопка ведёт на {SiteUrl}", me.Username, siteUrl);
+                logger.LogInformation("Telegram-бот @{Username} запущен, кнопки ведут на {SiteUrl}, запись через бота {Booking}",
+                    me.Username, options.SiteUrl, options.BookingEnabled ? "включена" : "выключена");
                 return true;
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
@@ -122,13 +117,24 @@ public sealed class BotService(
         }
     }
 
-    private async Task OnUpdate(ITelegramBotClient client, Update update, string siteUrl, CancellationToken ct)
+    private async Task OnUpdate(ITelegramBotClient client, Update update, CancellationToken ct)
     {
         if (update.MyChatMember is { } membership)
         {
             // Подсказка при настройке: добавили бота в группу — её id сразу видно в логе.
             logger.LogInformation("Бота добавили в чат {ChatId} «{Title}» ({Type}) — этот id идёт в TG_ADMIN_CHAT_ID",
                 membership.Chat.Id, membership.Chat.Title ?? "—", membership.Chat.Type);
+            return;
+        }
+
+        if (update.CallbackQuery is { } query)
+        {
+            // Кнопки живут только в личке; нажатие в группе (кто-то переслал экран бота) гасим без действий.
+            if (query.Message?.Chat.Type == ChatType.Private)
+                await dm.HandleCallbackAsync(client, query, ct);
+            else
+                await sender.AnswerCallbackAsync(client, query.Id, null, ct);
+
             return;
         }
 
@@ -152,27 +158,14 @@ public sealed class BotService(
             return;
         }
 
-        if (DateTime.UtcNow - message.Date > GreetingFreshness)
-        {
-            return;
-        }
-
-        var lang = message.From?.LanguageCode;
-
-        // Переписываться в личке бот пока не умеет (бронирование через бота — позже),
-        // поэтому ведёт сразу в чат на сайте: ?chat=open открывает панель и без JavaScript.
-        var keyboard = new InlineKeyboardMarkup(
-            InlineKeyboardButton.WithUrl(BotTexts.OpenSiteButton(lang), $"{siteUrl.TrimEnd('/')}/?chat=open"));
-
-        await client.SendMessage(message.Chat, BotTexts.Greeting(lang), replyMarkup: keyboard, cancellationToken: ct);
-
-        logger.LogInformation("Бот ответил в чат {ChatId} (язык клиента: {Lang})", message.Chat.Id, lang ?? "—");
+        await dm.HandleMessageAsync(client, message, ct);
     }
 
     /// <summary>
     /// Ответ гида посетителю. Гид отвечает reply на сообщение в группе — по Id того
     /// сообщения находим диалог. Свободные сообщения бот сопоставить не может (и, при
-    /// включённом privacy mode, даже не увидит).
+    /// включённом privacy mode, даже не увидит). Диалогу из лички бота ответ уходит в
+    /// Telegram сразу, диалогу с сайта — через опрос страницы.
     /// </summary>
     private async Task HandleAdminReplyAsync(ITelegramBotClient client, Message message, CancellationToken ct)
     {
@@ -250,6 +243,31 @@ public sealed class BotService(
                 sessionId, result.StatusCode);
             await ReplyToManagerAsync(client, message, BotTexts.ReplyNotSaved(bot.AdminLanguage), ct);
             return;
+        }
+
+        // Диалог из лички бота: сайт его не опрашивает, ответ везём в Telegram сами и сразу.
+        // Outbox'а для этого направления нет (у Admin-сообщений TgMessageId занят id сообщения
+        // гида), поэтому неудача — reply менеджеру, повторить может только он.
+        var session = await repository.FindSessionByIdAsync(sessionId.Value, ct);
+
+        if (session?.TgChatId is { } tgChatId)
+        {
+            try
+            {
+                await client.SendMessage(tgChatId, text, cancellationToken: ct);
+            }
+            catch (ApiRequestException e) when (e.ErrorCode == 403)
+            {
+                logger.LogInformation("Посетитель {ChatId} заблокировал бота — ответ гида не доставлен", tgChatId);
+                await ReplyToManagerAsync(client, message, BotTexts.VisitorBlockedBot(bot.AdminLanguage), ct);
+                return;
+            }
+            catch (Exception e) when (!ct.IsCancellationRequested)
+            {
+                logger.LogWarning(e, "Ответ гида в личку {ChatId} не доставлен", tgChatId);
+                await ReplyToManagerAsync(client, message, BotTexts.ReplyNotDeliveredToTelegram(bot.AdminLanguage), ct);
+                return;
+            }
         }
 
         // Видимое подтверждение, что ответ ушёл посетителю — гиду не нужно гадать.

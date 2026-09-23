@@ -1,38 +1,12 @@
 namespace Chat.Bot;
 
 /// <summary>
-/// Тексты Telegram-бота на трёх языках сайта. Язык выбирается по
-/// <c>Message.From.LanguageCode</c> (IETF-тег из настроек клиента Telegram):
-/// ru → русский, zh* → китайский, всё остальное (включая отсутствие тега) —
-/// английский. Ключей мало, поэтому обычный switch вместо resx-инфраструктуры.
-///
-/// Служебные сообщения в группу гидов — исключение: там язык берётся из
-/// <c>TG_ADMIN_LANG</c>, группа одноязычная и не должна менять язык от того,
-/// кто из гидов написал последним.
+/// Служебные тексты бота для группы гидов. Язык — из <c>TG_ADMIN_LANG</c>: группа
+/// одноязычная и не должна менять язык от того, кто из гидов написал последним.
+/// Тексты лички живут в resx (см. Dm/BotStrings) — их много и они повторяют сайт.
 /// </summary>
 public static class BotTexts
 {
-    /// <summary>
-    /// Приветствие в личке. Переписываться здесь бот пока не умеет (бронирование через бота —
-    /// следующий этап), поэтому зовёт в чат на сайте: там отвечает менеджер.
-    /// </summary>
-    public static string Greeting(string? languageCode) => Lang(languageCode) switch
-    {
-        "ru" => "Здравствуйте! Я бот «ТериберкаКрай» — туры в Териберку, Ловозерские тундры и на Терский берег.\n\n"
-                + "Задайте вопрос в чате на сайте — менеджер ответит там же. Скоро записаться на тур можно будет прямо здесь.",
-        "zh" => "您好！我是「捷里别尔卡之境」的机器人——捷里别尔卡、洛沃泽罗苔原和捷尔斯基海岸之旅。\n\n"
-                + "请在网站聊天中提问，客服经理会在那里回复。不久后即可直接在这里报名参加旅行。",
-        _ => "Hello! I'm the TeriberkaKray bot — tours to Teriberka, the Lovozero tundras and the Tersky coast.\n\n"
-             + "Ask your question in the chat on our website — a manager will answer right there. Soon you'll be able to book a tour right here.",
-    };
-
-    public static string OpenSiteButton(string? languageCode) => Lang(languageCode) switch
-    {
-        "ru" => "Открыть чат на сайте",
-        "zh" => "打开网站聊天",
-        _ => "Open the website chat",
-    };
-
     /// <summary>
     /// «Шапка» диалога в группе: публикуется один раз, все сообщения посетителя вешаются
     /// на неё как reply. Гид отвечает reply на любое из них — так бот понимает, куда писать.
@@ -50,6 +24,25 @@ public static class BotTexts
                  + $"Язык: {culture ?? "—"} · страница: {page ?? "—"}\n"
                  + "Отвечайте reply на сообщение — ответ увидит посетитель.",
         };
+
+    /// <summary>Шапка диалога из лички бота: ответ гида уйдёт посетителю в Telegram, а не на сайт.</summary>
+    public static string SessionHeaderTelegram(string? adminLang, string shortId, string? lang, string? username)
+    {
+        var who = username is { Length: > 0 } ? $"@{username}" : "—";
+
+        return Lang(adminLang) switch
+        {
+            "zh" => $"✈️ Telegram 新对话 · #{shortId}\n"
+                    + $"语言：{lang ?? "—"} · 用户：{who}\n"
+                    + "请回复（reply）消息，访客将在 Telegram 私聊中收到您的回答。",
+            "en" => $"✈️ New chat from Telegram · #{shortId}\n"
+                    + $"Language: {lang ?? "—"} · user: {who}\n"
+                    + "Reply to a message and the visitor will get your answer in their Telegram chat.",
+            _ => $"✈️ Новый чат из Telegram · #{shortId}\n"
+                 + $"Язык: {lang ?? "—"} · пользователь: {who}\n"
+                 + "Отвечайте reply на сообщение — ответ придёт посетителю в личку Telegram.",
+        };
+    }
 
     /// <summary>Гид написал в группу, но не ответом на сообщение — бот такое сопоставить не может.</summary>
     public static string ReplyHint(string? adminLang) => Lang(adminLang) switch
@@ -89,7 +82,24 @@ public static class BotTexts
         _ => "Ответ не дошёл до посетителя — отправьте его ещё раз (reply).",
     };
 
-    private static string Lang(string? languageCode)
+    /// <summary>Диалог из лички: посетитель заблокировал бота — писать ему больше нельзя.</summary>
+    public static string VisitorBlockedBot(string? adminLang) => Lang(adminLang) switch
+    {
+        "zh" => "回复已保存，但无法送达：访客已屏蔽机器人。",
+        "en" => "Saved, but not delivered: the visitor has blocked the bot.",
+        _ => "Ответ сохранён, но не доставлен: посетитель заблокировал бота.",
+    };
+
+    /// <summary>Диалог из лички: Telegram не принял отправку — повторить может только менеджер.</summary>
+    public static string ReplyNotDeliveredToTelegram(string? adminLang) => Lang(adminLang) switch
+    {
+        "zh" => "回复已保存，但未能送达 Telegram 私聊——请稍后再次使用「回复」发送。",
+        "en" => "Saved, but not delivered to the visitor's Telegram chat — please send it again as a reply in a minute.",
+        _ => "Ответ сохранён, но в личку Telegram не доставлен — отправьте его ещё раз (reply) через минуту.",
+    };
+
+    /// <summary>ru / zh / иначе en — тот же выбор, что у сайта: неизвестный язык клиента получает английский.</summary>
+    internal static string Lang(string? languageCode)
     {
         if (string.IsNullOrEmpty(languageCode))
         {

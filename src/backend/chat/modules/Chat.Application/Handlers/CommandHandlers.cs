@@ -66,6 +66,58 @@ public class ChatSendHandler(
 }
 
 /// <summary>
+/// Сообщение из лички Telegram-бота — тот же диалог с гидами, что у чата сайта, только
+/// сессия опознаётся по id чата Telegram, а не по токену из cookie. Эндпоинта нет:
+/// команду шлёт бот изнутри процесса.
+/// </summary>
+public class ChatTelegramSendHandler(
+    IChatRepository repository,
+    IServiceProvider serviceProvider,
+    IChatNotificationQueue notifications)
+    : CommandHandler<ChatTelegramSendCommand, IChatRepository>(repository, serviceProvider)
+{
+    protected override async Task<ExecuteRequestResult> ExecuteCommand(ChatTelegramSendCommand request,
+        CancellationToken cancellationToken)
+    {
+        var text = request.Text!.Trim();
+
+        var session = await Repository.FindSessionByTgChatIdAsync(request.TgChatId, cancellationToken);
+
+        // Исчерпанный диалог не блокирует пользователя навсегда, как на сайте, а закрывается:
+        // для той же лички заводится новый (в группе появится новая шапка).
+        if (session is null || session.MessageCount >= ChatLimits.MaxMessagesPerSession)
+        {
+            session = Repository.CreateTelegramSession(request.TgChatId, request.Lang, request.Username);
+        }
+        else
+        {
+            var since = DateTime.UtcNow.AddMinutes(-ChatLimits.BurstWindowMinutes);
+            var recent = await Repository.CountRecentVisitorMessagesAsync(session.Id, since, cancellationToken);
+
+            if (recent >= ChatLimits.MaxMessagesPerWindow)
+                throw new ExcecuteCommandException(HttpStatusCode.TooManyRequests,
+                    "Слишком много сообщений подряд. Подождите немного");
+
+            // Username и язык могли смениться — гиду нужны актуальные.
+            session.TgUsername = request.Username;
+            session.Culture = request.Lang;
+        }
+
+        var message = Repository.AddMessage(session, ChatDirection.Visitor, text, tgMessageId: null);
+
+        return new ExecuteRequestResult(HttpStatusCode.Created, message.Id, null, (uint)message.Ordinal);
+    }
+
+    protected override ValueTask AfterCommit(ChatTelegramSendCommand request, ExecuteRequestResult result)
+    {
+        if (result.Id is { } messageId)
+            notifications.Enqueue(messageId);
+
+        return ValueTask.CompletedTask;
+    }
+}
+
+/// <summary>
 /// Ответ гида из Telegram-группы. Эндпоинта у команды нет — её шлёт только бот
 /// внутри этого же сервиса.
 /// </summary>

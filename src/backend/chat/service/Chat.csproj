@@ -16,6 +16,8 @@
     <ProjectReference Include="..\..\shared\OTLP\OTLP.csproj" />
     <ProjectReference Include="..\modules\Chat.Application\Chat.Application.csproj" />
     <ProjectReference Include="..\modules\Chat.Infrastructure\Chat.Infrastructure.csproj" />
+    <!-- Заявка из бота: тот же контракт и валидатор, что у сайта и users. -->
+    <ProjectReference Include="..\..\..\contracts\Applications.Contracts\Applications.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,6 +18,12 @@ public class ApplicationConfig : AuditableEntityConfig<ApplicationEntity>
         builder.Property(e => e.Phone).HasMaxLength(Constatnts.FieldLength.Text64).IsRequired();
         builder.Property(e => e.Route).HasMaxLength(Constatnts.FieldLength.Text32);
         builder.Property(e => e.ManagerComment).HasMaxLength(ApplicationProcessCommand.MaxCommentLength);
+
+        // Источник обязателен: заявки до появления колонки — с сайта, дефолт колонки это и говорит.
+        builder.Property(e => e.Source).HasMaxLength(Constatnts.FieldLength.Text32).IsRequired()
+            .HasDefaultValue(ApplicationSources.Site);
+        builder.Property(e => e.TgUsername).HasMaxLength(Constatnts.FieldLength.Text64);
+        builder.Property(e => e.Details).HasMaxLength(ApplicationCreateCommand.MaxDetailsLength);
     }
 
     // Без уникального индекса на Title из базового конфига: имя необязательно,

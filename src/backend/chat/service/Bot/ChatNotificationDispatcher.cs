@@ -151,10 +151,16 @@ public sealed class ChatNotificationDispatcher(
             // Язык и адрес страницы приходят от посетителя, а шапка уходит в parseMode Html:
             // «&» в адресе (/?a=1&b=2) без экранирования Telegram отвергает, и тогда не уходит
             // ни шапка, ни одно сообщение диалога.
+            // Диалогу из лички бота — своя шапка: гиду важно знать, что ответ уйдёт в Telegram.
+            var headerText = session.IsTelegram
+                ? BotTexts.SessionHeaderTelegram(bot.AdminLanguage, ShortId(session.Id),
+                    HtmlOrNull(session.Culture), HtmlOrNull(session.TgUsername))
+                : BotTexts.SessionHeader(bot.AdminLanguage, ShortId(session.Id),
+                    HtmlOrNull(session.Culture), HtmlOrNull(session.Page));
+
             var header = await client.SendMessage(
                 chatId,
-                BotTexts.SessionHeader(bot.AdminLanguage, ShortId(session.Id),
-                    HtmlOrNull(session.Culture), HtmlOrNull(session.Page)),
+                headerText,
                 parseMode: ParseMode.Html,
                 linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true },
                 cancellationToken: cancellationToken);

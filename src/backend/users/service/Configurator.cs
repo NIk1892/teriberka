@@ -41,6 +41,12 @@ namespace Users
 
             app.MediatePostCommand<ApplicationCreateCommand>("application", "create");
 
+            // Тот же обработчик под другим адресом — для Telegram-бота из chat: он ходит через
+            // шлюз со служебным JWT (API_TOKEN), и на шлюзе этот маршрут закрыт политикой Admin
+            // и не попадает под лимитер public-form (шлюз видит один IP контейнера chat на всех
+            // пользователей бота). Сам сервис роль в адресе не проверяет.
+            app.MediatePostCommand<ApplicationCreateCommand>("application", "create", Constants.UrlRestrictions.Private);
+
             // Admin-маршруты закрыты на шлюзе политикой Admin; читает и отмечает заявки
             // страница /manager сайта со служебным токеном API_TOKEN.
             app.MediateGroup("application", Constants.UrlRestrictions.Admin)

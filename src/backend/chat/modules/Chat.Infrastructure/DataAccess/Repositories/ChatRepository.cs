@@ -41,6 +41,30 @@ public class ChatRepository(WriteChatDbContext context) : IChatRepository
         return session;
     }
 
+    public Task<ChatSessionEntity?> FindSessionByTgChatIdAsync(long tgChatId, CancellationToken cancellationToken)
+        => _sessions
+            .Where(s => s.TgChatId == tgChatId && !s.IsDeleted)
+            .OrderByDescending(s => s.LastMessageAt)
+            .FirstOrDefaultAsync(cancellationToken);
+
+    public ChatSessionEntity CreateTelegramSession(long tgChatId, string? lang, string? username)
+    {
+        var session = new ChatSessionEntity
+        {
+            // Токен обязателен колонкой и нужен единообразию с сайтом; в Telegram он не уходит.
+            Token = ChatTokens.New(),
+            Culture = lang,
+            Page = "telegram",
+            TgChatId = tgChatId,
+            TgUsername = username,
+            LastMessageAt = DateTime.UtcNow
+        };
+
+        _sessions.Add(session);
+
+        return session;
+    }
+
     public Task<int> CountRecentVisitorMessagesAsync(Guid sessionId, DateTime since,
         CancellationToken cancellationToken)
         => _messages.CountAsync(
