@@ -201,7 +201,7 @@ public static class BotScreens
     {
         var lines = new List<string>
         {
-            $"Дата: {(dialog.DateText is null or DateUnknown ? "не определились" : dialog.DateText)}",
+            $"Дата: {(dialog.DateText is null or DateUnknown ? "не определились" : BotCalendar.TryParseStored(dialog.DateText, out var date) ? BotCalendar.Format(date, "ru") : dialog.DateText)}",
             $"Человек: {(dialog.People is PeopleMoreThanMax ? "больше 8" : dialog.People?.ToString(CultureInfo.InvariantCulture) ?? "—")}",
         };
 
@@ -225,7 +225,9 @@ public static class BotScreens
     public static string Escape(string? value) => WebUtility.HtmlEncode(value ?? string.Empty);
 
     private static string DateLabel(string lang, string? dateText)
-        => dateText is null or DateUnknown ? T("BotSummaryDateUnknown", lang) : Escape(dateText);
+        => dateText is null or DateUnknown ? T("BotSummaryDateUnknown", lang)
+            : BotCalendar.TryParseStored(dateText, out var date) ? BotCalendar.Format(date, lang)
+            : Escape(dateText);
 
     private static string PeopleLabel(string lang, int? people) => people switch
     {

@@ -111,7 +111,7 @@
   <!-- ===== мастер заявки ===== -->
   <data name="BotStepOf" xml:space="preserve"><value>Шаг {0} из {1}</value></data>
   <data name="BotStepRoute" xml:space="preserve"><value>Какой маршрут вас интересует?</value></data>
-  <data name="BotStepDate" xml:space="preserve"><value>Когда планируете поездку? Напишите дату или период — например «12 марта» или «начало мая». Если пока не решили, нажмите кнопку.</value></data>
+  <data name="BotStepDate" xml:space="preserve"><value>Когда планируете поездку? Выберите день в календаре или напишите период — например «начало мая». Если пока не решили, нажмите «Пока не знаю».</value></data>
   <data name="BotStepPeople" xml:space="preserve"><value>Сколько человек поедет?</value></data>
   <data name="BotStepWishes" xml:space="preserve"><value>Есть пожелания? Дети, встреча с рейса, особые интересы — напишите или пропустите этот шаг.</value></data>
   <data name="BotStepName" xml:space="preserve"><value>Как к вам обращаться?</value></data>

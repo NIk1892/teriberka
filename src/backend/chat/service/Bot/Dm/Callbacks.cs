@@ -21,6 +21,15 @@ public static class Callbacks
 
     public static string BookRoute(string code) => $"b:route:{code}";
     public const string DateSkip = "b:date:skip";
+
+    /// <summary>Выбор дня в календаре: b:day:yyyy-MM-dd.</summary>
+    public static string PickDate(string isoDate) => $"b:day:{isoDate}";
+
+    /// <summary>Листание календаря: b:cal:yyyy-MM.</summary>
+    public static string CalendarMonth(string yearMonth) => $"b:cal:{yearMonth}";
+
+    /// <summary>Кнопка без действия: шапка календаря, дни недели, пустые клетки.</summary>
+    public const string Noop = "b:noop";
     public static string People(int count) => $"b:people:{count}";
     public const string WishesSkip = "b:wishes:skip";
     public const string NameFromTelegram = "b:name:tg";

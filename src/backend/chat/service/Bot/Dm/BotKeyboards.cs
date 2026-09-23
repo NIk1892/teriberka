@@ -87,10 +87,6 @@ public static class BotKeyboards
         [Cb(RouteLabel(ApplicationRoutes.Custom, lang), Callbacks.BookRoute(ApplicationRoutes.Custom))],
         [CancelButton(lang)]);
 
-    public static InlineKeyboardMarkup StepDate(string lang) => Rows(
-        [Cb(BotIcons.DateSkip, "BotBtnDateSkip", lang, Callbacks.DateSkip)],
-        NavRow(lang));
-
     public static InlineKeyboardMarkup StepPeople(string lang) => Rows(
         [Cb("1", Callbacks.People(1)), Cb("2", Callbacks.People(2)), Cb("3", Callbacks.People(3)), Cb("4", Callbacks.People(4))],
         [Cb("5", Callbacks.People(5)), Cb("6", Callbacks.People(6)), Cb("7", Callbacks.People(7)), Cb("8", Callbacks.People(8))],

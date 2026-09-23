@@ -112,7 +112,7 @@
   <!-- ===== request wizard ===== -->
   <data name="BotStepOf" xml:space="preserve"><value>Step {0} of {1}</value></data>
   <data name="BotStepRoute" xml:space="preserve"><value>Which route are you interested in?</value></data>
-  <data name="BotStepDate" xml:space="preserve"><value>When are you planning to travel? Type a date or a period — for example “12 March” or “early May”. If you haven't decided yet, tap the button.</value></data>
+  <data name="BotStepDate" xml:space="preserve"><value>When are you planning to travel? Pick a day in the calendar or type a period — for example “early May”. If you haven't decided yet, tap “Not sure yet”.</value></data>
   <data name="BotStepPeople" xml:space="preserve"><value>How many people are travelling?</value></data>
   <data name="BotStepWishes" xml:space="preserve"><value>Any wishes? Children, meeting your flight, special interests — write them here or skip this step.</value></data>
   <data name="BotStepName" xml:space="preserve"><value>What should we call you?</value></data>

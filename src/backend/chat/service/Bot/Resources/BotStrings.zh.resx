@@ -112,7 +112,7 @@
   <!-- ===== мастер заявки ===== -->
   <data name="BotStepOf" xml:space="preserve"><value>第 {0} 步，共 {1} 步</value></data>
   <data name="BotStepRoute" xml:space="preserve"><value>您对哪条路线感兴趣？</value></data>
-  <data name="BotStepDate" xml:space="preserve"><value>您计划什么时候出行？请写下日期或时间段，例如“3 月 12 日”或“5 月初”。如果还没决定，请点击下方按钮。</value></data>
+  <data name="BotStepDate" xml:space="preserve"><value>您计划什么时候出行？请在日历中选择日期，或写下时间段，例如“5 月初”。如果还没决定，请点击“尚未确定”。</value></data>
   <data name="BotStepPeople" xml:space="preserve"><value>一共几位出行？</value></data>
   <data name="BotStepWishes" xml:space="preserve"><value>有什么特别需求吗？带儿童、航班接机、特别兴趣——请写下来，或跳过此步。</value></data>
   <data name="BotStepName" xml:space="preserve"><value>请问怎么称呼您？</value></data>

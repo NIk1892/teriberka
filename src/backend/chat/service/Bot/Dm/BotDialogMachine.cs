@@ -155,6 +155,26 @@ public sealed class BotDialogMachine
                 d.DateText = BotScreens.DateUnknown;
                 return Next(d, ctx, inPlace: true);
 
+            case ("b", "day"):
+                if (d.Step != BotDialogStep.Date)
+                    return StepPassed(d, ctx);
+
+                // День из календаря; прошедший (кнопка пролежала с вчера) — показать месяц заново.
+                if (!BotCalendar.TryParseDay(argument, BotCalendar.Today(ctx.UtcNow), out var day))
+                    return DateScreen(ctx, month: null, inPlace: true);
+
+                d.DateText = BotCalendar.DateArg(day);
+                return Next(d, ctx, inPlace: true);
+
+            case ("b", "cal"):
+                return d.Step == BotDialogStep.Date
+                    ? DateScreen(ctx, argument, inPlace: true)
+                    : StepPassed(d, ctx);
+
+            case ("b", "noop"):
+                // Шапка календаря и пустые клетки: только погасить «часики» у кнопки.
+                return [];
+
             case ("b", "people") when int.TryParse(argument, out var people) && people is >= 1 and <= BotScreens.PeopleMoreThanMax:
                 if (d.Step != BotDialogStep.People)
                     return StepPassed(d, ctx);
@@ -467,7 +487,7 @@ public sealed class BotDialogMachine
         return step switch
         {
             BotDialogStep.Route => [Screen(P(BotScreens.Step(lang, 1, "BotStepRoute")), BotKeyboards.StepRoute(lang), inPlace)],
-            BotDialogStep.Date => [Screen(P(BotScreens.Step(lang, 2, "BotStepDate")), BotKeyboards.StepDate(lang), inPlace)],
+            BotDialogStep.Date => DateScreen(ctx, month: null, inPlace, prefix),
             BotDialogStep.People => [Screen(P(BotScreens.Step(lang, 3, "BotStepPeople")), BotKeyboards.StepPeople(lang), inPlace)],
             BotDialogStep.Wishes => [Screen(P($"{BotScreens.Estimate(lang, d.Route, d.People)}\n\n{BotScreens.Step(lang, 4, "BotStepWishes")}"), BotKeyboards.StepWishes(lang), inPlace)],
             BotDialogStep.Name => [Screen(P(BotScreens.Step(lang, 5, "BotStepName")), BotKeyboards.StepName(lang, ctx.TelegramName), inPlace)],
@@ -477,6 +497,19 @@ public sealed class BotDialogMachine
         };
 
         string P(string html) => prefix is null ? html : $"{prefix}\n\n{html}";
+    }
+
+    /// <summary>Шаг даты: календарь месяца (по умолчанию текущего по Москве).</summary>
+    private static IReadOnlyList<BotReply> DateScreen(MachineContext ctx, string? month, bool inPlace, string? prefix = null)
+    {
+        var today = BotCalendar.Today(ctx.UtcNow);
+        var html = BotScreens.Step(ctx.Lang, 2, "BotStepDate");
+
+        return
+        [
+            Screen(prefix is null ? html : $"{prefix}\n\n{html}",
+                BotCalendar.Keyboard(ctx.Lang, BotCalendar.ParseMonth(month, today), today), inPlace),
+        ];
     }
 
     private IReadOnlyList<BotReply> Back(BotDialogEntity d, MachineContext ctx, bool inPlace)
