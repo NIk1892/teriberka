@@ -22,14 +22,24 @@
    История подтягивается только когда панель открыта: иначе каждый рендер каждой
    страницы ходил бы в chat-сервис. *@
 
+@{ var online = Schedule.IsOnline(); }
+
 <section class="chat-panel @(IsOpen ? "is-open" : "")" id="chat"
          aria-label="@L["ChatTitle"]" data-after="@LastOrdinal"
          data-error="@L["ChatErrorGeneric"]" data-too-many="@L["ChatErrorTooMany"]"
          data-captcha="@L["CaptchaFailed"]" data-session="@(HasSession ? "true" : "false")">
     <header class="chat-head">
-        <span class="chat-title">@L["ChatTitle"]</span>
-        <span class="chat-status @(Schedule.IsOnline() ? "is-online" : "is-offline")">
-            @(Schedule.IsOnline() ? L["ChatOnline"] : L["ChatOffline"])
+        <div class="chat-heading">
+            <span class="chat-title">@L["ChatTitle"]</span>
+            <span class="chat-status @(online ? "is-online" : "is-offline")"
+                  role="status" aria-live="polite" aria-atomic="true"
+                  title="@L["ChatPresenceSchedule"]"
+                  data-online="@L["ChatPresenceOnline"]" data-offline="@L["ChatPresenceOffline"]">
+                <span class="chat-status-label">@(online ? L["ChatPresenceOnline"] : L["ChatPresenceOffline"])</span>
+            </span>
+        </div>
+        <span class="chat-response-time" data-online="@L["ChatOnline"]" data-offline="@L["ChatOffline"]">
+            @(online ? L["ChatOnline"] : L["ChatOffline"])
         </span>
         @* Без JS закрытие — переход по адресу без ?chat; скрипт перехватывает клик. *@
         <a class="chat-close" href="@ChatPaths.Clean(CurrentPath)"

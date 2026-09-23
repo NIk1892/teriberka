@@ -6,6 +6,8 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>捷里别尔卡之境</value></data>
+  <data name="BrandTitle" xml:space="preserve"><value>捷里别尔卡</value></data>
+  <data name="BrandSuffix" xml:space="preserve"><value>之境</value></data>
   <data name="PageTitle" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游——捷里别尔卡之境</value></data>
   <data name="LangLabel" xml:space="preserve"><value>语言</value></data>
 
@@ -217,15 +219,18 @@
   <data name="ContactTeaser" xml:space="preserve"><value>还有疑问吗？</value></data>
   <data name="ContactTeaserCta" xml:space="preserve"><value>联系我们</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>给我们打电话</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>与客服经理对话</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>与客服经理叶莲娜对话</value></data>
+  <data name="ChatPresenceOnline" xml:space="preserve"><value>在线</value></data>
+  <data name="ChatPresenceOffline" xml:space="preserve"><value>离线</value></data>
+  <data name="ChatPresenceSchedule" xml:space="preserve"><value>状态根据工作时间显示</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>我们通常在半小时内回复</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>目前离线，我们早上回复</value></data>
   <data name="ChatClose" xml:space="preserve"><value>关闭聊天</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>提出问题，客服经理会在这里回复。</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>提出问题，客服经理叶莲娜会在这里回复。</value></data>
   <data name="ChatYou" xml:space="preserve"><value>您</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>客服经理</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>叶莲娜</value></data>
   <data name="ChatStatusSent" xml:space="preserve"><value>已发送</value></data>
-  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ 已送达客服经理</value></data>
+  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ 已送达叶莲娜</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>咨询行程…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>发送</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>刷新对话</value></data>
@@ -326,7 +331,7 @@
   <data name="HeroSlide9Alt" xml:space="preserve"><value>海岸海带丛中的海螺</value></data>
   <data name="HeroSlide10Alt" xml:space="preserve"><value>海带上的新鲜海胆、扇贝与海星</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>摩尔曼斯克出发的捷里别尔卡一日游：巴伦支海、巴塔雷斯基瀑布、“龙蛋”海滩和船舶墓地。包含接送与向导。</value></data>
-  <data name="OgImageAlt" xml:space="preserve"><value>捷里别尔卡之境：北极光下带着利维坦骨架和小灯的鲸鱼</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>捷里别尔卡之境——科拉半岛之旅。北极光下的青绿色半岛轮廓内有利维坦鲸鱼骨架剪影，并标注捷里别尔卡的位置。</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>为什么跟我们出发更方便</value></data>
   <data name="Why1Title" xml:space="preserve"><value>无论天气如何，行程都不落空</value></data>
   <data name="Why1Text" xml:space="preserve"><value>大风、退潮、封路在北方都是常事：我们会调整停留顺序，带您去当天能去的地方，而不是取消行程</value></data>
@@ -426,4 +431,20 @@
   <data name="PrivacyS6LinkText" xml:space="preserve"><value>如何退出 Yandex Metrica 统计</value></data>
   <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.com/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>摩尔曼斯克出发的游览</value></data>
+  <data name="HomePhotoNote" xml:space="preserve"><value>旅途中的真实瞬间</value></data>
+  <data name="HomeDurationValue" xml:space="preserve"><value>1天</value></data>
+  <data name="HomeDurationLabel" xml:space="preserve"><value>与海相伴</value></data>
+  <data name="HomeGroupValue" xml:space="preserve"><value>最多8人</value></data>
+  <data name="HomeGroupLabel" xml:space="preserve"><value>小团出行</value></data>
+  <data name="HomeDepartureValue" xml:space="preserve"><value>摩尔曼斯克</value></data>
+  <data name="HomeDepartureLabel" xml:space="preserve"><value>往返接送</value></data>
+  <data name="HomeMapKicker" xml:space="preserve"><value>从好奇心出发</value></data>
+  <data name="HomeMapTitle" xml:space="preserve"><value>探索北方的路线</value></data>
+  <data name="HomePlacesKicker" xml:space="preserve"><value>值得铭记的风景</value></data>
+  <data name="HomeSwipeHint" xml:space="preserve"><value>左右滑动，发现想去的地方</value></data>
+  <data name="HomeSeaKicker" xml:space="preserve"><value>深呼吸，大海就在眼前。</value></data>
+  <data name="HomeSeaPhotoAlt" xml:space="preserve"><value>蔚蓝的巴伦支海与捷里别尔卡的岩石海岸</value></data>
+  <data name="HeroSlide14Alt" xml:space="preserve"><value>捷里别尔卡岩石海岸旁蓝色海湾中的船只</value></data>
+  <data name="HeroSlide15Alt" xml:space="preserve"><value>夏日捷里别尔卡沙滩旁盛开的柳兰</value></data>
+  <data name="HeroSlide16Alt" xml:space="preserve"><value>夏日岩石与绿色山丘间的巴塔列伊瀑布</value></data>
 </root>

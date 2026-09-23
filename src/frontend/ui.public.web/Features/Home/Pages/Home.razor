@@ -1,5 +1,6 @@
 @page "/"
 @using UI.Public.Web.Layouts
+@using UI.Public.Web.Features.Home
 @using UI.Public.Web.Features.Places
 @using UI.Public.Web.Features.Seo
 @using UI.Public.Web.Features.Chat
@@ -13,23 +14,65 @@
 
 <PageTitle>@L["PageTitle"]</PageTitle>
 <PageMeta Title="@L["PageTitle"]" Description="@L["MetaDescription"]" Path="/" />
+@* Как в ManagerLayout: отдельный HeadContent вытеснил бы SEO из PageMeta. *@
+<link rel="stylesheet" href="@Assets["css/home.css"]" />
+
+<div class="home-page">
+<NightSky />
 
 @* Воронка главной: витрина и день в Териберке → кнопка заявки с ценой → что
    входит в цену → другие маршруты Кольского → форма → «почему с нами» и FAQ
    для сомневающихся (владелец, 25.08.2026). *@
 
-@* data-speed — параллакс-слои effects.js: положительное значение = слой отстаёт
-   от прокрутки (читается дальше). Карта отстаёт сильнее текста — глубина как
-   в hero andyhardy.co. Без JS атрибут просто игнорируется. *@
+@* На телефоне: короткое вступление → фотографии → интерактивная карта.
+   Карта без transform-параллакса: её fixed-оверлей закрытия остаётся относительно окна. *@
 <section class="hero" id="directions">
     <div class="container hero-grid">
-        <div class="hero-copy" data-speed="0.07">
+        <div class="hero-copy">
             <span class="hero-kicker">@L["HeroKicker"]</span>
             <h1>
                 @L["HeroTitle"]
                 <span class="hero-title-sub">@L["HeroTitleSub"]</span>
             </h1>
-            <p class="hero-text">@L["HeroText"]</p>
+            <div class="hero-postcards">
+                <div class="hero-postcard-main hero-carousel carousel-wrap" data-autoplay="4000" role="region" aria-label="@L["HomePhotoNote"]">
+                    <div class="hero-carousel-track carousel-track" id="hero-photo-track" tabindex="0" aria-label="@L["HomePhotoNote"]">
+                        @for (var i = 0; i < IntroSlides.Length; i++)
+                        {
+                            var slide = IntroSlides[i];
+                            <a class="hero-carousel-slide lightbox-link" href="@Asset(slide.ImagePath)" target="_blank" rel="noopener">
+                                <img src="@Asset(slide.ImagePath)" srcset="@SrcSet(slide.ImagePath, 1500)"
+                                     sizes="@HeroPhotoSizes" alt="@L[slide.AltKey]" width="1500" height="1200"
+                                     loading="@(i == 0 ? "eager" : "lazy")" fetchpriority="@(i == 0 ? "high" : "auto")"
+                                     decoding="async" draggable="false" />
+                            </a>
+                        }
+                    </div>
+                </div>
+                <a class="hero-postcard-detail lightbox-link" href="@Asset("/img/hero-urchin.webp")" target="_blank" rel="noopener">
+                    <img src="@Asset("/img/hero-urchin.webp")" srcset="@SrcSet("/img/hero-urchin.webp", 1200)"
+                         sizes="(min-width: 960px) 160px, 120px" alt="@L["HeroSlide8Alt"]" width="1200" height="1500" decoding="async" />
+                </a>
+                <span class="hero-photo-note">@L["HomePhotoNote"]</span>
+            </div>
+            <ul class="hero-trip-facts">
+                <li><strong>@L["HomeDurationValue"]</strong><span>@L["HomeDurationLabel"]</span></li>
+                <li><strong>@L["HomeGroupValue"]</strong><span>@L["HomeGroupLabel"]</span></li>
+                <li><strong>@L["HomeDepartureValue"]</strong><span>@L["HomeDepartureLabel"]</span></li>
+            </ul>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-map">
+                <div class="home-map-heading">
+                    <h2>@L["HomeMapTitle"]</h2>
+                </div>
+                <KolaMap />
+                <p class="map-hint">@L["MapHint"]</p>
+            </div>
+        </div>
+
+        <div class="home-trip-intro">
             <ul class="hero-facts">
                 @foreach (var i in Enumerable.Range(1, 5))
                 {
@@ -38,16 +81,10 @@
             </ul>
         </div>
 
-        <div class="hero-visual" data-speed="0.16">
-            <div class="hero-map">
-                <KolaMap />
-                <p class="map-hint">@L["MapHint"]</p>
-            </div>
-        </div>
-
         @* Карточки мест Териберки. id=places — якорь шапки. *@
         <section class="hero-places" id="places">
             <div class="section-head">
+                <span class="home-eyebrow">@L["HomePlacesKicker"]</span>
                 <h2>@L["PlacesTitle"]</h2>
                 <p>@L["PlacesSubtitle"]</p>
                 @* Ссылка «(Смотрите больше фото и видео в галерее)» стояла здесь и
@@ -65,14 +102,14 @@
             @* Карточки — список SeeCards ниже, а не места каталога один к одному
                (владелец, 16.09.2026): две карточки объединяют по два места, а у морской
                прогулки и фототочек Старой Териберки своих страниц нет — они ведут на шаг
-               программы дня. Карточек семь, одинокую последнюю в ряду центрирует .see-grid. *@
+               программы дня. На телефоне показываем один полный кадр за раз. *@
             <div class="places-grid see-grid carousel-track">
                 @foreach (var card in SeeCards)
                 {
                     <a class="place-card" href="@card.Href">
                         <span class="place-photo">
                             <img src="@Asset(card.Photo)" srcset="@SrcSet(card.Photo, 1280)"
-                                 sizes="@PlaceSizes(twoCols: false)" alt="@L[$"{card.Key}Title"]" loading="lazy" decoding="async" />
+                                 sizes="@(card.Key == "See1" ? SeeFeaturedPhotoSizes : SeePhotoSizes)" alt="@L[$"{card.Key}Title"]" loading="lazy" decoding="async" />
                         </span>
                         <span class="place-body">
                             <strong class="place-title">@L[$"{card.Key}Title"]</strong>
@@ -84,6 +121,7 @@
             </div>
             <button class="car-btn car-next" type="button" aria-label="@L["CarouselNext"]">›</button>
             </div>
+            <p class="home-swipe-hint"><span aria-hidden="true">↔</span> @L["HomeSwipeHint"]</p>
         </section>
     </div>
 </section>
@@ -177,11 +215,22 @@
 @* «Что включено» стоит сразу за строкой цены под маршрутом (владелец, 25.08.2026):
    это состав оффера — ответ на «что я получу за эти деньги», а не работа с
    сомнениями. Отработка возражений («почему с нами», FAQ) идёт после формы. *@
-<section class="section" id="included">
+<section class="section home-included" id="included">
     <div class="container">
         <div class="section-head">
             <h2>@L["IncludedTitle"]</h2>
             <p>@L["IncludedSubtitle"]</p>
+        </div>
+        <div class="home-included-layout">
+        <div class="home-included-photos">
+            <span class="home-included-photo">
+            <img src="@Asset("/img/itinerary/tasting-urchins.webp")" srcset="@SrcSet("/img/itinerary/tasting-urchins.webp", 1000)"
+                 sizes="@IncludedPhotoSizes" alt="@L["Itinerary3Title"]" width="1000" height="625" loading="lazy" decoding="async" />
+            </span>
+            <span class="home-included-photo">
+            <img src="@Asset("/img/itinerary/sea-helm.webp")" srcset="@SrcSet("/img/itinerary/sea-helm.webp", 1000)"
+                 sizes="@IncludedPhotoSizes" alt="@L["Itinerary4Title"]" width="1000" height="625" loading="lazy" decoding="async" />
+            </span>
         </div>
         <ul class="included-grid">
             @foreach (var i in Enumerable.Range(1, 6))
@@ -189,21 +238,20 @@
                 <li>@L[$"Included{i}"]</li>
             }
         </ul>
+        </div>
     </div>
 </section>
 
-@* Полоса закрывает териберскую часть страницы и открывает остальной Кольский
-   (владелец, 25.08.2026): текст про Баренцево море — финальный аккорд Териберки,
-   а между «почему с нами» и FAQ она просто резала пополам блок работы с сомнениями.
-   Параллакс: в современных браузерах — многослойная сцена (небо fixed, две гряды
-   сопок и текст едут с разной скоростью через CSS scroll-driven animations),
-   фоллбек — цельный fixed-пейзаж. Без JavaScript, см. «параллакс-полосы» в app.css. *@
-<div class="parallax-band">
-    <div class="parallax-mist" aria-hidden="true"></div>
+@* Фотопауза между Териберкой и остальными маршрутами. Кадр владельца: temp/IMG_6691.HEIC,
+   адаптивная загрузка без тяжёлого видео или fixed-фона на телефоне. *@
+<aside class="home-sea-moment">
+    <img src="@Asset("/img/home-sea-panorama.webp")" srcset="@SrcSet("/img/home-sea-panorama.webp", 1920)"
+         sizes="@SeaPhotoSizes" alt="@L["HomeSeaPhotoAlt"]" width="1920" height="1080" loading="lazy" decoding="async" />
     <div class="container">
+        <span class="home-eyebrow">@L["HomeSeaKicker"]</span>
         <p>@L["Band1Text"]</p>
     </div>
-</div>
+</aside>
 
 <section class="route-picker more-routes" id="more-routes" aria-labelledby="other-routes-title">
     <div class="container">
@@ -440,6 +488,8 @@
    скроллит вверх, к форме: это осознанно, форма на странице одна. Оформление —
    от убранного блока «Индивидуальный тур» (.custom-tour), кикера у него нет. *@
 <section class="custom-tour" id="final-cta">
+    <img class="home-final-photo" src="@Asset("/img/itinerary/return-sunset.webp")" srcset="@SrcSet("/img/itinerary/return-sunset.webp", 960)"
+         sizes="@SeaPhotoSizes" alt="" width="960" height="600" loading="lazy" decoding="async" />
     <div class="container">
         <h2>@L["FinalCtaTitle"]</h2>
         @* Фраза собирается из кусков, а не из одного ключа с разметкой: внутри две
@@ -457,6 +507,10 @@
     </div>
 </section>
 
+</div>
+
+<script src="@Assets["js/night-sky.js"]" defer></script>
+
 @* Разметка schema.org: FAQ из блока «Практично» и минимальный WebSite.
    Контакты и логотип сознательно не указываем: в футере плейсхолдеры,
    а логотип у schema.org должен быть растровым (см. чек-лист в CLAUDE.md). *@
@@ -467,6 +521,15 @@
 }
 
 @code {
+    // Компактная подборка для первого экрана; alt-тексты берём из общего каталога.
+    // Остальные кадры загружаются лениво, первый остаётся приоритетным для LCP.
+    private static readonly HeroSlides.Slide[] IntroSlides = new[]
+    {
+        "hero-bay.webp", "hero-vessel.webp", "hero-winter-bay.webp", "hero-fireweed.webp",
+        "hero-edge.webp", "hero-ships.webp", "hero-waterfall.webp", "hero-gorge.webp",
+        "hero-winter-surf.webp", "hero-winter-ship.webp", "hero-winter-sun.webp", "hero-wind.webp",
+    }.Select(file => HeroSlides.All.Single(slide => slide.FileName == file)).ToArray();
+
     // Карточки «Что вы увидите». Key — префикс ключей {Key}Title/{Key}Text в resx (у тундры
     // и сияния — ключи самих мест, тексты не дублируются). Photo — кадр шириной 1280px
     // с копиями для srcset. Href — страница места или шаг программы дня: #stop-N — номер
@@ -595,9 +658,17 @@
     private static readonly string PlaceSizes2 = Sizes(("(max-width: 559px)", "100vw - 40px"), ("(max-width: 959px)", "50vw - 30px"), (null, "510px"));
     private static string PlaceSizes(bool twoCols) => twoCols ? PlaceSizes2 : PlaceSizes3;
 
-    // Остановки маршрута: до 900px карточка правее нити (паддинги контейнера 40 +
-    // отступ .route-stop 58), дальше шахматка — половина контейнера минус 48px.
-    private static readonly string RouteSizes = Sizes(("(max-width: 899px)", "100vw - 98px"), (null, "470px"));
+    // Сетки home.css: коллаж и карта — две колонки от 960px; фотокарточки —
+    // две от 561px. Первый кадр коллажа и миниатюра загружаются без lazy.
+    private static readonly string HeroPhotoSizes = Sizes(("(max-width: 699px)", "100vw - 40px"), ("(max-width: 959px)", "660px"), (null, "517px"));
+    private static readonly string SeePhotoSizes = Sizes(("(max-width: 560px)", "100vw - 40px"), ("(max-width: 1079px)", "50vw - 30px"), (null, "510px"));
+    private static readonly string SeeFeaturedPhotoSizes = Sizes(("(max-width: 1079px)", "100vw - 40px"), (null, "1040px"));
+    private static readonly string IncludedPhotoSizes = Sizes(("(max-width: 799px)", "50vw - 26px"), (null, "404px"));
+    private static readonly string SeaPhotoSizes = Sizes((null, "100vw"));
+
+    // На телефоне у нити компактные маркеры: 40px контейнера + 36px отступа.
+    // От 900px остаётся шахматка — половина контейнера минус 48px.
+    private static readonly string RouteSizes = Sizes(("(max-width: 899px)", "100vw - 76px"), (null, "470px"));
 
     // Фотолента гостей: до 800px кадр во всю ленту (контейнер 40 + паддинги ленты 8
     // и «полароида» 16), дальше .guest-shot 220px минус тот же паддинг.

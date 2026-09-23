@@ -13,7 +13,15 @@
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     var imgs = Array.prototype.slice.call(
-        document.querySelectorAll(".place-photo img, .detail-photo img"));
+        document.querySelectorAll(".place-photo img, .detail-photo img"))
+        // Фото-подложка карточки (кадр во всю площадь, текст поверх него —
+        // карточки «Что вы увидите») эффекту не подходит: канвас общий и
+        // fixed, он лёг бы поверх заголовка и описания. Признак — обрезающая
+        // обёртка выведена из потока; имя конкретной сетки скрипт не знает.
+        .filter(function (img) {
+            var wrap = img.parentElement;
+            return !wrap || getComputedStyle(wrap).position !== "absolute";
+        });
     if (!imgs.length) return;
 
     var canvas = document.createElement("canvas");
@@ -106,8 +114,25 @@
     var active = null;   // { img, mx, my }
     var strength = 0, strengthT = 0, running = false, t0 = performance.now();
 
+    // Скругления: радиус лежит на обрезающем предке (.place-card через overflow
+    // hidden либо .detail-photo). Применяем его к канвасу по-угловно — только там,
+    // где угол фото совпадает с углом предка: нижние углы фото внутри карточки
+    // остаются прямыми. Считается каждый кадр, а не один раз при входе курсора:
+    // hover-зум и inertia-прокрутка двигают фото относительно карточки.
+    function clipRadius(img, r) {
+        var clip = img.closest(".detail-photo, .place-card") || img;
+        var cs = getComputedStyle(clip);
+        var cr = clip.getBoundingClientRect();
+        var near = function (a, b) { return Math.abs(a - b) < 4; };
+        return (near(r.left, cr.left) && near(r.top, cr.top) ? cs.borderTopLeftRadius : "0px") + " " +
+            (near(r.right, cr.right) && near(r.top, cr.top) ? cs.borderTopRightRadius : "0px") + " " +
+            (near(r.right, cr.right) && near(r.bottom, cr.bottom) ? cs.borderBottomRightRadius : "0px") + " " +
+            (near(r.left, cr.left) && near(r.bottom, cr.bottom) ? cs.borderBottomLeftRadius : "0px");
+    }
+
     function place(img) {
         var r = img.getBoundingClientRect();
+        canvas.style.borderRadius = clipRadius(img, r);
         canvas.style.left = r.left + "px";
         canvas.style.top = r.top + "px";
         canvas.style.width = r.width + "px";
@@ -153,19 +178,7 @@
             var r = img.getBoundingClientRect();
             active = { img: img, mx: (e.clientX - r.left) / r.width, my: (e.clientY - r.top) / r.height };
             strengthT = 1;
-            // Скругления: радиус лежит на обрезающем предке (.place-card через
-            // overflow hidden либо .detail-photo). Применяем его к канвасу
-            // по-угловно — только там, где угол фото совпадает с углом предка:
-            // нижние углы фото внутри карточки остаются прямыми.
-            var clip = img.closest(".detail-photo, .place-card") || img;
-            var cs = getComputedStyle(clip);
-            var cr = clip.getBoundingClientRect();
-            var near = function (a, b) { return Math.abs(a - b) < 4; };
-            canvas.style.borderRadius =
-                (near(r.left, cr.left) && near(r.top, cr.top) ? cs.borderTopLeftRadius : "0px") + " " +
-                (near(r.right, cr.right) && near(r.top, cr.top) ? cs.borderTopRightRadius : "0px") + " " +
-                (near(r.right, cr.right) && near(r.bottom, cr.bottom) ? cs.borderBottomRightRadius : "0px") + " " +
-                (near(r.left, cr.left) && near(r.bottom, cr.bottom) ? cs.borderBottomLeftRadius : "0px");
+            canvas.style.borderRadius = clipRadius(img, r);
             canvas.classList.add("active");
             if (!running) { running = true; requestAnimationFrame(frame); }
         });

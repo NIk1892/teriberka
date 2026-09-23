@@ -11,11 +11,14 @@
     @* title и SEO-мета (description, canonical, OG) задают <PageTitle> и <PageMeta>
        каждой страницы через HeadOutlet — глобальных дублей здесь быть не должно *@
     <base href="/" />
-    <link rel="icon" type="image/svg+xml" href="@Assets["favicon.svg"]" />
+    <link rel="icon" type="image/png" sizes="32x32" href="@Assets["favicon-32.png"]" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="@Assets["favicon.svg"]" />
+    <link rel="apple-touch-icon" sizes="180x180" href="@Assets["apple-touch-icon.png"]" />
     @* Assets[...] — адрес с отпечатком содержимого (css/app.<хеш>.css), его ставит
        MapStaticAssets при сборке: поменялся файл — поменялась ссылка, кеш на год.
        Ручные ?v=N больше не нужны (16.09.2026) *@
     <link rel="stylesheet" href="@Assets["css/app.css"]" />
+    <link rel="stylesheet" href="@Assets["css/winter.css"]" />
     <HeadOutlet />
 </head>
 

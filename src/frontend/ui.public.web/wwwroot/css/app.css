@@ -134,10 +134,16 @@ a { color: var(--accent-ice); }
 }
 
 .brand-mark {
-    width: 28px;
-    height: 28px;
+    width: 40px;
+    height: 40px;
     flex: none;
+    color: #40dce2;
 }
+
+[data-theme="light"] .brand-mark { color: #087e88; }
+.brand-name { display: grid; gap: 3px; line-height: 1; }
+.brand-title { font-weight: 600; letter-spacing: -.035em; }
+.brand-suffix { color: var(--text); font-size: .85em; font-weight: 600; letter-spacing: .12em; }
 
 .header-controls {
     display: flex;
@@ -204,11 +210,11 @@ a { color: var(--accent-ice); }
 
 /* узкая шапка: компактные бренд и переключатели, ничего не переносится.
    Иконка бота остаётся в шапке (владелец, 24.08.2026 — раньше уезжала в бургер),
-   ради неё текст бренда прячется уже с 380px (см. ниже). */
+   двухстрочное название бренда помещается рядом с ней и кнопкой заявки. */
 @media (max-width: 430px) {
     .site-header .container { padding-inline: 12px; gap: 8px; }
     .brand { font-size: .9rem; gap: 5px; }
-    .brand-mark { width: 24px; height: 24px; }
+    .brand-mark { width: 40px; height: 40px; }
     .theme-toggle { width: 32px; height: 32px; font-size: .95rem; }
     .bot-link { width: 32px; height: 32px; }
     .nav-burger summary { width: 32px; height: 32px; }
@@ -220,17 +226,10 @@ a { color: var(--accent-ice); }
 /* до 380px кнопка заявки и бренд компактнее (владелец, 24.08.2026: и полное
    «Записаться», и имя бренда должны остаться в шапке) */
 @media (max-width: 380px) {
-    .header-apply { padding: 7px 8px; font-size: .78rem; }
+    .site-header .header-apply { padding: 7px 8px; font-size: .78rem; }
     .brand { font-size: .8rem; gap: 4px; }
     .site-header .container { gap: 6px; }
     .header-controls { gap: 3px; }
-}
-
-/* до 358px: с полным «Записаться» и четырьмя контролами имя бренда не помещается
-   (замер: на 360 край контролов 358px, на 350 — уже за экраном) — остаётся только
-   знак, иначе у всей страницы появляется горизонтальная прокрутка */
-@media (max-width: 358px) {
-    .brand-name { display: none; }
 }
 
 .lang-switch a:hover { color: var(--text); }
@@ -1582,36 +1581,81 @@ html.js-route .route-stop-photo img { transform: scale(var(--stop-zoom, 1)); }
 }
 
 
-/* кит: плывёт вдоль берега к Териберке. Один цикл — четыре всплытия
-   (восточный край полуострова → посёлок), между ними кит «под водой»
-   (opacity 0) и позиция переезжает к следующей точке. Силуэт нарисован
-   в базовых координатах (458..514, низ 99), позиции задаёт translate. */
-.map-whale path { fill: var(--text-muted); }
+/* Три всплытия рядом с Териберкой: хвост поднимается над кромкой воды,
+   погружается, затем расходятся круги. Следующее место — через 24 секунды. */
+.map-whale-sightings { pointer-events: none; }
+.map-whale-tone-light { stop-color: color-mix(in srgb, var(--text-muted) 70%, var(--text)); }
+.map-whale-tone-dark { stop-color: color-mix(in srgb, var(--text-muted) 70%, var(--bg)); }
+.map-whale-fluke-body { fill: url(#map-whale-tail-shade); stroke: var(--text-muted); stroke-width: .6; }
+.map-whale-fluke-sheen { fill: var(--text); opacity: .22; }
+.map-whale-fluke-ridge { fill: none; stroke: var(--text); stroke-width: .8; opacity: .35; }
 
-.map-whale {
+.map-whale-visit {
+    --whale-delay: -1.5s;
     opacity: 0;
-    /* scale в keyframes — относительно собственного низа кита, а не угла viewBox */
+    animation-name: map-whale-appear;
+}
+.map-whale-visit-2 { --whale-delay: 22.5s; }
+.map-whale-visit-3 { --whale-delay: 46.5s; }
+.map-whale-tail {
     transform-box: fill-box;
     transform-origin: 50% 100%;
-    animation: whale-surface 45s ease-in-out infinite;
-    animation-delay: -4s;
+    animation-name: map-whale-dive;
+}
+.map-whale-drops {
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    animation-name: map-whale-drips;
+}
+.map-whale-ring {
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: .8;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+.map-whale-ring-near { animation-name: map-whale-ripple-near; }
+.map-whale-ring-far { animation-name: map-whale-ripple-far; }
+.map-whale-visit,
+.map-whale-tail,
+.map-whale-drops,
+.map-whale-ring {
+    animation-duration: 72s;
+    animation-delay: var(--whale-delay);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
 }
 
-/* кит живёт над маркером Териберки (svg ≈ 205,108): всплывает, чуть дрейфует и уходит
-   под воду — одно место, цикл 45 с (маршрут вдоль берега из четырёх точек убран владельцем).
-   Само всплытие занимает те же ~9 с, что и раньше, — удлинена только пауза под водой
-   (владелец, 25.08.2026: при цикле 18 с кит мозолил глаза). Проценты пересчитаны от 45 с. */
-@keyframes whale-surface {
-    0%        { opacity: 0;   transform: translate(-268px, -8px) scale(1.3); }
-    3.6%      { opacity: .75; transform: translate(-268px, -15px) scale(1.3); }
-    16%       { opacity: .75; transform: translate(-272px, -15px) scale(1.3); }
-    20%, 100% { opacity: 0;   transform: translate(-273px, -8px) scale(1.3); }
+@keyframes map-whale-appear {
+    0%, 10%, 100% { opacity: 0; }
+    1%, 8% { opacity: 1; }
 }
-
-/* на узком экране HTML-маркер Териберки в масштабе SVG крупнее и задевает кита —
-   поднимаем его (translate складывается с transform анимации; единицы — viewBox) */
-@media (max-width: 560px) {
-    .map-whale { translate: 0 -14px; }
+@keyframes map-whale-dive {
+    0% { opacity: 0; transform: translateY(34px) rotate(-5deg) scale(.82, .8); }
+    1% { opacity: 1; transform: translateY(20px) rotate(-5deg) scale(.9); }
+    3% { opacity: 1; transform: translateY(0) rotate(-4deg) scale(1); }
+    4.5% { opacity: 1; transform: translateY(-1px) rotate(3deg) scale(1); }
+    6.8% { opacity: .8; transform: translateY(20px) rotate(6deg) scale(.9); }
+    7.7%, 100% { opacity: 0; transform: translateY(38px) rotate(6deg) scale(.82); }
+}
+@keyframes map-whale-drips {
+    0%, 2.8%, 6.5%, 100% { opacity: 0; transform: translateY(0); }
+    3.5% { opacity: .55; transform: translateY(2px); }
+    5.8% { opacity: 0; transform: translateY(13px); }
+}
+@keyframes map-whale-ripple-near {
+    0%, 100% { opacity: 0; transform: scale(.45); }
+    1.8% { opacity: .5; transform: scale(.8); }
+    5% { opacity: .3; transform: scale(1.3); }
+    8%, 99% { opacity: 0; transform: scale(1.8); }
+}
+@keyframes map-whale-ripple-far {
+    0%, 3%, 100% { opacity: 0; transform: scale(.55); }
+    4.8% { opacity: .4; transform: scale(.85); }
+    9.5%, 99% { opacity: 0; transform: scale(1.5); }
 }
 
 .map-city-dot {
@@ -2463,7 +2507,9 @@ html.lightbox-open { overflow: hidden; }
 }
 
 .car-btn:disabled {
-    opacity: .3;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
     cursor: default;
 }
 
@@ -2993,12 +3039,14 @@ html.js-phone .phone-cc { position: relative; display: block; }
 
 .route-options {
     display: grid;
+    grid-auto-rows: 1fr;
     gap: 10px;
 }
 
 .route-option {
     position: relative;
-    display: block;
+    display: grid;
+    min-width: 0;
     cursor: pointer;
 }
 
@@ -3013,7 +3061,8 @@ html.js-phone .phone-cc { position: relative; display: block; }
 
 .route-option-box {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-content: start;
     column-gap: 12px;
     row-gap: 2px;
     padding: 12px 14px;
@@ -4105,19 +4154,52 @@ body:has(.chat-panel.is-open) .contact-teaser { display: none; }
     align-items: center;
 }
 
+.chat-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    min-width: 0;
+}
+
 .chat-title {
     font-weight: 700;
     font-size: .98rem;
 }
 
 .chat-status {
-    grid-column: 1;
-    font-size: .76rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    font-size: .7rem;
     font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.chat-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: currentColor;
 }
 
 .chat-status.is-online { color: var(--accent); }
 .chat-status.is-offline { color: var(--text-muted); }
+
+.chat-response-time {
+    grid-column: 1;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: .76rem;
+    line-height: 1.5;
+}
 
 .chat-close {
     grid-column: 2;
@@ -4352,6 +4434,8 @@ html.js-chat .chat-refresh { display: none; }
 .sea-zone {
     position: relative;
     z-index: 31; /* выше метели (30): снег падает «в море», а не сыплется в толще воды */
+    /* Непрозрачное основание воды закрывает фиксированное небо и в WebGL, и в CSS-фоллбеке. */
+    background-color: var(--bg);
     overflow: hidden;
 }
 
@@ -4659,7 +4743,10 @@ html.js-chat .chat-refresh { display: none; }
     .contact-fab-photo,
     .contact-fab-close,
     .contact-item { transition: none; }
-    .map-whale { animation: none; opacity: 0; }
+    .map-whale-visit,
+    .map-whale-tail,
+    .map-whale-drops,
+    .map-whale-ring { animation: none; opacity: 0; }
     .place-card, .review-card, .guide-card, .alt-route, .route-stop, .season-card,
     .included-grid li, .why-grid li { animation: none; }
     .scroller { transition: none; }

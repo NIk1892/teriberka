@@ -39,5 +39,10 @@ public static class HeroSlides
         new("/img/hero-bay.webp", "HeroSlide2Alt"),
         new("/img/hero-ships.webp", "HeroSlide3Alt"),
         new("/img/hero-gorge.webp", "HeroSlide4Alt"),
+        // Дополнительные кадры владельца для карусели первого экрана (22.09.2026).
+        // Источники в src/frontend/temp: IMG_6689.HEIC, IMG_6249.HEIC, IMG_6862.HEIC.
+        new("/img/hero-vessel.webp", "HeroSlide14Alt"),
+        new("/img/hero-fireweed.webp", "HeroSlide15Alt"),
+        new("/img/hero-waterfall.webp", "HeroSlide16Alt"),
     ];
 }

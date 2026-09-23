@@ -1,0 +1,65 @@
+/* Полярный день: холодный свет и статичный иней на кромке фотографий. */
+[data-theme="light"] {
+    --bg-elev-2: #e5eff6;
+    --border: #cedeea;
+    --text: #172d43;
+    --text-muted: #526a80;
+    --accent: #146b78;
+    --accent-ice: #216f92;
+    --accent-violet: #506a94;
+    --aurora: linear-gradient(115deg, #146b78, #216f92 55%, #506a94);
+    --shadow: 0 12px 32px #34577416;
+}
+
+[data-theme="light"] .hero {
+    background:
+        radial-gradient(ellipse 850px 620px at 95% 0, #c9deeea8, transparent 75%),
+        radial-gradient(ellipse 640px 560px at 0 380px, #d6e7f2b8, transparent 75%),
+        linear-gradient(180deg, #e7f0f7, #f2f6fc 1600px);
+}
+[data-theme="light"] .hero::before { background: none; animation: none; }
+[data-theme="light"] .hero::after {
+    inset: -80px -15% auto;
+    height: 1000px;
+    background:
+        radial-gradient(ellipse 70% 7% at 30% 14%, #ffffffc9, transparent 72%),
+        radial-gradient(ellipse 80% 5% at 65% 30%, #ffffff80, transparent 74%);
+    animation: winter-haze 18s ease-in-out infinite alternate;
+}
+
+/* Девятичастная рамка сохраняет размер кристаллов на портретных и широких
+   кадрах. Центр SVG прозрачен, текст поверх фото не перекрывается. */
+[data-theme="light"] :is(.hero-postcard-main, .hero-postcard-detail, .place-photo,
+    .route-stop-photo, .detail-photo, .home-included-photo, .guest-shot a) { isolation: isolate; }
+[data-theme="light"] :is(.hero-postcard-main, .hero-postcard-detail, .place-photo,
+    .route-stop-photo, .detail-photo, .home-included-photo, .guest-shot a)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 14px solid transparent;
+    border-image: url("../img/frost-frame.svg") 32 / 14px / 0 round;
+    border-radius: inherit;
+    pointer-events: none;
+}
+[data-theme="light"] .hero-postcard-main { box-shadow: 0 14px 34px #3e6a8824; }
+[data-theme="light"] .hero-postcard-detail {
+    border-color: #f4fbff;
+    box-shadow: 0 8px 24px #36597830;
+}
+[data-theme="light"] .hero-postcard-detail::after { border-image-width: 9px; }
+[data-theme="light"] .guest-shot a { position: relative; overflow: hidden; }
+/* Оставляем кромку исходного фото с инеем видимой и во время WebGL-hover. */
+[data-theme="light"] .photo-fx { clip-path: inset(14px); }
+
+@keyframes winter-haze {
+    from { transform: translate3d(3%, -1%, 0); opacity: .45; }
+    to { transform: translate3d(-4%, 1%, 0); opacity: .85; }
+}
+@media (max-width: 560px) {
+    [data-theme="light"] :is(.hero-postcard-main, .place-photo,
+        .route-stop-photo, .detail-photo, .home-included-photo, .guest-shot a)::after { border-image-width: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="light"] .hero::after { animation: none; }
+}

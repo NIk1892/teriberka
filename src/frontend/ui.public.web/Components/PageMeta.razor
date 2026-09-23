@@ -67,8 +67,8 @@
 
     // Адрес без отпечатка сборки: краулерам и мессенджерам нужен стабильный URL. Сами они
     // запоминают превью надолго, поэтому новая картинка — новое имя файла, а не замена
-    // под старым (16.09.2026: og.jpg → og-whale.jpg, из макета владельца 1280×720).
-    private const string ShareCardPath = "/img/og-whale.jpg";
+    // под старым. Контур полуострова и название — актуальная фирменная карточка.
+    private const string ShareCardPath = "/img/og-teriberka-leviathan.jpg";
 
     private string ResolvedImagePath => string.IsNullOrEmpty(ImagePath) ? ShareCardPath : ImagePath;
 

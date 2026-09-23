@@ -1,0 +1,10 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> L
+
+<svg class="brand-mark" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" focusable="false">
+    <use href="@(Assets["img/brand-mark.svg"] + "#mark")" />
+</svg>
+<span class="brand-name" aria-hidden="true">
+    <span class="brand-title">@L["BrandTitle"]</span>
+    <span class="brand-suffix">@L["BrandSuffix"]</span>
+</span>

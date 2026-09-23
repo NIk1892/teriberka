@@ -1,6 +1,7 @@
-// Стрелки каруселей (галереи страниц мест, фото в hero). Прогрессивное улучшение:
+// Карусели (галереи страниц мест, фото в hero). Прогрессивное улучшение:
 // без скрипта кнопки скрыты, карусель полностью работает свайпом/колесом
-// (scroll-snap). Обслуживает каждый .carousel-wrap с треком .carousel-track.
+// (scroll-snap). Обслуживает каждый .carousel-wrap с треком .carousel-track;
+// стрелки необязательны — в hero только автоматическая смена кадров и свайп.
 // data-autoplay="<мс>" на обёртке добавляет автопрокрут по правилам проекта:
 // при prefers-reduced-motion не стартует, пауза вне вьюпорта / в фоновой вкладке /
 // под курсором, любое ручное листание выключает его насовсем.
@@ -11,7 +12,7 @@
         var track = wrap.querySelector(".carousel-track");
         var prev = wrap.querySelector(".car-prev");
         var next = wrap.querySelector(".car-next");
-        if (!track || !prev || !next) return;
+        if (!track) return;
 
         var smooth = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
@@ -24,17 +25,25 @@
 
         function update() {
             var max = track.scrollWidth - track.clientWidth - 1;
-            prev.disabled = track.scrollLeft <= 1;
-            next.disabled = track.scrollLeft >= max;
+            if (prev) prev.disabled = track.scrollLeft <= 1;
+            if (next) next.disabled = track.scrollLeft >= max;
         }
 
-        prev.addEventListener("click", function () {
+        if (prev) prev.addEventListener("click", function () {
             track.scrollBy({ left: -step(), behavior: smooth });
         });
-        next.addEventListener("click", function () {
+        if (next) next.addEventListener("click", function () {
             track.scrollBy({ left: step(), behavior: smooth });
         });
         track.addEventListener("scroll", update, { passive: true });
+        // Клавиши листают по кадру только у треков с явным tabindex.
+        // События ссылок и полей внутри других каруселей не перехватываем.
+        track.addEventListener("keydown", function (event) {
+            if (event.target !== track) return;
+            if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+            event.preventDefault();
+            track.scrollBy({ left: event.key === "ArrowRight" ? step() : -step(), behavior: smooth });
+        });
         window.addEventListener("resize", update);
 
         wrap.classList.add("carousel-js");
@@ -73,8 +82,8 @@
         track.addEventListener("pointerdown", stop, { passive: true });
         track.addEventListener("wheel", stop, { passive: true });
         wrap.addEventListener("focusin", stop);
-        prev.addEventListener("click", stop);
-        next.addEventListener("click", stop);
+        if (prev) prev.addEventListener("click", stop);
+        if (next) next.addEventListener("click", stop);
         sync();
     });
 })();

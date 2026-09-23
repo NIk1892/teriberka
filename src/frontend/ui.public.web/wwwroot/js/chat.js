@@ -16,6 +16,9 @@
     const log = panel.querySelector(".chat-log");
     const input = panel.querySelector("#chat-text");
     const widget = document.querySelector("details.contact-widget");
+    const status = panel.querySelector(".chat-status");
+    const statusLabel = status?.querySelector(".chat-status-label");
+    const responseTime = panel.querySelector(".chat-response-time");
 
     // Под этим классом CSS прячет ссылку «обновить переписку» — с поллингом она не нужна
     root.classList.add("js-chat");
@@ -121,6 +124,20 @@
 
     const clearWarning = () => panel.querySelector(".chat-warn")?.remove();
 
+    const updatePresence = (online) => {
+        if (typeof online !== "boolean") return;
+
+        status?.classList.toggle("is-online", online);
+        status?.classList.toggle("is-offline", !online);
+        const key = online ? "online" : "offline";
+        const label = status?.dataset[key];
+        const hint = responseTime?.dataset[key];
+
+        // Update live text only when it changes, so polling does not repeat announcements.
+        if (statusLabel && label && statusLabel.textContent !== label) statusLabel.textContent = label;
+        if (responseTime && hint && responseTime.textContent.trim() !== hint) responseTime.textContent = hint;
+    };
+
     const poll = async () => {
         try {
             const response = await fetch(`/chat/poll?after=${cursor()}`, {
@@ -134,8 +151,7 @@
 
             (data.messages || []).forEach(upsert);
 
-            panel.querySelector(".chat-status")?.classList.toggle("is-online", data.online);
-            panel.querySelector(".chat-status")?.classList.toggle("is-offline", !data.online);
+            updatePresence(data.online);
         } catch {
             // Сеть или сервис недоступны — молча ждём дольше, чат остаётся рабочим
             failures += 1;

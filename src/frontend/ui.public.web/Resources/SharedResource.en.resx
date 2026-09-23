@@ -6,6 +6,8 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>TeriberkaKray</value></data>
+  <data name="BrandTitle" xml:space="preserve"><value>Teriberka</value></data>
+  <data name="BrandSuffix" xml:space="preserve"><value>kray</value></data>
   <data name="PageTitle" xml:space="preserve"><value>Teriberka day tour from Murmansk — TeriberkaKray</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Language</value></data>
 
@@ -217,15 +219,18 @@
   <data name="ContactTeaser" xml:space="preserve"><value>Any questions?</value></data>
   <data name="ContactTeaserCta" xml:space="preserve"><value>Get in touch</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Call us</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>Chat with our manager</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Chat with Elena</value></data>
+  <data name="ChatPresenceOnline" xml:space="preserve"><value>Online</value></data>
+  <data name="ChatPresenceOffline" xml:space="preserve"><value>Offline</value></data>
+  <data name="ChatPresenceSchedule" xml:space="preserve"><value>Status follows our working hours</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>We usually reply within half an hour</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>We're offline — we'll reply in the morning</value></data>
   <data name="ChatClose" xml:space="preserve"><value>Close the chat</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>Ask a question — our manager will answer right here.</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Ask a question — Elena, our manager, will answer right here.</value></data>
   <data name="ChatYou" xml:space="preserve"><value>You</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>Manager</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Elena</value></data>
   <data name="ChatStatusSent" xml:space="preserve"><value>Sent</value></data>
-  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ Delivered to a manager</value></data>
+  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ Delivered to Elena</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>Ask about the tour…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>Send</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>Refresh the conversation</value></data>
@@ -326,7 +331,7 @@
   <data name="HeroSlide9Alt" xml:space="preserve"><value>A whelk shell among kelp on the shore</value></data>
   <data name="HeroSlide10Alt" xml:space="preserve"><value>Fresh sea urchins, scallops and a starfish on kelp</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>One-day Teriberka tour from Murmansk: the Barents Sea, Batareysky waterfall, Dragon Eggs beach and the ship graveyard. Transfer and guide included.</value></data>
-  <data name="OgImageAlt" xml:space="preserve"><value>TeriberkaKray: a whale with a leviathan skeleton and a glowing light under the northern lights</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>TeriberkaKray — journeys around the Kola Peninsula. A leviathan whale skeleton inside the turquoise peninsula outline with Teriberka marked beneath the northern lights.</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Why travel with us</value></data>
   <data name="Why1Title" xml:space="preserve"><value>The day works out in any weather</value></data>
   <data name="Why1Text" xml:space="preserve"><value>wind, low tide, a road closed by snow are ordinary here: we reshuffle the stops and show what is open today instead of calling the trip off</value></data>
@@ -426,4 +431,20 @@
   <data name="PrivacyS6LinkText" xml:space="preserve"><value>How to opt out of Yandex Metrica</value></data>
   <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.com/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>tour from Murmansk</value></data>
+  <data name="HomePhotoNote" xml:space="preserve"><value>Moments from our trips</value></data>
+  <data name="HomeDurationValue" xml:space="preserve"><value>1 day</value></data>
+  <data name="HomeDurationLabel" xml:space="preserve"><value>by the ocean</value></data>
+  <data name="HomeGroupValue" xml:space="preserve"><value>Up to 8</value></data>
+  <data name="HomeGroupLabel" xml:space="preserve"><value>guests per group</value></data>
+  <data name="HomeDepartureValue" xml:space="preserve"><value>Murmansk</value></data>
+  <data name="HomeDepartureLabel" xml:space="preserve"><value>pickup &amp; return</value></data>
+  <data name="HomeMapKicker" xml:space="preserve"><value>It starts with curiosity</value></data>
+  <data name="HomeMapTitle" xml:space="preserve"><value>Your route through the North</value></data>
+  <data name="HomePlacesKicker" xml:space="preserve"><value>Places to remember</value></data>
+  <data name="HomeSwipeHint" xml:space="preserve"><value>Swipe to find the places you want to see</value></data>
+  <data name="HomeSeaKicker" xml:space="preserve"><value>Breathe. You're by the ocean.</value></data>
+  <data name="HomeSeaPhotoAlt" xml:space="preserve"><value>The blue Barents Sea and the rocky coast of Teriberka</value></data>
+  <data name="HeroSlide14Alt" xml:space="preserve"><value>A ship in a blue bay off Teriberka's rocky coast</value></data>
+  <data name="HeroSlide15Alt" xml:space="preserve"><value>Fireweed blooming by Teriberka's sandy shore in summer</value></data>
+  <data name="HeroSlide16Alt" xml:space="preserve"><value>Batareysky waterfall among rocks and green hills in summer</value></data>
 </root>

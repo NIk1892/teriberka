@@ -6,6 +6,8 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="Brand" xml:space="preserve"><value>ТериберкаКрай</value></data>
+  <data name="BrandTitle" xml:space="preserve"><value>Териберка</value></data>
+  <data name="BrandSuffix" xml:space="preserve"><value>край</value></data>
   <data name="PageTitle" xml:space="preserve"><value>Экскурсия в Териберку из Мурманска — ТериберкаКрай</value></data>
   <data name="LangLabel" xml:space="preserve"><value>Язык</value></data>
 
@@ -217,15 +219,18 @@
   <data name="ContactTeaser" xml:space="preserve"><value>Остались вопросы?</value></data>
   <data name="ContactTeaserCta" xml:space="preserve"><value>Свяжитесь с нами</value></data>
   <data name="ContactPhone" xml:space="preserve"><value>Позвоните нам</value></data>
-  <data name="ChatTitle" xml:space="preserve"><value>Чат с менеджером</value></data>
+  <data name="ChatTitle" xml:space="preserve"><value>Чат с Еленой</value></data>
+  <data name="ChatPresenceOnline" xml:space="preserve"><value>Онлайн</value></data>
+  <data name="ChatPresenceOffline" xml:space="preserve"><value>Не в сети</value></data>
+  <data name="ChatPresenceSchedule" xml:space="preserve"><value>Статус по рабочему расписанию</value></data>
   <data name="ChatOnline" xml:space="preserve"><value>Обычно отвечаем в течение получаса</value></data>
   <data name="ChatOffline" xml:space="preserve"><value>Сейчас офлайн — ответим утром</value></data>
   <data name="ChatClose" xml:space="preserve"><value>Закрыть чат</value></data>
-  <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — менеджер ответит здесь же.</value></data>
+  <data name="ChatEmpty" xml:space="preserve"><value>Задайте вопрос — Елена, наш менеджер, ответит здесь же.</value></data>
   <data name="ChatYou" xml:space="preserve"><value>Вы</value></data>
-  <data name="ChatGuide" xml:space="preserve"><value>Менеджер</value></data>
+  <data name="ChatGuide" xml:space="preserve"><value>Елена</value></data>
   <data name="ChatStatusSent" xml:space="preserve"><value>Отправлено</value></data>
-  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ Доставлено менеджеру</value></data>
+  <data name="ChatStatusDelivered" xml:space="preserve"><value>✓ Доставлено Елене</value></data>
   <data name="ChatPlaceholder" xml:space="preserve"><value>Спросите о туре…</value></data>
   <data name="ChatSend" xml:space="preserve"><value>Отправить</value></data>
   <data name="ChatRefresh" xml:space="preserve"><value>Обновить переписку</value></data>
@@ -326,7 +331,7 @@
   <data name="HeroSlide9Alt" xml:space="preserve"><value>Раковина трубача среди ламинарии на берегу</value></data>
   <data name="HeroSlide10Alt" xml:space="preserve"><value>Свежие морские ежи, гребешки и морская звезда на ламинарии</value></data>
   <data name="MetaDescription" xml:space="preserve"><value>Однодневная экскурсия в Териберку из Мурманска: Баренцево море, Батарейский водопад, пляж «Драконьих яиц» и кладбище кораблей. Трансфер и гид включены.</value></data>
-  <data name="OgImageAlt" xml:space="preserve"><value>ТериберкаКрай: кит со скелетом левиафана и огоньком под северным сиянием</value></data>
+  <data name="OgImageAlt" xml:space="preserve"><value>ТериберкаКрай — путешествия по Кольскому полуострову. Силуэт скелета левиафана внутри бирюзового контура полуострова с отметкой Териберки под северным сиянием.</value></data>
   <data name="WhyTitle" xml:space="preserve"><value>Почему удобно ехать с нами</value></data>
   <data name="Why1Title" xml:space="preserve"><value>День сложится в любую погоду</value></data>
   <data name="Why1Text" xml:space="preserve"><value>ветер, отлив, перекрытая дорога — на Севере это обычное дело: меняем порядок остановок и показываем то, что открыто сегодня, вместо отмены поездки</value></data>
@@ -426,4 +431,20 @@
   <data name="PrivacyS6LinkText" xml:space="preserve"><value>Как отказаться от Яндекс.Метрики</value></data>
   <data name="PrivacyS6LinkUrl" xml:space="preserve"><value>https://yandex.ru/support/metrica/general/opt-out.html</value></data>
   <data name="PlaceTitleSuffix" xml:space="preserve"><value>экскурсия из Мурманска</value></data>
+  <data name="HomePhotoNote" xml:space="preserve"><value>Моменты из наших поездок</value></data>
+  <data name="HomeDurationValue" xml:space="preserve"><value>1 день</value></data>
+  <data name="HomeDurationLabel" xml:space="preserve"><value>у океана</value></data>
+  <data name="HomeGroupValue" xml:space="preserve"><value>До 8</value></data>
+  <data name="HomeGroupLabel" xml:space="preserve"><value>человек в группе</value></data>
+  <data name="HomeDepartureValue" xml:space="preserve"><value>Мурманск</value></data>
+  <data name="HomeDepartureLabel" xml:space="preserve"><value>встретим и доставим обратно</value></data>
+  <data name="HomeMapKicker" xml:space="preserve"><value>Начинается с любопытства</value></data>
+  <data name="HomeMapTitle" xml:space="preserve"><value>Ваш маршрут на Севере</value></data>
+  <data name="HomePlacesKicker" xml:space="preserve"><value>Места, которые запомнятся</value></data>
+  <data name="HomeSwipeHint" xml:space="preserve"><value>Листайте и выбирайте, что хочется увидеть</value></data>
+  <data name="HomeSeaKicker" xml:space="preserve"><value>Вдохните. Вы у океана.</value></data>
+  <data name="HomeSeaPhotoAlt" xml:space="preserve"><value>Синее Баренцево море и скалистый берег Териберки</value></data>
+  <data name="HeroSlide14Alt" xml:space="preserve"><value>Корабль в синей бухте у скалистого берега Териберки</value></data>
+  <data name="HeroSlide15Alt" xml:space="preserve"><value>Цветущий иван-чай у песчаного берега Териберки летом</value></data>
+  <data name="HeroSlide16Alt" xml:space="preserve"><value>Батарейский водопад среди скал и зелёных сопок летом</value></data>
 </root>

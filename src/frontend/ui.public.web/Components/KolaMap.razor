@@ -62,16 +62,48 @@
             <path d="M 144 152 C 152 250, 192 385, 255 452"/>
         </g>
 
-        <!-- кит: плывёт вдоль берега к Териберке — всплывает по очереди в четырёх точках
-             от восточного края полуострова до посёлка (позиции — в keyframes whale-swim) -->
-        <g class="map-whale">
-            @* спина, хвостовой стебель и лопасти — одним силуэтом (кромка воды — низ), плавник отдельно *@
-            <path d="M 458 99 C 462 90, 472 86, 482 88
-                     C 490 90, 494 94, 497 96
-                     C 500 93, 503 89, 506 85
-                     C 508 88, 511 90, 514 90
-                     C 510 92, 506 95, 504 99 Z"/>
-            <path d="M 482 88 L 485 83 L 488 89 Z"/>
+        @* Хвост показывается только выше кромки воды. Три неподвижные точки в море
+           севернее Териберки включаются по очереди; карта и подписи остаются доступны. *@
+        <defs>
+            <linearGradient id="map-whale-tail-shade" x1="0" y1="0" x2="0" y2="1">
+                <stop class="map-whale-tone-light" offset="0" />
+                <stop class="map-whale-tone-dark" offset="1" />
+            </linearGradient>
+            <clipPath id="map-whale-waterline" clipPathUnits="userSpaceOnUse">
+                <rect x="-48" y="-45" width="96" height="45" />
+            </clipPath>
+            <g id="map-whale-fluke">
+                <path class="map-whale-fluke-body" d="M -5 7
+                    C -5 -2 -9 -8 -16 -10
+                    C -28 -12 -36 -20 -40 -32
+                    C -29 -26 -19 -31 -10 -27
+                    C -5 -25 -2 -22 0 -19
+                    C 3 -24 8 -29 17 -30
+                    C 26 -32 32 -28 40 -35
+                    C 37 -21 29 -13 16 -10
+                    C 9 -8 5 -2 5 7 Z" />
+                <path class="map-whale-fluke-sheen" d="M -34 -27
+                    C -25 -20 -13 -27 -3 -19
+                    C -13 -17 -23 -18 -34 -27 Z
+                    M 4 -19 C 14 -27 24 -22 34 -29
+                    C 28 -19 16 -15 4 -19 Z" />
+                <path class="map-whale-fluke-ridge" d="M 0 -16 C -1 -10 1 -4 0 3" />
+            </g>
+        </defs>
+        <g class="map-whale-sightings">
+            @foreach (var spot in new[] { (X: 255, Y: 70, Phase: 1), (X: 340, Y: 74, Phase: 2), (X: 295, Y: 66, Phase: 3) })
+            {
+                <g class="map-whale-visit map-whale-visit-@spot.Phase" transform="translate(@spot.X @spot.Y)">
+                    <g clip-path="url(#map-whale-waterline)">
+                        <g class="map-whale-tail">
+                            <use href="#map-whale-fluke" />
+                        </g>
+                        <path class="map-whale-drops" d="M -23 -15 v3 M 19 -13 v4 M 29 -17 v2" />
+                    </g>
+                    <ellipse class="map-whale-ring map-whale-ring-near" cx="0" cy="1" rx="20" ry="2.7" />
+                    <ellipse class="map-whale-ring map-whale-ring-far" cx="0" cy="1" rx="27" ry="3.6" />
+                </g>
+            }
         </g>
 
         <!-- города -->
